@@ -164,3 +164,9 @@ footer {
 p.copyright {
     margin: 15px 0 0;
 }
+
+img.logo-bar {
+  height: 125%;
+  margin-top: -3px;
+  margin-right: 5px;
+}
