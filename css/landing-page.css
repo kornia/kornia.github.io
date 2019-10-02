@@ -20,6 +20,10 @@ h6 {
     font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
 }
+.title {
+    font-size: 240px;
+    color: black;
+}
 
 .lead {
     font-size: 18px;
