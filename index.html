@@ -1,5 +1,445 @@
----
-layout: default
-title: 
-subTitle: 
----
+<!DOCTYPE html>
+<html dir="ltr" lang='en'>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kornia</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kornia is a differentiable computer vision library for PyTorch.It consists of a set of routines and differentiable modules to solve generic computer vision problems. At its core, the package uses PyTorch as its main backend both for efficiency and to take advantage of the reverse-mode auto-differentiation to define and compute the gradient of complex functions.">
+    <meta name="author" content="Edgar Riba">
+    <meta property="og:image" content="images/dest/logo.svg" />
+    <link rel="icon" type="image/png" href="images/dest/logo-mini.svg">
+    <link rel="stylesheet" href="css/app.min.css">
+    <link rel="stylesheet" href="css/owl.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header ">
+        <menu class="container header-container">
+            <a href="#" class="header-logo-link"><img src="images/dest/logo.svg" alt="Kornya logo" class="header-logo"></a>
+            <nav class="nav">
+                <button class="close-btn">
+                    <img src="images/dest/close-icon.svg" alt="CLose icon" class="close-icon">
+                </button>
+                <ul class="ul">
+                    <li>
+                        <a href="https://kornia.readthedocs.io/en/latest" class="nav-link" target="_blank" rel="noopener">Documentation</a>
+                    </li>
+                    <li>
+                        <a href="https://kornia.readthedocs.io/en/latest/tutorials/index.html" class="nav-link" target="_blank" rel="noopener">Tutorials</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/kornia/kornia/discussions" class="nav-link" target="_blank" rel="noopener">Community</a>
+                    </li>
+                    <li>
+                        <a href="https://kornia.github.io//kornia-blog/" class="nav-link" target="_blank" rel="noopener">Blog</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/kornia/kornia" class="nav-link github-btn">
+                            <img src="images/dest/github.svg" alt="Github logo" class="header-github-logo blue-git">
+                            <img src="images/dest/github-white.svg" alt="Github logo" class="header-github-logo white-git"> Github
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </menu>
+    </header>
+    <main class="main">
+        <section class="hero ">
+            <div class="bounce-1-wrapper bounce">
+                <img src="images/dest/bounce-1.svg" alt="bounce" aria-hidden="true" class="bounce-1">
+                <img src="images/dest/hero-lines.svg" alt="bounce" aria-hidden="true" class="lines">
+            </div>
+            <img src="images/dest/bounce-2.svg" class="bounce bounce-2" alt="bounce" aria-hidden="true">
+            <img src="images/dest/bounce-3.svg" class="bounce bounce-3" alt="bounce" aria-hidden="true">
+            <img src="images/dest/bounce-4.svg" class="bounce bounce-4" alt="bounce" aria-hidden="true">
+            <div class="bounce-5-wrapper bounce">
+                <img src="images/dest/bounce-1.svg" class="bounce-6 bounce" alt="bounce" aria-hidden="true">
+                <img src="images/dest/bounce-5.svg" class="bounce-5 bounce" alt="bounce" aria-hidden="true">
+            </div>
+            <div class="content">
+                <figure class="hero-logo-figure">
+                    <img src="images/dest/logo.svg" alt="Konria logo" class="hero-logo">
+                </figure>
+                <h1 class="main-title white">Computer Vision 2.0</h1>
+                <h2 class="hero-p white">Let the pixels backprop to the future</h2>
+                <input type="text" id="myInput" value="pip install kornia" class="hidden-input">
+                <button class="hero-btn" id=""><img class="copy-icon" src="images/dest/copy.svg" alt="Copy icon"> pip install kornia</button>
+            </div>
+            <button class="hero-scroll-btn" aria-hidden="scroll to bottom button">
+                <img src="images/dest/arrow-bottom.svg" alt="Arrow icon" aria-hidden="true" class="scroll-arrow">
+            </button>
+        </section>
+        <section class="why-kornia ">
+            <div class="container">
+                <h3 class="section-title fz46">Why Kornia?</h3>
+                <img src="images/dest/blue-line.svg" alt="Line" aria-hidden="true" class="blue-line">
+                <h4 class="descr fz22">Kornia is a differentiable library that allows classical computer vision to be integrated into deep learning models.</h4>
+                <div class="items-container">
+                    <div class="item">
+                        <img src="images/dest/eye.svg" alt="Eye" class="item-img">
+                        <div class="item-descr fz16">Computer Vision</div>
+                    </div>
+                    <div class="item">
+                        <img src="images/dest/fx.svg" alt="Fx" class="item-img">
+                        <div class="item-descr fz16">Differentiability</div>
+                    </div>
+                    <div class="item">
+                        <img src="images/dest/book.svg" alt="Book" class="item-img">
+                        <div class="item-descr fz16">Open Source</div>
+                    </div>
+                    <div class="item">
+                        <img src="images/dest/drop.svg" alt="Drop" class="item-img">
+                        <div class="item-descr fz16">PyTorch</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="slider">
+            <div class="container">
+                <div class="owl-carousel owl-theme slider-item-wrapper">
+                    <div class="slider-item">
+                        <div class="left-side">
+                            <p class="slide-title">Data Augmentation</p>
+                            <figure class="slider-figure">
+                                <img src="images/dest/slide-1.png" alt="Slider image" class="slider-img">
+                            </figure>
+                        </div>
+                        <figure class="code">
+                            <img src="images/dest/slide-1-code.png" alt="Code" class="code-img">
+                        </figure>
+                        <img src="images/dest/logo.svg" alt="Kornya logo" class="slider-logo">
+                    </div>
+                    <div class="slider-item">
+                        <div class="left-side">
+                            <p class="slide-title">Image enhancement</p>
+                            <figure class="slider-figure">
+                                <img src="images/dest/slide-2.png" alt="Slider image" class="slider-img">
+                            </figure>
+                        </div>
+                        <figure class="code">
+                            <img src="images/dest/slide-2-code.png" alt="Code" class="code-img">
+                        </figure>
+                        <img src="images/dest/logo.svg" alt="Kornya logo" class="slider-logo">
+                    </div>
+                    <div class="slider-item">
+                        <div class="left-side">
+                            <p class="slide-title">Color conversions</p>
+                            <figure class="slider-figure">
+                                <img src="images/dest/slide-3.png" alt="Slider image" class="slider-img">
+                            </figure>
+                        </div>
+                        <figure class="code">
+                            <img src="images/dest/slide-3-code.png" alt="Code" class="code-img">
+                        </figure>
+                        <img src="images/dest/logo.svg" alt="Kornya logo" class="slider-logo">
+                    </div>
+                    <div class="slider-item">
+                        <div class="left-side">
+                            <p class="slide-title">2D Feature detection</p>
+                            <figure class="slider-figure">
+                                <img src="images/dest/slide-4.png" alt="Slider image" class="slider-img">
+                            </figure>
+                        </div>
+                        <figure class="code">
+                            <img src="images/dest/slide-4-code.png" alt="Code" class="code-img">
+                        </figure>
+                        <img src="images/dest/logo.svg" alt="Kornya logo" class="slider-logo">
+                    </div>
+                    <div class="slider-item">
+                        <div class="left-side">
+                            <p class="slide-title">Image filtering</p>
+                            <figure class="slider-figure">
+                                <img src="images/dest/slide-5.png" alt="Slider image" class="slider-img">
+                            </figure>
+                        </div>
+                        <figure class="code">
+                            <img src="images/dest/slide-5-code.png" alt="Code" class="code-img">
+                        </figure>
+                        <img src="images/dest/logo.svg" alt="Kornya logo" class="slider-logo">
+                    </div>
+                    <div class="slider-item">
+                        <div class="left-side">
+                            <p class="slide-title">Geometric transformations</p>
+                            <figure class="slider-figure">
+                                <img src="images/dest/slide-6.png" alt="Slider image" class="slider-img">
+                            </figure>
+                        </div>
+                        <figure class="code">
+                            <img src="images/dest/slide-6-code.png" alt="Code" class="code-img">
+                        </figure>
+                        <img src="images/dest/logo.svg" alt="Kornya logo" class="slider-logo">
+                    </div>
+                    <div class="slider-item">
+                        <div class="left-side">
+                            <p class="slide-title">Morphological operators</p>
+                            <figure class="slider-figure">
+                                <img src="images/dest/slide-7.png" alt="Slider image" class="slider-img">
+                            </figure>
+                        </div>
+                        <figure class="code">
+                            <img src="images/dest/slide-7-code.png" alt="Code" class="code-img">
+                        </figure>
+                        <img src="images/dest/logo.svg" alt="Kornya logo" class="slider-logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="news ">
+            <div class="container">
+                <div class="title-wrapper">
+                    <h4 class="section-title fz32">News</h4>
+                    <img src="images/dest/blue-line.svg" alt="Line" aria-hidden="true" class="blue-line">
+                </div>
+                <div class="news-container">
+                    <div class="news-card">
+                        <p class="news-descr fz16">Roadmap Kornia 0.6.0 announcement</p>
+                        <p class="news-date fz14">04/06/2021</p>
+                        <a href="https://www.google.com/url?q=https://kornia.github.io/kornia-blog/community/announcement/2021/04/06/kornia-roadmap-v060.html&sa=D&source=editors&ust=1618812331826000&usg=AOvVaw0X6iIqZngH4MqtvfEj5Va2" class="btn read-more-btn fz14" target="_blank"
+                            rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card">
+                        <p class="news-descr fz16">Talk at FOSSASIA Summit 2021</p>
+                        <p class="news-date fz14">03/19/2021</p>
+                        <a href="https://eventyay.com/e/fa96ae2c/session/6673" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card">
+                        <p class="news-descr fz16">Kornia release 0.5.0: Morphological operators, Deep descriptors, Video Augmentations and more</p>
+                        <p class="news-date fz14">03/03/2021</p>
+                        <a href="https://kornia.github.io/kornia-blog/release/2021/03/17/kornia-release-v050.html" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card">
+                        <p class="news-descr fz16">New tutorials website</p>
+                        <p class="news-date fz14">02/25/2021</p>
+                        <a href="https://www.google.com/url?q=https://kornia-tutorials.readthedocs.io/en/latest/hello_world_tutorial.html&sa=D&source=editors&ust=1618815003302000&usg=AOvVaw35Tlix1eOn-a9lKAlsnO_i" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card">
+                        <p class="news-descr fz16">DiffCVGP: Differentiable vision, graphics, and physics applied to machine learning</p>
+                        <p class="news-date fz14">12/11/2020</p>
+                        <a href="https://twitter.com/hashtag/NeurIPS2020?src=hashtag_click" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card">
+                        <p class="news-descr fz16">PyTorch Developer Day 2020</p>
+                        <p class="news-date fz14">11/12/2020</p>
+                        <a href="https://pytorchdeveloperday.fbreg.com/" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Kornia release 0.4.1: Improve 3D augmentations and 3D transforms low level API</p>
+                        <p class="news-date fz14">10/20/2020</p>
+                        <a href="https://kornia.github.io/kornia-blog/release/2020/10/20/kornia-release-v041.html" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Creation of Kornia blog</p>
+                        <p class="news-date fz14">10/02/2020</p>
+                        <a href="https://kornia.github.io/kornia-blog/community/announcement/2020/10/02/hello-world.html" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">New paper: A survey on Kornia: an Open Source Differentiable Computer Vision Library for @PyTorch</p>
+                        <p class="news-date fz14">09/23/2020</p>
+                        <a href="https://twitter.com/PyTorch" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Kornia 0.4.0 Release: 3D augmentations, local features matching, homographies and epipolar geometry</p>
+                        <p class="news-date fz14">07/07/2020</p>
+                        <a href="https://kornia.github.io/kornia-blog/release/2020/08/07/kornia-release-v040.html" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <!-- empty link -->
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">IRI Robotics Summer School 2020 with Kornia </p>
+                        <p class="news-date fz14">06/25/2020</p>
+                        <a href="" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">CVPR2020 tutorial - Local Features: From SIFT to Differentiable Methods</p>
+                        <p class="news-date fz14">06/15/2020</p>
+                        <a href="https://local-features-tutorial.github.io/" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Kornia 0.3.1 Release: Expose align corners, add support to Python 3.8 and more fixes</p>
+                        <p class="news-date fz14">05/11/2020</p>
+                        <a href="https://github.com/kornia/kornia/releases/tag/v0.3.1" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Kornia 0.3.0 Release: PyTorch 1.5 support, accelerated Data Augmentation, stable GPU testing and easy ecosystem integration</p>
+                        <p class="news-date fz14">04/27/2020</p>
+                        <a href="https://kornia.github.io/kornia-blog/release/2020/04/27/kornia-release-v030.html" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Kornia v0.2.1 Release Data augmentation framework, deep descriptors and more</p>
+                        <p class="news-date fz14">04/21/2020</p>
+                        <a href="https://kornia.github.io/kornia-blog/release/2020/04/21/kornia-release-v021.html" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Edgar’s talk at @GDG_ES</p>
+                        <p class="news-date fz14">04/21/2020</p>
+                        <a href="https://www.youtube.com/watch?v=zltoYKu4ct0" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Kornia v0.2.0 release.</p>
+                        <p class="news-date fz14">01/27/2020</p>
+                        <a href="https://github.com/kornia/kornia/releases/tag/v0.2.0" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">First Kornia Hackaton</p>
+                        <p class="news-date fz14">12/14/2019</p>
+                        <a href="http://osvf.org/kornia-hackathon/" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <!-- empty link -->
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">AWS Open Source oficially sponsors with promotional credits.</p>
+                        <p class="news-date fz14">11/05/2019</p>
+                        <a href="#" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Kornia joins the PyTorch ecosystem</p>
+                        <p class="news-date fz14">10/30/2019</p>
+                        <a href="https://pytorch.org/ecosystem/" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">AUR (Arch User Repository) packages for kornia</p>
+                        <p class="news-date fz14">10/24/2019</p>
+                        <a href="https://aur.archlinux.org/packages/python-kornia/" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Created and moved the project to a standalone GitHub organization</p>
+                        <p class="news-date fz14">10/24/2019</p>
+                        <a href="https://github.com/kornia" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Kornia joins the PyTorch Discuss forum. Please address your Q&A</p>
+                        <p class="news-date fz14">10/20/2019</p>
+                        <a href="https://discuss.pytorch.org/c/vision/kornia" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Starting a partnership with fast.ai to implement kornia in their high level API.</p>
+                        <p class="news-date fz14">10/16/2019</p>
+                        <a href="https://www.fast.ai/" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <!-- empty link -->
+                    <div class="news-card hide">
+                        <p class="news-descr fz16">Paper accepted in 2020 Winter Conference on Applications of Computer Vision (WACV ’20).</p>
+                        <p class="news-date fz14">09/17/2019</p>
+                        <a href="" class="btn read-more-btn fz14" target="_blank" rel="noopener">READ MORE<img src="images/dest/arrow-right.svg" alt="Arrow" aria-hidden="true" class="blue-arrow"><img src="images/dest/arrow-right-white.svg" alt="Arrow" aria-hidden="true" class="white-arrow"></a>
+                    </div>
+                    <button id="load" class="btn load-more-btn fz14">LOAD MORE</button>
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="ecosystem ">
+            <div class="container">
+                <div class="title-wrapper">
+                    <h4 class="section-title fz32">Ecosystem</h4>
+                    <img src="images/dest/blue-line.svg" alt="Line" aria-hidden="true" class="blue-line">
+                </div>
+                <div class="card-container">
+                    <div class="card">
+                        <img src="images/dest/lighting.png" alt="Logo" class="product-logo">
+                        <p class="card-title fz14">Lightning-flash</p>
+                        <p class="card-paragraph fz14">Collection of tasks for fast prototyping, baselining, finetuning and solving problems with deep learning.</p>
+                        <a href="https://lightning-flash.readthedocs.io/" class="view-link fz14" target="_blank" rel="noopener">View project</a>
+                    </div>
+                    <div class="card">
+                        <img src="images/dest/kaggle.png" alt="Logo" class="product-logo">
+                        <p class="card-title fz14">Kaggle</p>
+                        <p class="card-paragraph fz14">The Home of Data Science</p>
+                        <a href="https://www.kaggle.com/" class="view-link fz14" target="_blank" rel="noopener">View project</a>
+                    </div>
+                    <div class="card">
+                        <img src="images/dest/catalyst.png" alt="Logo" class="product-logo">
+                        <p class="card-title fz14">Catalyst</p>
+                        <p class="card-paragraph fz14">Accelerated deep learning R&D</p>
+                        <a href="https://catalyst-team.github.io/catalyst/" class="view-link fz14" target="_blank" rel="noopener">View project</a>
+                    </div>
+                    <div class="card">
+                        <img src="images/dest/fastai.png" alt="Logo" class="product-logo">
+                        <p class="card-title fz14">Fastai</p>
+                        <p class="card-paragraph fz14">The fastai deep learning library</p>
+                        <a href="https://www.fast.ai/" class="view-link fz14" target="_blank" rel="noopener">View project</a>
+                    </div>
+                    <div class="card">
+                        <img src="images/dest/art.png" alt="Logo" class="product-logo">
+                        <p class="card-title fz14">Adversarial Robustness Toolbox (ART)</p>
+                        <p class="card-paragraph fz14">Adversarial Robustness Toolbox (ART) - Python Library for Machine Learning Security - Evasion, Poisoning, Extraction, Inference</p>
+                        <a href="https://adversarial-robustness-toolbox.readthedocs.io/en/latest/" class="view-link fz14" target="_blank" rel="noopener">View project</a>
+                    </div>
+                    <div class="card">
+                        <img src="images/dest/mlw.png" alt="Logo" class="product-logo">
+                        <p class="card-title fz14">Machine Learning Workspace</p>
+                        <p class="card-paragraph fz14">All-in-one web-based IDE specialized for machine learning and data science.</p>
+                        <a href="https://github.com/ml-tooling/ml-workspace" class="view-link fz14" target="_blank" rel="noopener">View project</a>
+                    </div>
+                    <div class="card">
+                        <img src="images/dest/tormentor.png" alt="Logo" class="product-logo">
+                        <p class="card-title fz14">Tormentor</p>
+                        <p class="card-paragraph fz14">Image data augmentation with pytorch</p>
+                        <a href="https://github.com/anguelos/tormentor" class="view-link fz14" target="_blank" rel="noopener">View project</a>
+                    </div>
+                    <div class="card">
+                        <img src="images/dest/gradslam.png" alt="Logo" class="product-logo">
+                        <p class="card-title fz14">Gradslam</p>
+                        <p class="card-paragraph fz14">Gradslam is an open source differentiable dense SLAM library for PyTorch</p>
+                        <a href="https://gradslam.github.io/" class="view-link fz14" target="_blank" rel="noopener">View project</a>
+                    </div>
+                    <button id="loadEco" class="btn load-more-btn fz14">LOAD MORE</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <img src="images/dest/logo-mini.svg" class="footer-logo" aria-label="Kornya logo"></img>
+            <form action="" class="form">
+                <input type="email" class="email-input" placeholder="Email">
+                <button type="submit" class="submit-btn"><img src="images/dest/send-form.svg" alt="Send icon"></button>
+            </form>
+            <ul class="footer-ul">
+                <li class="footer-li">
+                    <a href="https://kornia.readthedocs.io/en/latest" class="footer-link fz14 white">Documentation</a>
+                </li>
+                <li class="footer-li">
+                    <a href="https://kornia.readthedocs.io/en/latest/tutorials/index.html" class="footer-link fz14 white">Tutorials</a>
+                </li>
+                <li class="footer-li">
+                    <a href="https://github.com/kornia/kornia/discussions" class="footer-link fz14 white">Community</a>
+                </li>
+                <li class="footer-li">
+                    <a href="https://kornia.github.io//kornia-blog/" class="footer-link fz14 white">Blog</a>
+                </li>
+                <li class="footer-li">
+                    <a href="https://github.com/kornia/kornia" class="footer-link fz14 white">Github</a>
+                </li>
+            </ul>
+            <div class="footer-socials">
+                <ul class="social-ul">
+                    <li class="social-li">
+                        <a href="https://kornia.slack.com/" class="social-link slack" aria-label="Slack url" target="_blank" rel="noopener"></a>
+                    </li>
+                    <li class="social-li">
+                        <a href="https://twitter.com/kornia_foss?lang=en" class="social-link twitter" aria-label="Twitter url" target="_blank" rel="noopener"></a>
+                    </li>
+                    <li class="social-li">
+                        <a href="https://github.com/kornia/kornia" class="social-link github" aria-label="Github url" target="_blank" rel="noopener"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <small class="copyright fz18">Copyright © 2021 Kornia. All Rights Reserved.</small>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/owl.min.js"></script>
+    <script src="js/app.min.js"></script>
+</body>
+
+</html>
