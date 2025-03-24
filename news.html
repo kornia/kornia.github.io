@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Kornia.AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Bitter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">Kornia.AI</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html#communities">Communities</a>
+                <a href="index.html#about">About</a>
+                <a href="news.html" class="active">News</a>
+                <div class="github-dropdown">
+                    <a href="#">GitHub <i class="fas fa-chevron-down"></i></a>
+                    <div class="github-dropdown-content">
+                        <a href="https://github.com/kornia/kornia" target="_blank">
+                            <div>
+                                <i class="fas fa-camera"></i> Kornia
+                            </div>
+                            <span class="star-count" data-repo="kornia/kornia">
+                                <i class="fas fa-star"></i> <span class="count">...</span>
+                            </span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-rs" target="_blank">
+                            <div>
+                                <i class="fas fa-bolt"></i> Kornia-rs
+                            </div>
+                            <span class="star-count" data-repo="kornia/kornia-rs">
+                                <i class="fas fa-star"></i> <span class="count">...</span>
+                            </span>
+                        </a>
+                        <a href="https://github.com/kornia/bubbaloop" target="_blank">
+                            <div>
+                                <i class="fas fa-puzzle-piece"></i> Bubbaloop
+                            </div>
+                            <span class="star-count" data-repo="kornia/bubbaloop">
+                                <i class="fas fa-star"></i> <span class="count">...</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="news-hero">
+            <h1>Latest News</h1>
+            <p>Stay tuned with Kornia.AI</p>
+        </section>
+
+        <section class="news-container">
+            <div class="news-filters">
+                <div class="hashtag-filters" id="hashtagFilters">
+                    <!-- Hashtag filters will be dynamically inserted here -->
+                </div>
+                <div class="filter-controls">
+                    <div class="items-per-page">
+                        <label for="itemsPerPage">Items per page:</label>
+                        <select id="itemsPerPage" class="items-select">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-list" id="newsList">
+                <!-- News items will be dynamically inserted here -->
+            </div>
+
+            <div class="pagination">
+                <button class="pagination-btn" id="prevPage" disabled>Previous</button>
+                <div class="pagination-numbers" id="pageNumbers">
+                    <button class="pagination-number active">1</button>
+                    <button class="pagination-number">2</button>
+                    <button class="pagination-number">3</button>
+                </div>
+                <button class="pagination-btn" id="nextPage">Next</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Kornia.AI</h4>
+                <p>Advancing Computer Vision Through Open Source</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links</h4>
+                <a href="https://github.com/kornia">GitHub</a>
+                <a href="https://kornia.readthedocs.io/">Documentation</a>
+                <a href="news.html">News</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-icons">
+                    <a href="https://twitter.com/kornia_ai" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com/company/kornia-ai" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/kornia" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Kornia.AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // News data
+        const newsData = {
+            tags: ["all", "kornia", "kornia-rs", "bubbaloop", "community"],
+            items: [
+                {
+                    date: "March 12, 2024",
+                    title: "Kornia.AI GSoC 2025 Information Session",
+                    content: "We are hosting an information session to everybody who is interested in the upcoming GSoC 2025. Join our discord channels to ask questions! We'll have an open session to present and discuss about the projects.",
+                    tags: ["community"],
+                    link: "https://discord.gg/5jUAunfs?event=1346789995981049869"
+                },
+                {
+                    date: "March 05, 2024",
+                    title: "Kornia.AI is accepted to Google Summer of Code 2025",
+                    content: "We are accepted to the Google Summer of Code 2025, where students and early open source contributors can participate to improve their software engineering skills. We encourage everyone interested to participate to read very carefully about Kornia and official GSOC documentation to officially participate in the program.",
+                    tags: ["community"],
+                    link: "https://github.com/kornia/kornia-rs/wiki/Google-Sumer-of-Code-Application"
+                },
+                {
+                    date: "March 15, 2024",
+                    title: "Kornia 0.7.0 Release",
+                    content: "We're excited to announce the release of Kornia 0.7.0, bringing new features and improvements to our PyTorch-based computer vision library.",
+                    tags: ["kornia"],
+                    link: "https://github.com/kornia/kornia/releases/tag/v0.7.0"
+                },
+                {
+                    date: "March 1, 2024",
+                    title: "Kornia-rs First Release",
+                    content: "Introducing Kornia-rs, our new Rust-based computer vision library, bringing high-performance computer vision to the Rust ecosystem.",
+                    tags: ["kornia-rs"],
+                    link: "https://github.com/kornia/kornia-rs/releases/tag/v0.1.0"
+                },
+                {
+                    date: "February 15, 2024",
+                    title: "Bubbaloop Beta Release",
+                    content: "We're launching the beta version of Bubbaloop, our new computer vision playground and tools platform.",
+                    tags: ["bubbaloop"],
+                    link: "https://bubbaloop.kornia.ai"
+                },
+                {
+                    date: "February 1, 2024",
+                    title: "Kornia Community Milestone",
+                    content: "Celebrating 10,000 GitHub stars and growing community contributions.",
+                    tags: ["kornia"],
+                    link: "https://github.com/kornia/kornia"
+                }
+            ]
+        };
+    </script>
+    <script src="news.js"></script>
+</body>
+</html> 
