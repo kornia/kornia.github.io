@@ -1,364 +1,356 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kornia.ai - Open Source Computer Vision</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="#">kornia.ai</a>
-            </div>
-            <div class="nav-links">
-                <a href="#projects">Projects</a>
-                <a href="#communities">Community</a>
-                <a href="#about">About</a>
-                <a href="news.html">News</a>
-                <div class="github-dropdown">
-                    <a href="#">GitHub <i class="fas fa-chevron-down"></i></a>
-                    <div class="github-dropdown-content">
-                        <a href="https://github.com/kornia/kornia" target="_blank">
-                            <div>
-                                <i class="fab fa-python"></i> Kornia
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>kornia.org - Open Source Computer Vision</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="#">kornia.org</a>
+                </div>
+                <div class="nav-links">
+                    <a href="#projects">Projects</a>
+                    <a href="#communities">Community</a>
+                    <a href="#about">About</a>
+                    <a href="news.html">News</a>
+                    <div class="github-dropdown">
+                        <a href="#">GitHub <i class="fas fa-chevron-down"></i></a>
+                        <div class="github-dropdown-content">
+                            <a href="https://github.com/kornia/kornia" target="_blank">
+                                <div>
+                                    <i class="fab fa-python"></i> Kornia
+                                </div>
+                                <span class="star-count" data-repo="kornia/kornia">
+                                    <i class="fas fa-star"></i> <span class="count">10k</span>
+                                </span>
+                            </a>
+                            <a href="https://github.com/kornia/kornia-rs" target="_blank">
+                                <div>
+                                    <i class="fab fa-rust"></i> Kornia-rs
+                                </div>
+                                <span class="star-count" data-repo="kornia/kornia-rs">
+                                    <i class="fas fa-star"></i> <span class="count">355</span>
+                                </span>
+                            </a>
+                            <a href="https://github.com/kornia/bubbaloop" target="_blank">
+                                <div>
+                                    <i class="fas fa-rocket"></i> Bubbaloop
+                                </div>
+                                <span class="star-count" data-repo="kornia/bubbaloop">
+                                    <i class="fas fa-star"></i> <span class="count">19</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <a href="https://summerofcode.withgoogle.com/programs/2025/organizations/kornia" target="_blank" class="gsoc-nav-link">
+                        <img src="assets/gsoc.png" alt="GSoC" class="gsoc-nav-logo" />
+                        GSoC 2025
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Advancing Computer Vision & Spatial AI, Openly</h1>
+                        <p>Building the future of computer vision through open collaboration and innovation. Trusted by researchers and companies worldwide to power next-generation AI applications.</p>
+                        
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <span class="stat-number">2M+</span>
+                                <span class="stat-label">Monthly Downloads</span>
                             </div>
-                            <span class="star-count" data-repo="kornia/kornia">
-                                <i class="fas fa-star"></i> <span class="count">10k</span>
-                            </span>
+                            <div class="stat">
+                                <span class="stat-number">400+</span>
+                                <span class="stat-label">Citations</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">10k</span>
+                                <span class="stat-label">GitHub Stars</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-logo">
+                        <img src="assets/kornia-logo.png" alt="kornia.org Logo">
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="projects">
+                <div class="projects-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Our Projects</h2>
+                        <p class="section-subtitle">Comprehensive tools for computer vision and spatial AI development, from research to production deployment.</p>
+                    </div>
+
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-icon">
+                                    <i class="fab fa-python"></i>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Kornia</h3>
+                                    <span class="project-tech">PyTorch • Computer Vision</span>
+                                </div>
+                            </div>
+                            <p class="project-description">PyTorch-based Geometric Computer Vision Library for Spatial AI. The foundation of our ecosystem, powering millions of downloads monthly with differentiable computer vision operations.</p>
+                            
+                            <div class="project-bottom">
+                                <div class="project-metrics">
+                                    <div class="metric">
+                                        <span class="metric-value">2M+</span>
+                                        <span class="metric-label">Monthly Downloads</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-value">10k</span>
+                                        <span class="metric-label">GitHub Stars</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-value">400+</span>
+                                        <span class="metric-label">Citations</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-links">
+                                    <a href="https://github.com/kornia/kornia" target="_blank" class="btn btn-primary">
+                                        <i class="fab fa-github"></i> GitHub
+                                    </a>
+                                    <a href="https://kornia.readthedocs.io" target="_blank" class="btn btn-secondary">
+                                        <i class="fas fa-book"></i> Documentation
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-icon">
+                                    <i class="fab fa-rust"></i>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Kornia-rs</h3>
+                                    <span class="project-tech">Rust • High Performance</span>
+                                </div>
+                            </div>
+                            <p class="project-description">Low-level 3D Computer Vision library in Rust. High-performance implementation for demanding computer vision tasks with memory safety and zero-cost abstractions.</p>
+                            
+                            <div class="project-bottom">
+                                <div class="project-metrics">
+                                    <div class="metric">
+                                        <span class="metric-value">10x</span>
+                                        <span class="metric-label">Performance</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-value">355</span>
+                                        <span class="metric-label">GitHub Stars</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-value">0</span>
+                                        <span class="metric-label">Memory Leaks</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-links">
+                                    <a href="https://github.com/kornia/kornia-rs" target="_blank" class="btn btn-primary">
+                                        <i class="fab fa-github"></i> GitHub
+                                    </a>
+                                    <a href="https://docs.rs/kornia" target="_blank" class="btn btn-secondary">
+                                        <i class="fas fa-book"></i> Documentation
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div class="project-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Bubbaloop</h3>
+                                    <span class="project-tech">Platform • VLM Serving</span>
+                                </div>
+                            </div>
+                            <p class="project-description">VLM Serving Platform for Multimodal AI. Deploy and scale your vision-language models with ease, enabling seamless multimodal inference from prototype to production at enterprise scale.</p>
+                            
+                            <div class="project-bottom">
+                                <div class="project-metrics">
+                                    <div class="metric">
+                                        <span class="metric-value">99.9%</span>
+                                        <span class="metric-label">Service Uptime</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-value">100%</span>
+                                        <span class="metric-label">Rust Written</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-value">< 5ms</span>
+                                        <span class="metric-label">Response Time</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-links">
+                                    <a href="https://github.com/kornia/bubbaloop" target="_blank" class="btn btn-primary">
+                                        <i class="fab fa-github"></i> GitHub
+                                    </a>
+                                    <a href="https://kornia.gitbook.io/bubbaloop" target="_blank" class="btn btn-secondary">
+                                        <i class="fas fa-external-link-alt"></i> Platform
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="collaborators">
+                <div class="collaborators-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Our Collaborators</h2>
+                        <p class="section-subtitle">Collaborating with the world's leading AI and robotics companies to advance computer vision technology.</p>
+                    </div>
+
+                    <div class="collaborators-grid">
+                        <a href="https://deepmind.google/" target="_blank" class="collaborator-card">
+                            <img src="assets/gdm.png" alt="Google DeepMind" class="collaborator-logo">
+                            <div class="collaborator-info">
+                                <h3>Google DeepMind</h3>
+                                <p>AI Research & Development</p>
+                            </div>
                         </a>
-                        <a href="https://github.com/kornia/kornia-rs" target="_blank">
-                            <div>
-                                <i class="fab fa-rust"></i> Kornia-rs
+
+                        <a href="https://rerun.io/" target="_blank" class="collaborator-card">
+                            <img src="assets/rr.png" alt="Rerun" class="collaborator-logo">
+                            <div class="collaborator-info">
+                                <h3>Rerun</h3>
+                                <p>Data Stack for Physical AI</p>
                             </div>
-                            <span class="star-count" data-repo="kornia/kornia-rs">
-                                <i class="fas fa-star"></i> <span class="count">355</span>
-                            </span>
                         </a>
-                        <a href="https://github.com/kornia/bubbaloop" target="_blank">
-                            <div>
-                                <i class="fas fa-rocket"></i> Bubbaloop
+
+                        <a href="https://dora-rs.ai/" target="_blank" class="collaborator-card">
+                            <img src="assets/dora.png" alt="Dora" class="collaborator-logo">
+                            <div class="collaborator-info">
+                                <h3>Dora</h3>
+                                <p>Robotics Framework</p>
                             </div>
-                            <span class="star-count" data-repo="kornia/bubbaloop">
-                                <i class="fas fa-star"></i> <span class="count">19</span>
-                            </span>
+                        </a>
+
+                        <a href="https://www.copper-robotics.com/" target="_blank" class="collaborator-card">
+                            <img src="assets/copper.png" alt="Copper Robotics" class="collaborator-logo">
+                            <div class="collaborator-info">
+                                <h3>Copper Robotics</h3>
+                                <p>Security & Service Robots</p>
+                            </div>
                         </a>
                     </div>
                 </div>
-                <a href="https://summerofcode.withgoogle.com/programs/2025/organizations/kornia" target="_blank" class="gsoc-nav-link">
-                    <img src="assets/gsoc.png" alt="GSoC" class="gsoc-nav-logo" />
-                    GSoC 2025
-                </a>
-            </div>
-        </nav>
-    </header>
+            </section>
 
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Advancing Computer Vision & Spatial AI, Openly</h1>
-                    <p>Building the future of computer vision through open collaboration and innovation. Trusted by researchers and companies worldwide to power next-generation AI applications.</p>
+            <section id="about" class="about">
+                <div class="about-container">
+                    <div class="section-header">
+                        <h2 class="section-title">About kornia.org</h2>
+                    </div>
                     
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number">2M+</span>
-                            <span class="stat-label">Monthly Downloads</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">400+</span>
-                            <span class="stat-label">Citations</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">10k</span>
-                            <span class="stat-label">GitHub Stars</span>
-                        </div>
+                    <div class="about-content">
+                        <p>kornia.org is a non-profit organization dedicated to advancing Spatial Artificial Intelligence through open collaboration. Founded in 2018 and officially registered as non-profit in 2023, we're supported by an international community of contributors driving innovation in computer vision.</p>
                     </div>
-                </div>
-                <div class="hero-logo">
-                    <img src="assets/kornia-logo.png" alt="Kornia.AI Logo">
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="projects">
-            <div class="projects-container">
-                <div class="section-header">
-                    <h2 class="section-title">Our Ecosystem</h2>
-                    <p class="section-subtitle">Comprehensive tools for computer vision and spatial AI development, from research to production deployment.</p>
-                </div>
-
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fab fa-python"></i>
-                            </div>
-                            <div class="project-info">
-                                <h3>Kornia</h3>
-                                <span class="project-tech">PyTorch • Computer Vision</span>
-                            </div>
-                        </div>
-                        <p class="project-description">PyTorch-based Geometric Computer Vision Library for Spatial AI. The foundation of our ecosystem, powering millions of downloads monthly with differentiable computer vision operations.</p>
-                        
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">2M+</span>
-                                    <span class="metric-label">Monthly Downloads</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">10k</span>
-                                    <span class="metric-label">GitHub Stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">400+</span>
-                                    <span class="metric-label">Citations</span>
-                                </div>
-                            </div>
-                            
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/kornia" target="_blank" class="btn btn-primary">
-                                    <i class="fab fa-github"></i> GitHub
-                                </a>
-                                <a href="https://kornia.readthedocs.io" target="_blank" class="btn btn-secondary">
-                                    <i class="fas fa-book"></i> Documentation
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fab fa-rust"></i>
-                            </div>
-                            <div class="project-info">
-                                <h3>Kornia-rs</h3>
-                                <span class="project-tech">Rust • High Performance</span>
-                            </div>
-                        </div>
-                        <p class="project-description">Low-level 3D Computer Vision library in Rust. High-performance implementation for demanding computer vision tasks with memory safety and zero-cost abstractions.</p>
-                        
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">10x</span>
-                                    <span class="metric-label">Faster</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">355</span>
-                                    <span class="metric-label">GitHub Stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">0</span>
-                                    <span class="metric-label">Memory Leaks</span>
-                                </div>
-                            </div>
-                            
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/kornia-rs" target="_blank" class="btn btn-primary">
-                                    <i class="fab fa-github"></i> GitHub
-                                </a>
-                                <a href="https://docs.rs/kornia" target="_blank" class="btn btn-secondary">
-                                    <i class="fas fa-book"></i> Documentation
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-rocket"></i>
-                            </div>
-                            <div class="project-info">
-                                <h3>Bubbaloop</h3>
-                                <span class="project-tech">Platform • MLOps</span>
-                            </div>
-                        </div>
-                        <p class="project-description">Serving Platform for Spatial AI and Robotics. Deploy and scale your computer vision models with ease, from prototype to production at enterprise scale.</p>
-                        
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">99.9%</span>
-                                    <span class="metric-label">Uptime</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">19</span>
-                                    <span class="metric-label">GitHub Stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">< 5ms</span>
-                                    <span class="metric-label">Latency</span>
-                                </div>
-                            </div>
-                            
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/bubbaloop" target="_blank" class="btn btn-primary">
-                                    <i class="fab fa-github"></i> GitHub
-                                </a>
-                                <a href="https://kornia.gitbook.io/bubbaloop" target="_blank" class="btn btn-secondary">
-                                    <i class="fas fa-external-link-alt"></i> Platform
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="collaborators">
-            <div class="collaborators-container">
-                <div class="section-header">
-                    <h2 class="section-title">Trusted by Industry Leaders</h2>
-                    <p class="section-subtitle">Collaborating with the world's leading AI and robotics companies to advance computer vision technology.</p>
-                </div>
-
-                <div class="collaborators-grid">
-                    <a href="https://deepmind.google/" target="_blank" class="collaborator-card">
-                        <img src="assets/gdm.png" alt="Google DeepMind" class="collaborator-logo">
-                        <div class="collaborator-info">
-                            <h3>Google DeepMind</h3>
-                            <p>AI Research & Development</p>
-                        </div>
-                    </a>
-
-                    <a href="https://huggingface.co/" target="_blank" class="collaborator-card">
-                        <img src="assets/hf.png" alt="Hugging Face" class="collaborator-logo">
-                        <div class="collaborator-info">
-                            <h3>Hugging Face</h3>
-                            <p>ML Community Platform</p>
-                        </div>
-                    </a>
-
-                    <a href="https://rerun.io/" target="_blank" class="collaborator-card">
-                        <img src="assets/rr.png" alt="Rerun" class="collaborator-logo">
-                        <div class="collaborator-info">
-                            <h3>Rerun</h3>
-                            <p>Data Stack for Physical AI</p>
-                        </div>
-                    </a>
-
-                    <a href="https://dora-rs.ai/" target="_blank" class="collaborator-card">
-                        <img src="assets/dora.png" alt="Dora" class="collaborator-logo">
-                        <div class="collaborator-info">
-                            <h3>Dora</h3>
-                            <p>Robotics Framework</p>
-                        </div>
-                    </a>
-
-                    <a href="https://www.copper-robotics.com/" target="_blank" class="collaborator-card">
-                        <img src="assets/copper.png" alt="Copper Robotics" class="collaborator-logo">
-                        <div class="collaborator-info">
-                            <h3>Copper Robotics</h3>
-                            <p>Security & Service Robots</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="about">
-            <div class="about-container">
-                <div class="section-header">
-                    <h2 class="section-title">About kornia.ai</h2>
-                </div>
-                
-                <div class="about-content">
-                    <p>kornia.ai is a non-profit organization dedicated to advancing Spatial Artificial Intelligence through open collaboration. Founded in 2018 and officially registered as non-profit in 2023, we're supported by an international community of contributors driving innovation in computer vision.</p>
-                </div>
-                
-                <div class="values-grid">
-                    <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-code-branch"></i>
-                    </div>
-                        <h3>Open Source First</h3>
-                    <p>We believe in the power of open source to drive innovation and collaboration. Our code is freely available for everyone to use, modify, and contribute to.</p>
-                </div>
-                    <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-users"></i>
-                        </div>
-                        <h3>Global Community</h3>
-                        <p>Building and supporting a worldwide community of computer vision enthusiasts, researchers, and professionals shaping the future together.</p>
-                    </div>
-                    <div class="value-card">
+                    
+                    <div class="values-grid">
+                        <div class="value-card">
                         <div class="value-icon">
-                            <i class="fas fa-rocket"></i>
-                </div>
-                        <h3>Innovation at Scale</h3>
-                        <p>Pushing the boundaries of what's possible in computer vision technology while maintaining production-ready quality and performance.</p>
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                            <h3>Open Source First</h3>
+                        <p>We believe in the power of open source to drive innovation and collaboration. Our code is freely available for everyone to use, modify, and contribute to.</p>
+                    </div>
+                        <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Global Community</h3>
+                            <p>Building and supporting a worldwide community of computer vision enthusiasts, researchers, and professionals shaping the future together.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-rocket"></i>
+                    </div>
+                            <h3>Innovation at Scale</h3>
+                            <p>Pushing the boundaries of what's possible in computer vision technology while maintaining production-ready quality and performance.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="communities" class="communities">
-            <div class="communities-container">
-                <div class="section-header">
-                    <h2 class="section-title">Join Our Community</h2>
-                    <p class="section-subtitle">Connect with researchers, developers, and companies building the future of computer vision.</p>
+            <section id="communities" class="communities">
+                <div class="communities-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Join Our Community</h2>
+                        <p class="section-subtitle">Connect with researchers, developers, and companies building the future of computer vision.</p>
+                    </div>
+
+                    <div class="social-grid">
+                        <a href="https://twitter.com/kornia_foss" target="_blank" class="social-card">
+                            <i class="fab fa-x-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" class="social-card">
+                            <i class="fab fa-discord"></i>
+                            <span>Discord</span>
+                        </a>
+                        <a href="https://www.linkedin.com/company/72462834/" target="_blank" class="social-card">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/kornia" target="_blank" class="social-card">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
                 </div>
+            </section>
+        </main>
 
-                <div class="social-grid">
-                    <a href="https://twitter.com/kornia_foss" target="_blank" class="social-card">
-                        <i class="fab fa-x-twitter"></i>
-                        <span>Twitter</span>
-                    </a>
-                    <a href="https://discord.gg/HfnywwpBnD" target="_blank" class="social-card">
-                        <i class="fab fa-discord"></i>
-                        <span>Discord</span>
-                    </a>
-                    <a href="https://www.linkedin.com/company/72462834/" target="_blank" class="social-card">
-                        <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/kornia" target="_blank" class="social-card">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>kornia.org</h4>
+                    <p>Advancing Computer Vision & Spatial AI, Openly</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Projects</h4>
+                    <a href="https://github.com/kornia/kornia">Kornia</a>
+                    <a href="https://github.com/kornia/kornia-rs">Kornia-rs</a>
+                    <a href="https://github.com/kornia/bubbaloop">Bubbaloop</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="https://kornia.readthedocs.io">Documentation</a>
+                    <a href="news.html">News & Updates</a>
+                    <a href="https://github.com/kornia">GitHub</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="https://discord.gg/HfnywwpBnD">Discord</a>
+                    <a href="https://twitter.com/kornia_foss">Twitter</a>
+                    <a href="https://www.linkedin.com/company/72462834/">LinkedIn</a>
                 </div>
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>kornia.ai</h4>
-                <p>Advancing Computer Vision & Spatial AI, Openly</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 kornia.org. All rights reserved.</p>
             </div>
-            <div class="footer-section">
-                <h4>Projects</h4>
-                <a href="https://github.com/kornia/kornia">Kornia</a>
-                <a href="https://github.com/kornia/kornia-rs">Kornia-rs</a>
-                <a href="https://github.com/kornia/bubbaloop">Bubbaloop</a>
-            </div>
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <a href="https://kornia.readthedocs.io">Documentation</a>
-                <a href="news.html">News & Updates</a>
-                <a href="https://github.com/kornia">GitHub</a>
-            </div>
-            <div class="footer-section">
-                <h4>Community</h4>
-                <a href="https://discord.gg/HfnywwpBnD">Discord</a>
-                <a href="https://twitter.com/kornia_foss">Twitter</a>
-                <a href="https://www.linkedin.com/company/72462834/">LinkedIn</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 kornia.ai. All rights reserved.</p>
-        </div>
-    </footer>
-    <script src="script.js"></script>
-</body>
-</html>
+        </footer>
+        <script src="script.js"></script>
+    </body>
+    </html>
