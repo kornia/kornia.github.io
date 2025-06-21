@@ -4,6 +4,31 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>kornia.org - Open Source Computer Vision</title>
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+            .project-logo {
+                width: 60px;
+                height: 60px;
+                object-fit: contain;
+            }
+            .project-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: none !important;
+                padding: 0 !important;
+                margin-right: 15px;
+            }
+            .project-icon i {
+                font-size: 56px;
+            }
+            .project-emoji {
+                font-size: 48px;
+                line-height: 1;
+            }
+        </style>
         <link rel="stylesheet" href="styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +43,9 @@
                 </div>
                 <div class="nav-links">
                     <a href="#projects">Projects</a>
-                    <a href="#communities">Community</a>
                     <a href="#about">About</a>
+                    <a href="#collaborators">Collaborators</a>
+                    <a href="#communities">Community</a>
                     <a href="news.html">News</a>
                     <div class="github-dropdown">
                         <a href="#">GitHub <i class="fas fa-chevron-down"></i></a>
@@ -97,7 +123,7 @@
                         <div class="project-card">
                             <div class="project-header">
                                 <div class="project-icon">
-                                    <i class="fab fa-python"></i>
+                                    <img src="assets/kornia-pytorch-logo.png" alt="Kornia PyTorch" class="project-logo">
                                 </div>
                                 <div class="project-info">
                                     <h3>Kornia</h3>
@@ -175,11 +201,11 @@
                         <div class="project-card">
                             <div class="project-header">
                                 <div class="project-icon">
-                                    <i class="fas fa-rocket"></i>
+                                    <span class="project-emoji">🦄</span>
                                 </div>
                                 <div class="project-info">
                                     <h3>Bubbaloop</h3>
-                                    <span class="project-tech">Platform • VLM Serving</span>
+                                    <span class="project-tech">Platform • MLOps</span>
                                 </div>
                             </div>
                             <p class="project-description">VLM Serving Platform for Multimodal AI. Deploy and scale your vision-language models with ease, enabling seamless multimodal inference from prototype to production at enterprise scale.</p>
@@ -205,7 +231,7 @@
                                         <i class="fab fa-github"></i> GitHub
                                     </a>
                                     <a href="https://kornia.gitbook.io/bubbaloop" target="_blank" class="btn btn-secondary">
-                                        <i class="fas fa-external-link-alt"></i> Platform
+                                        <i class="fas fa-book"></i> Documentation
                                     </a>
                                 </div>
                             </div>
@@ -214,7 +240,43 @@
                 </div>
             </section>
 
-            <section class="collaborators">
+            <section id="about" class="about">
+                <div class="about-container">
+                    <div class="section-header">
+                        <h2 class="section-title">About kornia.ai</h2>
+                    </div>
+                    
+                    <div class="about-content">
+                        <p>kornia.ai is a non-profit organization dedicated to advancing Spatial Artificial Intelligence through open collaboration. Founded in 2018 and officially registered as non-profit in 2023, we're supported by an international community of contributors driving innovation in computer vision.</p>
+                    </div>
+                    
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-code-branch"></i>
+                            </div>
+                            <h3>Open Source First</h3>
+                            <p>We believe in the power of open source to drive innovation and collaboration. Our code is freely available for everyone to use, modify, and contribute to.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Global Community</h3>
+                            <p>Building and supporting a worldwide community of computer vision enthusiasts, researchers, and professionals shaping the future together.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3>Innovation at Scale</h3>
+                            <p>Pushing the boundaries of what's possible in computer vision technology while maintaining production-ready quality and performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="collaborators" class="collaborators">
                 <div class="collaborators-container">
                     <div class="section-header">
                         <h2 class="section-title">Our Collaborators</h2>
@@ -265,42 +327,6 @@
                 </div>
             </section>
 
-            <section id="about" class="about">
-                <div class="about-container">
-                    <div class="section-header">
-                        <h2 class="section-title">About kornia.org</h2>
-                    </div>
-                    
-                    <div class="about-content">
-                        <p>kornia.org is a non-profit organization dedicated to advancing Spatial Artificial Intelligence through open collaboration. Founded in 2018 and officially registered as non-profit in 2023, we're supported by an international community of contributors driving innovation in computer vision.</p>
-                    </div>
-                    
-                    <div class="values-grid">
-                        <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-code-branch"></i>
-                        </div>
-                            <h3>Open Source First</h3>
-                        <p>We believe in the power of open source to drive innovation and collaboration. Our code is freely available for everyone to use, modify, and contribute to.</p>
-                    </div>
-                        <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-users"></i>
-                            </div>
-                            <h3>Global Community</h3>
-                            <p>Building and supporting a worldwide community of computer vision enthusiasts, researchers, and professionals shaping the future together.</p>
-                        </div>
-                        <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-rocket"></i>
-                    </div>
-                            <h3>Innovation at Scale</h3>
-                            <p>Pushing the boundaries of what's possible in computer vision technology while maintaining production-ready quality and performance.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <section id="communities" class="communities">
                 <div class="communities-container">
                     <div class="section-header">
@@ -333,7 +359,7 @@
         <footer>
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>kornia.org</h4>
+                    <h4>kornia.ai</h4>
                     <p>Advancing Computer Vision & Spatial AI, Openly</p>
                 </div>
                 <div class="footer-section">
@@ -354,11 +380,43 @@
                     <a href="https://twitter.com/kornia_foss">Twitter</a>
                     <a href="https://www.linkedin.com/company/72462834/">LinkedIn</a>
                 </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <a href="mailto:hello@kornia.org">hello@kornia.org</a>
+                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 kornia.org. All rights reserved.</p>
             </div>
         </footer>
+        <script>
+            // Smooth scroll handling
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get all navigation links that have hash (#) in their href
+                const navLinks = document.querySelectorAll('a[href^="#"]');
+                
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        // Only handle links that point to an existing section
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return; // Skip empty hash links
+                        
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            e.preventDefault();
+                            
+                            targetSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            
+                            // Update URL without jumping
+                            history.pushState(null, null, targetId);
+                        }
+                    });
+                });
+            });
+        </script>
         <script src="script.js"></script>
     </body>
     </html>
