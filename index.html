@@ -28,6 +28,11 @@
                 font-size: 48px;
                 line-height: 1;
             }
+            .logo a, .logo a:hover, .logo a:visited, .logo a:active {
+                color: var(--text-secondary);
+                font-family: cursive;
+                text-decoration: none;
+            }
         </style>
         <link rel="stylesheet" href="styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,7 +387,13 @@
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
-                    <a href="mailto:hello@kornia.org">hello@kornia.org</a>
+                    <span id="email-contact"></span>
+                    <script type="text/javascript">
+                        const user = "hello";
+                        const domain = "kornia.org";
+                        const email = user + "@" + domain;
+                        document.getElementById('email-contact').innerHTML = '<a href="mailto:' + email + '">' + email + '</a>';
+                    </script>
                 </div>
             </div>
             <div class="footer-bottom">
