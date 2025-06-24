@@ -1,7 +1,9 @@
 // Global variables
 let currentPage = 1;
-let itemsPerPage = 5;
+let itemsPerPage = 4;
 let activeFilters = new Set(['all']);
+let loadedCount = 0;
+let isLoading = false;
 
 // Create hashtag filter buttons
 function createHashtagFilters() {
@@ -16,19 +18,26 @@ function createHashtagFilters() {
 // Create news item HTML
 function createNewsItemHTML(item) {
     return `
-        <article class="news-item" data-tags="${item.tags.join(' ')}">
-            <div class="news-item-header">
-                <div class="news-date">${item.date}</div>
-                <div class="news-tags">
-                    ${item.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}
+        <div class="col-12 col-md-6 mb-4" style="min-width: 350px; max-width: 400px; margin-right: 1.5rem;">
+            <article class="news-item" data-tags="${item.tags.join(' ')}" style="height: 400px; display: flex; flex-direction: column;">
+                <div class="news-item-header">
+                    <div class="news-date">${item.date}</div>
+                    <div class="news-tags">
+                        ${item.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}
+                    </div>
                 </div>
-            </div>
-            <h2>${item.title}</h2>
-            <div class="news-item-content">
-                <p>${item.content}</p>
-                <a href="${item.link}" class="button secondary">Read More</a>
-            </div>
-        </article>
+                <h2 style="font-size: 1.25rem; margin-bottom: 1rem;">${item.title}</h2>
+                <div class="news-item-content" style="flex: 1; overflow: hidden;">
+                    <div class="news-text-collapse" style="max-height: 120px; overflow: hidden;">
+                        <p style="margin-bottom: 0;">${item.content}</p>
+                    </div>
+                    <button class="btn btn-link btn-sm p-0 mt-2 text-primary" onclick="showModal(this)" data-item-index="${newsData.items.indexOf(item)}" style="display: inline-block;">Expand</button>
+                </div>
+                <div class="mt-auto pt-3">
+                    ${item.link ? `<a href="${item.link}" target="_blank">Read More</a>` : ''}
+                </div>
+            </article>
+        </div>
     `;
 }
 
@@ -40,123 +49,112 @@ function filterNews() {
     });
 }
 
-// Update visible items based on current page and filters
+// Update visible items based on filters
 function updateVisibleItems() {
     const filteredItems = filterNews();
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const itemsToShow = filteredItems.slice(startIndex, endIndex);
-    
     const newsList = document.getElementById('newsList');
-    newsList.innerHTML = itemsToShow.map(item => createNewsItemHTML(item)).join('');
+    newsList.innerHTML = filteredItems.map(item => createNewsItemHTML(item)).join('');
     
-    updatePagination(filteredItems.length);
+    // Check for text overflow and add expand functionality
+    setTimeout(() => {
+        const newsItems = document.querySelectorAll('.news-item');
+        newsItems.forEach((item, index) => {
+            const textContainer = item.querySelector('.news-text-collapse');
+            const expandBtn = item.querySelector('.btn-link');
+            
+            // Set a fixed height for the text container
+            textContainer.style.maxHeight = '120px';
+            textContainer.style.overflow = 'hidden';
+            
+            // Check if content is actually overflowing
+            const isOverflowing = textContainer.scrollHeight > textContainer.clientHeight;
+            
+            if (isOverflowing) {
+                expandBtn.style.display = 'inline-block';
+            } else {
+                expandBtn.style.display = 'none';
+            }
+            
+            // For debugging - show expand button for all items with content
+            if (textContainer.textContent.trim().length > 100) {
+                expandBtn.style.display = 'inline-block';
+            }
+        });
+    }, 200);
 }
 
-// Update pagination
-function updatePagination(totalItems) {
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const pagination = document.querySelector('.pagination');
+// Show modal with full news content
+function showModal(button) {
+    const itemIndex = parseInt(button.getAttribute('data-item-index'));
+    const item = newsData.items[itemIndex];
     
-    let paginationHTML = `
-        <button class="pagination-btn" id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
-    `;
+    // Populate modal content
+    document.getElementById('newsModalLabel').textContent = item.title;
+    document.querySelector('.news-modal-date').textContent = item.date;
+    document.querySelector('.news-modal-tags').innerHTML = item.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ');
+    document.querySelector('.news-modal-content').innerHTML = item.content;
     
-    // Add page numbers
-    for (let i = 1; i <= totalPages; i++) {
-        if (
-            i === 1 || // First page
-            i === totalPages || // Last page
-            (i >= currentPage - 1 && i <= currentPage + 1) // Pages around current
-        ) {
-            paginationHTML += `
-                <button class="pagination-number ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>
-            `;
-        } else if (
-            i === currentPage - 2 || // Before ellipsis
-            i === currentPage + 2 // After ellipsis
-        ) {
-            paginationHTML += '<span class="pagination-ellipsis">...</span>';
-        }
+    // Handle Read More button
+    const readMoreContainer = document.getElementById('newsModalReadMore');
+    if (item.link) {
+        readMoreContainer.innerHTML = `<a href="${item.link}" class="btn btn-primary" target="_blank">Read More</a>`;
+    } else {
+        readMoreContainer.innerHTML = '';
     }
     
-    paginationHTML += `
-        <button class="pagination-btn" id="nextPage" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
-    `;
-    
-    pagination.innerHTML = paginationHTML;
-}
-
-// Go to specific page
-function goToPage(page) {
-    currentPage = page;
-    updateVisibleItems();
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('newsModal'));
+    modal.show();
 }
 
 // Event Listeners
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize hashtag filters
     createHashtagFilters();
-    
     const hashtagFilters = document.querySelectorAll('.hashtag-filter');
     const itemsPerPageSelect = document.getElementById('itemsPerPage');
+
+    // Left/Right slider controls
+    document.getElementById('newsLeft').onclick = function() {
+        document.getElementById('newsList').scrollBy({ left: -400, behavior: 'smooth' });
+    };
     
-    // Event Listeners
+    document.getElementById('newsRight').onclick = function() {
+        document.getElementById('newsList').scrollBy({ left: 400, behavior: 'smooth' });
+    };
+
     hashtagFilters.forEach(filter => {
         filter.onclick = function() {
             const tag = this.dataset.tag;
-            
             if (tag === 'all') {
-                // If clicking 'all', clear other filters
                 hashtagFilters.forEach(f => f.classList.remove('active'));
                 this.classList.add('active');
                 activeFilters.clear();
                 activeFilters.add('all');
             } else {
-                // If clicking a specific tag
                 const allFilter = document.querySelector('[data-tag="all"]');
                 allFilter.classList.remove('active');
-                activeFilters.delete('all'); // Remove 'all' from active filters
-                
+                activeFilters.delete('all');
                 this.classList.toggle('active');
-                
                 if (this.classList.contains('active')) {
                     activeFilters.add(tag);
                 } else {
                     activeFilters.delete(tag);
                 }
-                
-                // If no filters are active, default to 'all'
                 if (activeFilters.size === 0) {
                     allFilter.classList.add('active');
                     activeFilters.add('all');
                 }
             }
-            
-            currentPage = 1;
             updateVisibleItems();
         };
     });
 
     itemsPerPageSelect.onchange = function() {
         itemsPerPage = parseInt(this.value);
-        currentPage = 1;
         updateVisibleItems();
     };
-    
-    // Pagination click handlers
-    document.addEventListener('click', (e) => {
-        if (e.target.id === 'prevPage' && currentPage > 1) {
-            goToPage(currentPage - 1);
-        } else if (e.target.id === 'nextPage') {
-            const totalPages = Math.ceil(filterNews().length / itemsPerPage);
-            if (currentPage < totalPages) {
-                goToPage(currentPage + 1);
-            }
-        } else if (e.target.classList.contains('pagination-number')) {
-            goToPage(parseInt(e.target.dataset.page));
-        }
-    });
 
     // Initialize
     updateVisibleItems();
