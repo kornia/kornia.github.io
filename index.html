@@ -51,7 +51,7 @@
                     <a href="#about">About</a>
                     <a href="#collaborators">Collaborators</a>
                     <a href="#communities">Community</a>
-                    <a href="news.html">News</a>
+                    <a href="#news">News</a>
                     <div class="github-dropdown">
                         <a href="#">GitHub <i class="fas fa-chevron-down"></i></a>
                         <div class="github-dropdown-content">
@@ -81,10 +81,10 @@
                             </a>
                         </div>
                     </div>
-                    <a href="https://summerofcode.withgoogle.com/programs/2025/organizations/kornia" target="_blank" class="gsoc-nav-link">
+                    <!-- <a href="https://summerofcode.withgoogle.com/programs/2025/organizations/kornia" target="_blank" class="gsoc-nav-link">
                         <img src="assets/gsoc.png" alt="GSoC" class="gsoc-nav-logo" />
                         GSoC 2025
-                    </a>
+                    </a> -->
                 </div>
             </nav>
         </header>
@@ -281,6 +281,63 @@
                 </div>
             </section>
 
+            <section id="news" class="news-section">
+                <div class="section-header">
+                    <h2 class="section-title">Latest News & Updates</h2>
+                    <p class="section-subtitle">Stay up to date with the latest developments in the Kornia ecosystem</p>
+                </div>
+                <div class="news-container">
+                    <div class="news-filters">
+                        <div class="hashtag-filters" id="hashtagFilters"></div>
+                        <div class="filter-controls">
+                            <div class="items-per-page">
+                                <label for="itemsPerPage">Items per page:</label>
+                                <select id="itemsPerPage" class="items-select">
+                                    <option value="5" selected>5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-list" id="newsList"></div>
+                    <div class="pagination">
+                        <button class="pagination-btn" id="prevPage" disabled>Previous</button>
+                        <div class="pagination-numbers" id="pageNumbers"></div>
+                        <button class="pagination-btn" id="nextPage">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="communities" class="communities">
+                <div class="communities-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Join Our Community</h2>
+                        <p class="section-subtitle">Connect with researchers, developers, and companies building the future of computer vision.</p>
+                    </div>
+
+                    <div class="social-grid">
+                        <a href="https://twitter.com/kornia_foss" target="_blank" class="social-card">
+                            <i class="fab fa-x-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" class="social-card">
+                            <i class="fab fa-discord"></i>
+                            <span>Discord</span>
+                        </a>
+                        <a href="https://www.linkedin.com/company/72462834/" target="_blank" class="social-card">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/kornia" target="_blank" class="social-card">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             <section id="collaborators" class="collaborators">
                 <div class="collaborators-container">
                     <div class="section-header">
@@ -327,34 +384,6 @@
                                 <h3>OpenCV</h3>
                                 <p>Computer Vision Library</p>
                             </div>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <section id="communities" class="communities">
-                <div class="communities-container">
-                    <div class="section-header">
-                        <h2 class="section-title">Join Our Community</h2>
-                        <p class="section-subtitle">Connect with researchers, developers, and companies building the future of computer vision.</p>
-                    </div>
-
-                    <div class="social-grid">
-                        <a href="https://twitter.com/kornia_foss" target="_blank" class="social-card">
-                            <i class="fab fa-x-twitter"></i>
-                            <span>Twitter</span>
-                        </a>
-                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" class="social-card">
-                            <i class="fab fa-discord"></i>
-                            <span>Discord</span>
-                        </a>
-                        <a href="https://www.linkedin.com/company/72462834/" target="_blank" class="social-card">
-                            <i class="fab fa-linkedin"></i>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/kornia" target="_blank" class="social-card">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub</span>
                         </a>
                     </div>
                 </div>
@@ -429,5 +458,83 @@
             });
         </script>
         <script src="script.js"></script>
+        <script>
+            // News data and rendering logic from news.html
+            const newsData = {
+                tags: ["all", "kornia", "kornia-rs", "bubbaloop", "community"],
+                items: [
+                    {
+                        date: "June 06, 2025",
+                        title: "Kornia Team to Present at PyTorch Day China 2025",
+                        content: "We're excited to announce that the Kornia team will be presenting at PyTorch Day China 2025, showcasing our latest developments in differentiable computer vision.",
+                        tags: ["kornia"],
+                        link: "https://static.sched.com/hosted_files/pytorchdaychina2025/28/%5BJian%20Shi%5D%20PyTorchDay25_Kornia_ONNXSequential.pdf?_gl=1*yb43xz*_gcl_au*NjIxOTU4NTgxLjE3NTA1MzY0MTQuMTIzNDQyNjM0Ny4xNzUwNTM3MzQ4LjE3NTA1MzczNTk.*FPAU*NjIxOTU4NTgxLjE3NTA1MzY0MTQ."
+                    },
+                    {
+                        date: "May 19, 2025",
+                        title: "Kornia-rs Featured at ICRA 2025 Rust for Robotics Workshop",
+                        content: "We're proud to announce that Kornia-rs will be presented as a poster session at the 2025 ICRA Rust for Robotics (R4R) Workshop. This presentation highlights our commitment to bringing high-performance computer vision to the robotics community. <a href='https://arxiv.org/abs/2505.12425'>Read the full paper here.</a>",
+                        tags: ["kornia-rs"],
+                        link: "https://sites.google.com/view/r4rworkshop/accepted-posters?authuser=0"
+                    },
+                    {
+                        date: "May 09, 2025",
+                        title: "GSoC 2025: Welcoming Our Selected Contributors",
+                        content: "We're thrilled to announce that two outstanding projects have been selected for Google Summer of Code 2025:<br><br>• <strong>April Tag and Calibration Detectors</strong> by Aditya Kumar<br>• <strong>Efficient SmolVLM Implementation</strong> by Andrew Shen<br><br>Congratulations to our selected contributors! We're grateful to everyone who applied and look forward to an exciting summer of development.",
+                        tags: ["community"],
+                    },
+                    {
+                        date: "April 04, 2025",
+                        title: "Introducing Kornia-PaliGemma Integration",
+                        content: "We've released a dedicated repository for our Kornia-PaliGemma integration, demonstrating the seamless combination of computer vision and large language models for advanced AI applications.",
+                        tags: ["community"],
+                        link: "https://github.com/kornia/kornia-paligemma"
+                    },
+                    {
+                        date: "March 12, 2025",
+                        title: "GSoC 2025 Information Session - Join Us on Discord",
+                        content: "We hosted an information session for everyone interested in Google Summer of Code 2025. Join our Discord community to ask questions and learn more about our exciting project opportunities. We held an open session to present and discuss all available projects.",
+                        tags: ["community"],
+                        link: "https://discord.gg/HfnywwpBnD"
+                    },
+                    {
+                        date: "March 05, 2025",
+                        title: "kornia.org Accepted for Google Summer of Code 2025",
+                        content: "We're honored to be accepted as a mentoring organization for Google Summer of Code 2025. This program provides students and early-career open source contributors with opportunities to enhance their software engineering skills while contributing to meaningful projects. We encourage all interested participants to thoroughly review our project proposals and the official GSoC documentation.",
+                        tags: ["community"],
+                        link: "https://github.com/kornia/kornia-rs/wiki/Google-Sumer-of-Code-Application"
+                    },
+                    {
+                        date: "March 15, 2024",
+                        title: "Kornia 0.7.0 Released with Major Enhancements",
+                        content: "We're excited to announce the release of Kornia 0.7.0, featuring significant new capabilities and performance improvements for our PyTorch-based computer vision library. This release includes enhanced geometric transformations, improved augmentation pipelines, and expanded neural network modules.",
+                        tags: ["kornia"],
+                        link: "https://github.com/kornia/kornia/releases/tag/v0.7.0"
+                    },
+                    {
+                        date: "March 1, 2024",
+                        title: "Kornia-rs: High-Performance Computer Vision for Rust",
+                        content: "Introducing Kornia-rs, our groundbreaking Rust-based computer vision library that brings memory-safe, high-performance computer vision capabilities to the Rust ecosystem. This marks a significant milestone in our mission to make computer vision accessible across programming languages.",
+                        tags: ["kornia-rs"],
+                        link: "https://github.com/kornia/kornia-rs/releases/tag/v0.1.0"
+                    },
+                    {
+                        date: "February 15, 2024",
+                        title: "Bubbaloop Beta: Computer Vision Platform Launch",
+                        content: "We're launching the beta version of Bubbaloop, our comprehensive computer vision platform and development toolkit. This platform provides researchers and developers with powerful tools for prototyping, testing, and deploying computer vision applications.",
+                        tags: ["bubbaloop"],
+                        link: "https://bubbaloop.kornia.org"
+                    },
+                    {
+                        date: "February 1, 2024",
+                        title: "Community Milestone: 10,000 GitHub Stars",
+                        content: "We're celebrating a major community milestone - reaching 10,000 GitHub stars! This achievement reflects the growing adoption of Kornia and the incredible contributions from our global community of developers, researchers, and enthusiasts.",
+                        tags: ["kornia"],
+                        link: "https://github.com/kornia/kornia"
+                    }
+                ]
+            };
+        </script>
+        <script src="news.js"></script>
     </body>
     </html>

@@ -1,6 +1,6 @@
 // Global variables
 let currentPage = 1;
-let itemsPerPage = 10;
+let itemsPerPage = 5;
 let activeFilters = new Set(['all']);
 
 // Create hashtag filter buttons
