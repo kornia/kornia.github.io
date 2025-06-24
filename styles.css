@@ -775,9 +775,6 @@ footer {
     flex-wrap: wrap;
     gap: 1.5rem;
     padding: 1rem;
-    background: var(--surface-color);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
 }
 
 .hashtag-filters {

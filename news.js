@@ -1,9 +1,5 @@
 // Global variables
-let currentPage = 1;
-let itemsPerPage = 4;
 let activeFilters = new Set(['all']);
-let loadedCount = 0;
-let isLoading = false;
 
 // Create hashtag filter buttons
 function createHashtagFilters() {
@@ -113,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize hashtag filters
     createHashtagFilters();
     const hashtagFilters = document.querySelectorAll('.hashtag-filter');
-    const itemsPerPageSelect = document.getElementById('itemsPerPage');
 
     // Left/Right slider controls
     document.getElementById('newsLeft').onclick = function() {
@@ -150,11 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
             updateVisibleItems();
         };
     });
-
-    itemsPerPageSelect.onchange = function() {
-        itemsPerPage = parseInt(this.value);
-        updateVisibleItems();
-    };
 
     // Initialize
     updateVisibleItems();
