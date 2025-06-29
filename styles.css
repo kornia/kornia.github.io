@@ -394,6 +394,24 @@ nav {
     color: var(--text-primary);
 }
 
+/* Donate Button (Support Us) */
+.nav-donate-btn {
+    background: #e9c000;          /* primary gold */
+    color: #fff !important;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-donate-btn:hover {
+    background: #d0ad00;          /* subtle darken on hover */
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    color: #fff !important;
+}
+
+.nav-donate-btn i {
+    color: inherit;
+}
+
 /* Communities Section */
 .communities {
     padding: 6rem 2rem;
