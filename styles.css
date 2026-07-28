@@ -640,6 +640,15 @@ footer {
     position: relative;
 }
 
+.github-dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+}
+
 .github-dropdown-content {
     display: none;
     position: absolute;
