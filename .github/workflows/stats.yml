@@ -1,0 +1,50 @@
+# Refreshes stats.json (GitHub stars + PyPI monthly downloads) once a day.
+#
+# The site reads the committed stats.json directly, so visitors make no
+# third-party requests and are never rate limited. This job uses the
+# authenticated GITHUB_TOKEN (5,000 req/hour) instead of the 60 req/hour/IP
+# unauthenticated budget the browser would otherwise spend.
+#
+# Failure policy: every value is carried forward from the existing stats.json
+# if its fetch fails. pypistats in particular rate limits with a 429 that has
+# an HTML body, so a naive parse would write null into the page. A run that
+# cannot fetch anything rewrites the file with the values it already had and
+# commits nothing.
+name: Refresh stats
+
+on:
+  schedule:
+    # 04:17 UTC daily — off the hour to avoid the Actions rush.
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build stats.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/build_stats.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- stats.json; then
+            echo "stats.json unchanged — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stats.json
+          git commit -m "chore: refresh stats.json"
+          git push

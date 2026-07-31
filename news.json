@@ -1,0 +1,195 @@
+{
+  "tags": [
+    "all",
+    "kornia",
+    "kornia-rs",
+    "kornia-slam",
+    "vision-rt",
+    "sensor-rt",
+    "bubbaloop",
+    "community"
+  ],
+  "items": [
+    {
+      "date": "July 22, 2026",
+      "title": "kornia-slam: visual-inertial bundle adjustment lands",
+      "content": "IMU integration merged into kornia-slam — a visual-inertial BA prototype on top of the stereo-inertial initialisation and gyro-bias estimation added in June. The tracker now fuses IMU with vision instead of relying on frames alone.",
+      "tags": [
+        "kornia-slam"
+      ],
+      "link": "https://github.com/kornia/kornia-slam/pull/46"
+    },
+    {
+      "date": "July 20, 2026",
+      "title": "kornia-rs v0.1.15-rc.5 — connected components 3-5x faster on CPU",
+      "content": "Connected-component labeling drops from 4.9-6.1 ms to 0.67-1.40 ms on 1080p CPU and from 2.5-3.0 ms to 1.09-1.60 ms on GPU, with labels still exactly equal to OpenCV's CCL_WU. Also in this candidate: a shared CUDA error/helper definition across the newer kernel families, faster pyramid borders (1080p u8 pyrdown 0.62 to 0.44 ms), and a runnable <code>cuda_fusion</code> example composing preprocess chains at ~0.13 ms/frame on Orin. The 0.1.15 candidate line opened on 6 July with rc.1 through rc.4.",
+      "tags": [
+        "kornia-rs"
+      ],
+      "link": "https://github.com/kornia/kornia-rs/releases/tag/v0.1.15-rc.5"
+    },
+    {
+      "date": "July 19, 2026",
+      "title": "Kornia 0.9.0rc1 — compile-first, deployable augmentations",
+      "content": "The first 0.9.0 release candidate makes deterministic transforms and <code>AugmentationSequential</code> pipelines capture cleanly under <code>torch.export</code>, and takes roughly 20 ops graph-break-free under <code>torch.compile</code> with a PR-time dynamo CI job. Measured GPU speedups include equalize 18x, <code>elastic_transform2d</code> 40x, posterize 16x, and <code>RandomChannelShuffle</code> 12x; cusolver-free warps mean geometric ops now run on the Jetson wheel. Install with <code>pip install --pre kornia</code>.",
+      "tags": [
+        "kornia"
+      ],
+      "link": "https://github.com/kornia/kornia/releases/tag/v0.9.0rc1"
+    },
+    {
+      "date": "July 09, 2026",
+      "title": "sensor-rt: sensor drivers for the Rust vision stack",
+      "content": "A new open-source repository for real-time sensor drivers in Rust — async RTSP/NVMM GStreamer capture and OAK-D stereo plus IMU — emitting kornia images ready for inference. Apache-2.0, built for Jetson.",
+      "tags": [
+        "sensor-rt"
+      ],
+      "link": "https://github.com/kornia/sensor-rt"
+    },
+    {
+      "date": "July 08, 2026",
+      "title": "vision-rt: real-time neural vision on Jetson Orin, from Rust",
+      "content": "vision-rt is now open source, starting with the XFeat feature-matching chain: Rust plus TensorRT inference with GPU pre- and post-processing on NVIDIA Jetson Orin. Apache-2.0, with optional prebuilt engine distribution guarded by TensorRT and SM version.",
+      "tags": [
+        "vision-rt"
+      ],
+      "link": "https://github.com/kornia/vision-rt"
+    },
+    {
+      "date": "June 10, 2026",
+      "title": "kornia-slam: local-map tracking and a Hilti-Trimble dataset reader",
+      "content": "Tracking moves to a local map with an epipolar filter, an undistort cache, and PnP normalisation. A Hilti-Trimble dataset reader landed two days earlier, adding a second public benchmark alongside EuRoC.",
+      "tags": [
+        "kornia-slam"
+      ],
+      "link": "https://github.com/kornia/kornia-slam/pull/43"
+    },
+    {
+      "date": "May 24, 2026",
+      "title": "kornia-slam gets a terminal UI and a unified frame source",
+      "content": "The ORB-SLAM example now runs with a TUI by default, including a live bird's-eye view, an in-TUI debug panel, and a webcam source, with Rerun made optional. A shared <code>FrameSource</code> trait unifies the EuRoC and OAK-D examples behind one interface.",
+      "tags": [
+        "kornia-slam"
+      ],
+      "link": "https://github.com/kornia/kornia-slam/pull/35"
+    },
+    {
+      "date": "May 19, 2026",
+      "title": "Kornia v0.8.3 — XFeat, ALIKED and half-precision support",
+      "content": "A patch release rolling up about 175 commits: the XFeat and ALIKED local feature detectors and descriptors, batched VisualPrompter inference, float16/bfloat16 support with test infrastructure, MPS device and ONNX export fixes, and core geometry speedups (<code>depth_to_normals</code> ~3x, <code>denormalize_points_with_intrinsics</code> ~2x).",
+      "tags": [
+        "kornia"
+      ],
+      "link": "https://github.com/kornia/kornia/releases/tag/v0.8.3"
+    },
+    {
+      "date": "May 19, 2026",
+      "title": "kornia-rs v0.1.14 — turbojpeg reachable from Python",
+      "content": "The libjpeg-turbo encode/decode symbols were compiled into the wheels in 0.1.13 but gated behind an inactive feature flag, so they were silently missing from the Python API. 0.1.14 activates the flag by default, with the kornia-py test suite asserting the symbols now passing on Linux, macOS and Windows.",
+      "tags": [
+        "kornia-rs"
+      ],
+      "link": "https://github.com/kornia/kornia-rs/releases/tag/v0.1.14"
+    },
+    {
+      "date": "May 19, 2026",
+      "title": "Bubbaloop v0.0.14 — the agent can see your cameras",
+      "content": "A new <code>grab_frame</code> tool lets the agent pull a JPEG from any camera node and hand it to a vision-capable model, with multi-camera fan-out. The dashboard gains a Chat tab over HTTP+SSE with tool-call traces, inline images and turn cancellation; v0.0.15 followed the same day to auto-install missing packages in the one-line installer.",
+      "tags": [
+        "bubbaloop"
+      ],
+      "link": "https://github.com/kornia/bubbaloop/releases/tag/v0.0.14"
+    },
+    {
+      "date": "May 04, 2026",
+      "title": "kornia-rs v0.1.11 — 122 commits, PnP solvers and cross-architecture SIMD",
+      "content": "The first release in six months bundles 122 commits across the Rust core, Python bindings and C++ surface. Highlights include the kornia-pnp crate (PnP solvers plus factor-graph optimisation), the shared kornia-algebra crate, AVX2 and NEON SIMD paths for ORB/FAST/imgproc, Suzuki-Abe contour finding, morphological operations, a linear-time euclidean distance transform, and a PIL-parity Python Image API with zero-copy numpy interop.",
+      "tags": [
+        "kornia-rs"
+      ],
+      "link": "https://github.com/kornia/kornia-rs/releases/tag/v0.1.11"
+    },
+    {
+      "date": "March 08, 2026",
+      "title": "Bubbaloop v0.0.11 — Physical AI memory and missions",
+      "content": "Agents get persistent, sensor-grounded awareness across conversations and reboots through a four-tier memory: live world state in SQLite written by sensors with no LLM in the path, short-term conversation, episodic NDJSON+FTS5, and semantic beliefs. Missions are markdown files dropped into an agent directory and picked up within five seconds, with DAG dependencies and per-mission safety constraints (workspace bounds, velocity caps, forbidden zones, force limits) checked before any actuator command.",
+      "tags": [
+        "bubbaloop"
+      ],
+      "link": "https://github.com/kornia/bubbaloop/releases/tag/v0.0.11"
+    },
+    {
+      "date": "March 07, 2026",
+      "title": "Bubbaloop v0.0.10 — agent setup wizard and first-run onboarding",
+      "content": "A guided setup wizard and first-run onboarding flow for configuring an agent on a fresh device.",
+      "tags": [
+        "bubbaloop"
+      ],
+      "link": "https://github.com/kornia/bubbaloop/releases/tag/v0.0.10"
+    },
+    {
+      "date": "March 06, 2026",
+      "title": "Bubbaloop v0.0.9 — multi-agent runtime and local LLM support",
+      "content": "A multi-agent Zenoh gateway with per-agent state, three-tier memory and adaptive heartbeat, plus opt-in local inference through Ollama alongside Claude. Also adds a telemetry watchdog over CPU, RAM and disk with automatic circuit breakers, three-tier RBAC across 30 MCP tools, and a documentation pass that corrected 31 claims against the actual Rust source.",
+      "tags": [
+        "bubbaloop"
+      ],
+      "link": "https://github.com/kornia/bubbaloop/releases/tag/v0.0.9"
+    },
+    {
+      "date": "February 27, 2026",
+      "title": "Bubbaloop v0.0.6 — MCP as the sole control interface",
+      "content": "The node lifecycle is now complete over MCP: uninstall, clean, and enable or disable autostart join the existing tools, and <code>install_node</code> accepts marketplace names to download a precompiled binary, register the node and create its systemd service in one step.",
+      "tags": [
+        "bubbaloop"
+      ],
+      "link": "https://github.com/kornia/bubbaloop/releases/tag/v0.0.6"
+    },
+    {
+      "date": "February 19, 2026",
+      "title": "kornia.org accepted for Google Summer of Code 2026",
+      "content": "Kornia is again one of the mentoring organisations for Google Summer of Code, listed among the 183 organisations announced for the 2026 programme. Contributors interested in applying should read the project ideas and join the Discord.",
+      "tags": [
+        "community"
+      ],
+      "link": "https://summerofcode.withgoogle.com/programs/2026/organizations/kornia"
+    },
+    {
+      "date": "January 31, 2026",
+      "title": "Bubbaloop v0.0.1 — rebuilt as a single Rust binary",
+      "content": "Bubbaloop was restarted from scratch in December 2025 and this first release of the new codebase merges the daemon into the CLI as one 7.4 MB binary with a ratatui terminal UI, a Zenoh-based node system, a dashboard and a Foxglove bridge. The previous serving-platform codebase remains available at kornia/bubbaloop_old.",
+      "tags": [
+        "bubbaloop"
+      ],
+      "link": "https://github.com/kornia/bubbaloop/releases/tag/v0.0.1"
+    },
+    {
+      "date": "November 08, 2025",
+      "title": "Kornia v0.8.2 released",
+      "content": "A maintenance release with Otsu thresholding for automatic segmentation, MPS resize support, connected-components and DeDoDe fixes, a memory reduction in <code>find_homography_dlt</code>, several profiled speedups from community contributors, and the end of support for torch below 2.0.",
+      "tags": [
+        "kornia"
+      ],
+      "link": "https://github.com/kornia/kornia/releases/tag/v0.8.2"
+    },
+    {
+      "date": "November 08, 2025",
+      "title": "kornia-rs v0.1.10 — Lie groups, AprilTag and camera capture crates",
+      "content": "This release introduces several new crates: kornia-lie (SO2/SE2/SO3/SE3 on glam-rs), kornia-apriltag, kornia-nn with SIMD linear layers, kornia-vlm, and a v4l2 crate for camera capture. Also adds zero-copy images from GStreamer, Arrow support for the image type, a video reader, adaptive thresholding, and custom allocators for <code>Image</code>.",
+      "tags": [
+        "kornia-rs"
+      ],
+      "link": "https://github.com/kornia/kornia-rs/releases/tag/v0.1.10"
+    },
+    {
+      "date": "July 01, 2025",
+      "title": "dora-nodes-hub: Kornia-maintained nodes for dora-rs",
+      "content": "A new repository collecting dora-rs nodes maintained by Kornia, making the library usable directly inside dora robotics dataflows.",
+      "tags": [
+        "kornia-rs",
+        "community"
+      ],
+      "link": "https://github.com/kornia/dora-nodes-hub"
+    }
+  ]
+}

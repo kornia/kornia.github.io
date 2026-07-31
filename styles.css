@@ -6,7 +6,15 @@
     --surface-color: #f8fafc;
     --text-primary: #0f172a;
     --text-secondary: #64748b;
-    --text-muted: #94a3b8;
+    /* WCAG AA remediation: original #94a3b8 measured 2.56:1 on white / 2.45:1 on
+       --surface-color (fails the 4.5:1 minimum for small text). #66707e measures
+       5.02:1 on white and 4.80:1 on --surface-color -- the two backgrounds this
+       token is actually painted over (stat/metric labels, project-tech, collaborator
+       captions, news-date). Note: --text-secondary itself is already only 4.76:1 on
+       white, so there is little legal room left to keep --text-muted visibly
+       *lighter* than secondary and still pass AA -- hierarchy between the two now
+       relies on font-size/letter-spacing rather than a bigger contrast gap. */
+    --text-muted: #66707e;
     --border-color: #e2e8f0;
     --border-light: #f1f5f9;
     --success-color: #10b981;
@@ -66,6 +74,47 @@ nav {
     display: flex;
     align-items: center;
     gap: 2rem;
+}
+
+/* Mobile nav toggle (hamburger). Hidden on desktop; shown only in the
+   max-width:768px block below, where .nav-links switches from the desktop
+   hover-menu behaviour to a slide-down panel gated on this button.
+   Markup/JS contract documented in uiux-markup-needed.md -- this file does not
+   add the <button> itself. */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.nav-toggle-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-toggle.is-active .nav-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.is-active .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.is-active .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 .nav-links a {
@@ -394,10 +443,14 @@ nav {
     color: var(--text-primary);
 }
 
-/* Donate Button (Support Us) */
+/* Donate Button (Support Us)
+   WCAG AA remediation: white text on #e9c000 measured 1.75:1 (fails 4.5:1 badly).
+   Chose dark text over lightening/darkening the gold itself, so the brand gold
+   stays exactly as designed -- var(--text-primary) on #e9c000 measures 10.21:1,
+   and on the #d0ad00 hover state 8.21:1. Both far exceed AA. */
 .nav-donate-btn {
     background: #e9c000;          /* primary gold */
-    color: #fff !important;
+    color: var(--text-primary) !important;
     box-shadow: var(--shadow-sm);
 }
 
@@ -405,7 +458,7 @@ nav {
     background: #d0ad00;          /* subtle darken on hover */
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
-    color: #fff !important;
+    color: var(--text-primary) !important;
 }
 
 .nav-donate-btn i {
@@ -591,10 +644,74 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    /* Was `display:none` with no way back in -- that's what removed all nav,
+       the GitHub links, and the donate button on mobile. Now a slide-down
+       panel gated by .nav-links.is-open (toggled by the JS the markup
+       contract describes), instead of removing the nav outright. */
     .nav-links {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-light);
+        box-shadow: var(--shadow-lg);
+        padding: 0.5rem 1.5rem 1.5rem;
     }
-    
+
+    .nav-links.is-open {
+        display: flex;
+    }
+
+    .nav-links a {
+        width: 100%;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-links a::after {
+        display: none; /* the desktop underline-on-hover doesn't fit a full-width row */
+    }
+
+    .github-dropdown {
+        width: 100%;
+    }
+
+    .github-dropdown-content {
+        display: none;
+        position: static;
+        min-width: 0;
+        width: 100%;
+        margin-top: 0;
+        padding: 0 0 0 1rem;
+        border: none;
+        box-shadow: none;
+    }
+
+    .github-dropdown:hover .github-dropdown-content,
+    .github-dropdown:focus-within .github-dropdown-content,
+    .github-dropdown.is-open .github-dropdown-content {
+        display: block;
+    }
+
+    .nav-donate-btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
     .hero {
         padding: 6rem 1rem 4rem;
     }
@@ -655,7 +772,9 @@ footer {
     margin-top: 0.5rem;
 }
 
-.github-dropdown:hover .github-dropdown-content {
+.github-dropdown:hover .github-dropdown-content,
+.github-dropdown:focus-within .github-dropdown-content,
+.github-dropdown.is-open .github-dropdown-content {
     display: block;
 }
 
@@ -735,6 +854,66 @@ footer {
     margin-top: 2rem;
 }
 
+/* Accessibility: focus-visible
+   Covers every keyboard-focusable interactive element on the page (nav links,
+   buttons/.btn variants, the two card types that are actual <a> elements --
+   .social-card and .collaborator-card --, the hashtag filters, the (currently
+   unused but still real) pagination controls, the GitHub dropdown's hidden
+   links, and the news items-select). outline+offset works on both light card
+   backgrounds and the white/blurred header, so a single blue ring covers most
+   of the page; the footer gets its own override below since it's a dark
+   background where the blue ring drops to 3.45:1 (still passes the 3:1 UI-
+   component minimum, but white gives 17.85:1 with room to spare). */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav-links a:focus-visible,
+.logo a:focus-visible,
+.hashtag-filter:focus-visible,
+.pagination-btn:focus-visible,
+.pagination-number:focus-visible,
+.social-card:focus-visible,
+.collaborator-card:focus-visible,
+.github-dropdown-content a:focus-visible,
+.items-select:focus-visible,
+.nav-toggle:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+footer a:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* Bootstrap's default .btn-close is ~24px (1em + 2*0.25em padding at 16px root),
+   under the 44px touch guideline. Padding-only bump, no markup/JS involved. */
+.modal .btn-close {
+    padding: 0.9rem;
+}
+
+/* Accessibility: prefers-reduced-motion
+   Neutralises the fadeInUp card-entrance animation, every hover
+   transform/transition (cards, buttons, dropdown, collaborator logos), and the
+   `html { scroll-behavior: smooth; }` rule set inline in index.html's <head>
+   -- this !important wins the cascade over that non-important declaration
+   without needing to touch index.html. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    html {
+        scroll-behavior: auto !important;
+    }
+}
+
 /* News Page Styles */
 .news-hero {
     padding: 8rem 2rem 4rem;
@@ -802,6 +981,13 @@ footer {
 }
 
 .hashtag-filter {
+    /* min-height:44px brings the touch target up from ~38.4px to the 44px guideline;
+       inline-flex + centering keeps the (unchanged) padding/text visually centered
+       in the taller box. */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
     padding: 0.5rem 1rem;
     border: 2px solid var(--border-color);
     border-radius: 20px;
@@ -844,6 +1030,8 @@ footer {
 }
 
 .items-select {
+    /* min-height:44px: measured content-box height was ~41.6px, under the 44px touch guideline. */
+    min-height: 44px;
     padding: 0.5rem 2rem 0.5rem 1rem;
     border: 2px solid var(--border-color);
     border-radius: 8px;

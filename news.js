@@ -1,9 +1,28 @@
 // Global variables
 let activeFilters = new Set(['all']);
 
+// News content lives in news.json so that publishing an item never means editing
+// index.html. Initialised to a safe empty shape: if the fetch fails the section
+// renders empty rather than throwing and taking the scroll buttons down with it.
+let newsData = { tags: ['all'], items: [] };
+
+async function loadNewsData() {
+    try {
+        const response = await fetch('news.json', { cache: 'no-cache' });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const data = await response.json();
+        if (data && Array.isArray(data.items) && Array.isArray(data.tags)) {
+            newsData = data;
+        }
+    } catch (error) {
+        console.error('Could not load news.json:', error);
+    }
+}
+
 // Create hashtag filter buttons
 function createHashtagFilters() {
     const hashtagFilters = document.getElementById('hashtagFilters');
+    if (!hashtagFilters) return;
     hashtagFilters.innerHTML = newsData.tags.map(tag => `
         <button class="hashtag-filter ${tag === 'all' ? 'active' : ''}" data-tag="${tag}">
             ${tag === 'all' ? 'All' : `#${tag}`}
@@ -49,6 +68,13 @@ function filterNews() {
 function updateVisibleItems() {
     const filteredItems = filterNews();
     const newsList = document.getElementById('newsList');
+    if (!newsList) return;
+
+    if (filteredItems.length === 0) {
+        newsList.innerHTML = '<p class="text-muted p-3">No updates match this filter.</p>';
+        return;
+    }
+
     newsList.innerHTML = filteredItems.map(item => createNewsItemHTML(item)).join('');
     
     // Check for text overflow and add expand functionality
@@ -105,19 +131,31 @@ function showModal(button) {
 
 // Event Listeners
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    // Nothing to do if the news section isn't on this page.
+    if (!document.getElementById('newsList')) return;
+
+    await loadNewsData();
+
     // Initialize hashtag filters
     createHashtagFilters();
     const hashtagFilters = document.querySelectorAll('.hashtag-filter');
 
     // Left/Right slider controls
-    document.getElementById('newsLeft').onclick = function() {
-        document.getElementById('newsList').scrollBy({ left: -400, behavior: 'smooth' });
-    };
-    
-    document.getElementById('newsRight').onclick = function() {
-        document.getElementById('newsList').scrollBy({ left: 400, behavior: 'smooth' });
-    };
+    const newsLeft = document.getElementById('newsLeft');
+    const newsRight = document.getElementById('newsRight');
+
+    if (newsLeft) {
+        newsLeft.onclick = function() {
+            document.getElementById('newsList').scrollBy({ left: -400, behavior: 'smooth' });
+        };
+    }
+
+    if (newsRight) {
+        newsRight.onclick = function() {
+            document.getElementById('newsList').scrollBy({ left: 400, behavior: 'smooth' });
+        };
+    }
 
     hashtagFilters.forEach(filter => {
         filter.onclick = function() {
