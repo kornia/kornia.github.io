@@ -1,0 +1,51 @@
+name: Validate site
+
+# The site auto-deploys to production on every push to master (pages.yml),
+# so this is the only thing standing between a bad edit and kornia.org.
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structure:
+    name: Structure, links and data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Offline and dependency-free: internal anchors, local file targets,
+      # duplicate ids, alt text, head tags, JSON-LD, and the news.json /
+      # stats.json contracts.
+      - name: Check site structure
+        run: python3 .github/scripts/check_site.py
+
+  html:
+    name: HTML conformance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install html5validator
+        run: pip install --disable-pip-version-check html5validator
+
+      # Nu Html Checker, the same engine as validator.w3.org.
+      - name: Validate HTML
+        run: html5validator --root . --match "*.html"
