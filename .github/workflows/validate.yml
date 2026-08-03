@@ -47,5 +47,13 @@ jobs:
         run: pip install --disable-pip-version-check html5validator
 
       # Nu Html Checker, the same engine as validator.w3.org.
+      #
+      # --ignore-re suppresses one stale rule: Nu's bundled CSS parser does
+      # not know `color-scheme`, which is a standard property (CSS Color
+      # Adjustment Module Level 1) supported by every current browser and
+      # used in 404.html so form controls and scrollbars follow the user's
+      # colour preference. The property is correct; the validator is behind.
       - name: Validate HTML
-        run: html5validator --root . --match "*.html"
+        run: |
+          html5validator --root . --match "*.html" \
+            --ignore-re 'Property .color-scheme. doesn.t exist'
