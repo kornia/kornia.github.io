@@ -1,0 +1,391 @@
+{
+ "generated_at": "2026-09-03",
+ "kornia": "0.9.0rc1",
+ "onnxruntime": "1.23.2",
+ "tasks": [
+  "Detection",
+  "Local features",
+  "Depth",
+  "Classification",
+  "Enhancement"
+ ],
+ "models": [
+  {
+   "id": "kornia.contrib.object_detection.RTDETRDetectorBuilder",
+   "slug": "object-detection-rtdetr",
+   "name": "RT-DETR r18 object detection",
+   "title": "RT-DETR r18",
+   "subtitle": "object detection",
+   "task": "Detection",
+   "summary": "Real-time transformer detector trained on COCO: 80 object classes with boxes and scores.",
+   "url": "https://huggingface.co/kornia/ONNX_models/resolve/main/models/kornia.models.detection.rtdetr_r18vd_480x480.onnx",
+   "size_mb": 80.8,
+   "hosted": "huggingface.co/kornia/ONNX_models",
+   "input": {
+    "name": "input",
+    "size": 480,
+    "scale": 1.0,
+    "mean": null,
+    "std": null
+   },
+   "output": {
+    "kind": "detections",
+    "format": "cls_score_xywh",
+    "labels": "coco",
+    "threshold": 0.4,
+    "coord_size": 480
+   },
+   "pipeline": {
+    "imports": [
+     "from kornia.contrib.object_detection import RTDETRDetectorBuilder"
+    ],
+    "build": "RTDETRDetectorBuilder.build(\"rtdetr_r18vd\", image_size=480)",
+    "call": "model(out)[0]        # (N, 6): class_id, score, x, y, w, h"
+   },
+   "params": "20 M parameters, ResNet-18 backbone",
+   "paper": {
+    "title": "DETRs Beat YOLOs on Real-time Object Detection",
+    "url": "https://arxiv.org/abs/2304.08069"
+   },
+   "license": "Apache-2.0",
+   "source": "https://github.com/lyuwenyu/RT-DETR",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/models.html#rtdetrdetectorbuilder",
+   "snippets": [
+    {
+     "label": "PyTorch",
+     "code": "from kornia.contrib.object_detection import RTDETRDetectorBuilder\n\ndetector = RTDETRDetectorBuilder.build(\"rtdetr_r18vd\", image_size=480)\ndetections = detector(x)[0]        # (N, 6): class_id, score, x, y, w, h; x in [0, 1]"
+    },
+    {
+     "label": "ONNX from the hub",
+     "code": "from kornia.onnx import ONNXSequential\n\n# the same graph this page runs, downloaded from huggingface.co/kornia/ONNX_models\nmodel = ONNXSequential(\"hf://models/kornia.models.detection.rtdetr_r18vd_480x480\")\nout = model(x.numpy())[0]          # (1, 300, 6): class_id, score, x, y, w, h"
+    }
+   ],
+   "note": "Resizes to 480x480 inside the graph, so any input size works; boxes come back in those coordinates."
+  },
+  {
+   "id": "kornia.models.depth_estimation.DepthAnythingONNXBuilder",
+   "slug": "depth-estimation-depth-anything-v2",
+   "name": "Depth Anything V2 small",
+   "title": "Depth Anything V2 small",
+   "subtitle": "depth estimation",
+   "task": "Depth",
+   "summary": "Monocular relative depth from a single image, ViT-S encoder, 8-bit quantised.",
+   "url": "https://huggingface.co/onnx-community/depth-anything-v2-small/resolve/main/onnx/model_quantized.onnx",
+   "size_mb": 27.3,
+   "hosted": "huggingface.co/onnx-community",
+   "input": {
+    "name": "pixel_values",
+    "size": 364,
+    "scale": 1.0,
+    "mean": [
+     0.485,
+     0.456,
+     0.406
+    ],
+    "std": [
+     0.229,
+     0.224,
+     0.225
+    ]
+   },
+   "output": {
+    "kind": "depth"
+   },
+   "pipeline": {
+    "imports": [
+     "import onnxruntime as ort"
+    ],
+    "build": "ort.InferenceSession(\"model_quantized.onnx\")   # from huggingface.co/onnx-community/depth-anything-v2-small",
+    "call": "model.run(None, {\"pixel_values\": out.numpy()})[0]",
+    "note": "the ImageNet normalisation is part of the exported pipeline graph; in PyTorch apply kornia.enhance.normalize first"
+   },
+   "params": "25 M parameters, quantised to int8",
+   "paper": {
+    "title": "Depth Anything V2",
+    "url": "https://arxiv.org/abs/2406.09414"
+   },
+   "license": "Apache-2.0 (small model)",
+   "source": "https://github.com/DepthAnything/Depth-Anything-V2",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/models.html",
+   "snippets": [
+    {
+     "label": "ONNX Runtime",
+     "code": "import onnxruntime as ort\nimport torch\nimport kornia as K\n\n# model_quantized.onnx from huggingface.co/onnx-community/depth-anything-v2-small\nsess = ort.InferenceSession(\"model_quantized.onnx\")\nx = K.geometry.resize(x, (364, 364))                       # a multiple of 14\nx = K.enhance.normalize(x, torch.tensor([0.485, 0.456, 0.406]), torch.tensor([0.229, 0.224, 0.225]))\ndepth = sess.run(None, {\"pixel_values\": x.numpy()})[0]    # (1, 364, 364) relative inverse depth"
+    }
+   ],
+   "note": "Input side must be a multiple of 14; the page uses 364. Output is relative inverse depth, shown with a colour map."
+  },
+  {
+   "id": "kornia.contrib.FaceDetector",
+   "slug": "face-detection-yunet",
+   "name": "YuNet face detection",
+   "title": "YuNet",
+   "subtitle": "face detection",
+   "task": "Detection",
+   "summary": "Tiny face detector with five facial keypoints, a few milliseconds per image.",
+   "url": "models/yunet.onnx",
+   "sample": {
+    "file": "models/astronaut_320.jpg",
+    "thumb": "models/astronaut_thumb.jpg",
+    "label": "Astronaut on the ISS (NASA)"
+   },
+   "size_mb": 0.35,
+   "hosted": "kornia.org",
+   "input": {
+    "name": "image",
+    "size": 320,
+    "scale": 255.0,
+    "mean": null,
+    "std": null
+   },
+   "pipeline": {
+    "imports": [
+     "from kornia.contrib import FaceDetector"
+    ],
+    "build": "FaceDetector()",
+    "call": "model(out * 255.0)[0]  # (N, 15): box, 5 keypoints, score"
+   },
+   "output": {
+    "kind": "faces_yunet",
+    "threshold": 0.5,
+    "nms": 0.3,
+    "variance": [
+     0.1,
+     0.2
+    ],
+    "min_sizes": [
+     [
+      10,
+      16,
+      24
+     ],
+     [
+      32,
+      48
+     ],
+     [
+      64,
+      96
+     ],
+     [
+      128,
+      192,
+      256
+     ]
+    ],
+    "steps": [
+     8,
+     16,
+     32,
+     64
+    ]
+   },
+   "params": "76 k parameters",
+   "paper": {
+    "title": "YuNet: A Tiny Millisecond-level Face Detector",
+    "url": "https://link.springer.com/article/10.1007/s11633-023-1423-y"
+   },
+   "license": "MIT (libfacedetection weights)",
+   "source": "https://github.com/ShiqiYu/libfacedetection",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/contrib.html#kornia.contrib.FaceDetector",
+   "snippets": [
+    {
+     "label": "PyTorch",
+     "code": "import kornia as K\nfrom kornia.contrib import FaceDetector, FaceDetectorResult\n\ndetector = FaceDetector()                 # YuNet, pretrained\nfaces = detector(x * 255.0)[0]            # (N, 15): box, 5 keypoints, score; x in [0, 1]\nfor face in [FaceDetectorResult(f) for f in faces]:\n    print(face.top_left, face.bottom_right, face.score)"
+    }
+   ],
+   "note": "Backbone exported from kornia with dynamic height and width; box decoding and NMS run in JavaScript on the page."
+  },
+  {
+   "id": "kornia.feature.XFeat",
+   "slug": "local-features-xfeat",
+   "name": "XFeat keypoints and matching",
+   "title": "XFeat",
+   "subtitle": "keypoints + matching",
+   "task": "Local features",
+   "summary": "Accelerated features: keypoints with 64-d descriptors, matched against a warped copy of the same frame.",
+   "url": "models/xfeat.onnx",
+   "graphs": {
+    "warp": "home/affine_256.onnx"
+   },
+   "size_mb": 2.79,
+   "hosted": "kornia.org",
+   "input": {
+    "name": "image",
+    "size": 256,
+    "scale": 1.0,
+    "mean": null,
+    "std": null
+   },
+   "output": {
+    "kind": "features_xfeat",
+    "nms": 5,
+    "threshold": 0.05,
+    "top_k": 512,
+    "min_cossim": 0.82
+   },
+   "params": "660 k parameters",
+   "paper": {
+    "title": "XFeat: Accelerated Features for Lightweight Image Matching (CVPR 2024)",
+    "url": "https://arxiv.org/abs/2404.19174"
+   },
+   "license": "Apache-2.0",
+   "source": "https://github.com/verlab/accelerated_features",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/feature.html#kornia.feature.XFeat",
+   "snippets": [
+    {
+     "label": "PyTorch",
+     "code": "from kornia.feature import XFeat\n\nxfeat = XFeat.from_pretrained(top_k=512)\nfeats = xfeat.detectAndCompute(x)[0]                  # keypoints (N, 2), scores (N,), descriptors (N, 64)\nidx0, idx1 = xfeat.match(feats[\"descriptors\"], feats_other[\"descriptors\"], min_cossim=0.82)"
+    }
+   ],
+   "note": "The network runs on the frame and on an affine-warped copy; NMS, scoring, descriptor sampling and mutual-nearest-neighbour matching run in JavaScript, checked against kornia at build time."
+  },
+  {
+   "id": "kornia.feature.KeyNet+HardNet",
+   "slug": "local-features-keynet-hardnet",
+   "name": "KeyNet + HardNet",
+   "title": "KeyNet + HardNet",
+   "subtitle": "detector + descriptor",
+   "task": "Local features",
+   "summary": "The classic two-stage pipeline: a learned keypoint detector, then a 128-d patch descriptor, matched against a warped copy.",
+   "url": "models/keynet.onnx",
+   "graphs": {
+    "descriptor": "models/hardnet.onnx",
+    "warp": "home/affine_256.onnx"
+   },
+   "size_mb": 5.44,
+   "hosted": "kornia.org",
+   "input": {
+    "name": "image",
+    "size": 256,
+    "scale": 1.0,
+    "mean": null,
+    "std": null,
+    "gray": true
+   },
+   "output": {
+    "kind": "features_keynet_hardnet",
+    "nms": 7,
+    "top_k": 300,
+    "patch": 32,
+    "support": 40,
+    "min_cossim": 0.55
+   },
+   "params": "5.9 k + 1.3 M parameters",
+   "paper": {
+    "title": "Key.Net: Keypoint Detection by Handcrafted and Learned CNN Filters (ICCV 2019); HardNet: Working hard to know your neighbor's margins (NeurIPS 2017)",
+    "url": "https://arxiv.org/abs/1904.00889"
+   },
+   "license": "MIT (Key.Net) and MIT (HardNet) weights",
+   "source": "https://github.com/axelBarroso/Key.Net-Pytorch",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/feature.html#kornia.feature.KeyNet",
+   "snippets": [
+    {
+     "label": "PyTorch",
+     "code": "import kornia.feature as KF\n\ndetector = KF.KeyNetDetector(pretrained=True, num_features=300)\ndescriptor = KF.LAFDescriptor(KF.HardNet(pretrained=True))\nlafs, responses = detector(gray)                        # local affine frames on a (B, 1, H, W) image\ndescs = descriptor(gray, lafs)                          # (B, 300, 128)\nmatch_dists, idxs = KF.match_mnn(descs[0], descs_other[0])"
+    }
+   ],
+   "note": "Single-scale on the page: NMS on the response map, a 48-px window around each keypoint resized to a 32x32 patch, then the descriptor. kornia's KeyNetDetector adds a scale pyramid and affine frames."
+  },
+  {
+   "id": "kornia.models.tiny_vit.TinyViT",
+   "slug": "classification-tinyvit",
+   "name": "TinyViT-5M classification",
+   "title": "TinyViT-5M",
+   "subtitle": "ImageNet classification",
+   "task": "Classification",
+   "summary": "A 5-million-parameter vision transformer distilled on ImageNet-22k, fine-tuned on ImageNet-1k: top-5 classes for a frame.",
+   "url": "models/tinyvit_5m.onnx",
+   "size_mb": 26.7,
+   "hosted": "kornia.org",
+   "input": {
+    "name": "image",
+    "size": 224,
+    "scale": 1.0,
+    "mean": [
+     0.485,
+     0.456,
+     0.406
+    ],
+    "std": [
+     0.229,
+     0.224,
+     0.225
+    ],
+    "fixed": true
+   },
+   "output": {
+    "kind": "classification",
+    "labels": "imagenet",
+    "top": 5
+   },
+   "pipeline": {
+    "imports": [
+     "from kornia.models.tiny_vit import TinyViT"
+    ],
+    "build": "TinyViT.from_config(\"5m\", pretrained=True).eval()",
+    "call": "model(out).softmax(-1)   # (B, 1000); normalisation is inside the exported graph, apply kornia.enhance.normalize in PyTorch"
+   },
+   "params": "5.4 M parameters, 79.1 % ImageNet-1k top-1",
+   "paper": {
+    "title": "TinyViT: Fast Pretraining Distillation for Small Vision Transformers (ECCV 2022)",
+    "url": "https://arxiv.org/abs/2207.10666"
+   },
+   "license": "MIT (Microsoft Cream weights)",
+   "source": "https://github.com/microsoft/Cream/tree/main/TinyViT",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/models/tiny_vit.html",
+   "snippets": [
+    {
+     "label": "PyTorch",
+     "code": "import torch\nfrom kornia.models.tiny_vit import TinyViT\nfrom kornia.enhance import normalize\n\nmodel = TinyViT.from_config(\"5m\", pretrained=True).eval()     # ImageNet-1k head\nx = normalize(x224, torch.tensor([0.485, 0.456, 0.406]), torch.tensor([0.229, 0.224, 0.225]))\nprobs = model(x).softmax(-1)                             # (B, 1000)"
+    }
+   ],
+   "note": "224x224 input, ImageNet normalisation; the page shows the five most likely ImageNet classes."
+  },
+  {
+   "id": "kornia.models.small_sr.SmallSRNetWrapper",
+   "slug": "super-resolution-espcn",
+   "name": "Super-resolution x3 (ESPCN)",
+   "title": "ESPCN \u00d73",
+   "subtitle": "super-resolution",
+   "task": "Enhancement",
+   "summary": "Sub-pixel convolution network that triples the resolution of an image.",
+   "url": "models/small_sr_x3.onnx",
+   "size_mb": 0.25,
+   "hosted": "kornia.org",
+   "input": {
+    "name": "image",
+    "size": 192,
+    "scale": 1.0,
+    "mean": null,
+    "std": null
+   },
+   "output": {
+    "kind": "image",
+    "scale": 3
+   },
+   "pipeline": {
+    "imports": [
+     "from kornia.models.small_sr import SmallSRNetWrapper"
+    ],
+    "build": "SmallSRNetWrapper(upscale_factor=3)",
+    "call": "model(out)             # (B, 3, 3H, 3W)"
+   },
+   "params": "60 k parameters",
+   "paper": {
+    "title": "Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel CNN",
+    "url": "https://arxiv.org/abs/1609.05158"
+   },
+   "license": "BSD-3 (PyTorch tutorial weights)",
+   "source": "https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/models.html",
+   "snippets": [
+    {
+     "label": "PyTorch",
+     "code": "from kornia.models.small_sr import SmallSRNetWrapper\n\nupscale = SmallSRNetWrapper(upscale_factor=3)   # pretrained\ny = upscale(x)                                  # (B, 3, 3H, 3W), x in [0, 1]"
+    }
+   ],
+   "note": "Dynamic height and width: the downloaded graph runs on any image size."
+  }
+ ]
+}

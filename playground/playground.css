@@ -1,0 +1,1537 @@
+/* kornia.org/playground: two-pane shell (operator list left, demo right) and the widget.
+   Colours and type come from ../styles.css tokens. */
+
+.pg-body header nav .pg-nav-current {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* same treatment index.html gives the wordmark in its inline styles */
+.pg-body .logo a,
+.pg-body .logo a:hover,
+.pg-body .logo a:visited {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+/* ---- shell ---- */
+
+.pg-shell {
+    display: grid;
+    grid-template-columns: 17rem minmax(0, 1fr) 14rem;  /* list | content | page tools, as in the docs */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 5.5rem 1.5rem 3rem;  /* the site header is fixed; clear it */
+    min-height: 80vh;
+}
+
+@media (max-width: 899px) {
+    .pg-shell {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 5rem 1rem 2rem;
+    }
+}
+
+.pg-side {
+    position: sticky;
+    top: 5rem;
+    align-self: start;
+    max-height: calc(100vh - 6rem);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+    padding-right: 1.25rem;
+    margin-right: 1.75rem;
+}
+
+@media (max-width: 899px) {
+    .pg-side {
+        position: static;
+        max-height: none;
+        border-right: none;
+        padding-right: 0;
+        margin: 0 0 1.5rem;
+    }
+}
+
+.pg-side-lead {
+    margin: 0.25rem 0 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.pg-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--background-color);
+    color: var(--text-muted);
+}
+
+.pg-search input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    background: transparent;
+}
+
+.pg-filters {
+    display: flex;
+    gap: 0.35rem;
+    margin: 0.6rem 0 0.4rem;
+}
+
+.pg-filters label {
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.pg-filters label:has(input:checked) {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: var(--primary-soft);
+}
+
+.pg-filters input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.pg-meta {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.pg-side-list {
+    overflow-y: auto;
+    flex: 1 1 auto;
+    padding-right: 0.25rem;
+    scrollbar-width: thin;
+}
+
+.pg-pkg {
+    margin: 0.5rem 0 0.9rem;
+}
+
+.pg-pkg h2 {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 0.25rem;
+    padding: 0.35rem 0.5rem 0;
+}
+
+.pg-pkg-count {
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    font-variant-numeric: tabular-nums;
+}
+
+.pg-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 0.6rem;  /* entries sit indented under their category heading */
+}
+
+.pg-row-name {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.28rem 0.5rem;
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.pg-row-name:hover {
+    background: var(--surface-color);
+    color: var(--primary-color);
+}
+
+.pg-row-name.pg-row-current {
+    background: var(--primary-soft);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.pg-row-unsupported .pg-row-name {
+    color: var(--text-muted);
+}
+
+.pg-row-unsupported .pg-row-name:hover {
+    color: var(--text-secondary);
+}
+
+.pg-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: var(--warn-bg);
+    color: var(--warn-text);
+    white-space: nowrap;
+}
+
+.pg-tag-small {
+    font-size: 0.58rem;
+    padding: 0.05rem 0.35rem;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ---- detail pane ---- */
+
+.pg-detail {
+    min-width: 0;
+}
+
+.pg-op {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--background-color);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+}
+
+.pg-op-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.pg-op-head h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--text-primary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.pg-op-head code {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: var(--surface-color);
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+}
+
+.pg-op-head .pg-tag {
+    margin-left: auto;
+}
+
+.pg-summary {
+    margin: 0 0 1.25rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+.pg-summary a {
+    color: var(--primary-color);
+}
+
+.pg-op-unsupported .pg-op-head h2 {
+    color: var(--text-muted);
+}
+
+/* two columns, three rows: images | parameters; sample picker | download row; code block spanning both */
+.pg-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+        "images controls"
+        "thumbs actions"
+        "code code";
+    gap: 0.75rem 2rem;
+    align-items: start;
+}
+
+.pg-cell-images { grid-area: images; }
+.pg-cell-controls { grid-area: controls; }
+.pg-cell-thumbs { grid-area: thumbs; margin-top: 0; }
+.pg-cell-actions { grid-area: actions; align-self: center; margin-top: 0; }
+.pg-code { grid-area: code; margin-top: 0.5rem; }
+
+@media (max-width: 1100px) {
+    .pg-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "images"
+            "thumbs"
+            "controls"
+            "actions"
+            "code";
+    }
+}
+
+.pg-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.pg-images figure {
+    margin: 0;
+}
+
+.pg-images canvas,
+.pg-images img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    background: var(--surface-color);
+    image-rendering: auto;
+}
+
+/* ``display: block`` above would otherwise beat the ``hidden`` attribute */
+.pg-images [hidden] {
+    display: none !important;
+}
+
+.pg-images figcaption {
+    margin-top: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.pg-thumbs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* mirrors the input | output figures above */
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    align-items: start;  /* thumbnails share the top edge; the guidance label hangs below */
+}
+
+/* 3 images on the first row, 3 clips on the second: a fixed 2x3 grid that cannot overflow */
+.pg-thumbs-pick {
+    display: grid;
+    grid-template-columns: repeat(3, 56px);
+    gap: 0.5rem;
+    justify-content: start;
+}
+
+.pg-thumbs button {
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: none;
+    cursor: pointer;
+    line-height: 0;
+}
+
+.pg-thumbs button img {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.pg-thumbs button.pg-selected {
+    border-color: var(--primary-color);
+}
+
+.pg-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.pg-param {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr) 4.5rem;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.pg-param label {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+}
+
+.pg-param input[type="range"] {
+    width: 100%;
+    accent-color: var(--primary-color);
+}
+
+.pg-param select {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font: inherit;
+    font-size: 0.85rem;
+    background: var(--background-color);
+}
+
+.pg-param output {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85rem;
+    text-align: right;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.pg-param.pg-fixed label,
+.pg-param.pg-fixed output,
+.pg-param.pg-fixed span {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.pg-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.pg-btn {
+    padding: 0.45rem 1.1rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: #fff;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.pg-btn:hover {
+    background: var(--secondary-color);
+}
+
+.pg-btn.pg-btn-ghost {
+    background: var(--surface-color);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.pg-btn.pg-btn-ghost:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: var(--background-color);
+}
+
+.pg-status {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.pg-status.pg-error {
+    color: #b91c1c;
+}
+
+.pg-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* code tabs */
+.pg-code {
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--code-bg);
+}
+
+.pg-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.5rem 0;
+    background: var(--code-bg-2);
+}
+
+.pg-tab {
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    background: transparent;
+    color: #94a3b8;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pg-tab:hover {
+    color: #e2e8f0;
+}
+
+.pg-tab.pg-tab-active {
+    background: var(--code-bg);
+    color: #fff;
+}
+
+.pg-tabs .pg-copy {
+    margin-left: auto;
+    margin-bottom: 0.4rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    background: var(--code-bg);
+    color: #cbd5e1;
+    font: inherit;
+    font-size: 0.72rem;
+    cursor: pointer;
+}
+
+.pg-tabs .pg-copy:hover {
+    color: #fff;
+    border-color: #64748b;
+}
+
+.pg-pane pre {
+    margin: 0;
+    padding: 0.9rem 1rem;
+    color: #e2e8f0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    overflow-x: auto;
+}
+
+/* highlight.js (github-dark theme) colours the tokens; the box keeps its own background */
+.pg-pane pre code.hljs {
+    padding: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.pg-pane pre.pg-pre-empty {
+    color: #94a3b8;
+}
+
+/* styles.css lays out ``nav`` as a flex row for the site header; the sidebar list is a plain block */
+.pg-side nav.pg-side-list {
+    display: block;
+    position: static;
+    padding: 0 0.25rem 0 0;
+    background: none;
+    box-shadow: none;
+    max-width: none;
+}
+
+/* narrow screens: the demo first, the operator list below it in its own scroll box */
+@media (max-width: 899px) {
+    .pg-detail {
+        order: -1;
+        margin-bottom: 1.5rem;
+    }
+
+    .pg-side nav.pg-side-list {
+        max-height: 50vh;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* fixed guidance image: in the picker row, under the output, same size as the sample thumbnails */
+.pg-guide {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    gap: 0.2rem;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    cursor: default;
+}
+
+.pg-thumbs .pg-guide-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    border: 2px solid var(--border-color);
+    object-fit: cover;
+}
+
+.pg-thumbs .pg-guide-large {
+    display: none;
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 0.4rem);
+    transform: translateX(-50%);
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    background: var(--background-color);
+    z-index: 5;
+}
+
+.pg-guide:hover .pg-guide-large {
+    display: block;
+}
+
+/* sponsor block at the bottom of the sidebar (same copy as the docs sidebar) */
+.pg-sponsors {
+    flex: 0 0 auto;
+    margin-top: 0.75rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+}
+
+.pg-sponsors p {
+    margin: 0 0 0.4rem;
+}
+
+.pg-sponsors p:last-child {
+    margin-bottom: 0;
+}
+
+.pg-sponsors__title {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+}
+
+.pg-sponsors a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.pg-sponsors a:hover {
+    text-decoration: underline;
+}
+
+/* ---- right sidebar: on this page, links, sponsors ---- */
+
+.pg-right {
+    position: sticky;
+    top: 5rem;
+    align-self: start;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    border-left: 1px solid var(--border-color);
+    padding-left: 1.25rem;
+    margin-left: 1.75rem;
+    font-size: 0.85rem;
+}
+
+.pg-right-item + .pg-right-item {
+    margin-top: 1.25rem;
+}
+
+.pg-right-title {
+    margin: 0 0 0.4rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.pg-right-title i {
+    margin-right: 0.35rem;
+    color: var(--text-muted);
+}
+
+.pg-toc {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 0.25rem;
+}
+
+.pg-toc li {
+    margin: 0.3rem 0;
+}
+
+.pg-toc a,
+.pg-right-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.pg-toc a:hover,
+.pg-right-links a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.pg-right-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.pg-right-links a {
+    color: var(--primary-color);
+}
+
+.pg-right-links i {
+    width: 1.1rem;
+    margin-right: 0.15rem;
+    color: var(--text-muted);
+}
+
+.pg-right .pg-sponsors {
+    margin-top: 0;
+}
+
+@media (max-width: 1199px) {
+    .pg-shell {
+        grid-template-columns: 17rem minmax(0, 1fr);
+    }
+
+    .pg-right {
+        grid-column: 2;
+        position: static;
+        max-height: none;
+        border-left: none;
+        padding-left: 0;
+        margin: 1.5rem 0 0 1.75rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .pg-right-item + .pg-right-item {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 899px) {
+    .pg-shell {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pg-right {
+        grid-column: 1;
+        margin-left: 0;
+    }
+}
+
+/* ---- pipelines ---- */
+
+.pg-pipelines-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.25rem 0 0.9rem;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    background: var(--background-color);
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.pg-pipelines-btn:hover,
+.pg-pipelines-btn-current {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.pg-pipe-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.pg-pipe-head h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.pg-pipe-head .pg-btn {
+    margin-left: auto;
+}
+
+.pg-input {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font: inherit;
+    color: var(--text-primary);
+    background: var(--background-color);
+}
+
+.pg-pipe-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    min-width: 14rem;
+    flex: 1 1 14rem;
+}
+
+.pg-pipe-container {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: var(--surface-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.pg-pipe-namerow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+}
+
+.pg-pipe-namerow .pg-input {
+    flex: 1 1 auto;
+    max-width: 24rem;
+}
+
+.pg-pipe-grid {
+    display: flex;
+    flex-direction: column;  /* one full-width card per pipeline */
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.pg-pipe-create {
+    padding: 0;
+    border-style: dashed;
+}
+
+.pg-pipe-create-open,
+.pg-pipe-create:hover {
+    border-color: var(--primary-color);
+}
+
+.pg-pipe-create-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: none;
+    background: none;
+    color: var(--primary-color);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pg-pipe-create-btn:hover {
+    background: var(--primary-soft);
+}
+
+.pg-pipe-create-form {
+    padding: 0.25rem 1.1rem 1rem;
+    border-top: 1px dashed var(--border-color);
+}
+
+.pg-pipe-create-form .pg-note {
+    margin: 0.5rem 0 0.5rem;
+}
+
+.pg-pipe-choices {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));  /* the three containers side by side */
+    gap: 0.6rem;
+}
+
+@media (max-width: 760px) {
+    .pg-pipe-choices {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.pg-pipe-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--background-color);
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+}
+
+.pg-pipe-choice:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.pg-pipe-choice code {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.pg-pipe-choice .pg-note {
+    margin: 0;
+    font-size: 0.78rem;
+}
+
+.pg-pipe-card {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--background-color);
+    padding: 1rem 1.1rem;
+    text-align: left;
+    font: inherit;
+}
+
+.pg-pipe-card .pg-note {
+    margin: 0.25rem 0;
+}
+
+.pg-pipe-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.pg-pipe-name:hover {
+    color: var(--primary-color);
+}
+
+.pg-pipe-steps {
+    margin: 0.4rem 0 0.6rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    overflow-wrap: anywhere;
+}
+
+.pg-pipe-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.pg-link {
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 0.82rem;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.pg-link:hover {
+    text-decoration: underline;
+}
+
+.pg-link:disabled {
+    color: var(--text-muted);
+    cursor: default;
+    text-decoration: none;
+}
+
+.pg-link-danger {
+    color: #b91c1c;
+}
+
+/* editor: preview, steps, actions, then code, each full width */
+.pg-pipe-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1rem 0;
+}
+
+/* preview: sample picker as a column on the left, input and output side by side */
+.pg-pipe-preview-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.9rem;
+}
+
+.pg-pipe-thumbs {
+    display: block;
+    margin: 0;
+}
+
+.pg-pipe-pick {
+    /* beside the preview: images down the first column, clips down the second */
+    grid-template-columns: repeat(2, 56px);
+    grid-template-rows: repeat(3, 56px);
+    grid-auto-flow: column;
+    align-content: start;
+}
+
+.pg-pipe-images {
+    flex: 0 1 40rem;
+    min-width: 0;
+}
+
+@media (max-width: 640px) {
+    .pg-pipe-preview-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .pg-pipe-pick {
+        flex-direction: row;
+    }
+}
+
+.pg-pipe-actions-block .pg-actions {
+    margin-top: 0;
+}
+
+.pg-pipe-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+/* one row per step: number | name | parameters | tools */
+.pg-pipe-step {
+    display: grid;
+    grid-template-columns: 1.4rem 11rem minmax(0, 1fr) auto;
+    align-items: start;  /* name stays top-left when the parameters stack */
+    gap: 0.4rem 0.9rem;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--background-color);
+}
+
+.pg-pipe-step:hover {
+    border-color: #c7d2fe;
+}
+
+.pg-pipe-step-num {
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    background: var(--surface-color);
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pg-pipe-step-params {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+.pg-pipe-step-params .pg-note {
+    margin: 0;
+}
+
+/* fixed columns so every label, control and value line up across a step's parameters */
+.pg-pipe-param {
+    display: grid;
+    grid-template-columns: 7.5rem 12rem 3rem;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+}
+
+.pg-pipe-param select,
+.pg-pipe-param input[type="range"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pg-pipe-param output {
+    text-align: right;
+}
+
+.pg-pipe-param label {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+}
+
+.pg-pipe-param select {
+    padding: 0.15rem 0.35rem;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 899px) {
+    .pg-pipe-step {
+        grid-template-columns: 1.4rem minmax(0, 1fr) auto;
+    }
+
+    .pg-pipe-step-params {
+        grid-column: 2 / -1;
+    }
+}
+
+.pg-pipe-step-name {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    line-height: 1.6rem;  /* sits on the first parameter's baseline */
+    overflow-wrap: anywhere;
+}
+
+.pg-pipe-step-num,
+.pg-pipe-step-tools {
+    margin-top: 0.1rem;
+}
+
+.pg-pipe-step-name:hover {
+    color: var(--primary-color);
+}
+
+.pg-pipe-step-tools {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.pg-pipe-add {
+    margin-top: 0.75rem;
+}
+
+.pg-select {
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font: inherit;
+    font-size: 0.9rem;
+    background: var(--background-color);
+}
+
+.pg-pipe-warnings {
+    margin: 0.75rem 0 0;
+    padding-left: 1.1rem;
+    font-size: 0.8rem;
+    color: var(--warn-text);
+}
+
+.pg-pipe-warnings:empty {
+    display: none;
+}
+
+.pg-pipe-actions-row {
+    margin-top: 0.75rem;
+}
+
+.pg-pipe-preview .pg-status {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.pg-pipe-code {
+    margin-top: 0.5rem;
+}
+
+.pg-pipe-code .pg-tab {
+    cursor: default;
+}
+
+.pg-pipe-choice code,
+.pg-pipe-container {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.pg-input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+    border-color: var(--primary-color);
+}
+
+/* video samples in the picker: a play badge over the poster */
+.pg-thumbs button.pg-thumb-video {
+    position: relative;
+}
+
+.pg-thumb-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.8rem;
+    pointer-events: none;
+}
+
+.pg-thumb-play i {
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0.1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ---- Operators | Models switch ---- */
+.pg-mode {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.2rem;
+    margin-bottom: 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--surface-color);
+}
+
+.pg-mode button {
+    flex: 1;
+    padding: 0.4rem 0.5rem;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pg-mode button[aria-selected="true"] {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.pg-side nav.pg-models-list {
+    display: block;
+}
+
+.pg-model-task {
+    margin: 0.5rem 0 0.2rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.pg-row-name.pg-row-model {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.1rem;
+    padding: 0.35rem 0.5rem;
+}
+
+.pg-model-title {
+    font-weight: 600;
+}
+
+.pg-model-sub {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 0.74rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.pg-row-current .pg-model-sub {
+    color: var(--primary-color);
+}
+
+.pg-model-size {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* ---- Model widget ---- */
+.pg-model-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.3rem;
+}
+
+.pg-model-head h1 {
+    margin: 0;
+}
+
+.pg-tag-task {
+    background: rgba(37, 99, 235, 0.08);
+    color: var(--primary-color);
+}
+
+.pg-model-stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+.pg-model-stage figure {
+    margin: 0;
+}
+
+.pg-model-stage canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--code-bg);
+}
+
+.pg-model-stage figcaption {
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.pg-model-actions {
+    margin-top: 0.9rem;
+}
+
+.pg-progress {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-color);
+    overflow: hidden;
+    margin: 0.3rem 0 0.8rem;
+}
+
+.pg-progress > div {
+    height: 100%;
+    width: 0;
+    background: var(--primary-color);
+    transition: width 0.15s linear;
+}
+
+.pg-model-param {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.pg-model-param input[type="range"] {
+    width: 9rem;
+}
+
+.pg-model-card {
+    margin-top: 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.pg-model-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.pg-model-card th,
+.pg-model-card td {
+    padding: 0.55rem 0.8rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.pg-model-card th {
+    width: 9rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: var(--surface-color);
+}
+
+.pg-model-card tr:last-child th,
+.pg-model-card tr:last-child td {
+    border-bottom: none;
+}
+
+@media (max-width: 700px) {
+    .pg-model-stage {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* hidden must win over the sidebar's display overrides when the Models tab is active */
+.pg-side nav.pg-side-list[hidden],
+.pg-side .pg-filters[hidden],
+.pg-side .pg-meta[hidden] {
+    display: none !important;
+}
+
+.pg-model-thumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.8rem 0 0;
+}
+
+
+/* ---- Load-before-run dialog ---- */
+.pg-dialog {
+    /* the site reset zeroes margins, which would pin the dialog to the top-left corner */
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(30rem, calc(100vw - 2rem));
+    height: fit-content;
+    max-width: 30rem;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+    color: var(--text-primary);
+}
+
+.pg-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.45);
+}
+
+.pg-dialog h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1.15rem;
+}
+
+.pg-dialog p {
+    margin: 0 0 0.7rem;
+    color: var(--text-secondary);
+    font-size: 0.93rem;
+    line-height: 1.5;
+}
+
+.pg-dialog-warn {
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    background: var(--warn-bg);
+    color: var(--warn-text) !important;
+}
+
+.pg-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+
+/* feature models: the output is the frame and its warped copy side by side */
+.pg-model-stage-wide {
+    grid-template-columns: 1fr 2fr;
+}
+
+
+.pg-pipe-step-model .pg-pipe-step-name {
+    font-weight: 700;
+}
+
+.pg-pipe-step-params .pg-tag-task {
+    align-self: center;
+}
+
+
+/* ---- pipeline: the optional model block under the steps ---- */
+.pg-pipe-model {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border: 1px dashed var(--border-color);
+    border-radius: 10px;
+    background: var(--surface-color);
+}
+
+.pg-pipe-model-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+}
+
+.pg-pipe-model-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.pg-pipe-model-label .pg-note {
+    font-weight: 400;
+}
+
+.pg-pipe-model-head .pg-select {
+    flex: 1;
+    min-width: 16rem;
+}
+
+.pg-pipe-model-info {
+    margin: 0.7rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.pg-pipe-model-info a {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.pg-pipe-model-info .pg-tag {
+    vertical-align: middle;
+}

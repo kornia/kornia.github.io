@@ -1,0 +1,3446 @@
+
+pytorch2.9.1+cu128:Ø˜	
+ê
+x
+val_1padnode_pad"Pad*
+mode"edge†J7
+	namespace*: __main__._Wrapper1/pad: aten.pad.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.pad.default']Jî
+pkg.torch.onnx.fx_nodez%pad : [num_users=3] = call_function[target=torch.ops.aten.pad.default](args = (%x, [0, 0, 0, 0], replicate), kwargs = {})J)
+pkg.torch.onnx.name_scopes['', 'pad']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+å
+pad
+val_2selectnode_select"Gather*
+axis†J9
+	namespace,: __main__._Wrapper1/select: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']JÖ
+pkg.torch.onnx.fx_nodek%select : [num_users=2] = call_function[target=torch.ops.aten.select.int](args = (%pad, 1, 0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'select']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ñ
+pad
+val_3select_1node_select_1"Gather*
+axis†J;
+	namespace.: __main__._Wrapper1/select_1: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Já
+pkg.torch.onnx.fx_nodem%select_1 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%pad, 1, 1), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'select_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ñ
+pad
+val_4select_2node_select_2"Gather*
+axis†J;
+	namespace.: __main__._Wrapper1/select_2: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Já
+pkg.torch.onnx.fx_nodem%select_2 : [num_users=2] = call_function[target=torch.ops.aten.select.int](args = (%pad, 1, 2), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'select_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ù
+select
+val_5mulnode_mul"MulJ6
+	namespace): __main__._Wrapper1/mul: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']JÜ
+pkg.torch.onnx.fx_nodel%mul : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%select, 0.299), kwargs = {})J)
+pkg.torch.onnx.name_scopes['', 'mul']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ç
+select_1
+val_6mul_1
+node_mul_1"MulJ8
+	namespace+: __main__._Wrapper1/mul_1: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jä
+pkg.torch.onnx.fx_nodep%mul_1 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%select_1, 0.587), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'mul_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ô
+mul
+mul_1addnode_add"AddJ6
+	namespace): __main__._Wrapper1/add: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']JÑ
+pkg.torch.onnx.fx_nodej%add : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul, %mul_1), kwargs = {})J)
+pkg.torch.onnx.name_scopes['', 'add']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ç
+select_2
+val_7mul_2
+node_mul_2"MulJ8
+	namespace+: __main__._Wrapper1/mul_2: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jä
+pkg.torch.onnx.fx_nodep%mul_2 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%select_2, 0.114), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'mul_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˘
+add
+mul_2add_1
+node_add_1"AddJ8
+	namespace+: __main__._Wrapper1/add_1: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']JÜ
+pkg.torch.onnx.fx_nodel%add_1 : [num_users=3] = call_function[target=torch.ops.aten.add.Tensor](args = (%add, %mul_2), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˘
+select_2
+add_1subnode_sub"SubJ6
+	namespace): __main__._Wrapper1/sub: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%sub : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%select_2, %add_1), kwargs = {})J)
+pkg.torch.onnx.name_scopes['', 'sub']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¯
+sub
+val_8mul_3
+node_mul_3"MulJ8
+	namespace+: __main__._Wrapper1/mul_3: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']JÖ
+pkg.torch.onnx.fx_nodek%mul_3 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub, 0.564), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'mul_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˙
+mul_3
+val_9add_2
+node_add_2"AddJ8
+	namespace+: __main__._Wrapper1/add_2: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']JÖ
+pkg.torch.onnx.fx_nodek%add_2 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_3, 0.5), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ˇ
+select
+add_1sub_1
+node_sub_1"SubJ8
+	namespace+: __main__._Wrapper1/sub_1: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%sub_1 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%select, %add_1), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'sub_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˝
+sub_1
+val_10mul_4
+node_mul_4"MulJ8
+	namespace+: __main__._Wrapper1/mul_4: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Já
+pkg.torch.onnx.fx_nodem%mul_4 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_1, 0.713), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'mul_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˙
+mul_4
+val_9add_3
+node_add_3"AddJ8
+	namespace+: __main__._Wrapper1/add_3: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']JÖ
+pkg.torch.onnx.fx_nodek%add_3 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_4, 0.5), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+£
+add_1
+val_11val_12node_Unsqueeze_12"	UnsqueezeJ;
+	namespace.: __main__._Wrapper1/stack: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']Jô
+pkg.torch.onnx.fx_node%stack : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%add_1, %add_2, %add_3], -3), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'stack']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+£
+add_2
+val_11val_14node_Unsqueeze_14"	UnsqueezeJ;
+	namespace.: __main__._Wrapper1/stack: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']Jô
+pkg.torch.onnx.fx_node%stack : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%add_1, %add_2, %add_3], -3), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'stack']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+£
+add_3
+val_11val_16node_Unsqueeze_16"	UnsqueezeJ;
+	namespace.: __main__._Wrapper1/stack: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']Jô
+pkg.torch.onnx.fx_node%stack : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%add_1, %add_2, %add_3], -3), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'stack']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∑
+val_12
+val_14
+val_16stack
+node_stack"Concat*
+axis˝ˇˇˇˇˇˇˇˇ†J;
+	namespace.: __main__._Wrapper1/stack: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']Jô
+pkg.torch.onnx.fx_node%stack : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%add_1, %add_2, %add_3], -3), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'stack']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+é
+stack
+scalar_tensor_default_5mul_5
+node_mul_5"MulJ8
+	namespace+: __main__._Wrapper1/mul_5: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Já
+pkg.torch.onnx.fx_nodem%mul_5 : [num_users=3] = call_function[target=torch.ops.aten.mul.Tensor](args = (%stack, 255.0), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'mul_5']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ö
+mul_5
+val_2select_3node_select_3"Gather*
+axis†J;
+	namespace.: __main__._Wrapper1/select_3: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jâ
+pkg.torch.onnx.fx_nodeo%select_3 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%mul_5, 1, 0), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'select_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ö
+mul_5
+val_3select_4node_select_4"Gather*
+axis†J;
+	namespace.: __main__._Wrapper1/select_4: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jâ
+pkg.torch.onnx.fx_nodeo%select_4 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%mul_5, 1, 1), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'select_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ö
+mul_5
+val_4select_5node_select_5"Gather*
+axis†J;
+	namespace.: __main__._Wrapper1/select_5: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jâ
+pkg.torch.onnx.fx_nodeo%select_5 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%mul_5, 1, 2), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'select_5']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∏
+select_4
+val_18unsqueeze_2node_unsqueeze_2"	UnsqueezeJE
+	namespace8: __main__._Wrapper1/unsqueeze_2: aten.unsqueeze.defaultJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jì
+pkg.torch.onnx.fx_nodey%unsqueeze_2 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%select_4, 1), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'unsqueeze_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+±
+unsqueeze_2
+val_59pad_1
+node_pad_1"Pad*
+mode"reflect†J9
+	namespace,: __main__._Wrapper1/pad_1: aten.pad.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.pad.default']Jü
+pkg.torch.onnx.fx_nodeÑ%pad_1 : [num_users=1] = call_function[target=torch.ops.aten.pad.default](args = (%unsqueeze_2, [1, 1, 0, 0], reflect), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'pad_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+™
+pad_1
+val_71view_3node_view_3"Reshape*
+	allowzero†J;
+	namespace.: __main__._Wrapper1/view_3: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jñ
+pkg.torch.onnx.fx_node|%view_3 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%pad_1, [-1, 1, 256, 258]), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'view_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¥
+view_3
+view_2conv2dnode_Conv_436"Conv*
+group†*
+pads@ @ @ @ †*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†J=
+	namespace0: __main__._Wrapper1/conv2d: aten.conv2d.defaultJ?
+!pkg.onnxscript.rewriter.rule_nameRemoveOptionalBiasFromConvJO
+pkg.torch.onnx.class_hierarchy-['__main__._Wrapper1', 'aten.conv2d.default']Jè
+pkg.torch.onnx.fx_nodeu%conv2d : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%view_3, %view_2), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'conv2d']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¶
+conv2d
+val_91pad_2
+node_pad_2"Pad*
+mode"reflect†J9
+	namespace,: __main__._Wrapper1/pad_2: aten.pad.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.pad.default']Jô
+pkg.torch.onnx.fx_node%pad_2 : [num_users=1] = call_function[target=torch.ops.aten.pad.default](args = (%view_4, [0, 0, 1, 1], reflect), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'pad_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+´
+pad_2
+val_103view_6node_view_6"Reshape*
+	allowzero†J;
+	namespace.: __main__._Wrapper1/view_6: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jñ
+pkg.torch.onnx.fx_node|%view_6 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%pad_2, [-1, 1, 258, 256]), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'view_6']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+º
+view_6
+view_5conv2d_1node_Conv_437"Conv*
+group†*
+pads@ @ @ @ †*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†J?
+	namespace2: __main__._Wrapper1/conv2d_1: aten.conv2d.defaultJ?
+!pkg.onnxscript.rewriter.rule_nameRemoveOptionalBiasFromConvJO
+pkg.torch.onnx.class_hierarchy-['__main__._Wrapper1', 'aten.conv2d.default']Jë
+pkg.torch.onnx.fx_nodew%conv2d_1 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%view_6, %view_5), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'conv2d_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˘
+conv2d_1
+ 
+ 
+val_118upsample_bilinear2dnode_upsample_bilinear2d"Resize*&
+keep_aspect_ratio_policy"stretch†*
+	antialias †*
+extrapolation_value    †*
+exclude_outside †*
+nearest_mode"floor†*7
+coordinate_transformation_mode"pytorch_half_pixel†*
+cubic_coeff_a  @ø†*
+mode"linear†JS
+	namespaceF: __main__._Wrapper1/upsample_bilinear2d: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper1', 'aten.upsample_bilinear2d.vec']J∂
+pkg.torch.onnx.fx_nodeõ%upsample_bilinear2d : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%view_7, [128, 128], False, None), kwargs = {})J9
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∏
+select_5
+val_18unsqueeze_7node_unsqueeze_7"	UnsqueezeJE
+	namespace8: __main__._Wrapper1/unsqueeze_7: aten.unsqueeze.defaultJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jì
+pkg.torch.onnx.fx_nodey%unsqueeze_7 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%select_5, 1), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'unsqueeze_7']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+±
+unsqueeze_7
+val_59pad_3
+node_pad_3"Pad*
+mode"reflect†J9
+	namespace,: __main__._Wrapper1/pad_3: aten.pad.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.pad.default']Jü
+pkg.torch.onnx.fx_nodeÑ%pad_3 : [num_users=1] = call_function[target=torch.ops.aten.pad.default](args = (%unsqueeze_7, [1, 1, 0, 0], reflect), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'pad_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ø
+pad_3
+val_71view_11node_view_11"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_11: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jó
+pkg.torch.onnx.fx_node}%view_11 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%pad_3, [-1, 1, 256, 258]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_11']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ø
+view_11
+view_2conv2d_2node_Conv_438"Conv*
+group†*
+pads@ @ @ @ †*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†J?
+	namespace2: __main__._Wrapper1/conv2d_2: aten.conv2d.defaultJ?
+!pkg.onnxscript.rewriter.rule_nameRemoveOptionalBiasFromConvJO
+pkg.torch.onnx.class_hierarchy-['__main__._Wrapper1', 'aten.conv2d.default']Jì
+pkg.torch.onnx.fx_nodey%conv2d_2 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%view_11, %view_10), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'conv2d_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+™
+conv2d_2
+val_91pad_4
+node_pad_4"Pad*
+mode"reflect†J9
+	namespace,: __main__._Wrapper1/pad_4: aten.pad.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.pad.default']Jõ
+pkg.torch.onnx.fx_nodeÄ%pad_4 : [num_users=1] = call_function[target=torch.ops.aten.pad.default](args = (%view_12, [0, 0, 1, 1], reflect), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'pad_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∞
+pad_4
+val_103view_14node_view_14"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_14: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jó
+pkg.torch.onnx.fx_node}%view_14 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%pad_4, [-1, 1, 258, 256]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_14']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ø
+view_14
+view_5conv2d_3node_Conv_439"Conv*
+group†*
+pads@ @ @ @ †*
+auto_pad"NOTSET†*
+strides@@†*
+	dilations@@†J?
+	namespace2: __main__._Wrapper1/conv2d_3: aten.conv2d.defaultJ?
+!pkg.onnxscript.rewriter.rule_nameRemoveOptionalBiasFromConvJO
+pkg.torch.onnx.class_hierarchy-['__main__._Wrapper1', 'aten.conv2d.default']Jì
+pkg.torch.onnx.fx_nodey%conv2d_3 : [num_users=1] = call_function[target=torch.ops.aten.conv2d.default](args = (%view_14, %view_13), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'conv2d_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ñ
+conv2d_3
+ 
+ 
+val_118upsample_bilinear2d_1node_upsample_bilinear2d_1"Resize*&
+keep_aspect_ratio_policy"stretch†*
+	antialias †*
+extrapolation_value    †*
+exclude_outside †*
+nearest_mode"floor†*7
+coordinate_transformation_mode"pytorch_half_pixel†*
+cubic_coeff_a  @ø†*
+mode"linear†JU
+	namespaceH: __main__._Wrapper1/upsample_bilinear2d_1: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper1', 'aten.upsample_bilinear2d.vec']Jπ
+pkg.torch.onnx.fx_nodeû%upsample_bilinear2d_1 : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%view_15, [128, 128], False, None), kwargs = {})J;
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ª
+upsample_bilinear2d
+val_2	select_10node_select_10"Gather*
+axis†J<
+	namespace/: __main__._Wrapper1/select_10: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jò
+pkg.torch.onnx.fx_node~%select_10 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%upsample_bilinear2d, 1, 0), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'select_10']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¿
+upsample_bilinear2d_1
+val_2	select_11node_select_11"Gather*
+axis†J<
+	namespace/: __main__._Wrapper1/select_11: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jõ
+pkg.torch.onnx.fx_nodeÄ%select_11 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%upsample_bilinear2d_1, 1, 0), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'select_11']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∑
+select_3
+val_220view_16node_view_16"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_16: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jõ
+pkg.torch.onnx.fx_nodeÄ%view_16 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%select_3, [1, 32, 8, 32, 8]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_16']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∏
+view_16permutenode_permute"	Transpose*
+perm@ @@@@†J?
+	namespace2: __main__._Wrapper1/permute: aten.permute.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.permute.default']Jõ
+pkg.torch.onnx.fx_nodeÄ%permute : [num_users=1] = call_function[target=torch.ops.aten.permute.default](args = (%view_16, [0, 1, 3, 2, 4]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'permute']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+‰
+permute
+val_226_unsafe_viewnode__unsafe_view"Reshape*
+	allowzero†JI
+	namespace<: __main__._Wrapper1/_unsafe_view: aten._unsafe_view.defaultJU
+pkg.torch.onnx.class_hierarchy3['__main__._Wrapper1', 'aten._unsafe_view.default']J•
+pkg.torch.onnx.fx_nodeä%_unsafe_view : [num_users=1] = call_function[target=torch.ops.aten._unsafe_view.default](args = (%clone_8, [1, 1024, 8, 8]), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', '_unsafe_view']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+π
+	select_10
+val_233view_17node_view_17"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_17: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jú
+pkg.torch.onnx.fx_nodeÅ%view_17 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%select_10, [1, 16, 8, 16, 8]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_17']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¬
+view_17	permute_1node_permute_1"	Transpose*
+perm@ @@@@†JA
+	namespace4: __main__._Wrapper1/permute_1: aten.permute.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.permute.default']Jù
+pkg.torch.onnx.fx_nodeÇ%permute_1 : [num_users=1] = call_function[target=torch.ops.aten.permute.default](args = (%view_17, [0, 1, 3, 2, 4]), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'permute_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ô
+	permute_1
+val_239_unsafe_view_1node__unsafe_view_1"Reshape*
+	allowzero†JK
+	namespace>: __main__._Wrapper1/_unsafe_view_1: aten._unsafe_view.defaultJU
+pkg.torch.onnx.class_hierarchy3['__main__._Wrapper1', 'aten._unsafe_view.default']J¶
+pkg.torch.onnx.fx_nodeã%_unsafe_view_1 : [num_users=1] = call_function[target=torch.ops.aten._unsafe_view.default](args = (%clone_9, [1, 256, 8, 8]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', '_unsafe_view_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+π
+	select_11
+val_233view_18node_view_18"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_18: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jú
+pkg.torch.onnx.fx_nodeÅ%view_18 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%select_11, [1, 16, 8, 16, 8]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_18']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¬
+view_18	permute_2node_permute_2"	Transpose*
+perm@ @@@@†JA
+	namespace4: __main__._Wrapper1/permute_2: aten.permute.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.permute.default']Jù
+pkg.torch.onnx.fx_nodeÇ%permute_2 : [num_users=1] = call_function[target=torch.ops.aten.permute.default](args = (%view_18, [0, 1, 3, 2, 4]), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'permute_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+
+	permute_2
+val_239_unsafe_view_2node__unsafe_view_2"Reshape*
+	allowzero†JK
+	namespace>: __main__._Wrapper1/_unsafe_view_2: aten._unsafe_view.defaultJU
+pkg.torch.onnx.class_hierarchy3['__main__._Wrapper1', 'aten._unsafe_view.default']Jß
+pkg.torch.onnx.fx_nodeå%_unsafe_view_2 : [num_users=1] = call_function[target=torch.ops.aten._unsafe_view.default](args = (%clone_10, [1, 256, 8, 8]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', '_unsafe_view_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+å
+_unsafe_view
+val_253sub_6
+node_sub_6"SubJ8
+	namespace+: __main__._Wrapper1/sub_6: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jé
+pkg.torch.onnx.fx_nodet%sub_6 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%_unsafe_view, 128.0), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'sub_6']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+≠
+sub_6
+val_257view_19node_view_19"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_19: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jî
+pkg.torch.onnx.fx_nodez%view_19 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%permute_3, [1024, 64]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_19']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˘
+view_19
+view_20mmnode_mm"MatMulJ5
+	namespace(: __main__._Wrapper1/mm: aten.mm.defaultJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mm.default']Jâ
+pkg.torch.onnx.fx_nodeo%mm : [num_users=1] = call_function[target=torch.ops.aten.mm.default](args = (%view_19, %view_20), kwargs = {})J(
+pkg.torch.onnx.name_scopes
+['', 'mm']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+®
+mm
+val_226view_21node_view_21"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_21: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jí
+pkg.torch.onnx.fx_nodex%view_21 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%mm, [1, 1024, 8, 8]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_21']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+î
+unsqueeze_13
+view_21mul_10node_mul_10"MulJ9
+	namespace,: __main__._Wrapper1/mul_10: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jí
+pkg.torch.onnx.fx_nodex%mul_10 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%unsqueeze_13, %view_21), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_10']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∞
+_unsafe_view_1
+_unsafe_view_2catnode_cat"Concat*
+axis†J7
+	namespace*: __main__._Wrapper1/cat: aten.cat.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.cat.default']Jü
+pkg.torch.onnx.fx_nodeÑ%cat : [num_users=1] = call_function[target=torch.ops.aten.cat.default](args = ([%_unsafe_view_1, %_unsafe_view_2], 1), kwargs = {})J)
+pkg.torch.onnx.name_scopes['', 'cat']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˙
+cat
+val_253sub_7
+node_sub_7"SubJ8
+	namespace+: __main__._Wrapper1/sub_7: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']JÖ
+pkg.torch.onnx.fx_nodek%sub_7 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%cat, 128.0), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'sub_7']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¨
+sub_7
+val_271view_22node_view_22"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_22: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jì
+pkg.torch.onnx.fx_nodey%view_22 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%permute_5, [512, 64]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_22']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+É
+view_22
+view_23mm_1	node_mm_1"MatMulJ7
+	namespace*: __main__._Wrapper1/mm_1: aten.mm.defaultJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mm.default']Jã
+pkg.torch.onnx.fx_nodeq%mm_1 : [num_users=1] = call_function[target=torch.ops.aten.mm.default](args = (%view_22, %view_23), kwargs = {})J*
+pkg.torch.onnx.name_scopes['', 'mm_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+´
+mm_1
+val_281view_24node_view_24"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_24: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jì
+pkg.torch.onnx.fx_nodey%view_24 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%mm_1, [1, 512, 8, 8]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_24']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+î
+unsqueeze_13
+view_24mul_11node_mul_11"MulJ9
+	namespace,: __main__._Wrapper1/mul_11: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jí
+pkg.torch.onnx.fx_nodex%mul_11 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%unsqueeze_15, %view_24), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_11']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+a
+scalar_tensor_default_4ltnode_lt"LessJ4
+	namespace': __main__._Wrapper1/lt: aten.lt.TensorJJ
+pkg.torch.onnx.class_hierarchy(['__main__._Wrapper1', 'aten.lt.Tensor']Jí
+pkg.torch.onnx.fx_nodex%lt : [num_users=1] = call_function[target=torch.ops.aten.lt.Tensor](args = (%a, %scalar_tensor_default_4), kwargs = {})J(
+pkg.torch.onnx.name_scopes
+['', 'lt']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ü
+a
+reciprocalnode_reciprocal"
+ReciprocalJE
+	namespace8: __main__._Wrapper1/reciprocal: aten.reciprocal.defaultJS
+pkg.torch.onnx.class_hierarchy1['__main__._Wrapper1', 'aten.reciprocal.default']Jä
+pkg.torch.onnx.fx_nodep%reciprocal : [num_users=1] = call_function[target=torch.ops.aten.reciprocal.default](args = (%a,), kwargs = {})J0
+pkg.torch.onnx.name_scopes['', 'reciprocal']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+é
+
+reciprocal
+val_283mul_12node_mul_12"MulJ9
+	namespace,: __main__._Wrapper1/mul_12: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jé
+pkg.torch.onnx.fx_nodet%mul_12 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%reciprocal, 5000.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_12']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˘
+a
+val_284mul_13node_mul_13"MulJ9
+	namespace,: __main__._Wrapper1/mul_13: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']JÇ
+pkg.torch.onnx.fx_nodeh%mul_13 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%a, 2.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_13']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ä
+val_285
+mul_13sub_8
+node_sub_8"SubJ8
+	namespace+: __main__._Wrapper1/sub_8: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jà
+pkg.torch.onnx.fx_noden%sub_8 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (200.0, %mul_13), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'sub_8']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ä
+lt
+mul_12
+sub_8where
+node_where"WhereJ8
+	namespace+: __main__._Wrapper1/where: aten.where.selfJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.where.self']Jé
+pkg.torch.onnx.fx_nodet%where : [num_users=2] = call_function[target=torch.ops.aten.where.self](args = (%lt, %mul_12, %sub_8), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'where']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˙
+wherefloor
+node_floor"FloorJ;
+	namespace.: __main__._Wrapper1/floor: aten.floor.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.floor.default']JÑ
+pkg.torch.onnx.fx_nodej%floor : [num_users=2] = call_function[target=torch.ops.aten.floor.default](args = (%where,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'floor']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˙
+where
+val_9sub_9
+node_sub_9"SubJ8
+	namespace+: __main__._Wrapper1/sub_9: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']JÖ
+pkg.torch.onnx.fx_nodek%sub_9 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%where, 0.5), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'sub_9']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ç
+sub_9
+floorsub_10node_sub_10"SubJ9
+	namespace,: __main__._Wrapper1/sub_10: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%sub_10 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%sub_9, %floor), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_10']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ë
+sub_10
+val_286pow_9
+node_pow_9"PowJ?
+	namespace2: __main__._Wrapper1/pow_9: aten.pow.Tensor_ScalarJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.pow.Tensor_Scalar']Jã
+pkg.torch.onnx.fx_nodeq%pow_9 : [num_users=1] = call_function[target=torch.ops.aten.pow.Tensor_Scalar](args = (%sub_10, 3), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'pow_9']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˝
+floor
+pow_9add_4
+node_add_4"AddJ8
+	namespace+: __main__._Wrapper1/add_4: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jà
+pkg.torch.onnx.fx_noden%add_4 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%floor, %pow_9), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˘
+add_4
+val_394unsqueeze_18node_Unsqueeze_443"	UnsqueezeJF
+	namespace9: __main__._Wrapper1/unsqueeze_18: aten.unsqueeze.defaultJ7
+!pkg.onnxscript.rewriter.rule_nameUnsqueezeUnsqueezeJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jò
+pkg.torch.onnx.fx_node~%unsqueeze_18 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%unsqueeze_17, 2), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'unsqueeze_18']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∆
+unsqueeze_18
+val_287unsqueeze_19node_unsqueeze_19"	UnsqueezeJF
+	namespace9: __main__._Wrapper1/unsqueeze_19: aten.unsqueeze.defaultJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jò
+pkg.torch.onnx.fx_node~%unsqueeze_19 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%unsqueeze_18, 3), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'unsqueeze_19']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+û
+unsqueeze_16
+unsqueeze_19mul_14node_mul_14"MulJ9
+	namespace,: __main__._Wrapper1/mul_14: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jó
+pkg.torch.onnx.fx_node}%mul_14 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%unsqueeze_16, %unsqueeze_19), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_14']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+è
+mul_14
+scalar_tensor_default_4add_5
+node_add_5"AddJ8
+	namespace+: __main__._Wrapper1/add_5: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Já
+pkg.torch.onnx.fx_nodem%add_5 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_14, 50.0), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_5']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˛
+add_5
+val_289div_8
+node_div_8"DivJ8
+	namespace+: __main__._Wrapper1/div_8: aten.div.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.div.Tensor']Já
+pkg.torch.onnx.fx_nodem%div_8 : [num_users=2] = call_function[target=torch.ops.aten.div.Tensor](args = (%add_5, 100.0), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'div_8']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ß
+div_8
+scalar_tensor_default_5sub_11node_sub_11"SubJ9
+	namespace,: __main__._Wrapper1/sub_11: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jú
+pkg.torch.onnx.fx_nodeÅ%sub_11 : [num_users=2] = call_function[target=torch.ops.aten.sub.Tensor](args = (%div_8, %scalar_tensor_default_5), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_11']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ï
+sub_11
+scalar_tensor_default_6gtnode_gt"GreaterJ4
+	namespace': __main__._Wrapper1/gt: aten.gt.TensorJJ
+pkg.torch.onnx.class_hierarchy(['__main__._Wrapper1', 'aten.gt.Tensor']Jó
+pkg.torch.onnx.fx_node}%gt : [num_users=1] = call_function[target=torch.ops.aten.gt.Tensor](args = (%sub_11, %scalar_tensor_default_6), kwargs = {})J(
+pkg.torch.onnx.name_scopes
+['', 'gt']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+™
+sub_11
+scalar_tensor_default_6clamp
+node_clamp"MaxJ:
+	namespace-: __main__._Wrapper1/clamp: aten.clamp.TensorJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.clamp.Tensor']Jû
+pkg.torch.onnx.fx_nodeÉ%clamp : [num_users=1] = call_function[target=torch.ops.aten.clamp.Tensor](args = (%sub_11, %scalar_tensor_default_7), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'clamp']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ú
+clampneg_4
+node_neg_4"NegJ9
+	namespace,: __main__._Wrapper1/neg_4: aten.neg.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.neg.default']JÇ
+pkg.torch.onnx.fx_nodeh%neg_4 : [num_users=1] = call_function[target=torch.ops.aten.neg.default](args = (%clamp,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'neg_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ú
+neg_4exp_4
+node_exp_4"ExpJ9
+	namespace,: __main__._Wrapper1/exp_4: aten.exp.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.exp.default']JÇ
+pkg.torch.onnx.fx_nodeh%exp_4 : [num_users=1] = call_function[target=torch.ops.aten.exp.default](args = (%neg_4,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'exp_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ë
+exp_4
+scalar_tensor_default_9sub_12node_sub_12"SubJ9
+	namespace,: __main__._Wrapper1/sub_12: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']JÜ
+pkg.torch.onnx.fx_nodel%sub_12 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%exp_4, 1.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_12']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+sub_12
+val_292mul_15node_mul_15"MulJ9
+	namespace,: __main__._Wrapper1/mul_15: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%mul_15 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_12, -0.02), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_15']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+§
+mul_15
+scalar_tensor_default_5add_6
+node_add_6"AddJ8
+	namespace+: __main__._Wrapper1/add_6: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jú
+pkg.torch.onnx.fx_nodeÅ%add_6 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_15, %scalar_tensor_default_8), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_6']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+í
+gt
+add_6
+div_8where_1node_where_1"WhereJ:
+	namespace-: __main__._Wrapper1/where_1: aten.where.selfJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.where.self']Jè
+pkg.torch.onnx.fx_nodeu%where_1 : [num_users=2] = call_function[target=torch.ops.aten.where.self](args = (%gt, %add_6, %div_8), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'where_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+´
+where_1
+scalar_tensor_default_9sub_13node_sub_13"SubJ9
+	namespace,: __main__._Wrapper1/sub_13: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jû
+pkg.torch.onnx.fx_nodeÉ%sub_13 : [num_users=2] = call_function[target=torch.ops.aten.sub.Tensor](args = (%where_1, %scalar_tensor_default_9), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_13']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+û
+sub_13
+scalar_tensor_default_6lt_1	node_lt_1"LessJ6
+	namespace): __main__._Wrapper1/lt_1: aten.lt.TensorJJ
+pkg.torch.onnx.class_hierarchy(['__main__._Wrapper1', 'aten.lt.Tensor']Jõ
+pkg.torch.onnx.fx_nodeÄ%lt_1 : [num_users=1] = call_function[target=torch.ops.aten.lt.Tensor](args = (%sub_13, %scalar_tensor_default_10), kwargs = {})J*
+pkg.torch.onnx.name_scopes['', 'lt_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ª
+sub_13
+scalar_tensor_default_6clamp_1node_clamp_1"MinJ<
+	namespace/: __main__._Wrapper1/clamp_1: aten.clamp.TensorJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.clamp.Tensor']Jß
+pkg.torch.onnx.fx_nodeå%clamp_1 : [num_users=1] = call_function[target=torch.ops.aten.clamp.Tensor](args = (%sub_13, None, %scalar_tensor_default_11), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'clamp_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ˆ
+clamp_1exp_5
+node_exp_5"ExpJ9
+	namespace,: __main__._Wrapper1/exp_5: aten.exp.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.exp.default']JÑ
+pkg.torch.onnx.fx_nodej%exp_5 : [num_users=1] = call_function[target=torch.ops.aten.exp.default](args = (%clamp_1,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'exp_5']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ë
+exp_5
+scalar_tensor_default_9sub_14node_sub_14"SubJ9
+	namespace,: __main__._Wrapper1/sub_14: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']JÜ
+pkg.torch.onnx.fx_nodel%sub_14 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%exp_5, 1.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_14']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ñ
+sub_14
+val_293mul_16node_mul_16"MulJ9
+	namespace,: __main__._Wrapper1/mul_16: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jà
+pkg.torch.onnx.fx_noden%mul_16 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_14, 0.02), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_16']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+•
+mul_16
+scalar_tensor_default_9add_7
+node_add_7"AddJ8
+	namespace+: __main__._Wrapper1/add_7: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jù
+pkg.torch.onnx.fx_nodeÇ%add_7 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_16, %scalar_tensor_default_12), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_7']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ö
+lt_1
+add_7
+where_1where_2node_where_2"WhereJ:
+	namespace-: __main__._Wrapper1/where_2: aten.where.selfJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.where.self']Jì
+pkg.torch.onnx.fx_nodey%where_2 : [num_users=2] = call_function[target=torch.ops.aten.where.self](args = (%lt_1, %add_7, %where_1), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'where_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+where_2floor_1node_floor_1"FloorJ=
+	namespace0: __main__._Wrapper1/floor_1: aten.floor.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.floor.default']Jà
+pkg.torch.onnx.fx_noden%floor_1 : [num_users=2] = call_function[target=torch.ops.aten.floor.default](args = (%where_2,), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'floor_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+É
+where_2
+val_9sub_15node_sub_15"SubJ9
+	namespace,: __main__._Wrapper1/sub_15: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jà
+pkg.torch.onnx.fx_noden%sub_15 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%where_2, 0.5), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_15']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+sub_15
+floor_1sub_16node_sub_16"SubJ9
+	namespace,: __main__._Wrapper1/sub_16: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jå
+pkg.torch.onnx.fx_noder%sub_16 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%sub_15, %floor_1), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_16']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ñ
+sub_16
+val_286pow_10node_pow_10"PowJ@
+	namespace3: __main__._Wrapper1/pow_10: aten.pow.Tensor_ScalarJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.pow.Tensor_Scalar']Jå
+pkg.torch.onnx.fx_noder%pow_10 : [num_users=1] = call_function[target=torch.ops.aten.pow.Tensor_Scalar](args = (%sub_16, 3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'pow_10']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+É
+floor_1
+pow_10add_8
+node_add_8"AddJ8
+	namespace+: __main__._Wrapper1/add_8: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%add_8 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%floor_1, %pow_10), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_8']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ˇ
+mul_10
+add_8div_9
+node_div_9"DivJ8
+	namespace+: __main__._Wrapper1/div_9: aten.div.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.div.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%div_9 : [num_users=2] = call_function[target=torch.ops.aten.div.Tensor](args = (%mul_10, %add_8), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'div_9']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ñ
+div_9round_1node_round_1"RoundJ=
+	namespace0: __main__._Wrapper1/round_1: aten.round.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.round.default']JÜ
+pkg.torch.onnx.fx_nodel%round_1 : [num_users=2] = call_function[target=torch.ops.aten.round.default](args = (%div_9,), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'round_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+div_9
+round_1sub_17node_sub_17"SubJ9
+	namespace,: __main__._Wrapper1/sub_17: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%sub_17 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%div_9, %round_1), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_17']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ñ
+sub_17
+val_286pow_11node_pow_11"PowJ@
+	namespace3: __main__._Wrapper1/pow_11: aten.pow.Tensor_ScalarJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.pow.Tensor_Scalar']Jå
+pkg.torch.onnx.fx_noder%pow_11 : [num_users=1] = call_function[target=torch.ops.aten.pow.Tensor_Scalar](args = (%sub_17, 3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'pow_11']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+É
+round_1
+pow_11add_9
+node_add_9"AddJ8
+	namespace+: __main__._Wrapper1/add_9: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%add_9 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%round_1, %pow_11), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'add_9']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+û
+unsqueeze_20
+unsqueeze_19mul_19node_mul_19"MulJ9
+	namespace,: __main__._Wrapper1/mul_19: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jó
+pkg.torch.onnx.fx_node}%mul_19 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%unsqueeze_20, %unsqueeze_23), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_19']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+î
+mul_19
+scalar_tensor_default_4add_11node_add_11"AddJ9
+	namespace,: __main__._Wrapper1/add_11: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jà
+pkg.torch.onnx.fx_noden%add_11 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_19, 50.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_11']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+add_11
+val_289div_10node_div_10"DivJ9
+	namespace,: __main__._Wrapper1/div_10: aten.div.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.div.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%div_10 : [num_users=2] = call_function[target=torch.ops.aten.div.Tensor](args = (%add_11, 100.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'div_10']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+™
+div_10
+scalar_tensor_default_5sub_21node_sub_21"SubJ9
+	namespace,: __main__._Wrapper1/sub_21: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jû
+pkg.torch.onnx.fx_nodeÉ%sub_21 : [num_users=2] = call_function[target=torch.ops.aten.sub.Tensor](args = (%div_10, %scalar_tensor_default_14), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_21']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+°
+sub_21
+scalar_tensor_default_6gt_1	node_gt_1"GreaterJ6
+	namespace): __main__._Wrapper1/gt_1: aten.gt.TensorJJ
+pkg.torch.onnx.class_hierarchy(['__main__._Wrapper1', 'aten.gt.Tensor']Jõ
+pkg.torch.onnx.fx_nodeÄ%gt_1 : [num_users=1] = call_function[target=torch.ops.aten.gt.Tensor](args = (%sub_21, %scalar_tensor_default_15), kwargs = {})J*
+pkg.torch.onnx.name_scopes['', 'gt_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+µ
+sub_21
+scalar_tensor_default_6clamp_2node_clamp_2"MaxJ<
+	namespace/: __main__._Wrapper1/clamp_2: aten.clamp.TensorJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.clamp.Tensor']J°
+pkg.torch.onnx.fx_nodeÜ%clamp_2 : [num_users=1] = call_function[target=torch.ops.aten.clamp.Tensor](args = (%sub_21, %scalar_tensor_default_16), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'clamp_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ˆ
+clamp_2neg_5
+node_neg_5"NegJ9
+	namespace,: __main__._Wrapper1/neg_5: aten.neg.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.neg.default']JÑ
+pkg.torch.onnx.fx_nodej%neg_5 : [num_users=1] = call_function[target=torch.ops.aten.neg.default](args = (%clamp_2,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'neg_5']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ú
+neg_5exp_6
+node_exp_6"ExpJ9
+	namespace,: __main__._Wrapper1/exp_6: aten.exp.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.exp.default']JÇ
+pkg.torch.onnx.fx_nodeh%exp_6 : [num_users=1] = call_function[target=torch.ops.aten.exp.default](args = (%neg_5,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'exp_6']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ë
+exp_6
+scalar_tensor_default_9sub_22node_sub_22"SubJ9
+	namespace,: __main__._Wrapper1/sub_22: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']JÜ
+pkg.torch.onnx.fx_nodel%sub_22 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%exp_6, 1.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_22']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+sub_22
+val_292mul_20node_mul_20"MulJ9
+	namespace,: __main__._Wrapper1/mul_20: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%mul_20 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_22, -0.02), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_20']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+™
+mul_20
+scalar_tensor_default_5add_12node_add_12"AddJ9
+	namespace,: __main__._Wrapper1/add_12: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jû
+pkg.torch.onnx.fx_nodeÉ%add_12 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_20, %scalar_tensor_default_17), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_12']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ö
+gt_1
+add_12
+div_10where_4node_where_4"WhereJ:
+	namespace-: __main__._Wrapper1/where_4: aten.where.selfJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.where.self']Jì
+pkg.torch.onnx.fx_nodey%where_4 : [num_users=2] = call_function[target=torch.ops.aten.where.self](args = (%gt_1, %add_12, %div_10), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'where_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¨
+where_4
+scalar_tensor_default_9sub_23node_sub_23"SubJ9
+	namespace,: __main__._Wrapper1/sub_23: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jü
+pkg.torch.onnx.fx_nodeÑ%sub_23 : [num_users=2] = call_function[target=torch.ops.aten.sub.Tensor](args = (%where_4, %scalar_tensor_default_18), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_23']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+û
+sub_23
+scalar_tensor_default_6lt_3	node_lt_3"LessJ6
+	namespace): __main__._Wrapper1/lt_3: aten.lt.TensorJJ
+pkg.torch.onnx.class_hierarchy(['__main__._Wrapper1', 'aten.lt.Tensor']Jõ
+pkg.torch.onnx.fx_nodeÄ%lt_3 : [num_users=1] = call_function[target=torch.ops.aten.lt.Tensor](args = (%sub_23, %scalar_tensor_default_19), kwargs = {})J*
+pkg.torch.onnx.name_scopes['', 'lt_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ª
+sub_23
+scalar_tensor_default_6clamp_3node_clamp_3"MinJ<
+	namespace/: __main__._Wrapper1/clamp_3: aten.clamp.TensorJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.clamp.Tensor']Jß
+pkg.torch.onnx.fx_nodeå%clamp_3 : [num_users=1] = call_function[target=torch.ops.aten.clamp.Tensor](args = (%sub_23, None, %scalar_tensor_default_20), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'clamp_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ˆ
+clamp_3exp_7
+node_exp_7"ExpJ9
+	namespace,: __main__._Wrapper1/exp_7: aten.exp.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.exp.default']JÑ
+pkg.torch.onnx.fx_nodej%exp_7 : [num_users=1] = call_function[target=torch.ops.aten.exp.default](args = (%clamp_3,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'exp_7']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ë
+exp_7
+scalar_tensor_default_9sub_24node_sub_24"SubJ9
+	namespace,: __main__._Wrapper1/sub_24: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']JÜ
+pkg.torch.onnx.fx_nodel%sub_24 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%exp_7, 1.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_24']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ñ
+sub_24
+val_293mul_21node_mul_21"MulJ9
+	namespace,: __main__._Wrapper1/mul_21: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jà
+pkg.torch.onnx.fx_noden%mul_21 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_24, 0.02), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_21']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+™
+mul_21
+scalar_tensor_default_9add_13node_add_13"AddJ9
+	namespace,: __main__._Wrapper1/add_13: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jû
+pkg.torch.onnx.fx_nodeÉ%add_13 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_21, %scalar_tensor_default_21), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_13']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ú
+lt_3
+add_13
+where_4where_5node_where_5"WhereJ:
+	namespace-: __main__._Wrapper1/where_5: aten.where.selfJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.where.self']Jî
+pkg.torch.onnx.fx_nodez%where_5 : [num_users=2] = call_function[target=torch.ops.aten.where.self](args = (%lt_3, %add_13, %where_4), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'where_5']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+where_5floor_3node_floor_3"FloorJ=
+	namespace0: __main__._Wrapper1/floor_3: aten.floor.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.floor.default']Jà
+pkg.torch.onnx.fx_noden%floor_3 : [num_users=2] = call_function[target=torch.ops.aten.floor.default](args = (%where_5,), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'floor_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+É
+where_5
+val_9sub_25node_sub_25"SubJ9
+	namespace,: __main__._Wrapper1/sub_25: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jà
+pkg.torch.onnx.fx_noden%sub_25 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%where_5, 0.5), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_25']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+sub_25
+floor_3sub_26node_sub_26"SubJ9
+	namespace,: __main__._Wrapper1/sub_26: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jå
+pkg.torch.onnx.fx_noder%sub_26 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%sub_25, %floor_3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_26']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ñ
+sub_26
+val_286pow_13node_pow_13"PowJ@
+	namespace3: __main__._Wrapper1/pow_13: aten.pow.Tensor_ScalarJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.pow.Tensor_Scalar']Jå
+pkg.torch.onnx.fx_noder%pow_13 : [num_users=1] = call_function[target=torch.ops.aten.pow.Tensor_Scalar](args = (%sub_26, 3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'pow_13']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+floor_3
+pow_13add_14node_add_14"AddJ9
+	namespace,: __main__._Wrapper1/add_14: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jå
+pkg.torch.onnx.fx_noder%add_14 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%floor_3, %pow_13), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_14']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+mul_11
+add_14div_11node_div_11"DivJ9
+	namespace,: __main__._Wrapper1/div_11: aten.div.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.div.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%div_11 : [num_users=2] = call_function[target=torch.ops.aten.div.Tensor](args = (%mul_11, %add_14), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'div_11']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+div_11round_2node_round_2"RoundJ=
+	namespace0: __main__._Wrapper1/round_2: aten.round.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.round.default']Já
+pkg.torch.onnx.fx_nodem%round_2 : [num_users=2] = call_function[target=torch.ops.aten.round.default](args = (%div_11,), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'round_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+div_11
+round_2sub_27node_sub_27"SubJ9
+	namespace,: __main__._Wrapper1/sub_27: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jå
+pkg.torch.onnx.fx_noder%sub_27 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%div_11, %round_2), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_27']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ñ
+sub_27
+val_286pow_14node_pow_14"PowJ@
+	namespace3: __main__._Wrapper1/pow_14: aten.pow.Tensor_ScalarJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.pow.Tensor_Scalar']Jå
+pkg.torch.onnx.fx_noder%pow_14 : [num_users=1] = call_function[target=torch.ops.aten.pow.Tensor_Scalar](args = (%sub_27, 3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'pow_14']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+round_2
+pow_14add_15node_add_15"AddJ9
+	namespace,: __main__._Wrapper1/add_15: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jå
+pkg.torch.onnx.fx_noder%add_15 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%round_2, %pow_14), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_15']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+^
+add_15split_split_0split_split_1node_Split_418"Split*
+axis†*
+num_outputs†
+É
+add_9
+add_8mul_27node_mul_27"MulJ9
+	namespace,: __main__._Wrapper1/mul_27: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jä
+pkg.torch.onnx.fx_nodep%mul_27 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%add_9, %add_20), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_27']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+´
+split_split_0
+split_split_1cat_1
+node_cat_1"Concat*
+axis†J9
+	namespace,: __main__._Wrapper1/cat_1: aten.cat.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.cat.default']Jî
+pkg.torch.onnx.fx_nodez%cat_1 : [num_users=1] = call_function[target=torch.ops.aten.cat.default](args = ([%getitem, %getitem_1], 1), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'cat_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ñ
+cat_1
+add_14mul_33node_mul_33"MulJ9
+	namespace,: __main__._Wrapper1/mul_33: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jä
+pkg.torch.onnx.fx_nodep%mul_33 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%cat_1, %add_25), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_33']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+mul_27
+mul_37mul_38node_mul_38"MulJ9
+	namespace,: __main__._Wrapper1/mul_38: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%mul_38 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%mul_27, %mul_37), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_38']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+è
+mul_38
+cosmatmulnode_matmul"MatMulJ=
+	namespace0: __main__._Wrapper1/matmul: aten.matmul.defaultJO
+pkg.torch.onnx.class_hierarchy-['__main__._Wrapper1', 'aten.matmul.default']Jå
+pkg.torch.onnx.fx_noder%matmul : [num_users=1] = call_function[target=torch.ops.aten.matmul.default](args = (%mul_38, %cos), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'matmul']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Æ
+matmul	transposenode_transpose"	Transpose*
+perm@ @@@†J?
+	namespace2: __main__._Wrapper1/transpose: aten.transpose.intJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.transpose.int']Jê
+pkg.torch.onnx.fx_nodev%transpose : [num_users=1] = call_function[target=torch.ops.aten.transpose.int](args = (%matmul, -1, -2), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'transpose']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ü
+	transpose
+cosmatmul_1node_matmul_1"MatMulJ?
+	namespace2: __main__._Wrapper1/matmul_1: aten.matmul.defaultJO
+pkg.torch.onnx.class_hierarchy-['__main__._Wrapper1', 'aten.matmul.default']Jë
+pkg.torch.onnx.fx_nodew%matmul_1 : [num_users=1] = call_function[target=torch.ops.aten.matmul.default](args = (%transpose, %cos), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'matmul_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+º
+matmul_1transpose_1node_transpose_1"	Transpose*
+perm@ @@@†JA
+	namespace4: __main__._Wrapper1/transpose_1: aten.transpose.intJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.transpose.int']Jî
+pkg.torch.onnx.fx_nodez%transpose_1 : [num_users=1] = call_function[target=torch.ops.aten.transpose.int](args = (%matmul_1, -1, -2), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'transpose_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+é
+transpose_1
+val_320mul_39node_mul_39"MulJ9
+	namespace,: __main__._Wrapper1/mul_39: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jç
+pkg.torch.onnx.fx_nodes%mul_39 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%transpose_1, 0.25), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_39']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+mul_39
+val_253add_27node_add_27"AddJ9
+	namespace,: __main__._Wrapper1/add_27: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%add_27 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_39, 128.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_27']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+mul_33
+mul_37mul_44node_mul_44"MulJ9
+	namespace,: __main__._Wrapper1/mul_44: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%mul_44 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%mul_33, %mul_43), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_44']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+õ
+mul_44
+cosmatmul_2node_matmul_2"MatMulJ?
+	namespace2: __main__._Wrapper1/matmul_2: aten.matmul.defaultJO
+pkg.torch.onnx.class_hierarchy-['__main__._Wrapper1', 'aten.matmul.default']Jê
+pkg.torch.onnx.fx_nodev%matmul_2 : [num_users=1] = call_function[target=torch.ops.aten.matmul.default](args = (%mul_44, %cos_1), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'matmul_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+º
+matmul_2transpose_2node_transpose_2"	Transpose*
+perm@ @@@†JA
+	namespace4: __main__._Wrapper1/transpose_2: aten.transpose.intJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.transpose.int']Jî
+pkg.torch.onnx.fx_nodez%transpose_2 : [num_users=1] = call_function[target=torch.ops.aten.transpose.int](args = (%matmul_2, -1, -2), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'transpose_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+•
+transpose_2
+cosmatmul_3node_matmul_3"MatMulJ?
+	namespace2: __main__._Wrapper1/matmul_3: aten.matmul.defaultJO
+pkg.torch.onnx.class_hierarchy-['__main__._Wrapper1', 'aten.matmul.default']Jï
+pkg.torch.onnx.fx_node{%matmul_3 : [num_users=1] = call_function[target=torch.ops.aten.matmul.default](args = (%transpose_2, %cos_1), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'matmul_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+º
+matmul_3transpose_3node_transpose_3"	Transpose*
+perm@ @@@†JA
+	namespace4: __main__._Wrapper1/transpose_3: aten.transpose.intJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.transpose.int']Jî
+pkg.torch.onnx.fx_nodez%transpose_3 : [num_users=1] = call_function[target=torch.ops.aten.transpose.int](args = (%matmul_3, -1, -2), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'transpose_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+é
+transpose_3
+val_320mul_45node_mul_45"MulJ9
+	namespace,: __main__._Wrapper1/mul_45: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jç
+pkg.torch.onnx.fx_nodes%mul_45 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%transpose_3, 0.25), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_45']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+mul_45
+val_253add_29node_add_29"AddJ9
+	namespace,: __main__._Wrapper1/add_29: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%add_29 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_45, 128.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_29']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+b
+add_29split_1_split_0split_1_split_1node_Split_428"Split*
+axis†*
+num_outputs†
+≤
+add_27
+val_340view_29node_view_29"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_29: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jò
+pkg.torch.onnx.fx_node~%view_29 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%add_27, [1, 32, 32, 8, 8]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_29']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¬
+view_29	permute_7node_permute_7"	Transpose*
+perm@ @@@@†JA
+	namespace4: __main__._Wrapper1/permute_7: aten.permute.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.permute.default']Jù
+pkg.torch.onnx.fx_nodeÇ%permute_7 : [num_users=1] = call_function[target=torch.ops.aten.permute.default](args = (%view_29, [0, 1, 3, 2, 4]), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'permute_7']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ô
+	permute_7
+val_345_unsafe_view_3node__unsafe_view_3"Reshape*
+	allowzero†JK
+	namespace>: __main__._Wrapper1/_unsafe_view_3: aten._unsafe_view.defaultJU
+pkg.torch.onnx.class_hierarchy3['__main__._Wrapper1', 'aten._unsafe_view.default']J¶
+pkg.torch.onnx.fx_nodeã%_unsafe_view_3 : [num_users=1] = call_function[target=torch.ops.aten._unsafe_view.default](args = (%clone_13, [1, 256, 256]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', '_unsafe_view_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ø
+split_1_split_0
+val_352view_30node_view_30"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_30: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jú
+pkg.torch.onnx.fx_nodeÅ%view_30 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%getitem_2, [1, 16, 16, 8, 8]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_30']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¬
+view_30	permute_8node_permute_8"	Transpose*
+perm@ @@@@†JA
+	namespace4: __main__._Wrapper1/permute_8: aten.permute.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.permute.default']Jù
+pkg.torch.onnx.fx_nodeÇ%permute_8 : [num_users=1] = call_function[target=torch.ops.aten.permute.default](args = (%view_30, [0, 1, 3, 2, 4]), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'permute_8']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ô
+	permute_8
+val_357_unsafe_view_4node__unsafe_view_4"Reshape*
+	allowzero†JK
+	namespace>: __main__._Wrapper1/_unsafe_view_4: aten._unsafe_view.defaultJU
+pkg.torch.onnx.class_hierarchy3['__main__._Wrapper1', 'aten._unsafe_view.default']J¶
+pkg.torch.onnx.fx_nodeã%_unsafe_view_4 : [num_users=1] = call_function[target=torch.ops.aten._unsafe_view.default](args = (%clone_14, [1, 128, 128]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', '_unsafe_view_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ø
+split_1_split_1
+val_352view_31node_view_31"Reshape*
+	allowzero†J<
+	namespace/: __main__._Wrapper1/view_31: aten.view.defaultJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.view.default']Jú
+pkg.torch.onnx.fx_nodeÅ%view_31 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%getitem_3, [1, 16, 16, 8, 8]), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'view_31']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¬
+view_31	permute_9node_permute_9"	Transpose*
+perm@ @@@@†JA
+	namespace4: __main__._Wrapper1/permute_9: aten.permute.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.permute.default']Jù
+pkg.torch.onnx.fx_nodeÇ%permute_9 : [num_users=1] = call_function[target=torch.ops.aten.permute.default](args = (%view_31, [0, 1, 3, 2, 4]), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'permute_9']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ô
+	permute_9
+val_357_unsafe_view_5node__unsafe_view_5"Reshape*
+	allowzero†JK
+	namespace>: __main__._Wrapper1/_unsafe_view_5: aten._unsafe_view.defaultJU
+pkg.torch.onnx.class_hierarchy3['__main__._Wrapper1', 'aten._unsafe_view.default']J¶
+pkg.torch.onnx.fx_nodeã%_unsafe_view_5 : [num_users=1] = call_function[target=torch.ops.aten._unsafe_view.default](args = (%clone_15, [1, 128, 128]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', '_unsafe_view_5']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ 
+_unsafe_view_4
+val_18unsqueeze_36node_unsqueeze_36"	UnsqueezeJF
+	namespace9: __main__._Wrapper1/unsqueeze_36: aten.unsqueeze.defaultJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jõ
+pkg.torch.onnx.fx_nodeÄ%unsqueeze_36 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%_unsafe_view_4, 1), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'unsqueeze_36']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ç
+unsqueeze_36
+ 
+ 
+val_373upsample_bilinear2d_2node_upsample_bilinear2d_2"Resize*&
+keep_aspect_ratio_policy"stretch†*
+	antialias †*
+extrapolation_value    †*
+exclude_outside †*
+nearest_mode"floor†*7
+coordinate_transformation_mode"pytorch_half_pixel†*
+cubic_coeff_a  @ø†*
+mode"linear†JU
+	namespaceH: __main__._Wrapper1/upsample_bilinear2d_2: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper1', 'aten.upsample_bilinear2d.vec']Jæ
+pkg.torch.onnx.fx_node£%upsample_bilinear2d_2 : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%unsqueeze_36, [256, 256], False, None), kwargs = {})J;
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¿
+upsample_bilinear2d_2
+val_2	select_16node_select_16"Gather*
+axis†J<
+	namespace/: __main__._Wrapper1/select_16: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jõ
+pkg.torch.onnx.fx_nodeÄ%select_16 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%upsample_bilinear2d_2, 1, 0), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'select_16']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ 
+_unsafe_view_5
+val_18unsqueeze_37node_unsqueeze_37"	UnsqueezeJF
+	namespace9: __main__._Wrapper1/unsqueeze_37: aten.unsqueeze.defaultJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jõ
+pkg.torch.onnx.fx_nodeÄ%unsqueeze_37 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%_unsafe_view_5, 1), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'unsqueeze_37']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ç
+unsqueeze_37
+ 
+ 
+val_373upsample_bilinear2d_3node_upsample_bilinear2d_3"Resize*&
+keep_aspect_ratio_policy"stretch†*
+	antialias †*
+extrapolation_value    †*
+exclude_outside †*
+nearest_mode"floor†*7
+coordinate_transformation_mode"pytorch_half_pixel†*
+cubic_coeff_a  @ø†*
+mode"linear†JU
+	namespaceH: __main__._Wrapper1/upsample_bilinear2d_3: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper1', 'aten.upsample_bilinear2d.vec']Jæ
+pkg.torch.onnx.fx_node£%upsample_bilinear2d_3 : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%unsqueeze_37, [256, 256], False, None), kwargs = {})J;
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¿
+upsample_bilinear2d_3
+val_2	select_17node_select_17"Gather*
+axis†J<
+	namespace/: __main__._Wrapper1/select_17: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jõ
+pkg.torch.onnx.fx_nodeÄ%select_17 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%upsample_bilinear2d_3, 1, 0), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'select_17']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+≈
+_unsafe_view_3
+val_18val_378node_Unsqueeze_378"	UnsqueezeJ=
+	namespace0: __main__._Wrapper1/stack_1: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']J¨
+pkg.torch.onnx.fx_nodeë%stack_1 : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%_unsafe_view_3, %select_16, %select_17], 1), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'stack_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¿
+	select_16
+val_18val_380node_Unsqueeze_380"	UnsqueezeJ=
+	namespace0: __main__._Wrapper1/stack_1: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']J¨
+pkg.torch.onnx.fx_nodeë%stack_1 : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%_unsafe_view_3, %select_16, %select_17], 1), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'stack_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¿
+	select_17
+val_18val_382node_Unsqueeze_382"	UnsqueezeJ=
+	namespace0: __main__._Wrapper1/stack_1: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']J¨
+pkg.torch.onnx.fx_nodeë%stack_1 : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%_unsafe_view_3, %select_16, %select_17], 1), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'stack_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ã
+val_378
+val_380
+val_382stack_1node_stack_1"Concat*
+axis†J=
+	namespace0: __main__._Wrapper1/stack_1: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']J¨
+pkg.torch.onnx.fx_nodeë%stack_1 : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%_unsafe_view_3, %select_16, %select_17], 1), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'stack_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ó
+stack_1
+scalar_tensor_default_5div_16node_div_16"DivJ9
+	namespace,: __main__._Wrapper1/div_16: aten.div.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.div.Tensor']Jä
+pkg.torch.onnx.fx_nodep%div_16 : [num_users=3] = call_function[target=torch.ops.aten.div.Tensor](args = (%stack_1, 255.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'div_16']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+°
+div_16
+val_2	select_18node_select_18"Gather*
+axis†J<
+	namespace/: __main__._Wrapper1/select_18: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jã
+pkg.torch.onnx.fx_nodeq%select_18 : [num_users=3] = call_function[target=torch.ops.aten.select.int](args = (%div_16, 1, 0), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'select_18']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+°
+div_16
+val_3	select_19node_select_19"Gather*
+axis†J<
+	namespace/: __main__._Wrapper1/select_19: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jã
+pkg.torch.onnx.fx_nodeq%select_19 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%div_16, 1, 1), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'select_19']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+°
+div_16
+val_4	select_20node_select_20"Gather*
+axis†J<
+	namespace/: __main__._Wrapper1/select_20: aten.select.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.select.int']Jã
+pkg.torch.onnx.fx_nodeq%select_20 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%div_16, 1, 2), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'select_20']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+á
+	select_19
+val_9sub_46node_sub_46"SubJ9
+	namespace,: __main__._Wrapper1/sub_46: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jä
+pkg.torch.onnx.fx_nodep%sub_46 : [num_users=2] = call_function[target=torch.ops.aten.sub.Tensor](args = (%select_19, 0.5), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_46']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+á
+	select_20
+val_9sub_47node_sub_47"SubJ9
+	namespace,: __main__._Wrapper1/sub_47: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jä
+pkg.torch.onnx.fx_nodep%sub_47 : [num_users=2] = call_function[target=torch.ops.aten.sub.Tensor](args = (%select_20, 0.5), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_47']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+sub_47
+val_383mul_46node_mul_46"MulJ9
+	namespace,: __main__._Wrapper1/mul_46: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%mul_46 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_47, 1.403), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_46']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+å
+	select_18
+mul_46add_30node_add_30"AddJ9
+	namespace,: __main__._Wrapper1/add_30: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jé
+pkg.torch.onnx.fx_nodet%add_30 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%select_18, %mul_46), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_30']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+sub_47
+val_384mul_47node_mul_47"MulJ9
+	namespace,: __main__._Wrapper1/mul_47: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%mul_47 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_47, 0.714), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_47']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+å
+	select_18
+mul_47sub_48node_sub_48"SubJ9
+	namespace,: __main__._Wrapper1/sub_48: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jé
+pkg.torch.onnx.fx_nodet%sub_48 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%select_18, %mul_47), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_48']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+sub_46
+val_385mul_48node_mul_48"MulJ9
+	namespace,: __main__._Wrapper1/mul_48: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%mul_48 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_46, 0.344), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_48']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+sub_48
+mul_48sub_49node_sub_49"SubJ9
+	namespace,: __main__._Wrapper1/sub_49: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%sub_49 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%sub_48, %mul_48), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_49']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+sub_46
+val_386mul_49node_mul_49"MulJ9
+	namespace,: __main__._Wrapper1/mul_49: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%mul_49 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_46, 1.773), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_49']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+å
+	select_18
+mul_49add_31node_add_31"AddJ9
+	namespace,: __main__._Wrapper1/add_31: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jé
+pkg.torch.onnx.fx_nodet%add_31 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%select_18, %mul_49), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_31']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∞
+add_30
+val_11val_388node_Unsqueeze_388"	UnsqueezeJ=
+	namespace0: __main__._Wrapper1/stack_2: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']Jü
+pkg.torch.onnx.fx_nodeÑ%stack_2 : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%add_30, %sub_49, %add_31], -3), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'stack_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∞
+sub_49
+val_11val_390node_Unsqueeze_390"	UnsqueezeJ=
+	namespace0: __main__._Wrapper1/stack_2: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']Jü
+pkg.torch.onnx.fx_nodeÑ%stack_2 : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%add_30, %sub_49, %add_31], -3), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'stack_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∞
+add_31
+val_11val_392node_Unsqueeze_392"	UnsqueezeJ=
+	namespace0: __main__._Wrapper1/stack_2: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']Jü
+pkg.torch.onnx.fx_nodeÑ%stack_2 : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%add_30, %sub_49, %add_31], -3), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'stack_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+»
+val_388
+val_390
+val_392stack_2node_stack_2"Concat*
+axis˝ˇˇˇˇˇˇˇˇ†J=
+	namespace0: __main__._Wrapper1/stack_2: aten.stack.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.stack.default']Jü
+pkg.torch.onnx.fx_nodeÑ%stack_2 : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%add_30, %sub_49, %add_31], -3), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'stack_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+§
+stack_2
+scalar_tensor_default_6
+scalar_tensor_default_9clamp_8node_Clip_450"ClipJ<
+	namespace/: __main__._Wrapper1/clamp_8: aten.clamp.TensorJ5
+!pkg.onnxscript.rewriter.rule_nameFuseMaxMinToClipJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.clamp.Tensor']JΩ
+pkg.torch.onnx.fx_node¢%clamp_8 : [num_users=2] = call_function[target=torch.ops.aten.clamp.Tensor](args = (%stack_2, %scalar_tensor_default_40, %scalar_tensor_default_41), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'clamp_8']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ó
+clamp_8
+scalar_tensor_default_5sub_50node_sub_50"SubJ9
+	namespace,: __main__._Wrapper1/sub_50: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Jä
+pkg.torch.onnx.fx_nodep%sub_50 : [num_users=2] = call_function[target=torch.ops.aten.sub.Tensor](args = (%clamp_8, 255.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_50']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+°
+sub_50
+scalar_tensor_default_6gt_4	node_gt_4"GreaterJ6
+	namespace): __main__._Wrapper1/gt_4: aten.gt.TensorJJ
+pkg.torch.onnx.class_hierarchy(['__main__._Wrapper1', 'aten.gt.Tensor']Jõ
+pkg.torch.onnx.fx_nodeÄ%gt_4 : [num_users=1] = call_function[target=torch.ops.aten.gt.Tensor](args = (%sub_50, %scalar_tensor_default_42), kwargs = {})J*
+pkg.torch.onnx.name_scopes['', 'gt_4']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+µ
+sub_50
+scalar_tensor_default_6clamp_9node_clamp_9"MaxJ<
+	namespace/: __main__._Wrapper1/clamp_9: aten.clamp.TensorJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.clamp.Tensor']J°
+pkg.torch.onnx.fx_nodeÜ%clamp_9 : [num_users=1] = call_function[target=torch.ops.aten.clamp.Tensor](args = (%sub_50, %scalar_tensor_default_43), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'clamp_9']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ˆ
+clamp_9neg_8
+node_neg_8"NegJ9
+	namespace,: __main__._Wrapper1/neg_8: aten.neg.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.neg.default']JÑ
+pkg.torch.onnx.fx_nodej%neg_8 : [num_users=1] = call_function[target=torch.ops.aten.neg.default](args = (%clamp_9,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'neg_8']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˜
+neg_8exp_12node_exp_12"ExpJ:
+	namespace-: __main__._Wrapper1/exp_12: aten.exp.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.exp.default']JÉ
+pkg.torch.onnx.fx_nodei%exp_12 : [num_users=1] = call_function[target=torch.ops.aten.exp.default](args = (%neg_8,), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'exp_12']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ì
+exp_12
+scalar_tensor_default_9sub_51node_sub_51"SubJ9
+	namespace,: __main__._Wrapper1/sub_51: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Já
+pkg.torch.onnx.fx_nodem%sub_51 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%exp_12, 1.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_51']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+sub_51
+val_292mul_50node_mul_50"MulJ9
+	namespace,: __main__._Wrapper1/mul_50: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%mul_50 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_51, -0.02), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_50']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ï
+mul_50
+scalar_tensor_default_5add_32node_add_32"AddJ9
+	namespace,: __main__._Wrapper1/add_32: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jâ
+pkg.torch.onnx.fx_nodeo%add_32 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_50, 255.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_32']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+°
+gt_4
+add_32
+clamp_8where_12node_where_12"WhereJ;
+	namespace.: __main__._Wrapper1/where_12: aten.where.selfJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.where.self']Jï
+pkg.torch.onnx.fx_node{%where_12 : [num_users=2] = call_function[target=torch.ops.aten.where.self](args = (%gt_4, %add_32, %clamp_8), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'where_12']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+†
+where_12
+scalar_tensor_default_6lt_8	node_lt_8"LessJ6
+	namespace): __main__._Wrapper1/lt_8: aten.lt.TensorJJ
+pkg.torch.onnx.class_hierarchy(['__main__._Wrapper1', 'aten.lt.Tensor']Jõ
+pkg.torch.onnx.fx_nodeÄ%lt_8 : [num_users=1] = call_function[target=torch.ops.aten.lt.Tensor](args = (%sub_52, %scalar_tensor_default_44), kwargs = {})J*
+pkg.torch.onnx.name_scopes['', 'lt_8']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+¬
+where_12
+scalar_tensor_default_6clamp_10node_clamp_10"MinJ=
+	namespace0: __main__._Wrapper1/clamp_10: aten.clamp.TensorJM
+pkg.torch.onnx.class_hierarchy+['__main__._Wrapper1', 'aten.clamp.Tensor']J®
+pkg.torch.onnx.fx_nodeç%clamp_10 : [num_users=1] = call_function[target=torch.ops.aten.clamp.Tensor](args = (%sub_52, None, %scalar_tensor_default_45), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'clamp_10']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+˝
+clamp_10exp_13node_exp_13"ExpJ:
+	namespace-: __main__._Wrapper1/exp_13: aten.exp.defaultJL
+pkg.torch.onnx.class_hierarchy*['__main__._Wrapper1', 'aten.exp.default']JÜ
+pkg.torch.onnx.fx_nodel%exp_13 : [num_users=1] = call_function[target=torch.ops.aten.exp.default](args = (%clamp_10,), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'exp_13']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ì
+exp_13
+scalar_tensor_default_9sub_53node_sub_53"SubJ9
+	namespace,: __main__._Wrapper1/sub_53: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']Já
+pkg.torch.onnx.fx_nodem%sub_53 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%exp_13, 1.0), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_53']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ñ
+sub_53
+val_293mul_51node_mul_51"MulJ9
+	namespace,: __main__._Wrapper1/mul_51: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jà
+pkg.torch.onnx.fx_noden%mul_51 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_53, 0.02), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_51']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+†
+lt_8
+mul_51
+where_12aliasnode_where_13"WhereJ;
+	namespace.: __main__._Wrapper1/where_13: aten.where.selfJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.where.self']Jñ
+pkg.torch.onnx.fx_node|%where_13 : [num_users=1] = call_function[target=torch.ops.aten.where.self](args = (%lt_8, %add_33, %where_12), kwargs = {})J.
+pkg.torch.onnx.name_scopes['', 'where_13']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+main_graph* Bview_2JT ⁄=ÍwI?T ⁄=*.Bval_71J ˇˇˇˇˇˇˇˇ                    * Bview_5JT ⁄=ÍwI?T ⁄=*/Bval_103J ˇˇˇˇˇˇˇˇ                    */Bval_118J               Ä       Ä       *7Bval_220J(                                     */Bval_226J                             *7Bval_233J(                                   */Bval_239J                             *õBunsqueeze_13JÄˇˇˇ=Û5>Û5>Û5>Û5>Û5>Û5>Û5>Û5>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>Û5>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>Û5>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>Û5>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>Û5>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>Û5>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>Û5>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>  Ä>*Bval_257J       @       *ìÄ@@Bview_20JÄÄ  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>ø{?∞Av?¯˜g?)ƒP?Üä1?>~?J+¿>ÔC>^Él?¯˜g?yÇZ?KßD?t='?Pf?Ûµ>Õê8>1€T?)ƒP?KßD?≈˚0?É?]ÉÏ>¿È¢>Ã&>Û5?Üä1?t='?É?ˇˇˇ>M#…>‘ãä>´B>Ÿ9?>~?Pf?]ÉÏ>M#…>tû>»µY>•˘›=Ô√>J+¿>Ûµ>¿È¢>‘ãä>»µY>ˆ>0Êò=º≈G>ÔC>Õê8>Ã&>´B>•˘›=0Êò=Â=  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9øø{?)ƒP?J+¿>ÔCæÜä1ø∞Avø¯˜gø;~ø^Él?KßD?Ûµ>“ê8æt='ø¯˜gøyÇZøMfø1€T?≈˚0?¿È¢>—&æÉø)ƒPøKßDøXÉÏæÛ5?É?‘ãä>ØBæˇˇˇæÜä1øt='øH#…æŸ9?]ÉÏ>»µY>¨˘›ΩM#…æ>~øPføpûæÔ√>¿È¢>ˆ>5ÊòΩ‘ãäæJ+¿æÛµæ√µYæº≈G>Ã&>0Êò=ÂΩ´BæÔCæÕê8æ°˘›Ω  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?ø{?>~?M+¿æ∞AvøÑä1øÔC>˘˜g?%ƒP?^Él?Pf?ıµæ¯˜gør='øÿê8>zÇZ?HßD?1€T?]ÉÏ>√È¢æ)ƒPøÉø÷&>LßD?¬˚0?Û5?M#…>÷ãäæÜä1ø˝ˇˇæ≥B>u='?É?Ÿ9?tû>ÀµYæ>~øJ#…æ≥˘›=Pf?XÉÏ>Ô√>»µY>ˆæJ+¿æ“ãäæ9Êò=Ûµ>ΩÈ¢>º≈G>•˘›=3ÊòΩÔCæ©BæÂ=Œê8>…&>  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{øø{?ÔC>˙˜gø;~øää1?%ƒP?Z+¿æÆAvø^Él?Õê8>{ÇZøMføx='?HßD?µæˆ˜gø1€T?Ã&>MßDøXÉÏæÉ?¬˚0?ŒÈ¢æ'ƒPøÛ5?´B>u='øH#…æ  ?É?ﬂãäæÑä1øŸ9?•˘›=QføpûæQ#…>XÉÏ>⁄µYæ=~øÔ√>0Êò=Ùµæ√µYæ◊ãä>ΩÈ¢>&ˆæI+¿æº≈G>Â=Œê8æ°˘›ΩÆB>…&>=ÊòΩÔCæ  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?ø{?ÔCæ¯˜gøB~?Üä1?,ƒPø<+¿æ≤Av?^Él?“ê8æyÇZøTf?t='?NßDøÂµæ˙˜g?1€T?—&æKßDøcÉÏ>É?«˚0ø¥È¢æ+ƒP?Û5?ØBæt='øR#…>ˇˇˇ>Éø…ãäæáä1?Ÿ9?¨˘›ΩPføxû>M#…>`ÉÏæ∑µYæ@~?Ô√>5ÊòΩÛµæŒµY>‘ãä>√È¢æˆæL+¿>º≈G>ÂΩÕê8æ¨˘›=´B>Œ&æ$ÊòΩÔC>  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tøø{?A~øA+¿æØAv?éä1øÔCæı˜g?)ƒPø^Él?SføÈµæ˜˜g?{='øÃê8ævÇZ?KßDø1€T?bÉÏæ∏È¢æ(ƒP?ÉøÀ&æIßD?≈˚0øÛ5?Q#…æÃãäæÖä1?  ø™Bær='?ÉøŸ9?wûæΩµYæ>~?V#…æ§˘›ΩNf?]ÉÏæÔ√>ÕµYæˆæJ+¿>⁄ãäæ/ÊòΩµ>¿È¢æº≈G>™˘›Ω(ÊòΩÔC>±BæÂΩÀê8>Ã&æ  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?ø{?*ƒPøP+¿>ÔC>Çä1ø∞Av?¸˜gøN~?^Él?LßDø¯µ>√ê8>p='ø¯˜g?|ÇZø_f?1€T?∆˚0ø≈È¢>√&>Éø)ƒP?OßDøwÉÏ>Û5?Éøÿãä>£B>˙ˇˇæÜä1?w='øc#…>Ÿ9?^ÉÏæœµY>ô˘›=H#…æ>~?RføÖû>Ô√>¡È¢æˆ>(Êò=—ãäæJ+¿>ˆµæ‡µY>º≈G>Õ&æ5Êò=˙‰=®BæÔC>–ê8ææ˘›=  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæø{?∞Avø˘˜g?,ƒPøáä1?I~øZ+¿>fÔCæ^Él?¯˜gøzÇZ?NßDøu='?Zføµ>ë8æ1€T?)ƒPøLßD?«˚0øÉ?oÉÏæŒÈ¢>&æÛ5?Üä1øu='?Éø   ?\#…æﬂãä>ÈBæŸ9?>~øPf?`ÉÏæN#…>Äûæ⁄µY>˙›ΩÔ√>J+¿æÛµ>√È¢æ‘ãä>ŸµYæ&ˆ>tÊòΩº≈G>ÔCæŒê8>Œ&æ´B>∂˘›Ω=Êò=HÂΩ  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>1€T?)ƒP?KßD?≈˚0?É?]ÉÏ>¿È¢>Ã&>Ô√>J+¿>Ûµ>¿È¢>‘ãä>»µY>ˆ>0Êò=¬≈GæÔCæ“ê8æ—&æØBæ¨˘›Ω5ÊòΩÂΩÛ5øÜä1øt='øÉøˇˇˇæM#…æ‘ãäæ´Bæø{ø∞Avø¯˜gø)ƒPøÜä1ø>~øJ+¿æÔCæ^Élø¯˜gøyÇZøKßDøt='øPføÛµæÕê8æ÷9ø;~øMføXÉÏæH#…æpûæ√µYæ°˘›Ω  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9ø1€T?≈˚0?¿È¢>—&æÉø)ƒPøKßDøXÉÏæÔ√>¿È¢>ˆ>5ÊòΩ‘ãäæJ+¿æÛµæ√µYæ¬≈Gæ—&æ5ÊòΩÂ=ØB>ÔC>“ê8>ß˘›=Û5øÉø‘ãäæØB>ˇˇˇ>Üä1?t='?H#…>ø{ø)ƒPøJ+¿æÔC>Üä1?∞Av?¯˜g?;~?^ÉløKßDøÛµæ“ê8>t='?¯˜g?yÇZ?Mf?÷9øXÉÏæ√µYæß˘›=H#…>;~?Mf?mû>  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?1€T?]ÉÏ>√È¢æ)ƒPøÉø÷&>LßD?¬˚0?Ô√>»µY>ˆæJ+¿æ“ãäæ9Êò=Ûµ>ΩÈ¢>¬≈Gæ¨˘›Ω7Êò=ÔC>≠B>ÂΩ”ê8æŒ&æÛ5øM#…æ÷ãä>Üä1?˝ˇˇ>≥Bæu='øÉøø{ø>~øM+¿>∞Av?Ñä1?ÔCæ˘˜gø%ƒPø^ÉløPføıµ>¯˜g?r='?ÿê8æzÇZøHßDø÷9øpûæ«µY>;~?F#…>Æ˘›ΩNføSÉÏæ  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{ø1€T?Ã&>MßDøXÉÏæÉ?¬˚0?ŒÈ¢æ'ƒPøÔ√>0Êò=Ùµæ√µYæ◊ãä>ΩÈ¢>&ˆæI+¿æ¬≈GæÂΩ‘ê8>ß˘›=≤BæŒ&æAÊò=ÔC>Û5ø´Bæu='?H#…>  øÉøﬂãä>Ñä1?ø{øÔCæ˙˜g?;~?ää1ø%ƒPøZ+¿>ÆAv?^ÉløÕê8æ{ÇZ?Mf?x='øHßDøµ>ˆ˜g?÷9ø°˘›ΩNf?mû>M#…æSÉÏæ’µY>:~?  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?1€T?—&æKßDøcÉÏ>É?«˚0ø¥È¢æ+ƒP?Ô√>5ÊòΩÛµæŒµY>‘ãä>√È¢æˆæL+¿>¬≈GæÂ=“ê8>≤˘›ΩØBæ”&>)Êò=ÔCæÛ5øØB>t='?R#…æˇˇˇæÉ?…ãä>áä1øø{øÔC>¯˜g?B~øÜä1ø,ƒP?<+¿>≤Avø^Élø“ê8>yÇZ?Tføt='øNßD?Âµ>˙˜gø÷9øß˘›=Mf?uûæH#…æ[ÉÏ>≥µY>=~ø  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tø1€T?bÉÏæ∏È¢æ(ƒP?ÉøÀ&æIßD?≈˚0øÔ√>ÕµYæˆæJ+¿>⁄ãäæ/ÊòΩµ>¿È¢æ¬≈Gæ±˘›=-Êò=ÔCæµB>Â=–ê8æ—&>Û5øQ#…>Ããä>Öä1ø  ?™B>r='øÉ?ø{øA~?A+¿>ØAvøéä1?ÔC>ı˜gø)ƒP?^ÉløSf?Èµ>˜˜gø{='?Ãê8>vÇZøKßD?÷9øtû>∏µY>;~øQ#…>ü˘›=KføXÉÏ>  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?1€T?∆˚0ø≈È¢>√&>Éø)ƒP?OßDøwÉÏ>Ô√>¡È¢æˆ>(Êò=—ãäæJ+¿>ˆµæ‡µY>¬≈Gæ“&>9ÊòΩˇ‰Ω¨B>ÔCæ÷ê8>≈˘›ΩÛ5øÉ?ÿãäæ£Bæ˙ˇˇ>Üä1øw='?c#…æø{ø*ƒP?P+¿æÔCæÇä1?∞Avø¸˜g?N~ø^ÉløLßD?¯µæ√ê8æp='?¯˜gø|ÇZ?_fø÷9øYÉÏ> µYæî˘›ΩD#…>;~øOf?Çûæ  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæ1€T?)ƒPøLßD?«˚0øÉ?oÉÏæŒÈ¢>&æÔ√>J+¿æÛµ>√È¢æ‘ãä>ŸµYæ&ˆ>tÊòΩ¬≈GæÔC>”ê8æ”&>∞BæΩ˘›=AÊòΩLÂ=Û5øÜä1?u='øÉ?   ø\#…>ﬂãäæÈB>ø{ø∞Av?˘˜gø,ƒP?áä1øI~?Z+¿æfÔC>^Élø¯˜g?zÇZøNßD?u='øZf?µæë8>÷9ø;~?Nfø[ÉÏ>J#…æ}û>’µYæ˙›=  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>Ÿ9?>~?Pf?]ÉÏ>M#…>tû>»µY>•˘›=Ô√æM+¿æıµæ√È¢æ÷ãäæÀµYæˆæ3ÊòΩø{ø∞Avø¯˜gø)ƒPøÜä1ø>~øJ+¿æÔCæÒ5øÑä1ør='øÉø˝ˇˇæJ#…æ“ãäæ©Bæ»≈G>ÔC>ÿê8>÷&>≥B>≥˘›=9Êò=Â=_Él?˘˜g?zÇZ?LßD?u='?Pf?Ûµ>Œê8>-€T?%ƒP?HßD?¬˚0?É?XÉÏ>ΩÈ¢>…&>  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9øŸ9?]ÉÏ>»µY>¨˘›ΩM#…æ>~øPføpûæÔ√æ√È¢æˆæ7Êò=÷ãä>M+¿>ıµ>«µY>ø{ø)ƒPøJ+¿æÔC>Üä1?∞Av?¯˜g?;~?Ò5øÉø“ãäæ≠B>˝ˇˇ>Ñä1?r='?F#…>»≈G>÷&>9Êò=ÂΩ≥BæÔCæÿê8æÆ˘›Ω_Él?LßD?Ûµ>”ê8æu='ø˘˜gøzÇZøNfø-€T?¬˚0?ΩÈ¢>Œ&æÉø%ƒPøHßDøSÉÏæ  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?Ÿ9?tû>ÀµYæ>~øJ#…æ≥˘›=Pf?XÉÏ>Ô√æÀµYæˆ>M+¿>‘ãä><ÊòΩˆµæ¿È¢æø{ø>~øM+¿>∞Av?Ñä1?ÔCæ˘˜gø%ƒPøÒ5øJ#…æ‘ãä>Ñä1?˙ˇˇ>≤Bæs='øÉø»≈G>≥˘›=<ÊòΩÔCæ≤BæÂ=Ÿê8>”&>_Él?Pf?ˆµæ˘˜gøs='øŸê8>{ÇZ?IßD?-€T?XÉÏ>¿È¢æ%ƒPøÉø”&>IßD?æ˚0?  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{øŸ9?•˘›=QføpûæQ#…>XÉÏ>⁄µYæ=~øÔ√æ3ÊòΩ˜µ>«µY>Ÿãäæ¿È¢æ(ˆ>L+¿>ø{øÔCæ˙˜g?;~?ää1ø%ƒPøZ+¿>ÆAv?Ò5ø©Bæt='?F#…>  øÉø›ãä>Çä1?»≈G>Â=Ÿê8æÆ˘›Ω∂B>”&>FÊòΩÔCæ_Él?Œê8>{ÇZøNføx='?IßD?µæ˜˜gø-€T?…&>IßDøSÉÏæÉ?æ˚0?ÀÈ¢æ#ƒPø  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?Ÿ9?¨˘›ΩPføxû>M#…>`ÉÏæ∑µYæ@~?Ô√æ7Êò=ıµ>—µYæ÷ãäæ≈È¢>ˆ>O+¿æø{øÔC>¯˜g?B~øÜä1ø,ƒP?<+¿>≤AvøÒ5ø≠B>r='?P#…æ˝ˇˇæÉ?«ãä>Öä1ø»≈G>ÂΩÿê8æπ˘›=≥B>ÿ&æ.ÊòΩÔC>_Él?”ê8æzÇZøTf?u='?OßDøÊµæ˚˜g?-€T?Œ&æHßDø_ÉÏ>É?ƒ˚0ø±È¢æ'ƒP?  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€TøŸ9?wûæΩµYæ>~?V#…æ§˘›ΩNf?]ÉÏæÔ√æ–µY>ˆ>M+¿æ‹ãä>2Êò=Ûµæ√È¢>ø{øA~?A+¿>ØAvøéä1?ÔC>ı˜gø)ƒP?Ò5øO#…>Àãä>Éä1ø  ?®B>p='øÉ?»≈G>∑˘›Ω2ÊòΩÔC>πBæÂΩ÷ê8>÷&æ_Él?SføÍµæ¯˜g?|='øÕê8æwÇZ?LßDø-€T?]ÉÏæµÈ¢æ$ƒP?Éø»&æEßD?¬˚0ø  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?Ÿ9?^ÉÏæœµY>ô˘›=H#…æ>~?RføÖû>Ô√æƒÈ¢> ˆæ*ÊòΩ”ãä>M+¿æ¯µ>‰µYæø{ø*ƒP?P+¿æÔCæÇä1?∞Avø¸˜g?N~øÒ5øÉ?÷ãäæ°Bæ˜ˇˇ>Ñä1øu='?a#…æ»≈G>◊&æ>Êò=Â=∞BæÔC>€ê8æÃ˘›=_Él?MßDø˘µ>√ê8>q='ø˘˜g?}ÇZø_f?-€T?¬˚0ø¬È¢>¿&>Éø%ƒP?KßDøsÉÏ>  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆GæŸ9?>~øPf?`ÉÏæN#…>Äûæ⁄µY>˙›ΩÔ√æM+¿>ˆµæ≈È¢>÷ãäæ‹µY>(ˆævÊò=ø{ø∞Av?˘˜gø,ƒP?áä1øI~?Z+¿æfÔC>Ò5øÑä1?s='øÉ?˛ˇˇæZ#…>›ãäæÁB>»≈G>ÔCæŸê8>ÿ&æ¥B>ƒ˘›ΩFÊò=QÂΩ_Él?˘˜gø{ÇZ?OßDøv='?[føµ>ë8æ-€T?%ƒPøIßD?ƒ˚0øÉ?kÉÏæÀÈ¢>&æ  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>º≈G>ÔC>Õê8>Ã&>´B>•˘›=0Êò=Â=`Élø˙˜gø{ÇZøMßDøu='øQføÙµæŒê8æ÷9ø;~øMføXÉÏæH#…æpûæ√µYæ°˘›Ω˜5?ää1?x='?É?  ?Q#…>◊ãä>ÆB>-€T?%ƒP?HßD?¬˚0?É?XÉÏ>ΩÈ¢>…&>%Ô√æZ+¿æµæŒÈ¢æﬂãäæ⁄µYæ&ˆæ=ÊòΩΩ{øÆAvøˆ˜gø'ƒPøÑä1ø=~øI+¿æÔCæ  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9øº≈G>Ã&>0Êò=ÂΩ´BæÔCæÕê8æ°˘›Ω`ÉløMßDøÙµæ‘ê8>u='?˙˜g?{ÇZ?Nf?÷9øXÉÏæ√µYæß˘›=H#…>;~?Mf?mû>˜5?É?◊ãä>≤Bæ  øää1øx='øM#…æ-€T?¬˚0?ΩÈ¢>Œ&æÉø%ƒPøHßDøSÉÏæ%Ô√æŒÈ¢æ&ˆæAÊò=ﬂãä>Z+¿>µ>’µY>Ω{ø'ƒPøI+¿æÔC>Ñä1?ÆAv?ˆ˜g?:~?  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?º≈G>•˘›=3ÊòΩÔCæ©BæÂ=Œê8>…&>`ÉløQfø˜µ>˙˜g?t='?Ÿê8æ{ÇZøIßDø÷9øpûæ«µY>;~?F#…>Æ˘›ΩNføSÉÏæ˜5?Q#…>Ÿãäæää1ø  ø∂B>x='?É?-€T?XÉÏ>¿È¢æ%ƒPøÉø”&>IßD?æ˚0?%Ô√æ⁄µYæ(ˆ>Z+¿>›ãä>FÊòΩµæÀÈ¢æΩ{ø=~øL+¿>ÆAv?Çä1?ÔCæ˜˜gø#ƒPø  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{øº≈G>Â=Œê8æ°˘›ΩÆB>…&>=ÊòΩÔCæ`ÉløŒê8æ|ÇZ?Nf?y='øIßDøµ>¯˜g?÷9ø°˘›ΩNf?mû>M#…æSÉÏæ’µY>:~?˜5?ÆB>y='øM#…æ  ?É?‚ãäæàä1ø-€T?…&>IßDøSÉÏæÉ?æ˚0?ÀÈ¢æ#ƒPø%Ô√æ=ÊòΩµ>’µY>‚ãäæÀÈ¢æ2ˆ>Y+¿>Ω{øÔCæ¯˜g?:~?àä1ø#ƒPøY+¿>¨Av?  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?º≈G>ÂΩÕê8æ¨˘›=´B>Œ&æ$ÊòΩÔC>`Élø‘ê8>{ÇZ?Uføu='øPßD?Êµ>¸˜gø÷9øß˘›=Mf?uûæH#…æ[ÉÏ>≥µY>=~ø˜5?≤Bæx='øW#…>  ?ÉøÃãäæãä1?-€T?Œ&æHßDø_ÉÏ>É?ƒ˚0ø±È¢æ'ƒP?%Ô√æAÊò=µ>‡µYæﬂãäæ–È¢>ˆ>\+¿æΩ{øÔC>ˆ˜g?A~øÑä1ø*ƒP?:+¿>∞Avø  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tøº≈G>™˘›Ω(ÊòΩÔC>±BæÂΩÀê8>Ã&æ`ÉløTf?Îµ>˘˜gø}='?Õê8>xÇZøMßD?÷9øtû>∏µY>;~øQ#…>ü˘›=KføXÉÏ>˜5?U#…æ–ãäæâä1?  ø≠Bæv='?Éø-€T?]ÉÏæµÈ¢æ$ƒP?Éø»&æEßD?¬˚0ø%Ô√æﬁµY>ˆ>Y+¿æÂãä><Êò=ˇµæŒÈ¢>Ω{ø@~??+¿>≠Avøåä1?ÔC>Û˜gø'ƒP?  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?º≈G>Õ&æ5Êò=˙‰=®BæÔC>–ê8ææ˘›=`ÉløNßD?˙µæƒê8ær='?˙˜gø~ÇZ?`fø÷9øYÉÏ> µYæî˘›ΩD#…>;~øOf?Çûæ˜5?Éø€ãä>¶B>ˇˇˇæää1?{='øh#…>-€T?¬˚0ø¬È¢>¿&>Éø%ƒP?KßDøsÉÏ>%Ô√æŒÈ¢>*ˆæ4ÊòΩ‹ãä>Z+¿æµ>ÚµYæΩ{ø(ƒP?O+¿æÔCæÄä1?ÆAvø˙˜g?M~ø  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæº≈G>ÔCæŒê8>Œ&æ´B>∂˘›Ω=Êò=HÂΩ`Élø˙˜g?{ÇZøPßD?v='ø[f?µæ ë8>÷9ø;~?Nfø[ÉÏ>J#…æ}û>’µYæ˙›=˜5?ää1øx='?Éø  ?a#…æ‚ãä>ÏBæ-€T?%ƒPøIßD?ƒ˚0øÉ?kÉÏæÀÈ¢>&æ%Ô√æZ+¿>µæ–È¢>‡ãäæÎµY>2ˆæÄÊò=Ω{øÆAv?˜˜gø*ƒP?Öä1øH~?Y+¿æeÔC>  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>¬≈GæÔCæ“ê8æ—&æØBæ¨˘›Ω5ÊòΩÂΩ^Élø¯˜gøyÇZøKßDøt='øPføÛµæÕê8æ›9?B~?Tf?cÉÏ>R#…>xû>ŒµY>¨˘›=Û5?Üä1?t='?É?ˇˇˇ>M#…>‘ãä>´B>4€Tø,ƒPøNßDø«˚0øÉø`ÉÏæ√È¢æŒ&æÔ√æ<+¿æÂµæ¥È¢æ…ãäæ∑µYæˆæ$ÊòΩ¡{?≤Av?˙˜g?+ƒP?áä1?@~?L+¿>ÔC>  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9ø¬≈Gæ—&æ5ÊòΩÂ=ØB>ÔC>“ê8>ß˘›=^ÉløKßDøÛµæ“ê8>t='?¯˜g?yÇZ?Mf?›9?cÉÏ>ŒµY>≤˘›ΩR#…æB~øTføuûæÛ5?É?‘ãä>ØBæˇˇˇæÜä1øt='øH#…æ4€Tø«˚0ø√È¢æ”&>É?,ƒP?NßD?[ÉÏ>Ô√æ¥È¢æˆæ)Êò=…ãä><+¿>Âµ>≥µY>¡{?+ƒP?L+¿>ÔCæáä1ø≤Avø˙˜gø=~ø  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?¬≈Gæ¨˘›Ω7Êò=ÔC>≠B>ÂΩ”ê8æŒ&æ^ÉløPføıµ>¯˜g?r='?ÿê8æzÇZøHßDø›9?xû>—µYæB~øP#…æπ˘›=Tf?_ÉÏ>Û5?M#…>÷ãäæÜä1ø˝ˇˇæ≥B>u='?É?4€Tø`ÉÏæ≈È¢>,ƒP?É?ÿ&æOßDøƒ˚0øÔ√æ∑µYæˆ><+¿>«ãä>.ÊòΩÊµæ±È¢æ¡{?@~?O+¿æ≤AvøÖä1øÔC>˚˜g?'ƒP?  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{ø¬≈GæÂΩ‘ê8>ß˘›=≤BæŒ&æAÊò=ÔC>^ÉløÕê8æ{ÇZ?Mf?x='øHßDøµ>ˆ˜g?›9?¨˘›=UføuûæW#…>_ÉÏ>‡µYæA~øÛ5?´B>u='øH#…æ  ?É?ﬂãäæÑä1ø4€TøŒ&æPßD?[ÉÏ>Éøƒ˚0ø–È¢>*ƒP?Ô√æ$ÊòΩÊµ>≥µY>Ããäæ±È¢æˆ>:+¿>¡{?ÔC>¸˜gø=~øãä1?'ƒP?\+¿æ∞Avø  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?¬≈GæÂ=“ê8>≤˘›ΩØBæ”&>)Êò=ÔCæ^Élø“ê8>yÇZ?Tføt='øNßD?Âµ>˙˜gø›9?≤˘›ΩTfø}û>R#…>gÉÏæΩµYæC~?Û5?ØBæt='øR#…>ˇˇˇ>Éø…ãäæáä1?4€Tø”&>NßD?gÉÏæÉø ˚0?∂È¢>.ƒPøÔ√æ)Êò=Âµ>ΩµYæ…ãäæ∂È¢>ˆ>=+¿æ¡{?ÔCæ˙˜gøC~?áä1?.ƒPø=+¿æ¥Av?  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tø¬≈Gæ±˘›=-Êò=ÔCæµB>Â=–ê8æ—&>^ÉløSf?Èµ>˜˜gø{='?Ãê8>vÇZøKßD?›9?{ûæ√µYæB~?[#…æ™˘›ΩRf?cÉÏæÛ5?Q#…æÃãäæÖä1?  ø™Bær='?Éø4€TøeÉÏ>∫È¢>+ƒPø É?Œ&>LßDø«˚0?Ô√æºµY>ˆ>;+¿æœãä>$Êò=‚µæ¥È¢>¡{?B~øB+¿æ±Av?èä1øÔCæ˜˜g?+ƒPø  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?¬≈Gæ“&>9ÊòΩˇ‰Ω¨B>ÔCæ÷ê8>≈˘›Ω^ÉløLßD?¯µæ√ê8æp='?¯˜gø|ÇZ?_fø›9?eÉÏæ’µY>ü˘›=N#…æB~?Vføäû>Û5?Éøÿãä>£B>˙ˇˇæÜä1?w='øc#…>4€Tø»˚0?»È¢æ≈&æÉ?,ƒPøRßD?{ÉÏæÔ√æµÈ¢>ˆæÊòΩ∆ãä><+¿æËµ>–µYæ¡{?,ƒPøR+¿>ÔC>Éä1ø≤Av?˛˜gøO~?  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæ¬≈GæÔC>”ê8æ”&>∞BæΩ˘›=AÊòΩLÂ=^Élø¯˜g?zÇZøNßD?u='øZf?µæë8>›9?B~øTf?gÉÏæS#…>Ñûæ‡µY>˙›ΩÛ5?Üä1øu='?Éø   ?\#…æﬂãä>ÈBæ4€Tø,ƒP?OßDø ˚0?ÉørÉÏ>–È¢æ&>Ô√æ<+¿>Êµæ∂È¢> ãäæ»µY>ˆæhÊò=¡{?≤Avø˚˜g?.ƒPøàä1?J~ø\+¿>hÔCæ  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>‹9øA~øSføbÉÏæQ#…æwûæÕµYæ™˘›ΩÔ√æA+¿æÈµæ∏È¢æÃãäæΩµYæˆæ(ÊòΩæ{?ØAv?˜˜g?(ƒP?Öä1?>~?J+¿>ÔC>˚5øéä1ø{='øÉø  øV#…æ⁄ãäæ±Bæª≈GæÔCæÃê8æÀ&æ™Bæ§˘›Ω/ÊòΩÂΩ[Él?ı˜g?vÇZ?IßD?r='?Nf?µ>Àê8>1€Tø)ƒPøKßDø≈˚0øÉø]ÉÏæ¿È¢æÃ&æ  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9ø‹9øbÉÏæÕµYæ±˘›=Q#…>A~?Sf?tû>Ô√æ∏È¢æˆæ-Êò=Ããä>A+¿>Èµ>∏µY>æ{?(ƒP?J+¿>ÔCæÖä1øØAvø˜˜gø;~ø˚5øÉø⁄ãäæµB>  ?éä1?{='?Q#…>ª≈GæÀ&æ/ÊòΩÂ=™B>ÔC>Ãê8>ü˘›=[Él?IßD?µ>–ê8ær='øı˜gøvÇZøKfø1€Tø≈˚0ø¿È¢æ—&>É?)ƒP?KßD?XÉÏ>  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?‹9øwûæ–µY>A~?O#…>∑˘›ΩSfø]ÉÏæÔ√æΩµYæˆ>A+¿>Àãä>2ÊòΩÍµæµÈ¢ææ{?>~?M+¿æØAvøÉä1øÔC>¯˜g?$ƒP?˚5øV#…æ‹ãä>éä1?  ?πBæ|='øÉøª≈Gæ§˘›Ω2Êò=ÔC>®B>ÂΩÕê8æ»&æ[Él?Nf?Ûµæı˜gøp='ø÷ê8>wÇZ?EßD?1€Tø]ÉÏæ√È¢>)ƒP?É?÷&æLßDø¬˚0ø  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{ø‹9ø™˘›ΩTf?tû>U#…æ]ÉÏæﬁµY>@~?Ô√æ(ÊòΩÎµ>∏µY>–ãäæµÈ¢æˆ>?+¿>æ{?ÔC>˘˜gø;~øâä1?$ƒP?Y+¿æ≠Avø˚5ø±Bæ}='?Q#…>  øÉøÂãä>åä1?ª≈GæÂΩÕê8>ü˘›=≠Bæ»&æ<Êò=ÔC>[Él?Àê8>xÇZøKføv='?EßD?ˇµæÛ˜gø1€TøÃ&æMßD?XÉÏ>Éø¬˚0øŒÈ¢>'ƒP?  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?‹9ø±˘›=Sf?{ûæQ#…æeÉÏ>ºµY>B~øÔ√æ-Êò=Èµ>√µYæÃãäæ∫È¢>ˆ>B+¿ææ{?ÔCæ˜˜gøB~?Öä1?+ƒPø;+¿æ±Av?˚5øµB>{='?[#…æ  ø É?œãä>èä1øª≈GæÂ=Ãê8>™˘›Ω™BæŒ&>$Êò=ÔCæ[Él?–ê8ævÇZøRf?r='?LßDø‚µæ˜˜g?1€Tø—&>KßD?cÉÏæÉø«˚0?¥È¢>+ƒPø  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tø‹9øzû>¡µY>A~øZ#…>©˘›=QføbÉÏ>Ô√æ¡µY>
+ˆ>@+¿æ”ãä>(Êò=Áµæ∏È¢>æ{?A~ø@+¿æÆAv?çä1øÔCæÙ˜g?(ƒPø˚5øZ#…>”ãä>çä1ø  ?∞B>y='øÉ?ª≈Gæ©˘›=(Êò=ÔCæ∞B>Â= ê8æÀ&>[Él?QføÁµæÙ˜g?y='ø ê8æsÇZ?IßDø1€TøbÉÏ>∏È¢>(ƒPøÉ?À&>IßDø≈˚0?  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?‹9øcÉÏ>”µYæû˘›ΩL#…>A~øUf?âûæÔ√æπÈ¢>ˆæ ÊòΩ…ãä>A+¿æÏµ>’µYææ{?)ƒPøP+¿>ÔC>Åä1øØAv?˚˜gøN~?˚5øÉ?ﬁãäæ©Bæ  ?éä1ø~='?l#…æª≈GæÃ&>4ÊòΩ˙‰ΩßB>ÔCæœê8>Ω˘›Ω[Él?JßDøˆµ>¿ê8>n='øı˜g?zÇZø]f?1€Tø∆˚0?≈È¢æ√&æÉ?)ƒPøOßD?wÉÏæ  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæ‹9øA~?SføeÉÏ>R#…æÉû>ﬁµYæ˙›=Ô√æA+¿>Íµæ∫È¢>ÕãäæŒµY>ˆælÊò=æ{?ØAvø¯˜g?+ƒPøÜä1?I~øY+¿>eÔCæ˚5øéä1?|='ø É?  øe#…>ÂãäæÔB>ª≈GæÔC>Õê8æŒ&>´Bæµ˘›=<ÊòΩGÂ=[Él?ı˜gøwÇZ?LßDøs='?Xføˇµ>ë8æ1€Tø)ƒP?LßDø«˚0?ÉøoÉÏ>ŒÈ¢æ&>  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>2€Tø*ƒPøLßDø∆˚0øÉø^ÉÏæ¡È¢æÕ&æÔ√>P+¿>¯µ>≈È¢>ÿãä>œµY>ˆ>5Êò=±≈G>ÔC>√ê8>√&>£B>ô˘›=(Êò=˙‰=Ô5øÇä1øp='øÉø˙ˇˇæH#…æ—ãäæ®Bæø{?∞Av?¯˜g?)ƒP?Üä1?>~?J+¿>ÔC>bÉlø¸˜gø|ÇZøOßDøw='øRføˆµæ–ê8æÈ9?N~?_f?wÉÏ>c#…>Öû>‡µY>æ˘›=  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9ø2€Tø∆˚0ø¡È¢æ“&>É?*ƒP?LßD?YÉÏ>Ô√>≈È¢>ˆ>9ÊòΩÿãäæP+¿æ¯µæ µYæ±≈G>√&>(Êò=ˇ‰Ω£BæÔCæ√ê8æî˘›ΩÔ5øÉø—ãäæ¨B>˙ˇˇ>Çä1?p='?D#…>ø{?)ƒP?J+¿>ÔCæÜä1ø∞Avø¯˜gø;~øbÉløOßDøˆµæ÷ê8>w='?¸˜g?|ÇZ?Of?È9?wÉÏ>‡µY>≈˘›Ωc#…æN~ø_føÇûæ  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?2€Tø^ÉÏæƒÈ¢>*ƒP?É?◊&æMßDø¬˚0øÔ√>œµY> ˆæP+¿æ÷ãäæ>Êò=˘µ>¬È¢>±≈G>ô˘›=*ÊòΩÔCæ°BæÂ=√ê8>¿&>Ô5øH#…æ”ãä>Çä1?˜ˇˇ>∞Bæq='øÉøø{?>~?M+¿æ∞AvøÑä1øÔC>˘˜g?%ƒP?bÉløRfø¯µ>¸˜g?u='?€ê8æ}ÇZøKßDøÈ9?Öû>‰µYæN~øa#…æÃ˘›=_f?sÉÏ>  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{ø2€TøÕ&æNßD?YÉÏ>Éø¬˚0øŒÈ¢>(ƒP?Ô√>5Êò=˙µæ µYæ€ãä>¬È¢>*ˆæO+¿æ±≈G>˙‰=ƒê8æî˘›Ω¶B>¿&>4ÊòΩÔCæÔ5ø®Bær='?D#…>ˇˇˇæÉø‹ãä>Ää1?ø{?ÔC>˙˜gø;~øää1?%ƒP?Z+¿æÆAvøbÉlø–ê8æ~ÇZ?Of?{='øKßDøµ>˙˜g?È9?æ˘›=`føÇûæh#…>sÉÏ>ÚµYæM~ø  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?2€Tø“&>LßD?eÉÏæÉø»˚0?µÈ¢>,ƒPøÔ√>9ÊòΩ¯µæ’µY>ÿãä>»È¢æˆæR+¿>±≈G>ˇ‰Ω√ê8æü˘›=£B>≈&æÊòΩÔC>Ô5ø¨B>p='?N#…æ˙ˇˇæÉ?∆ãä>Éä1øø{?ÔCæ¯˜gøB~?Üä1?,ƒPø<+¿æ≤Av?bÉlø÷ê8>|ÇZ?Vføw='øRßD?Ëµ>˛˜gøÈ9?≈˘›Ω_føäû>c#…>{ÉÏæ–µYæO~?  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tø2€TøcÉÏ>πÈ¢>)ƒPøÉ?Ã&>JßDø∆˚0?Ô√>”µYæˆæP+¿>ﬁãäæ4ÊòΩˆµ>≈È¢æ±≈G>û˘›Ω ÊòΩÔC>©Bæ˙‰Ω¿ê8>√&æÔ5øL#…>…ãä>Åä1ø  ?ßB>n='øÉ?ø{?A~øA+¿æØAv?éä1øÔCæı˜g?)ƒPøbÉløUf?Ïµ>˚˜gø~='?œê8>zÇZøOßD?È9?âûæ’µYæN~?l#…æΩ˘›Ω]f?wÉÏæ  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?2€Tø∆˚0?∆È¢æƒ&æÉ?*ƒPøPßD?yÉÏæÔ√>∆È¢æ"ˆ>,Êò=’ãäæP+¿>˚µæÁµY>±≈G>ƒ&æ,Êò=Ú‰=†BæÔC>∆ê8æ≤˘›=Ô5øÉ?’ãäæ†BæÙˇˇ>Çä1øs='?_#…æø{?*ƒPøP+¿>ÔC>Çä1ø∞Av?¸˜gøN~?bÉløPßD?˚µæ∆ê8æs='?¸˜gøÄÇZ?aføÈ9?yÉÏæÁµY>≤˘›=_#…æN~?aføóû>  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæ2€Tø*ƒP?MßDø»˚0?ÉøpÉÏ>ŒÈ¢æ&>Ô√>P+¿æ˘µ>»È¢æŸãä>ﬂµYæ*ˆ>xÊòΩ±≈G>ÔCæ√ê8>≈&æ§B>™˘›Ω4Êò=?ÂΩÔ5øÇä1?q='øÉ?˚ˇˇæX#…>‹ãäæÊB>ø{?∞Avø˘˜g?,ƒPøáä1?I~øZ+¿>fÔCæbÉlø¸˜g?}ÇZøRßD?x='ø\f?µæ!ë8>È9?N~ø_f?{ÉÏæd#…>íûæÚµY> ˙›Ω  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>ø{ø∞Avø¯˜gø)ƒPøÜä1ø>~øJ+¿æÔCæ_Él?˘˜g?zÇZ?LßD?u='?Pf?Ûµ>Œê8>4€Tø,ƒPøNßDø«˚0øÉø`ÉÏæ√È¢æŒ&æÙ5?áä1?u='?É?   ?N#…>‘ãä>´B>‰9øI~øZføoÉÏæ\#…æÄûæŸµYæ∂˘›Ω%Ô√>Z+¿>µ>ŒÈ¢>ﬂãä>⁄µY>&ˆ>=Êò=∆GæfÔCæë8æ&æÈBæ˙›ΩtÊòΩHÂΩ  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9øø{ø)ƒPøJ+¿æÔC>Üä1?∞Av?¯˜g?;~?_Él?LßD?Ûµ>”ê8æu='ø˘˜gøzÇZøNfø4€Tø«˚0ø√È¢æ”&>É?,ƒP?NßD?[ÉÏ>Ù5?É?‘ãä>∞Bæ   øáä1øu='øJ#…æ‰9øoÉÏæŸµYæΩ˘›=\#…>I~?Zf?}û>%Ô√>ŒÈ¢>&ˆ>AÊòΩﬂãäæZ+¿æµæ’µYæ∆Gæ&ætÊòΩLÂ=ÈB>fÔC>ë8>˙›=  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?ø{ø>~øM+¿>∞Av?Ñä1?ÔCæ˘˜gø%ƒPø_Él?Pf?ˆµæ˘˜gøs='øŸê8>{ÇZ?IßD?4€Tø`ÉÏæ≈È¢>,ƒP?É?ÿ&æOßDøƒ˚0øÙ5?N#…>÷ãäæáä1ø˛ˇˇæ¥B>v='?É?‰9øÄûæ‹µY>I~?Z#…>ƒ˘›Ω[føkÉÏæ%Ô√>⁄µY>(ˆæZ+¿æ›ãäæFÊò=µ>ÀÈ¢>∆Gæ˙›ΩvÊò=fÔC>ÁB>QÂΩë8æ&æ  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{øø{øÔCæ˙˜g?;~?ää1ø%ƒPøZ+¿>ÆAv?_Él?Œê8>{ÇZøNføx='?IßD?µæ˜˜gø4€TøŒ&æPßD?[ÉÏ>Éøƒ˚0ø–È¢>*ƒP?Ù5?´B>v='øJ#…æ  ?É?‡ãäæÖä1ø‰9ø∂˘›Ω[f?}û>a#…ækÉÏæÎµY>H~?%Ô√>=Êò=µæ’µYæ‚ãä>ÀÈ¢>2ˆæY+¿æ∆GæHÂΩ ë8>˙›=ÏBæ&æÄÊò=eÔC>  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?ø{øÔC>¯˜g?B~øÜä1ø,ƒP?<+¿>≤Avø_Él?”ê8æzÇZøTf?u='?OßDøÊµæ˚˜g?4€Tø”&>NßD?gÉÏæÉø ˚0?∂È¢>.ƒPøÙ5?∞Bæu='øS#…>   ?Éø ãäæàä1?‰9øΩ˘›=Zf?Ñûæ\#…ærÉÏ>»µY>J~ø%Ô√>AÊòΩµæ‡µY>ﬂãä>–È¢æˆæ\+¿>∆GæLÂ=ë8>˙›ΩÈBæ&>hÊò=hÔCæ  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tøø{øA~?A+¿>ØAvøéä1?ÔC>ı˜gø)ƒP?_Él?SføÍµæ¯˜g?|='øÕê8æwÇZ?LßDø4€TøeÉÏ>∫È¢>+ƒPø É?Œ&>LßDø«˚0?Ù5?R#…æÕãäæÜä1?  ø´Bæs='?Éø‰9øÉû>ŒµY>I~øe#…>µ˘›=XføoÉÏ>%Ô√>ﬁµYæˆæY+¿>Âãäæ<ÊòΩˇµ>ŒÈ¢æ∆Gæ˙›=lÊò=eÔCæÔB>GÂ=ë8æ&>  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?ø{ø*ƒP?P+¿æÔCæÇä1?∞Avø¸˜g?N~ø_Él?MßDø˘µ>√ê8>q='ø˘˜g?}ÇZø_f?4€Tø»˚0?»È¢æ≈&æÉ?,ƒPøRßD?{ÉÏæÙ5?ÉøŸãä>§B>˚ˇˇæáä1?x='ød#…>‰9øpÉÏ>ﬂµYæ™˘›ΩX#…>I~ø\f?íûæ%Ô√>ŒÈ¢æ*ˆ>4Êò=‹ãäæZ+¿>µæÚµY>∆Gæ&>xÊòΩ?ÂΩÊB>fÔCæ!ë8> ˙›Ω  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæø{ø∞Av?˘˜gø,ƒP?áä1øI~?Z+¿æfÔC>_Él?˘˜gø{ÇZ?OßDøv='?[føµ>ë8æ4€Tø,ƒP?OßDø ˚0?ÉørÉÏ>–È¢æ&>Ù5?áä1øv='?Éø  ?]#…æ‡ãä>ÍBæ‰9øI~?[førÉÏ>]#…æåû>ÎµYæ˙›=%Ô√>Z+¿æµ>–È¢æ‡ãä>ÎµYæ2ˆ>ÄÊòΩ∆GæfÔC>ë8æ&>ÍBæ˙›=ÄÊòΩåÂ=*Bval_271J       @       *ìÄ@@Bview_23JÄÄ  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>ø{?∞Av?¯˜g?)ƒP?Üä1?>~?J+¿>ÔC>^Él?¯˜g?yÇZ?KßD?t='?Pf?Ûµ>Õê8>1€T?)ƒP?KßD?≈˚0?É?]ÉÏ>¿È¢>Ã&>Û5?Üä1?t='?É?ˇˇˇ>M#…>‘ãä>´B>Ÿ9?>~?Pf?]ÉÏ>M#…>tû>»µY>•˘›=Ô√>J+¿>Ûµ>¿È¢>‘ãä>»µY>ˆ>0Êò=º≈G>ÔC>Õê8>Ã&>´B>•˘›=0Êò=Â=  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9øø{?)ƒP?J+¿>ÔCæÜä1ø∞Avø¯˜gø;~ø^Él?KßD?Ûµ>“ê8æt='ø¯˜gøyÇZøMfø1€T?≈˚0?¿È¢>—&æÉø)ƒPøKßDøXÉÏæÛ5?É?‘ãä>ØBæˇˇˇæÜä1øt='øH#…æŸ9?]ÉÏ>»µY>¨˘›ΩM#…æ>~øPføpûæÔ√>¿È¢>ˆ>5ÊòΩ‘ãäæJ+¿æÛµæ√µYæº≈G>Ã&>0Êò=ÂΩ´BæÔCæÕê8æ°˘›Ω  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?ø{?>~?M+¿æ∞AvøÑä1øÔC>˘˜g?%ƒP?^Él?Pf?ıµæ¯˜gør='øÿê8>zÇZ?HßD?1€T?]ÉÏ>√È¢æ)ƒPøÉø÷&>LßD?¬˚0?Û5?M#…>÷ãäæÜä1ø˝ˇˇæ≥B>u='?É?Ÿ9?tû>ÀµYæ>~øJ#…æ≥˘›=Pf?XÉÏ>Ô√>»µY>ˆæJ+¿æ“ãäæ9Êò=Ûµ>ΩÈ¢>º≈G>•˘›=3ÊòΩÔCæ©BæÂ=Œê8>…&>  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{øø{?ÔC>˙˜gø;~øää1?%ƒP?Z+¿æÆAvø^Él?Õê8>{ÇZøMføx='?HßD?µæˆ˜gø1€T?Ã&>MßDøXÉÏæÉ?¬˚0?ŒÈ¢æ'ƒPøÛ5?´B>u='øH#…æ  ?É?ﬂãäæÑä1øŸ9?•˘›=QføpûæQ#…>XÉÏ>⁄µYæ=~øÔ√>0Êò=Ùµæ√µYæ◊ãä>ΩÈ¢>&ˆæI+¿æº≈G>Â=Œê8æ°˘›ΩÆB>…&>=ÊòΩÔCæ  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?ø{?ÔCæ¯˜gøB~?Üä1?,ƒPø<+¿æ≤Av?^Él?“ê8æyÇZøTf?t='?NßDøÂµæ˙˜g?1€T?—&æKßDøcÉÏ>É?«˚0ø¥È¢æ+ƒP?Û5?ØBæt='øR#…>ˇˇˇ>Éø…ãäæáä1?Ÿ9?¨˘›ΩPføxû>M#…>`ÉÏæ∑µYæ@~?Ô√>5ÊòΩÛµæŒµY>‘ãä>√È¢æˆæL+¿>º≈G>ÂΩÕê8æ¨˘›=´B>Œ&æ$ÊòΩÔC>  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tøø{?A~øA+¿æØAv?éä1øÔCæı˜g?)ƒPø^Él?SføÈµæ˜˜g?{='øÃê8ævÇZ?KßDø1€T?bÉÏæ∏È¢æ(ƒP?ÉøÀ&æIßD?≈˚0øÛ5?Q#…æÃãäæÖä1?  ø™Bær='?ÉøŸ9?wûæΩµYæ>~?V#…æ§˘›ΩNf?]ÉÏæÔ√>ÕµYæˆæJ+¿>⁄ãäæ/ÊòΩµ>¿È¢æº≈G>™˘›Ω(ÊòΩÔC>±BæÂΩÀê8>Ã&æ  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?ø{?*ƒPøP+¿>ÔC>Çä1ø∞Av?¸˜gøN~?^Él?LßDø¯µ>√ê8>p='ø¯˜g?|ÇZø_f?1€T?∆˚0ø≈È¢>√&>Éø)ƒP?OßDøwÉÏ>Û5?Éøÿãä>£B>˙ˇˇæÜä1?w='øc#…>Ÿ9?^ÉÏæœµY>ô˘›=H#…æ>~?RføÖû>Ô√>¡È¢æˆ>(Êò=—ãäæJ+¿>ˆµæ‡µY>º≈G>Õ&æ5Êò=˙‰=®BæÔC>–ê8ææ˘›=  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæø{?∞Avø˘˜g?,ƒPøáä1?I~øZ+¿>fÔCæ^Él?¯˜gøzÇZ?NßDøu='?Zføµ>ë8æ1€T?)ƒPøLßD?«˚0øÉ?oÉÏæŒÈ¢>&æÛ5?Üä1øu='?Éø   ?\#…æﬂãä>ÈBæŸ9?>~øPf?`ÉÏæN#…>Äûæ⁄µY>˙›ΩÔ√>J+¿æÛµ>√È¢æ‘ãä>ŸµYæ&ˆ>tÊòΩº≈G>ÔCæŒê8>Œ&æ´B>∂˘›Ω=Êò=HÂΩ  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>1€T?)ƒP?KßD?≈˚0?É?]ÉÏ>¿È¢>Ã&>Ô√>J+¿>Ûµ>¿È¢>‘ãä>»µY>ˆ>0Êò=¬≈GæÔCæ“ê8æ—&æØBæ¨˘›Ω5ÊòΩÂΩÛ5øÜä1øt='øÉøˇˇˇæM#…æ‘ãäæ´Bæø{ø∞Avø¯˜gø)ƒPøÜä1ø>~øJ+¿æÔCæ^Élø¯˜gøyÇZøKßDøt='øPføÛµæÕê8æ÷9ø;~øMføXÉÏæH#…æpûæ√µYæ°˘›Ω  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9ø1€T?≈˚0?¿È¢>—&æÉø)ƒPøKßDøXÉÏæÔ√>¿È¢>ˆ>5ÊòΩ‘ãäæJ+¿æÛµæ√µYæ¬≈Gæ—&æ5ÊòΩÂ=ØB>ÔC>“ê8>ß˘›=Û5øÉø‘ãäæØB>ˇˇˇ>Üä1?t='?H#…>ø{ø)ƒPøJ+¿æÔC>Üä1?∞Av?¯˜g?;~?^ÉløKßDøÛµæ“ê8>t='?¯˜g?yÇZ?Mf?÷9øXÉÏæ√µYæß˘›=H#…>;~?Mf?mû>  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?1€T?]ÉÏ>√È¢æ)ƒPøÉø÷&>LßD?¬˚0?Ô√>»µY>ˆæJ+¿æ“ãäæ9Êò=Ûµ>ΩÈ¢>¬≈Gæ¨˘›Ω7Êò=ÔC>≠B>ÂΩ”ê8æŒ&æÛ5øM#…æ÷ãä>Üä1?˝ˇˇ>≥Bæu='øÉøø{ø>~øM+¿>∞Av?Ñä1?ÔCæ˘˜gø%ƒPø^ÉløPføıµ>¯˜g?r='?ÿê8æzÇZøHßDø÷9øpûæ«µY>;~?F#…>Æ˘›ΩNføSÉÏæ  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{ø1€T?Ã&>MßDøXÉÏæÉ?¬˚0?ŒÈ¢æ'ƒPøÔ√>0Êò=Ùµæ√µYæ◊ãä>ΩÈ¢>&ˆæI+¿æ¬≈GæÂΩ‘ê8>ß˘›=≤BæŒ&æAÊò=ÔC>Û5ø´Bæu='?H#…>  øÉøﬂãä>Ñä1?ø{øÔCæ˙˜g?;~?ää1ø%ƒPøZ+¿>ÆAv?^ÉløÕê8æ{ÇZ?Mf?x='øHßDøµ>ˆ˜g?÷9ø°˘›ΩNf?mû>M#…æSÉÏæ’µY>:~?  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?1€T?—&æKßDøcÉÏ>É?«˚0ø¥È¢æ+ƒP?Ô√>5ÊòΩÛµæŒµY>‘ãä>√È¢æˆæL+¿>¬≈GæÂ=“ê8>≤˘›ΩØBæ”&>)Êò=ÔCæÛ5øØB>t='?R#…æˇˇˇæÉ?…ãä>áä1øø{øÔC>¯˜g?B~øÜä1ø,ƒP?<+¿>≤Avø^Élø“ê8>yÇZ?Tføt='øNßD?Âµ>˙˜gø÷9øß˘›=Mf?uûæH#…æ[ÉÏ>≥µY>=~ø  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tø1€T?bÉÏæ∏È¢æ(ƒP?ÉøÀ&æIßD?≈˚0øÔ√>ÕµYæˆæJ+¿>⁄ãäæ/ÊòΩµ>¿È¢æ¬≈Gæ±˘›=-Êò=ÔCæµB>Â=–ê8æ—&>Û5øQ#…>Ããä>Öä1ø  ?™B>r='øÉ?ø{øA~?A+¿>ØAvøéä1?ÔC>ı˜gø)ƒP?^ÉløSf?Èµ>˜˜gø{='?Ãê8>vÇZøKßD?÷9øtû>∏µY>;~øQ#…>ü˘›=KføXÉÏ>  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?1€T?∆˚0ø≈È¢>√&>Éø)ƒP?OßDøwÉÏ>Ô√>¡È¢æˆ>(Êò=—ãäæJ+¿>ˆµæ‡µY>¬≈Gæ“&>9ÊòΩˇ‰Ω¨B>ÔCæ÷ê8>≈˘›ΩÛ5øÉ?ÿãäæ£Bæ˙ˇˇ>Üä1øw='?c#…æø{ø*ƒP?P+¿æÔCæÇä1?∞Avø¸˜g?N~ø^ÉløLßD?¯µæ√ê8æp='?¯˜gø|ÇZ?_fø÷9øYÉÏ> µYæî˘›ΩD#…>;~øOf?Çûæ  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæ1€T?)ƒPøLßD?«˚0øÉ?oÉÏæŒÈ¢>&æÔ√>J+¿æÛµ>√È¢æ‘ãä>ŸµYæ&ˆ>tÊòΩ¬≈GæÔC>”ê8æ”&>∞BæΩ˘›=AÊòΩLÂ=Û5øÜä1?u='øÉ?   ø\#…>ﬂãäæÈB>ø{ø∞Av?˘˜gø,ƒP?áä1øI~?Z+¿æfÔC>^Élø¯˜g?zÇZøNßD?u='øZf?µæë8>÷9ø;~?Nfø[ÉÏ>J#…æ}û>’µYæ˙›=  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>Ÿ9?>~?Pf?]ÉÏ>M#…>tû>»µY>•˘›=Ô√æM+¿æıµæ√È¢æ÷ãäæÀµYæˆæ3ÊòΩø{ø∞Avø¯˜gø)ƒPøÜä1ø>~øJ+¿æÔCæÒ5øÑä1ør='øÉø˝ˇˇæJ#…æ“ãäæ©Bæ»≈G>ÔC>ÿê8>÷&>≥B>≥˘›=9Êò=Â=_Él?˘˜g?zÇZ?LßD?u='?Pf?Ûµ>Œê8>-€T?%ƒP?HßD?¬˚0?É?XÉÏ>ΩÈ¢>…&>  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9øŸ9?]ÉÏ>»µY>¨˘›ΩM#…æ>~øPføpûæÔ√æ√È¢æˆæ7Êò=÷ãä>M+¿>ıµ>«µY>ø{ø)ƒPøJ+¿æÔC>Üä1?∞Av?¯˜g?;~?Ò5øÉø“ãäæ≠B>˝ˇˇ>Ñä1?r='?F#…>»≈G>÷&>9Êò=ÂΩ≥BæÔCæÿê8æÆ˘›Ω_Él?LßD?Ûµ>”ê8æu='ø˘˜gøzÇZøNfø-€T?¬˚0?ΩÈ¢>Œ&æÉø%ƒPøHßDøSÉÏæ  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?Ÿ9?tû>ÀµYæ>~øJ#…æ≥˘›=Pf?XÉÏ>Ô√æÀµYæˆ>M+¿>‘ãä><ÊòΩˆµæ¿È¢æø{ø>~øM+¿>∞Av?Ñä1?ÔCæ˘˜gø%ƒPøÒ5øJ#…æ‘ãä>Ñä1?˙ˇˇ>≤Bæs='øÉø»≈G>≥˘›=<ÊòΩÔCæ≤BæÂ=Ÿê8>”&>_Él?Pf?ˆµæ˘˜gøs='øŸê8>{ÇZ?IßD?-€T?XÉÏ>¿È¢æ%ƒPøÉø”&>IßD?æ˚0?  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{øŸ9?•˘›=QføpûæQ#…>XÉÏ>⁄µYæ=~øÔ√æ3ÊòΩ˜µ>«µY>Ÿãäæ¿È¢æ(ˆ>L+¿>ø{øÔCæ˙˜g?;~?ää1ø%ƒPøZ+¿>ÆAv?Ò5ø©Bæt='?F#…>  øÉø›ãä>Çä1?»≈G>Â=Ÿê8æÆ˘›Ω∂B>”&>FÊòΩÔCæ_Él?Œê8>{ÇZøNføx='?IßD?µæ˜˜gø-€T?…&>IßDøSÉÏæÉ?æ˚0?ÀÈ¢æ#ƒPø  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?Ÿ9?¨˘›ΩPføxû>M#…>`ÉÏæ∑µYæ@~?Ô√æ7Êò=ıµ>—µYæ÷ãäæ≈È¢>ˆ>O+¿æø{øÔC>¯˜g?B~øÜä1ø,ƒP?<+¿>≤AvøÒ5ø≠B>r='?P#…æ˝ˇˇæÉ?«ãä>Öä1ø»≈G>ÂΩÿê8æπ˘›=≥B>ÿ&æ.ÊòΩÔC>_Él?”ê8æzÇZøTf?u='?OßDøÊµæ˚˜g?-€T?Œ&æHßDø_ÉÏ>É?ƒ˚0ø±È¢æ'ƒP?  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€TøŸ9?wûæΩµYæ>~?V#…æ§˘›ΩNf?]ÉÏæÔ√æ–µY>ˆ>M+¿æ‹ãä>2Êò=Ûµæ√È¢>ø{øA~?A+¿>ØAvøéä1?ÔC>ı˜gø)ƒP?Ò5øO#…>Àãä>Éä1ø  ?®B>p='øÉ?»≈G>∑˘›Ω2ÊòΩÔC>πBæÂΩ÷ê8>÷&æ_Él?SføÍµæ¯˜g?|='øÕê8æwÇZ?LßDø-€T?]ÉÏæµÈ¢æ$ƒP?Éø»&æEßD?¬˚0ø  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?Ÿ9?^ÉÏæœµY>ô˘›=H#…æ>~?RføÖû>Ô√æƒÈ¢> ˆæ*ÊòΩ”ãä>M+¿æ¯µ>‰µYæø{ø*ƒP?P+¿æÔCæÇä1?∞Avø¸˜g?N~øÒ5øÉ?÷ãäæ°Bæ˜ˇˇ>Ñä1øu='?a#…æ»≈G>◊&æ>Êò=Â=∞BæÔC>€ê8æÃ˘›=_Él?MßDø˘µ>√ê8>q='ø˘˜g?}ÇZø_f?-€T?¬˚0ø¬È¢>¿&>Éø%ƒP?KßDøsÉÏ>  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆GæŸ9?>~øPf?`ÉÏæN#…>Äûæ⁄µY>˙›ΩÔ√æM+¿>ˆµæ≈È¢>÷ãäæ‹µY>(ˆævÊò=ø{ø∞Av?˘˜gø,ƒP?áä1øI~?Z+¿æfÔC>Ò5øÑä1?s='øÉ?˛ˇˇæZ#…>›ãäæÁB>»≈G>ÔCæŸê8>ÿ&æ¥B>ƒ˘›ΩFÊò=QÂΩ_Él?˘˜gø{ÇZ?OßDøv='?[føµ>ë8æ-€T?%ƒPøIßD?ƒ˚0øÉ?kÉÏæÀÈ¢>&æ  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>º≈G>ÔC>Õê8>Ã&>´B>•˘›=0Êò=Â=`Élø˙˜gø{ÇZøMßDøu='øQføÙµæŒê8æ÷9ø;~øMføXÉÏæH#…æpûæ√µYæ°˘›Ω˜5?ää1?x='?É?  ?Q#…>◊ãä>ÆB>-€T?%ƒP?HßD?¬˚0?É?XÉÏ>ΩÈ¢>…&>%Ô√æZ+¿æµæŒÈ¢æﬂãäæ⁄µYæ&ˆæ=ÊòΩΩ{øÆAvøˆ˜gø'ƒPøÑä1ø=~øI+¿æÔCæ  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9øº≈G>Ã&>0Êò=ÂΩ´BæÔCæÕê8æ°˘›Ω`ÉløMßDøÙµæ‘ê8>u='?˙˜g?{ÇZ?Nf?÷9øXÉÏæ√µYæß˘›=H#…>;~?Mf?mû>˜5?É?◊ãä>≤Bæ  øää1øx='øM#…æ-€T?¬˚0?ΩÈ¢>Œ&æÉø%ƒPøHßDøSÉÏæ%Ô√æŒÈ¢æ&ˆæAÊò=ﬂãä>Z+¿>µ>’µY>Ω{ø'ƒPøI+¿æÔC>Ñä1?ÆAv?ˆ˜g?:~?  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?º≈G>•˘›=3ÊòΩÔCæ©BæÂ=Œê8>…&>`ÉløQfø˜µ>˙˜g?t='?Ÿê8æ{ÇZøIßDø÷9øpûæ«µY>;~?F#…>Æ˘›ΩNføSÉÏæ˜5?Q#…>Ÿãäæää1ø  ø∂B>x='?É?-€T?XÉÏ>¿È¢æ%ƒPøÉø”&>IßD?æ˚0?%Ô√æ⁄µYæ(ˆ>Z+¿>›ãä>FÊòΩµæÀÈ¢æΩ{ø=~øL+¿>ÆAv?Çä1?ÔCæ˜˜gø#ƒPø  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{øº≈G>Â=Œê8æ°˘›ΩÆB>…&>=ÊòΩÔCæ`ÉløŒê8æ|ÇZ?Nf?y='øIßDøµ>¯˜g?÷9ø°˘›ΩNf?mû>M#…æSÉÏæ’µY>:~?˜5?ÆB>y='øM#…æ  ?É?‚ãäæàä1ø-€T?…&>IßDøSÉÏæÉ?æ˚0?ÀÈ¢æ#ƒPø%Ô√æ=ÊòΩµ>’µY>‚ãäæÀÈ¢æ2ˆ>Y+¿>Ω{øÔCæ¯˜g?:~?àä1ø#ƒPøY+¿>¨Av?  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?º≈G>ÂΩÕê8æ¨˘›=´B>Œ&æ$ÊòΩÔC>`Élø‘ê8>{ÇZ?Uføu='øPßD?Êµ>¸˜gø÷9øß˘›=Mf?uûæH#…æ[ÉÏ>≥µY>=~ø˜5?≤Bæx='øW#…>  ?ÉøÃãäæãä1?-€T?Œ&æHßDø_ÉÏ>É?ƒ˚0ø±È¢æ'ƒP?%Ô√æAÊò=µ>‡µYæﬂãäæ–È¢>ˆ>\+¿æΩ{øÔC>ˆ˜g?A~øÑä1ø*ƒP?:+¿>∞Avø  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tøº≈G>™˘›Ω(ÊòΩÔC>±BæÂΩÀê8>Ã&æ`ÉløTf?Îµ>˘˜gø}='?Õê8>xÇZøMßD?÷9øtû>∏µY>;~øQ#…>ü˘›=KføXÉÏ>˜5?U#…æ–ãäæâä1?  ø≠Bæv='?Éø-€T?]ÉÏæµÈ¢æ$ƒP?Éø»&æEßD?¬˚0ø%Ô√æﬁµY>ˆ>Y+¿æÂãä><Êò=ˇµæŒÈ¢>Ω{ø@~??+¿>≠Avøåä1?ÔC>Û˜gø'ƒP?  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?º≈G>Õ&æ5Êò=˙‰=®BæÔC>–ê8ææ˘›=`ÉløNßD?˙µæƒê8ær='?˙˜gø~ÇZ?`fø÷9øYÉÏ> µYæî˘›ΩD#…>;~øOf?Çûæ˜5?Éø€ãä>¶B>ˇˇˇæää1?{='øh#…>-€T?¬˚0ø¬È¢>¿&>Éø%ƒP?KßDøsÉÏ>%Ô√æŒÈ¢>*ˆæ4ÊòΩ‹ãä>Z+¿æµ>ÚµYæΩ{ø(ƒP?O+¿æÔCæÄä1?ÆAvø˙˜g?M~ø  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæº≈G>ÔCæŒê8>Œ&æ´B>∂˘›Ω=Êò=HÂΩ`Élø˙˜g?{ÇZøPßD?v='ø[f?µæ ë8>÷9ø;~?Nfø[ÉÏ>J#…æ}û>’µYæ˙›=˜5?ää1øx='?Éø  ?a#…æ‚ãä>ÏBæ-€T?%ƒPøIßD?ƒ˚0øÉ?kÉÏæÀÈ¢>&æ%Ô√æZ+¿>µæ–È¢>‡ãäæÎµY>2ˆæÄÊò=Ω{øÆAv?˜˜gø*ƒP?Öä1øH~?Y+¿æeÔC>  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>¬≈GæÔCæ“ê8æ—&æØBæ¨˘›Ω5ÊòΩÂΩ^Élø¯˜gøyÇZøKßDøt='øPføÛµæÕê8æ›9?B~?Tf?cÉÏ>R#…>xû>ŒµY>¨˘›=Û5?Üä1?t='?É?ˇˇˇ>M#…>‘ãä>´B>4€Tø,ƒPøNßDø«˚0øÉø`ÉÏæ√È¢æŒ&æÔ√æ<+¿æÂµæ¥È¢æ…ãäæ∑µYæˆæ$ÊòΩ¡{?≤Av?˙˜g?+ƒP?áä1?@~?L+¿>ÔC>  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9ø¬≈Gæ—&æ5ÊòΩÂ=ØB>ÔC>“ê8>ß˘›=^ÉløKßDøÛµæ“ê8>t='?¯˜g?yÇZ?Mf?›9?cÉÏ>ŒµY>≤˘›ΩR#…æB~øTføuûæÛ5?É?‘ãä>ØBæˇˇˇæÜä1øt='øH#…æ4€Tø«˚0ø√È¢æ”&>É?,ƒP?NßD?[ÉÏ>Ô√æ¥È¢æˆæ)Êò=…ãä><+¿>Âµ>≥µY>¡{?+ƒP?L+¿>ÔCæáä1ø≤Avø˙˜gø=~ø  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?¬≈Gæ¨˘›Ω7Êò=ÔC>≠B>ÂΩ”ê8æŒ&æ^ÉløPføıµ>¯˜g?r='?ÿê8æzÇZøHßDø›9?xû>—µYæB~øP#…æπ˘›=Tf?_ÉÏ>Û5?M#…>÷ãäæÜä1ø˝ˇˇæ≥B>u='?É?4€Tø`ÉÏæ≈È¢>,ƒP?É?ÿ&æOßDøƒ˚0øÔ√æ∑µYæˆ><+¿>«ãä>.ÊòΩÊµæ±È¢æ¡{?@~?O+¿æ≤AvøÖä1øÔC>˚˜g?'ƒP?  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{ø¬≈GæÂΩ‘ê8>ß˘›=≤BæŒ&æAÊò=ÔC>^ÉløÕê8æ{ÇZ?Mf?x='øHßDøµ>ˆ˜g?›9?¨˘›=UføuûæW#…>_ÉÏ>‡µYæA~øÛ5?´B>u='øH#…æ  ?É?ﬂãäæÑä1ø4€TøŒ&æPßD?[ÉÏ>Éøƒ˚0ø–È¢>*ƒP?Ô√æ$ÊòΩÊµ>≥µY>Ããäæ±È¢æˆ>:+¿>¡{?ÔC>¸˜gø=~øãä1?'ƒP?\+¿æ∞Avø  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?¬≈GæÂ=“ê8>≤˘›ΩØBæ”&>)Êò=ÔCæ^Élø“ê8>yÇZ?Tføt='øNßD?Âµ>˙˜gø›9?≤˘›ΩTfø}û>R#…>gÉÏæΩµYæC~?Û5?ØBæt='øR#…>ˇˇˇ>Éø…ãäæáä1?4€Tø”&>NßD?gÉÏæÉø ˚0?∂È¢>.ƒPøÔ√æ)Êò=Âµ>ΩµYæ…ãäæ∂È¢>ˆ>=+¿æ¡{?ÔCæ˙˜gøC~?áä1?.ƒPø=+¿æ¥Av?  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tø¬≈Gæ±˘›=-Êò=ÔCæµB>Â=–ê8æ—&>^ÉløSf?Èµ>˜˜gø{='?Ãê8>vÇZøKßD?›9?{ûæ√µYæB~?[#…æ™˘›ΩRf?cÉÏæÛ5?Q#…æÃãäæÖä1?  ø™Bær='?Éø4€TøeÉÏ>∫È¢>+ƒPø É?Œ&>LßDø«˚0?Ô√æºµY>ˆ>;+¿æœãä>$Êò=‚µæ¥È¢>¡{?B~øB+¿æ±Av?èä1øÔCæ˜˜g?+ƒPø  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?¬≈Gæ“&>9ÊòΩˇ‰Ω¨B>ÔCæ÷ê8>≈˘›Ω^ÉløLßD?¯µæ√ê8æp='?¯˜gø|ÇZ?_fø›9?eÉÏæ’µY>ü˘›=N#…æB~?Vføäû>Û5?Éøÿãä>£B>˙ˇˇæÜä1?w='øc#…>4€Tø»˚0?»È¢æ≈&æÉ?,ƒPøRßD?{ÉÏæÔ√æµÈ¢>ˆæÊòΩ∆ãä><+¿æËµ>–µYæ¡{?,ƒPøR+¿>ÔC>Éä1ø≤Av?˛˜gøO~?  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæ¬≈GæÔC>”ê8æ”&>∞BæΩ˘›=AÊòΩLÂ=^Élø¯˜g?zÇZøNßD?u='øZf?µæë8>›9?B~øTf?gÉÏæS#…>Ñûæ‡µY>˙›ΩÛ5?Üä1øu='?Éø   ?\#…æﬂãä>ÈBæ4€Tø,ƒP?OßDø ˚0?ÉørÉÏ>–È¢æ&>Ô√æ<+¿>Êµæ∂È¢> ãäæ»µY>ˆæhÊò=¡{?≤Avø˚˜g?.ƒPøàä1?J~ø\+¿>hÔCæ  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>‹9øA~øSføbÉÏæQ#…æwûæÕµYæ™˘›ΩÔ√æA+¿æÈµæ∏È¢æÃãäæΩµYæˆæ(ÊòΩæ{?ØAv?˜˜g?(ƒP?Öä1?>~?J+¿>ÔC>˚5øéä1ø{='øÉø  øV#…æ⁄ãäæ±Bæª≈GæÔCæÃê8æÀ&æ™Bæ§˘›Ω/ÊòΩÂΩ[Él?ı˜g?vÇZ?IßD?r='?Nf?µ>Àê8>1€Tø)ƒPøKßDø≈˚0øÉø]ÉÏæ¿È¢æÃ&æ  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9ø‹9øbÉÏæÕµYæ±˘›=Q#…>A~?Sf?tû>Ô√æ∏È¢æˆæ-Êò=Ããä>A+¿>Èµ>∏µY>æ{?(ƒP?J+¿>ÔCæÖä1øØAvø˜˜gø;~ø˚5øÉø⁄ãäæµB>  ?éä1?{='?Q#…>ª≈GæÀ&æ/ÊòΩÂ=™B>ÔC>Ãê8>ü˘›=[Él?IßD?µ>–ê8ær='øı˜gøvÇZøKfø1€Tø≈˚0ø¿È¢æ—&>É?)ƒP?KßD?XÉÏ>  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?‹9øwûæ–µY>A~?O#…>∑˘›ΩSfø]ÉÏæÔ√æΩµYæˆ>A+¿>Àãä>2ÊòΩÍµæµÈ¢ææ{?>~?M+¿æØAvøÉä1øÔC>¯˜g?$ƒP?˚5øV#…æ‹ãä>éä1?  ?πBæ|='øÉøª≈Gæ§˘›Ω2Êò=ÔC>®B>ÂΩÕê8æ»&æ[Él?Nf?Ûµæı˜gøp='ø÷ê8>wÇZ?EßD?1€Tø]ÉÏæ√È¢>)ƒP?É?÷&æLßDø¬˚0ø  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{ø‹9ø™˘›ΩTf?tû>U#…æ]ÉÏæﬁµY>@~?Ô√æ(ÊòΩÎµ>∏µY>–ãäæµÈ¢æˆ>?+¿>æ{?ÔC>˘˜gø;~øâä1?$ƒP?Y+¿æ≠Avø˚5ø±Bæ}='?Q#…>  øÉøÂãä>åä1?ª≈GæÂΩÕê8>ü˘›=≠Bæ»&æ<Êò=ÔC>[Él?Àê8>xÇZøKføv='?EßD?ˇµæÛ˜gø1€TøÃ&æMßD?XÉÏ>Éø¬˚0øŒÈ¢>'ƒP?  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?‹9ø±˘›=Sf?{ûæQ#…æeÉÏ>ºµY>B~øÔ√æ-Êò=Èµ>√µYæÃãäæ∫È¢>ˆ>B+¿ææ{?ÔCæ˜˜gøB~?Öä1?+ƒPø;+¿æ±Av?˚5øµB>{='?[#…æ  ø É?œãä>èä1øª≈GæÂ=Ãê8>™˘›Ω™BæŒ&>$Êò=ÔCæ[Él?–ê8ævÇZøRf?r='?LßDø‚µæ˜˜g?1€Tø—&>KßD?cÉÏæÉø«˚0?¥È¢>+ƒPø  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tø‹9øzû>¡µY>A~øZ#…>©˘›=QføbÉÏ>Ô√æ¡µY>
+ˆ>@+¿æ”ãä>(Êò=Áµæ∏È¢>æ{?A~ø@+¿æÆAv?çä1øÔCæÙ˜g?(ƒPø˚5øZ#…>”ãä>çä1ø  ?∞B>y='øÉ?ª≈Gæ©˘›=(Êò=ÔCæ∞B>Â= ê8æÀ&>[Él?QføÁµæÙ˜g?y='ø ê8æsÇZ?IßDø1€TøbÉÏ>∏È¢>(ƒPøÉ?À&>IßDø≈˚0?  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?‹9øcÉÏ>”µYæû˘›ΩL#…>A~øUf?âûæÔ√æπÈ¢>ˆæ ÊòΩ…ãä>A+¿æÏµ>’µYææ{?)ƒPøP+¿>ÔC>Åä1øØAv?˚˜gøN~?˚5øÉ?ﬁãäæ©Bæ  ?éä1ø~='?l#…æª≈GæÃ&>4ÊòΩ˙‰ΩßB>ÔCæœê8>Ω˘›Ω[Él?JßDøˆµ>¿ê8>n='øı˜g?zÇZø]f?1€Tø∆˚0?≈È¢æ√&æÉ?)ƒPøOßD?wÉÏæ  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæ‹9øA~?SføeÉÏ>R#…æÉû>ﬁµYæ˙›=Ô√æA+¿>Íµæ∫È¢>ÕãäæŒµY>ˆælÊò=æ{?ØAvø¯˜g?+ƒPøÜä1?I~øY+¿>eÔCæ˚5øéä1?|='ø É?  øe#…>ÂãäæÔB>ª≈GæÔC>Õê8æŒ&>´Bæµ˘›=<ÊòΩGÂ=[Él?ı˜gøwÇZ?LßDøs='?Xføˇµ>ë8æ1€Tø)ƒP?LßDø«˚0?ÉøoÉÏ>ŒÈ¢æ&>  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>2€Tø*ƒPøLßDø∆˚0øÉø^ÉÏæ¡È¢æÕ&æÔ√>P+¿>¯µ>≈È¢>ÿãä>œµY>ˆ>5Êò=±≈G>ÔC>√ê8>√&>£B>ô˘›=(Êò=˙‰=Ô5øÇä1øp='øÉø˙ˇˇæH#…æ—ãäæ®Bæø{?∞Av?¯˜g?)ƒP?Üä1?>~?J+¿>ÔC>bÉlø¸˜gø|ÇZøOßDøw='øRføˆµæ–ê8æÈ9?N~?_f?wÉÏ>c#…>Öû>‡µY>æ˘›=  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9ø2€Tø∆˚0ø¡È¢æ“&>É?*ƒP?LßD?YÉÏ>Ô√>≈È¢>ˆ>9ÊòΩÿãäæP+¿æ¯µæ µYæ±≈G>√&>(Êò=ˇ‰Ω£BæÔCæ√ê8æî˘›ΩÔ5øÉø—ãäæ¨B>˙ˇˇ>Çä1?p='?D#…>ø{?)ƒP?J+¿>ÔCæÜä1ø∞Avø¯˜gø;~øbÉløOßDøˆµæ÷ê8>w='?¸˜g?|ÇZ?Of?È9?wÉÏ>‡µY>≈˘›Ωc#…æN~ø_føÇûæ  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?2€Tø^ÉÏæƒÈ¢>*ƒP?É?◊&æMßDø¬˚0øÔ√>œµY> ˆæP+¿æ÷ãäæ>Êò=˘µ>¬È¢>±≈G>ô˘›=*ÊòΩÔCæ°BæÂ=√ê8>¿&>Ô5øH#…æ”ãä>Çä1?˜ˇˇ>∞Bæq='øÉøø{?>~?M+¿æ∞AvøÑä1øÔC>˘˜g?%ƒP?bÉløRfø¯µ>¸˜g?u='?€ê8æ}ÇZøKßDøÈ9?Öû>‰µYæN~øa#…æÃ˘›=_f?sÉÏ>  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{ø2€TøÕ&æNßD?YÉÏ>Éø¬˚0øŒÈ¢>(ƒP?Ô√>5Êò=˙µæ µYæ€ãä>¬È¢>*ˆæO+¿æ±≈G>˙‰=ƒê8æî˘›Ω¶B>¿&>4ÊòΩÔCæÔ5ø®Bær='?D#…>ˇˇˇæÉø‹ãä>Ää1?ø{?ÔC>˙˜gø;~øää1?%ƒP?Z+¿æÆAvøbÉlø–ê8æ~ÇZ?Of?{='øKßDøµ>˙˜g?È9?æ˘›=`føÇûæh#…>sÉÏ>ÚµYæM~ø  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?2€Tø“&>LßD?eÉÏæÉø»˚0?µÈ¢>,ƒPøÔ√>9ÊòΩ¯µæ’µY>ÿãä>»È¢æˆæR+¿>±≈G>ˇ‰Ω√ê8æü˘›=£B>≈&æÊòΩÔC>Ô5ø¨B>p='?N#…æ˙ˇˇæÉ?∆ãä>Éä1øø{?ÔCæ¯˜gøB~?Üä1?,ƒPø<+¿æ≤Av?bÉlø÷ê8>|ÇZ?Vføw='øRßD?Ëµ>˛˜gøÈ9?≈˘›Ω_føäû>c#…>{ÉÏæ–µYæO~?  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tø2€TøcÉÏ>πÈ¢>)ƒPøÉ?Ã&>JßDø∆˚0?Ô√>”µYæˆæP+¿>ﬁãäæ4ÊòΩˆµ>≈È¢æ±≈G>û˘›Ω ÊòΩÔC>©Bæ˙‰Ω¿ê8>√&æÔ5øL#…>…ãä>Åä1ø  ?ßB>n='øÉ?ø{?A~øA+¿æØAv?éä1øÔCæı˜g?)ƒPøbÉløUf?Ïµ>˚˜gø~='?œê8>zÇZøOßD?È9?âûæ’µYæN~?l#…æΩ˘›Ω]f?wÉÏæ  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?2€Tø∆˚0?∆È¢æƒ&æÉ?*ƒPøPßD?yÉÏæÔ√>∆È¢æ"ˆ>,Êò=’ãäæP+¿>˚µæÁµY>±≈G>ƒ&æ,Êò=Ú‰=†BæÔC>∆ê8æ≤˘›=Ô5øÉ?’ãäæ†BæÙˇˇ>Çä1øs='?_#…æø{?*ƒPøP+¿>ÔC>Çä1ø∞Av?¸˜gøN~?bÉløPßD?˚µæ∆ê8æs='?¸˜gøÄÇZ?aføÈ9?yÉÏæÁµY>≤˘›=_#…æN~?aføóû>  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæ2€Tø*ƒP?MßDø»˚0?ÉøpÉÏ>ŒÈ¢æ&>Ô√>P+¿æ˘µ>»È¢æŸãä>ﬂµYæ*ˆ>xÊòΩ±≈G>ÔCæ√ê8>≈&æ§B>™˘›Ω4Êò=?ÂΩÔ5øÇä1?q='øÉ?˚ˇˇæX#…>‹ãäæÊB>ø{?∞Avø˘˜g?,ƒPøáä1?I~øZ+¿>fÔCæbÉlø¸˜g?}ÇZøRßD?x='ø\f?µæ!ë8>È9?N~ø_f?{ÉÏæd#…>íûæÚµY> ˙›Ω  Ä?ø{?^Él?1€T?Û5?Ÿ9?Ô√>º≈G>ø{ø∞Avø¯˜gø)ƒPøÜä1ø>~øJ+¿æÔCæ_Él?˘˜g?zÇZ?LßD?u='?Pf?Ûµ>Œê8>4€Tø,ƒPøNßDø«˚0øÉø`ÉÏæ√È¢æŒ&æÙ5?áä1?u='?É?   ?N#…>‘ãä>´B>‰9øI~øZføoÉÏæ\#…æÄûæŸµYæ∂˘›Ω%Ô√>Z+¿>µ>ŒÈ¢>ﬂãä>⁄µY>&ˆ>=Êò=∆GæfÔCæë8æ&æÈBæ˙›ΩtÊòΩHÂΩ  Ä?1€T?Ô√>¬≈GæÛ5øø{ø^Élø÷9øø{ø)ƒPøJ+¿æÔC>Üä1?∞Av?¯˜g?;~?_Él?LßD?Ûµ>”ê8æu='ø˘˜gøzÇZøNfø4€Tø«˚0ø√È¢æ”&>É?,ƒP?NßD?[ÉÏ>Ù5?É?‘ãä>∞Bæ   øáä1øu='øJ#…æ‰9øoÉÏæŸµYæΩ˘›=\#…>I~?Zf?}û>%Ô√>ŒÈ¢>&ˆ>AÊòΩﬂãäæZ+¿æµæ’µYæ∆Gæ&ætÊòΩLÂ=ÈB>fÔC>ë8>˙›=  Ä?Ÿ9?Ô√æø{øÒ5ø»≈G>_Él?-€T?ø{ø>~øM+¿>∞Av?Ñä1?ÔCæ˘˜gø%ƒPø_Él?Pf?ˆµæ˘˜gøs='øŸê8>{ÇZ?IßD?4€Tø`ÉÏæ≈È¢>,ƒP?É?ÿ&æOßDøƒ˚0øÙ5?N#…>÷ãäæáä1ø˛ˇˇæ¥B>v='?É?‰9øÄûæ‹µY>I~?Z#…>ƒ˘›Ω[føkÉÏæ%Ô√>⁄µY>(ˆæZ+¿æ›ãäæFÊò=µ>ÀÈ¢>∆Gæ˙›ΩvÊò=fÔC>ÁB>QÂΩë8æ&æ  Ä?º≈G>`Élø÷9ø˜5?-€T?%Ô√æΩ{øø{øÔCæ˙˜g?;~?ää1ø%ƒPøZ+¿>ÆAv?_Él?Œê8>{ÇZøNføx='?IßD?µæ˜˜gø4€TøŒ&æPßD?[ÉÏ>Éøƒ˚0ø–È¢>*ƒP?Ù5?´B>v='øJ#…æ  ?É?‡ãäæÖä1ø‰9ø∂˘›Ω[f?}û>a#…ækÉÏæÎµY>H~?%Ô√>=Êò=µæ’µYæ‚ãä>ÀÈ¢>2ˆæY+¿æ∆GæHÂΩ ë8>˙›=ÏBæ&æÄÊò=eÔC>  Ä?¬≈Gæ^Élø›9?Û5?4€TøÔ√æ¡{?ø{øÔC>¯˜g?B~øÜä1ø,ƒP?<+¿>≤Avø_Él?”ê8æzÇZøTf?u='?OßDøÊµæ˚˜g?4€Tø”&>NßD?gÉÏæÉø ˚0?∂È¢>.ƒPøÙ5?∞Bæu='øS#…>   ?Éø ãäæàä1?‰9øΩ˘›=Zf?Ñûæ\#…ærÉÏ>»µY>J~ø%Ô√>AÊòΩµæ‡µY>ﬂãä>–È¢æˆæ\+¿>∆GæLÂ=ë8>˙›ΩÈBæ&>hÊò=hÔCæ  Ä?‹9øÔ√ææ{?˚5øª≈Gæ[Él?1€Tøø{øA~?A+¿>ØAvøéä1?ÔC>ı˜gø)ƒP?_Él?SføÍµæ¯˜g?|='øÕê8æwÇZ?LßDø4€TøeÉÏ>∫È¢>+ƒPø É?Œ&>LßDø«˚0?Ù5?R#…æÕãäæÜä1?  ø´Bæs='?Éø‰9øÉû>ŒµY>I~øe#…>µ˘›=XføoÉÏ>%Ô√>ﬁµYæˆæY+¿>Âãäæ<ÊòΩˇµ>ŒÈ¢æ∆Gæ˙›=lÊò=eÔCæÔB>GÂ=ë8æ&>  Ä?2€TøÔ√>±≈G>Ô5øø{?bÉløÈ9?ø{ø*ƒP?P+¿æÔCæÇä1?∞Avø¸˜g?N~ø_Él?MßDø˘µ>√ê8>q='ø˘˜g?}ÇZø_f?4€Tø»˚0?»È¢æ≈&æÉ?,ƒPøRßD?{ÉÏæÙ5?ÉøŸãä>§B>˚ˇˇæáä1?x='ød#…>‰9øpÉÏ>ﬂµYæ™˘›ΩX#…>I~ø\f?íûæ%Ô√>ŒÈ¢æ*ˆ>4Êò=‹ãäæZ+¿>µæÚµY>∆Gæ&>xÊòΩ?ÂΩÊB>fÔCæ!ë8> ˙›Ω  Ä?ø{ø_Él?4€TøÙ5?‰9ø%Ô√>∆Gæø{ø∞Av?˘˜gø,ƒP?áä1øI~?Z+¿æfÔC>_Él?˘˜gø{ÇZ?OßDøv='?[føµ>ë8æ4€Tø,ƒP?OßDø ˚0?ÉørÉÏ>–È¢æ&>Ù5?áä1øv='?Éø  ?]#…æ‡ãä>ÍBæ‰9øI~?[førÉÏ>]#…æåû>ÎµYæ˙›=%Ô√>Z+¿æµ>–È¢æ‡ãä>ÎµYæ2ˆ>ÄÊòΩ∆GæfÔC>ë8æ&>ÍBæ˙›=ÄÊòΩåÂ=*/Bval_281J                             *õBunsqueeze_16JÄ  ÄA  0A   A  ÄA  ¿A   B  LB  tB  @A  @A  `A  òA  –A  hB  pB  \B  `A  PA  ÄA  ¿A   B  dB  äB  `B  `A  àA  ∞A  ËA  LB  ÆB  †B  xB  êA  ∞A  B  `B  àB  ⁄B  ŒB  öB  ¿A  B  \B  ÄB  ¢B  –B  ‚B  ∏B  DB  ÄB  úB  ÆB  ŒB  ÚB  B   B  êB  ∏B  æB  ƒB  ‡B  »B  ŒB  ∆B*!Bscalar_tensor_default_4J  HB*!Bscalar_tensor_default_5J  C*!Bscalar_tensor_default_6J    *!Bscalar_tensor_default_9J  Ä?*õBunsqueeze_20JÄ  àA  êA  ¿A  <B  ∆B  ∆B  ∆B  ∆B  êA  ®A  –A  ÑB  ∆B  ∆B  ∆B  ∆B  ¿A  –A  `B  ∆B  ∆B  ∆B  ∆B  ∆B  <B  ÑB  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B  ∆B*éBcosJÄ  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?æ{?1€T?Ÿ9?º≈G>¬≈Gæ‹9ø2€Tøø{ø^Él?Ô√>Ô√æ`Élø^ÉløÔ√æÔ√>_Él?1€T?¬≈Gæø{ø÷9ø›9?æ{?±≈G>3€TøÛ5?Û5øÒ5ø˜5?Û5?˚5øÔ5øÛ5?Ÿ9?ø{ø»≈G>-€T?3€Tø∫≈Gæø{?Â9øÔ√>^Élø_Él?$Ô√æÔ√æ[Él?bÉlø%Ô√>º≈G>÷9ø-€T?Ω{ø¡{?1€TøÈ9?∆Gæ*ëBmul_37JÄˇˇˇ>Û5?Û5?Û5?Û5?Û5?Û5?Û5?Û5?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?Û5?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?Û5?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?Û5?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?Û5?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?Û5?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?Û5?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?  Ä?*7Bval_340J(                                     *'Bval_345J                     *7Bval_352J(                                   *'Bval_357J       Ä       Ä       */Bval_373J                             *MBval_1J@                                                                *Bval_2J        *Bval_3J       *Bval_4J       *Bval_5Jáô>*Bval_6J¢E?*Bval_7J’xÈ=*Bval_8JNb?*Bval_9J   ?*Bval_10J+á6?*Bval_11J˝ˇˇˇˇˇˇˇ*Bval_18J       *NBval_59J@                                                              *NBval_91J@                                                              *Bval_253J   C*Bval_283J @úE*Bval_284J   @*Bval_285J  HC*Bval_286J  @@*Bval_394J              *Bval_287J       *Bval_289J  »B*Bval_292J
+◊£º*Bval_293J
+◊£<*Bval_320J  Ä>*Bval_383JÅï≥?*Bval_384J¥»6?*Bval_385J≈ ∞>*Bval_386J™Ò‚?Zõ
+x
+
+
+
+Ä
+Ä"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNoneZç
+a
+
+
+"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNoneb!
+alias
+
+
+
+Ä
+ÄjÁ
+view_2
+
+
+
+
+"ƒ
+$pkg.onnxscript.optimizer.folded_fromõ['arange', 'clone_2', 'clone_3', 'div', 'div_1', 'exp', 'expand', 'expand_2', 'lifted_tensor_2', 'lifted_tensor_3', 'mul_6', 'neg', 'pow_1', 'pow_2', 'scalar_tensor_default', 'select_6', 'sub_2', 'sum_1', 'unsqueeze_3', 'unsqueeze_4', 'val_18', 'val_2', 'val_20', 'val_21', 'val_22', 'val_23', 'val_24', 'val_25', 'val_26', 'val_28', 'val_29', 'val_3', 'val_30', 'val_31', 'val_32', 'val_33', 'val_34', 'val_35', 'val_36', 'val_4', 'val_54', 'val_55', 'val_56', 'val_57', 'val_58', 'val_61', 'val_62', 'val_63', 'val_64', 'val_65', 'view']jf
+val_71
+
+
+"P
+$pkg.onnxscript.optimizer.folded_from(['val_67', 'val_68', 'val_69', 'val_70']jˇ
+view_5
+
+
+
+
+"‹
+$pkg.onnxscript.optimizer.folded_from≥['arange_1', 'clone_2', 'clone_4', 'div_2', 'div_3', 'exp_1', 'expand_1', 'expand_3', 'lifted_tensor_2', 'lifted_tensor_4', 'mul_7', 'neg_1', 'pow_3', 'pow_4', 'scalar_tensor_default_1', 'select_7', 'sub_3', 'sum_2', 'unsqueeze_5', 'unsqueeze_6', 'val_18', 'val_2', 'val_23', 'val_3', 'val_34', 'val_38', 'val_39', 'val_4', 'val_40', 'val_41', 'val_42', 'val_43', 'val_45', 'val_46', 'val_47', 'val_48', 'val_49', 'val_50', 'val_51', 'val_52', 'val_84', 'val_86', 'val_87', 'val_88', 'val_89', 'val_90', 'val_93', 'val_94', 'val_95', 'val_96', 'val_97', 'view_1']jj
+val_103
+
+
+"S
+$pkg.onnxscript.optimizer.folded_from+['val_100', 'val_101', 'val_102', 'val_99']jl
+val_118
+
+
+"U
+$pkg.onnxscript.optimizer.folded_from-['conv2d_1', 'val_115', 'val_116', 'val_117']jv
+val_220
+
+
+"_
+$pkg.onnxscript.optimizer.folded_from7['val_215', 'val_216', 'val_217', 'val_218', 'val_219']jk
+val_226
+
+
+"T
+$pkg.onnxscript.optimizer.folded_from,['val_222', 'val_223', 'val_224', 'val_225']jv
+val_233
+
+
+"_
+$pkg.onnxscript.optimizer.folded_from7['val_228', 'val_229', 'val_230', 'val_231', 'val_232']jk
+val_239
+
+
+"T
+$pkg.onnxscript.optimizer.folded_from,['val_235', 'val_236', 'val_237', 'val_238']jÜ
+unsqueeze_13
+
+
+
+
+"^
+$pkg.onnxscript.optimizer.folded_from6['lifted_tensor_8', 'unsqueeze_12', 'val_0', 'val_18']jU
+val_257
+
+
+">
+$pkg.onnxscript.optimizer.folded_from['val_255', 'val_256']jÑ
+view_20
+
+@
+@"i
+$pkg.onnxscript.optimizer.folded_fromA['lifted_tensor_9', 'permute_4', 'val_259', 'val_260', 'val_261']jU
+val_271
+
+
+">
+$pkg.onnxscript.optimizer.folded_from['val_269', 'val_270']jÑ
+view_23
+
+@
+@"i
+$pkg.onnxscript.optimizer.folded_fromA['lifted_tensor_9', 'permute_6', 'val_273', 'val_274', 'val_275']jk
+val_281
+
+
+"T
+$pkg.onnxscript.optimizer.folded_from,['val_277', 'val_278', 'val_279', 'val_280']jå
+unsqueeze_16
+
+
+
+
+"d
+$pkg.onnxscript.optimizer.folded_from<['clone', 'lifted_tensor_0', 'unsqueeze', 'val_0', 'val_18']jV
+scalar_tensor_default_4
+ "3
+$pkg.onnxscript.optimizer.folded_from['val_282']jV
+scalar_tensor_default_5
+ "3
+$pkg.onnxscript.optimizer.folded_from['val_290']jT
+scalar_tensor_default_6
+ "1
+$pkg.onnxscript.optimizer.folded_from	['val_2']jT
+scalar_tensor_default_9
+ "1
+$pkg.onnxscript.optimizer.folded_from	['val_3']jê
+unsqueeze_20
+
+
+
+
+"h
+$pkg.onnxscript.optimizer.folded_from@['clone_1', 'lifted_tensor_1', 'unsqueeze_1', 'val_0', 'val_18']j•
+cos
+
+
+"ç
+$pkg.onnxscript.optimizer.folded_from‰['add_26', 'arange_4', 'div_14', 'lifted_tensor_10', 'mul_34', 'mul_35', 'mul_36', 'unsqueeze_32', 'unsqueeze_33', 'val_0', 'val_18', 'val_2', 'val_284', 'val_291', 'val_3', 'val_304', 'val_305', 'val_306', 'val_307', 'val_308']jÖ
+mul_37
+
+
+"Í
+$pkg.onnxscript.optimizer.folded_from¡['copy', 'lifted_tensor_11', 'ones', 'select_scatter', 'val_0', 'val_2', 'val_309', 'val_310', 'val_311', 'val_312', 'val_313', 'val_314', 'val_315', 'val_317', 'val_318', 'val_319', 'view_26']jv
+val_340
+
+
+"_
+$pkg.onnxscript.optimizer.folded_from7['val_335', 'val_336', 'val_337', 'val_338', 'val_339']j`
+val_345
+
+
+"I
+$pkg.onnxscript.optimizer.folded_from!['val_342', 'val_343', 'val_344']jv
+val_352
+
+
+"_
+$pkg.onnxscript.optimizer.folded_from7['val_347', 'val_348', 'val_349', 'val_350', 'val_351']j`
+val_357
+
+
+"I
+$pkg.onnxscript.optimizer.folded_from!['val_354', 'val_355', 'val_356']jp
+val_373
+
+
+"Y
+$pkg.onnxscript.optimizer.folded_from1['unsqueeze_36', 'val_370', 'val_371', 'val_372']j
+val_1
+
+
+j
+val_2
+ j
+val_3
+ j
+val_4
+ j
+val_5
+ j
+val_6
+ j
+val_7
+ j
+val_8
+ j
+val_9
+ j
+val_10
+ j
+val_11
+
+
+j
+val_18
+
+
+j
+val_59
+
+
+j
+val_91
+
+
+j
+val_253
+ j
+val_283
+ j
+val_284
+ j
+val_285
+ j
+val_286
+ j
+val_394
+
+
+j
+val_287
+
+
+j
+val_289
+ j
+val_292
+ j
+val_293
+ j
+val_320
+ j
+val_383
+ j
+val_384
+ j
+val_385
+ j
+val_386
+ j
+pad
+
+
+
+Ä
+Äj
+select
+
+
+Ä
+Äj 
+select_1
+
+
+Ä
+Äj 
+select_2
+
+
+Ä
+Äj
+mul
+
+
+Ä
+Äj
+mul_1
+
+
+Ä
+Äj
+add
+
+
+Ä
+Äj
+mul_2
+
+
+Ä
+Äj
+add_1
+
+
+Ä
+Äj
+sub
+
+
+Ä
+Äj
+mul_3
+
+
+Ä
+Äj
+add_2
+
+
+Ä
+Äj
+sub_1
+
+
+Ä
+Äj
+mul_4
+
+
+Ä
+Äj
+add_3
+
+
+Ä
+Äj"
+val_12
+
+
+
+Ä
+Äj"
+val_14
+
+
+
+Ä
+Äj"
+val_16
+
+
+
+Ä
+Äj!
+stack
+
+
+
+Ä
+Äj!
+mul_5
+
+
+
+Ä
+Äj 
+select_3
+
+
+Ä
+Äj 
+select_4
+
+
+Ä
+Äj 
+select_5
+
+
+Ä
+Äj'
+unsqueeze_2
+
+
+
+Ä
+Äj!
+pad_1
+
+
+
+Ä
+Çj"
+view_3
+
+
+
+Ä
+Çj"
+conv2d
+
+
+
+Ä
+Äj!
+pad_2
+
+
+
+Ç
+Äj"
+view_6
+
+
+
+Ç
+Äj$
+conv2d_1
+
+
+
+Ä
+Äj/
+upsample_bilinear2d
+
+
+
+Ä
+Äj'
+unsqueeze_7
+
+
+
+Ä
+Äj!
+pad_3
+
+
+
+Ä
+Çj#
+view_11
+
+
+
+Ä
+Çj$
+conv2d_2
+
+
+
+Ä
+Äj!
+pad_4
+
+
+
+Ç
+Äj#
+view_14
+
+
+
+Ç
+Äj$
+conv2d_3
+
+
+
+Ä
+Äj1
+upsample_bilinear2d_1
+
+
+
+Ä
+Äj!
+	select_10
+
+
+Ä
+Äj!
+	select_11
+
+
+Ä
+Äj%
+view_16
+
+
+ 
+
+ 
+j%
+permute
+
+
+ 
+ 
+
+j'
+_unsafe_view
+
+
+Ä
+
+j%
+view_17
+
+
+
+
+
+j'
+	permute_1
+
+
+
+
+
+j)
+_unsafe_view_1
+
+
+Ä
+
+j%
+view_18
+
+
+
+
+
+j'
+	permute_2
+
+
+
+
+
+j)
+_unsafe_view_2
+
+
+Ä
+
+j 
+sub_6
+
+
+Ä
+
+j
+view_19
+	
+Ä
+@j
+mm
+	
+Ä
+@j"
+view_21
+
+
+Ä
+
+j!
+mul_10
+
+
+Ä
+
+j
+cat
+
+
+Ä
+
+j 
+sub_7
+
+
+Ä
+
+j
+view_22
+	
+Ä
+@j
+mm_1
+	
+Ä
+@j"
+view_24
+
+
+Ä
+
+j!
+mul_11
+
+
+Ä
+
+j
+lt
+
+	
+j
+
+reciprocal
+
+
+j
+mul_12
+
+
+j
+mul_13
+
+
+j
+sub_8
+
+
+j
+where
+
+
+j
+floor
+
+
+j
+sub_9
+
+
+j
+sub_10
+
+
+j
+pow_9
+
+
+j
+add_4
+
+
+j"
+unsqueeze_18
+
+
+
+j&
+unsqueeze_19
+
+
+
+
+j 
+mul_14
+
+
+
+
+j
+add_5
+
+
+
+
+j
+div_8
+
+
+
+
+j 
+sub_11
+
+
+
+
+j
+gt
+	
+
+
+
+j
+clamp
+
+
+
+
+j
+neg_4
+
+
+
+
+j
+exp_4
+
+
+
+
+j 
+sub_12
+
+
+
+
+j 
+mul_15
+
+
+
+
+j
+add_6
+
+
+
+
+j!
+where_1
+
+
+
+
+j 
+sub_13
+
+
+
+
+j
+lt_1
+	
+
+
+
+j!
+clamp_1
+
+
+
+
+j
+exp_5
+
+
+
+
+j 
+sub_14
+
+
+
+
+j 
+mul_16
+
+
+
+
+j
+add_7
+
+
+
+
+j!
+where_2
+
+
+
+
+j!
+floor_1
+
+
+
+
+j 
+sub_15
+
+
+
+
+j 
+sub_16
+
+
+
+
+j 
+pow_10
+
+
+
+
+j
+add_8
+
+
+
+
+j 
+div_9
+
+
+Ä
+
+j"
+round_1
+
+
+Ä
+
+j!
+sub_17
+
+
+Ä
+
+j!
+pow_11
+
+
+Ä
+
+j 
+add_9
+
+
+Ä
+
+j 
+mul_19
+
+
+
+
+j 
+add_11
+
+
+
+
+j 
+div_10
+
+
+
+
+j 
+sub_21
+
+
+
+
+j
+gt_1
+	
+
+
+
+j!
+clamp_2
+
+
+
+
+j
+neg_5
+
+
+
+
+j
+exp_6
+
+
+
+
+j 
+sub_22
+
+
+
+
+j 
+mul_20
+
+
+
+
+j 
+add_12
+
+
+
+
+j!
+where_4
+
+
+
+
+j 
+sub_23
+
+
+
+
+j
+lt_3
+	
+
+
+
+j!
+clamp_3
+
+
+
+
+j
+exp_7
+
+
+
+
+j 
+sub_24
+
+
+
+
+j 
+mul_21
+
+
+
+
+j 
+add_13
+
+
+
+
+j!
+where_5
+
+
+
+
+j!
+floor_3
+
+
+
+
+j 
+sub_25
+
+
+
+
+j 
+sub_26
+
+
+
+
+j 
+pow_13
+
+
+
+
+j 
+add_14
+
+
+
+
+j!
+div_11
+
+
+Ä
+
+j"
+round_2
+
+
+Ä
+
+j!
+sub_27
+
+
+Ä
+
+j!
+pow_14
+
+
+Ä
+
+j!
+add_15
+
+
+Ä
+
+j(
+split_split_0
+
+
+Ä
+
+j(
+split_split_1
+
+
+Ä
+
+j!
+mul_27
+
+
+Ä
+
+j 
+cat_1
+
+
+Ä
+
+j!
+mul_33
+
+
+Ä
+
+j!
+mul_38
+
+
+Ä
+
+j!
+matmul
+
+
+Ä
+
+j$
+	transpose
+
+
+Ä
+
+j#
+matmul_1
+
+
+Ä
+
+j&
+transpose_1
+
+
+Ä
+
+j!
+mul_39
+
+
+Ä
+
+j!
+add_27
+
+
+Ä
+
+j!
+mul_44
+
+
+Ä
+
+j#
+matmul_2
+
+
+Ä
+
+j&
+transpose_2
+
+
+Ä
+
+j#
+matmul_3
+
+
+Ä
+
+j&
+transpose_3
+
+
+Ä
+
+j!
+mul_45
+
+
+Ä
+
+j!
+add_29
+
+
+Ä
+
+j*
+split_1_split_0
+
+
+Ä
+
+j*
+split_1_split_1
+
+
+Ä
+
+j%
+view_29
+
+
+ 
+ 
+
+j'
+	permute_7
+
+
+ 
+
+ 
+j&
+_unsafe_view_3
+
+
+Ä
+Äj%
+view_30
+
+
+
+
+
+j'
+	permute_8
+
+
+
+
+
+j&
+_unsafe_view_4
+
+
+Ä
+Äj%
+view_31
+
+
+
+
+
+j'
+	permute_9
+
+
+
+
+
+j&
+_unsafe_view_5
+
+
+Ä
+Äj(
+unsqueeze_36
+
+
+
+Ä
+Äj1
+upsample_bilinear2d_2
+
+
+
+Ä
+Äj!
+	select_16
+
+
+Ä
+Äj(
+unsqueeze_37
+
+
+
+Ä
+Äj1
+upsample_bilinear2d_3
+
+
+
+Ä
+Äj!
+	select_17
+
+
+Ä
+Äj#
+val_378
+
+
+
+Ä
+Äj#
+val_380
+
+
+
+Ä
+Äj#
+val_382
+
+
+
+Ä
+Äj#
+stack_1
+
+
+
+Ä
+Äj"
+div_16
+
+
+
+Ä
+Äj!
+	select_18
+
+
+Ä
+Äj!
+	select_19
+
+
+Ä
+Äj!
+	select_20
+
+
+Ä
+Äj
+sub_46
+
+
+Ä
+Äj
+sub_47
+
+
+Ä
+Äj
+mul_46
+
+
+Ä
+Äj
+add_30
+
+
+Ä
+Äj
+mul_47
+
+
+Ä
+Äj
+sub_48
+
+
+Ä
+Äj
+mul_48
+
+
+Ä
+Äj
+sub_49
+
+
+Ä
+Äj
+mul_49
+
+
+Ä
+Äj
+add_31
+
+
+Ä
+Äj#
+val_388
+
+
+
+Ä
+Äj#
+val_390
+
+
+
+Ä
+Äj#
+val_392
+
+
+
+Ä
+Äj#
+stack_2
+
+
+
+Ä
+Äj#
+clamp_8
+
+
+
+Ä
+Äj"
+sub_50
+
+
+
+Ä
+Äj 
+gt_4
+	
+
+
+Ä
+Äj#
+clamp_9
+
+
+
+Ä
+Äj!
+neg_8
+
+
+
+Ä
+Äj"
+exp_12
+
+
+
+Ä
+Äj"
+sub_51
+
+
+
+Ä
+Äj"
+mul_50
+
+
+
+Ä
+Äj"
+add_32
+
+
+
+Ä
+Äj$
+where_12
+
+
+
+Ä
+Äj 
+lt_8
+	
+
+
+Ä
+Äj$
+clamp_10
+
+
+
+Ä
+Äj"
+exp_13
+
+
+
+Ä
+Äj"
+sub_53
+
+
+
+Ä
+Äj"
+mul_51
+
+
+
+Ä
+ÄÇã
+0pkg.torch.export.ExportedProgram.graph_signature÷
+# inputs
+c_lifted_tensor_0: CONSTANT_TENSOR target='lifted_tensor_0'
+c_lifted_tensor_1: CONSTANT_TENSOR target='lifted_tensor_1'
+c_lifted_tensor_2: CONSTANT_TENSOR target='lifted_tensor_2'
+c_lifted_tensor_3: CONSTANT_TENSOR target='lifted_tensor_3'
+c_lifted_tensor_4: CONSTANT_TENSOR target='lifted_tensor_4'
+c_lifted_tensor_5: CONSTANT_TENSOR target='lifted_tensor_5'
+c_lifted_tensor_6: CONSTANT_TENSOR target='lifted_tensor_6'
+c_lifted_tensor_7: CONSTANT_TENSOR target='lifted_tensor_7'
+c_lifted_tensor_8: CONSTANT_TENSOR target='lifted_tensor_8'
+c_lifted_tensor_9: CONSTANT_TENSOR target='lifted_tensor_9'
+c_lifted_tensor_10: CONSTANT_TENSOR target='lifted_tensor_10'
+c_lifted_tensor_11: CONSTANT_TENSOR target='lifted_tensor_11'
+c_lifted_tensor_12: CONSTANT_TENSOR target='lifted_tensor_12'
+x: USER_INPUT
+a: USER_INPUT
+
+# outputs
+alias: USER_OUTPUT
+Ç^
+2pkg.torch.export.ExportedProgram.range_constraints({s83: VR[0, int_oo], s21: VR[0, int_oo]}B
+ 

@@ -1,0 +1,339 @@
+
+pytorch2.9.1+cu128:”ä
+Ü
+xval_0node_Shape_0"Shape*
+
+end†*
+start†JÉ
+	namespacev_empty_nn_module_stack_from_metadata_hook: _empty_nn_module_stack_from_metadata_hook/sym_size_int_6: aten.sym_size.intJd
+pkg.torch.onnx.class_hierarchyB['_empty_nn_module_stack_from_metadata_hook', 'aten.sym_size.int']Jä
+pkg.torch.onnx.fx_nodep%sym_size_int_6 : [num_users=1] = call_function[target=torch.ops.aten.sym_size.int](args = (%x, 2), kwargs = {})J]
+pkg.torch.onnx.name_scopes?['_empty_nn_module_stack_from_metadata_hook', 'sym_size_int_6']Js
+pkg.torch.onnx.stack_traceUFile "torch/fx/passes/runtime_assert.py", line 24, in insert_deferred_runtime_asserts
+Ç
+val_0sym_size_int_6node_sym_size_int_6"SqueezeJÉ
+	namespacev_empty_nn_module_stack_from_metadata_hook: _empty_nn_module_stack_from_metadata_hook/sym_size_int_6: aten.sym_size.intJd
+pkg.torch.onnx.class_hierarchyB['_empty_nn_module_stack_from_metadata_hook', 'aten.sym_size.int']Jä
+pkg.torch.onnx.fx_nodep%sym_size_int_6 : [num_users=1] = call_function[target=torch.ops.aten.sym_size.int](args = (%x, 2), kwargs = {})J]
+pkg.torch.onnx.name_scopes?['_empty_nn_module_stack_from_metadata_hook', 'sym_size_int_6']Js
+pkg.torch.onnx.stack_traceUFile "torch/fx/passes/runtime_assert.py", line 24, in insert_deferred_runtime_asserts
+Ü
+xval_1node_Shape_1"Shape*
+
+end†*
+start†JÉ
+	namespacev_empty_nn_module_stack_from_metadata_hook: _empty_nn_module_stack_from_metadata_hook/sym_size_int_7: aten.sym_size.intJd
+pkg.torch.onnx.class_hierarchyB['_empty_nn_module_stack_from_metadata_hook', 'aten.sym_size.int']Jä
+pkg.torch.onnx.fx_nodep%sym_size_int_7 : [num_users=1] = call_function[target=torch.ops.aten.sym_size.int](args = (%x, 3), kwargs = {})J]
+pkg.torch.onnx.name_scopes?['_empty_nn_module_stack_from_metadata_hook', 'sym_size_int_7']Js
+pkg.torch.onnx.stack_traceUFile "torch/fx/passes/runtime_assert.py", line 24, in insert_deferred_runtime_asserts
+Ç
+val_1sym_size_int_7node_sym_size_int_7"SqueezeJÉ
+	namespacev_empty_nn_module_stack_from_metadata_hook: _empty_nn_module_stack_from_metadata_hook/sym_size_int_7: aten.sym_size.intJd
+pkg.torch.onnx.class_hierarchyB['_empty_nn_module_stack_from_metadata_hook', 'aten.sym_size.int']Jä
+pkg.torch.onnx.fx_nodep%sym_size_int_7 : [num_users=1] = call_function[target=torch.ops.aten.sym_size.int](args = (%x, 3), kwargs = {})J]
+pkg.torch.onnx.name_scopes?['_empty_nn_module_stack_from_metadata_hook', 'sym_size_int_7']Js
+pkg.torch.onnx.stack_traceUFile "torch/fx/passes/runtime_assert.py", line 24, in insert_deferred_runtime_asserts
+Ü
+sym_size_int_6	sym_floatnode_sym_float"Cast*	
+to†JS
+	namespaceF: __main__._Wrapper0/sym_float: <function sym_float at 0x154ce6158f40>Jb
+pkg.torch.onnx.class_hierarchy@['__main__._Wrapper0', '<function sym_float at 0x154ce6158f40>']JÑ
+pkg.torch.onnx.fx_nodej%sym_float : [num_users=1] = call_function[target=torch.sym_float](args = (%sym_size_int_6,), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'sym_float']J÷
+pkg.torch.onnx.stack_trace∑  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 762, in rescale
+    size = (int(height * factor_vert), int(width * factor_horz))
+
+º
+	sym_float
+val_2mulnode_mul"MulJ>
+	namespace1: __main__._Wrapper0/mul: <built-in function mul>JS
+pkg.torch.onnx.class_hierarchy1['__main__._Wrapper0', '<built-in function mul>']J{
+pkg.torch.onnx.fx_nodea%mul : [num_users=1] = call_function[target=operator.mul](args = (%sym_float, 0.75), kwargs = {})J)
+pkg.torch.onnx.name_scopes['', 'mul']J÷
+pkg.torch.onnx.stack_trace∑  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 762, in rescale
+    size = (int(height * factor_vert), int(width * factor_horz))
+
+º
+multrunc
+node_trunc"Cast*	
+to†JB
+	namespace5: __main__._Wrapper0/trunc: <built-in function trunc>JU
+pkg.torch.onnx.class_hierarchy3['__main__._Wrapper0', '<built-in function trunc>']Jp
+pkg.torch.onnx.fx_nodeV%trunc : [num_users=1] = call_function[target=math.trunc](args = (%mul,), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'trunc']J÷
+pkg.torch.onnx.stack_trace∑  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 762, in rescale
+    size = (int(height * factor_vert), int(width * factor_horz))
+
+ê
+sym_size_int_7sym_float_1node_sym_float_1"Cast*	
+to†JU
+	namespaceH: __main__._Wrapper0/sym_float_1: <function sym_float at 0x154ce6158f40>Jb
+pkg.torch.onnx.class_hierarchy@['__main__._Wrapper0', '<function sym_float at 0x154ce6158f40>']JÜ
+pkg.torch.onnx.fx_nodel%sym_float_1 : [num_users=1] = call_function[target=torch.sym_float](args = (%sym_size_int_7,), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'sym_float_1']J÷
+pkg.torch.onnx.stack_trace∑  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 762, in rescale
+    size = (int(height * factor_vert), int(width * factor_horz))
+
+ 
+sym_float_1
+val_2mul_1
+node_mul_1"MulJ@
+	namespace3: __main__._Wrapper0/mul_1: <built-in function mul>JS
+pkg.torch.onnx.class_hierarchy1['__main__._Wrapper0', '<built-in function mul>']J
+pkg.torch.onnx.fx_nodee%mul_1 : [num_users=1] = call_function[target=operator.mul](args = (%sym_float_1, 0.75), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'mul_1']J÷
+pkg.torch.onnx.stack_trace∑  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 762, in rescale
+    size = (int(height * factor_vert), int(width * factor_horz))
+
+ 
+mul_1trunc_1node_trunc_1"Cast*	
+to†JD
+	namespace7: __main__._Wrapper0/trunc_1: <built-in function trunc>JU
+pkg.torch.onnx.class_hierarchy3['__main__._Wrapper0', '<built-in function trunc>']Jt
+pkg.torch.onnx.fx_nodeZ%trunc_1 : [num_users=1] = call_function[target=math.trunc](args = (%mul_1,), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'trunc_1']J÷
+pkg.torch.onnx.stack_trace∑  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 762, in rescale
+    size = (int(height * factor_vert), int(width * factor_horz))
+
+∞
+
+xval_3node_Shape_3"Shape*
+
+end†*
+start †JS
+	namespaceF: __main__._Wrapper0/upsample_bilinear2d: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper0', 'aten.upsample_bilinear2d.vec']Jπ
+pkg.torch.onnx.fx_nodeû%upsample_bilinear2d : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%x, [%trunc, %trunc_1], False, None), kwargs = {})J9
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d']JŒ
+pkg.torch.onnx.stack_traceØ  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 763, in rescale
+    return resize(input, size, interpolation=interpolation, align_corners=align_corners, antialias=antialias)
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 667, in resize
+    output = torch.nn.functional.interpolate(input, size=size, mode=interpolation, align_corners=align_corners)
+
+∑
+
+trunc
+val_4val_5node_Reshape_5"Reshape*
+	allowzero †JS
+	namespaceF: __main__._Wrapper0/upsample_bilinear2d: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper0', 'aten.upsample_bilinear2d.vec']Jπ
+pkg.torch.onnx.fx_nodeû%upsample_bilinear2d : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%x, [%trunc, %trunc_1], False, None), kwargs = {})J9
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d']JŒ
+pkg.torch.onnx.stack_traceØ  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 763, in rescale
+    return resize(input, size, interpolation=interpolation, align_corners=align_corners, antialias=antialias)
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 667, in resize
+    output = torch.nn.functional.interpolate(input, size=size, mode=interpolation, align_corners=align_corners)
+
+π
+
+trunc_1
+val_4val_7node_Reshape_7"Reshape*
+	allowzero †JS
+	namespaceF: __main__._Wrapper0/upsample_bilinear2d: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper0', 'aten.upsample_bilinear2d.vec']Jπ
+pkg.torch.onnx.fx_nodeû%upsample_bilinear2d : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%x, [%trunc, %trunc_1], False, None), kwargs = {})J9
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d']JŒ
+pkg.torch.onnx.stack_traceØ  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 763, in rescale
+    return resize(input, size, interpolation=interpolation, align_corners=align_corners, antialias=antialias)
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 667, in resize
+    output = torch.nn.functional.interpolate(input, size=size, mode=interpolation, align_corners=align_corners)
+
+∞
+
+val_5
+val_7val_8node_Concat_8"Concat*
+axis †JS
+	namespaceF: __main__._Wrapper0/upsample_bilinear2d: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper0', 'aten.upsample_bilinear2d.vec']Jπ
+pkg.torch.onnx.fx_nodeû%upsample_bilinear2d : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%x, [%trunc, %trunc_1], False, None), kwargs = {})J9
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d']JŒ
+pkg.torch.onnx.stack_traceØ  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 763, in rescale
+    return resize(input, size, interpolation=interpolation, align_corners=align_corners, antialias=antialias)
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 667, in resize
+    output = torch.nn.functional.interpolate(input, size=size, mode=interpolation, align_corners=align_corners)
+
+≤
+
+val_3
+val_8val_10node_Concat_10"Concat*
+axis †JS
+	namespaceF: __main__._Wrapper0/upsample_bilinear2d: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper0', 'aten.upsample_bilinear2d.vec']Jπ
+pkg.torch.onnx.fx_nodeû%upsample_bilinear2d : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%x, [%trunc, %trunc_1], False, None), kwargs = {})J9
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d']JŒ
+pkg.torch.onnx.stack_traceØ  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 763, in rescale
+    return resize(input, size, interpolation=interpolation, align_corners=align_corners, antialias=antialias)
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 667, in resize
+    output = torch.nn.functional.interpolate(input, size=size, mode=interpolation, align_corners=align_corners)
+
+≠
+x
+ 
+ 
+val_10upsample_bilinear2dnode_upsample_bilinear2d"Resize*&
+keep_aspect_ratio_policy"stretch†*
+	antialias †*
+extrapolation_value    †*
+exclude_outside †*
+nearest_mode"floor†*7
+coordinate_transformation_mode"pytorch_half_pixel†*
+cubic_coeff_a  @ø†*
+mode"linear†JS
+	namespaceF: __main__._Wrapper0/upsample_bilinear2d: aten.upsample_bilinear2d.vecJX
+pkg.torch.onnx.class_hierarchy6['__main__._Wrapper0', 'aten.upsample_bilinear2d.vec']Jπ
+pkg.torch.onnx.fx_nodeû%upsample_bilinear2d : [num_users=1] = call_function[target=torch.ops.aten.upsample_bilinear2d.vec](args = (%x, [%trunc, %trunc_1], False, None), kwargs = {})J9
+pkg.torch.onnx.name_scopes['', 'upsample_bilinear2d']JŒ
+pkg.torch.onnx.stack_traceØ  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 159, in forward
+    return self._call(x, ())
+  File "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 154, in _call
+    return self.spec.call(x, **kwargs)
+  File "/home/shij0c/git/kornia.github.io/playground/build/specs.py", line 469, in <lambda>
+    lambda x, factor: K.geometry.transform.rescale(x, float(factor)),
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 763, in rescale
+    return resize(input, size, interpolation=interpolation, align_corners=align_corners, antialias=antialias)
+  File "/home/shij0c/git/kornia/kornia/geometry/transform/affwarp.py", line 667, in resize
+    output = torch.nn.functional.interpolate(input, size=size, mode=interpolation, align_corners=align_corners)
+
+main_graph*Bval_2J  @?*Bval_4JˇˇˇˇˇˇˇˇZú
+x
+
+B
+
+H
+W"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNoneb•
+upsample_bilinear2dM
+KG
+B
+
+TruncToInt(0.75*ToFloat(H))
+TruncToInt(0.75*ToFloat(W))"?
+0pkg.torch.export.graph_signature.OutputSpec.kindUSER_OUTPUTj
+val_2
+ j
+val_4
+
+
+j
+val_0
+
+
+j
+sym_size_int_6
+ j
+val_1
+
+
+j
+sym_size_int_7
+ j
+	sym_float
+ j
+mul
+ j
+trunc
+ j
+sym_float_1
+ j
+mul_1
+ j
+trunc_1
+ j
+val_3
+
+
+j
+val_5
+
+
+j
+val_7
+
+
+j
+val_8
+
+
+j
+val_10
+
+
+Çx
+0pkg.torch.export.ExportedProgram.graph_signatureD
+# inputs
+x: USER_INPUT
+
+# outputs
+upsample_bilinear2d: USER_OUTPUT
+Çk
+2pkg.torch.export.ExportedProgram.range_constraints5{s77: VR[1, 64], s53: VR[16, 4096], s0: VR[16, 4096]}B
+ 

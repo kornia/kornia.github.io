@@ -1,0 +1,357 @@
+
+pytorch2.9.1+cu128:òc
+Ï
+a
+val_34unsqueeze_1node_Unsqueeze_39"	UnsqueezeJE
+	namespace8: __main__._Wrapper1/unsqueeze_1: aten.unsqueeze.defaultJ7
+!pkg.onnxscript.rewriter.rule_nameUnsqueezeUnsqueezeJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jî
+pkg.torch.onnx.fx_nodez%unsqueeze_1 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%unsqueeze, 2), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'unsqueeze_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ω
+unsqueeze_1
+val_2unsqueeze_2node_unsqueeze_2"	UnsqueezeJE
+	namespace8: __main__._Wrapper1/unsqueeze_2: aten.unsqueeze.defaultJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jñ
+pkg.torch.onnx.fx_node|%unsqueeze_2 : [num_users=2] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%unsqueeze_1, 3), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'unsqueeze_2']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+x
+val_3
+val_4
+val_5val_6node_Slice_6"SliceJ9
+	namespace,: __main__._Wrapper1/unbind: aten.unbind.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.unbind.int']JÅ
+pkg.torch.onnx.fx_nodeg%unbind : [num_users=3] = call_function[target=torch.ops.aten.unbind.int](args = (%x, -3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'unbind']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ç
+val_6
+val_5getitemnode_unbind__0"SqueezeJ9
+	namespace,: __main__._Wrapper1/unbind: aten.unbind.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.unbind.int']JÅ
+pkg.torch.onnx.fx_nodeg%unbind : [num_users=3] = call_function[target=torch.ops.aten.unbind.int](args = (%x, -3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'unbind']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+x
+val_4
+val_9
+val_5val_11node_Slice_11"SliceJ9
+	namespace,: __main__._Wrapper1/unbind: aten.unbind.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.unbind.int']JÅ
+pkg.torch.onnx.fx_nodeg%unbind : [num_users=3] = call_function[target=torch.ops.aten.unbind.int](args = (%x, -3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'unbind']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+val_11
+val_5	getitem_1node_unbind__1"SqueezeJ9
+	namespace,: __main__._Wrapper1/unbind: aten.unbind.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.unbind.int']JÅ
+pkg.torch.onnx.fx_nodeg%unbind : [num_users=3] = call_function[target=torch.ops.aten.unbind.int](args = (%x, -3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'unbind']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+à
+x
+val_9
+val_2
+val_5val_15node_Slice_15"SliceJ9
+	namespace,: __main__._Wrapper1/unbind: aten.unbind.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.unbind.int']JÅ
+pkg.torch.onnx.fx_nodeg%unbind : [num_users=3] = call_function[target=torch.ops.aten.unbind.int](args = (%x, -3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'unbind']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ö
+val_15
+val_5	getitem_2node_unbind__2"SqueezeJ9
+	namespace,: __main__._Wrapper1/unbind: aten.unbind.intJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.unbind.int']JÅ
+pkg.torch.onnx.fx_nodeg%unbind : [num_users=3] = call_function[target=torch.ops.aten.unbind.int](args = (%x, -3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'unbind']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+é
+getitem
+	getitem_3mul_12node_mul_12"MulJ9
+	namespace,: __main__._Wrapper1/mul_12: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jè
+pkg.torch.onnx.fx_nodeu%mul_12 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%getitem, %getitem_3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_12']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+§
+	getitem_1
+	getitem_4tmp_0n3"MulJ?
+	namespace2: __main__._Wrapper1/addcmul: aten.addcmul.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.addcmul.default']J°
+pkg.torch.onnx.fx_nodeÜ%addcmul : [num_users=1] = call_function[target=torch.ops.aten.addcmul.default](args = (%mul_12, %getitem_1, %getitem_4), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'addcmul']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ü
+mul_12
+tmp_0addcmuln4"AddJ?
+	namespace2: __main__._Wrapper1/addcmul: aten.addcmul.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.addcmul.default']J°
+pkg.torch.onnx.fx_nodeÜ%addcmul : [num_users=1] = call_function[target=torch.ops.aten.addcmul.default](args = (%mul_12, %getitem_1, %getitem_4), kwargs = {})J-
+pkg.torch.onnx.name_scopes['', 'addcmul']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ø
+	getitem_2
+	getitem_5tmp_0_2n3_2"MulJA
+	namespace4: __main__._Wrapper1/addcmul_1: aten.addcmul.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.addcmul.default']J§
+pkg.torch.onnx.fx_nodeâ%addcmul_1 : [num_users=1] = call_function[target=torch.ops.aten.addcmul.default](args = (%addcmul, %getitem_2, %getitem_5), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'addcmul_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+≠
+addcmul
+tmp_0_2	addcmul_1n4_2"AddJA
+	namespace4: __main__._Wrapper1/addcmul_1: aten.addcmul.defaultJP
+pkg.torch.onnx.class_hierarchy.['__main__._Wrapper1', 'aten.addcmul.default']J§
+pkg.torch.onnx.fx_nodeâ%addcmul_1 : [num_users=1] = call_function[target=torch.ops.aten.addcmul.default](args = (%addcmul, %getitem_2, %getitem_5), kwargs = {})J/
+pkg.torch.onnx.name_scopes['', 'addcmul_1']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+∫
+	addcmul_1
+val_5unsqueeze_3node_unsqueeze_3"	UnsqueezeJE
+	namespace8: __main__._Wrapper1/unsqueeze_3: aten.unsqueeze.defaultJR
+pkg.torch.onnx.class_hierarchy0['__main__._Wrapper1', 'aten.unsqueeze.default']Jï
+pkg.torch.onnx.fx_node{%unsqueeze_3 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%addcmul_1, -3), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'unsqueeze_3']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ø
+scalar_tensor_default
+unsqueeze_2sub_21node_sub_21"SubJ9
+	namespace,: __main__._Wrapper1/sub_21: aten.sub.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.sub.Tensor']J†
+pkg.torch.onnx.fx_nodeÖ%sub_21 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%scalar_tensor_default, %unsqueeze_2), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'sub_21']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+ê
+sub_21
+unsqueeze_3mul_26node_mul_26"MulJ9
+	namespace,: __main__._Wrapper1/mul_26: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jê
+pkg.torch.onnx.fx_nodev%mul_26 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%sub_21, %unsqueeze_3), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_26']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+unsqueeze_2
+xmul_31node_mul_31"MulJ9
+	namespace,: __main__._Wrapper1/mul_31: aten.mul.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.mul.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%mul_31 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%unsqueeze_2, %x), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'mul_31']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+Ü
+mul_26
+mul_31add_39node_add_39"AddJ9
+	namespace,: __main__._Wrapper1/add_39: aten.add.TensorJK
+pkg.torch.onnx.class_hierarchy)['__main__._Wrapper1', 'aten.add.Tensor']Jã
+pkg.torch.onnx.fx_nodeq%add_39 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%mul_26, %mul_31), kwargs = {})J,
+pkg.torch.onnx.name_scopes['', 'add_39']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+£
+add_39
+val_31
+scalar_tensor_defaultclamp
+node_clamp"ClipJ;
+	namespace.: __main__._Wrapper1/clamp: aten.clamp.defaultJN
+pkg.torch.onnx.class_hierarchy,['__main__._Wrapper1', 'aten.clamp.default']Jé
+pkg.torch.onnx.fx_nodet%clamp : [num_users=1] = call_function[target=torch.ops.aten.clamp.default](args = (%add_39, 0.0, 1.0), kwargs = {})J+
+pkg.torch.onnx.name_scopes['', 'clamp']Jï
+pkg.torch.onnx.stack_tracewFile "/home/shij0c/git/kornia.github.io/playground/build/build.py", line 164, in forward
+    return self._call(x, (a,))
+main_graph*B	getitem_3Jáô>*B	getitem_4J¢E?*B	getitem_5J’xÈ=*Bscalar_tensor_defaultJ  Ä?*Bval_31J    *Bval_34J              *Bval_2J       *Bval_3J        *Bval_4J       *Bval_5J˝ˇˇˇˇˇˇˇ*Bval_9J       Zú
+x
+
+B
+
+H
+W"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNoneZç
+a
+
+
+"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNonebc
+clamp
+
+B
+
+H
+W"?
+0pkg.torch.export.graph_signature.OutputSpec.kindUSER_OUTPUTjã
+	getitem_3
+ "v
+$pkg.onnxscript.optimizer.folded_fromN['clone', 'lifted_tensor_0', 'val_16', 'val_17', 'val_18', 'val_19', 'val_20']jã
+	getitem_4
+ "v
+$pkg.onnxscript.optimizer.folded_fromN['clone', 'lifted_tensor_0', 'val_20', 'val_21', 'val_22', 'val_23', 'val_24']jã
+	getitem_5
+ "v
+$pkg.onnxscript.optimizer.folded_fromN['clone', 'lifted_tensor_0', 'val_20', 'val_25', 'val_26', 'val_27', 'val_28']jS
+scalar_tensor_default
+ "2
+$pkg.onnxscript.optimizer.folded_from
+['val_29']jD
+val_31
+ "2
+$pkg.onnxscript.optimizer.folded_from
+['val_30']j
+val_34
+
+
+j
+val_2
+
+
+j
+val_3
+
+
+j
+val_4
+
+
+j
+val_5
+
+
+j
+val_9
+
+
+j!
+unsqueeze_1
+
+
+
+j%
+unsqueeze_2
+
+
+
+
+j"
+val_6
+
+B
+
+H
+Wj 
+getitem
+
+B
+H
+Wj#
+val_11
+
+B
+
+H
+Wj"
+	getitem_1
+
+B
+H
+Wj#
+val_15
+
+B
+
+H
+Wj"
+	getitem_2
+
+B
+H
+Wj
+mul_12
+
+B
+H
+Wj
+tmp_0
+
+B
+H
+Wj 
+addcmul
+
+B
+H
+Wj 
+tmp_0_2
+
+B
+H
+Wj"
+	addcmul_1
+
+B
+H
+Wj(
+unsqueeze_3
+
+B
+
+H
+Wj 
+sub_21
+
+
+
+
+j#
+mul_26
+
+B
+
+H
+Wj#
+mul_31
+
+B
+
+H
+Wj#
+add_39
+
+B
+
+H
+WÇµ
+0pkg.torch.export.ExportedProgram.graph_signatureÄ
+# inputs
+c_lifted_tensor_0: CONSTANT_TENSOR target='lifted_tensor_0'
+x: USER_INPUT
+a: USER_INPUT
+
+# outputs
+clamp: USER_OUTPUT
+Çì
+2pkg.torch.export.ExportedProgram.range_constraints]{s77: VR[1, 64], s53: VR[16, 4096], s0: VR[16, 4096], s83: VR[0, int_oo], s21: VR[0, int_oo]}B
+ 

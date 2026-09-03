@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RandomSnow - Kornia Playground</title>
+    <meta name="description" content="Try kornia's RandomSnow live in your browser: Snow effect. Download the ONNX graph or copy the Python or Rust code.">
+    <link rel="icon" type="image/svg+xml" href="/assets/kornia-logo-mini.svg">
+    <link rel="canonical" href="https://kornia.org/playground/ops/augmentation-RandomSnow/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.2/styles/github-dark.min.css">
+    <link rel="stylesheet" href="../../../styles.css?v=20260903">
+    <link rel="stylesheet" href="../../playground.css?v=20260903">
+    <script src="../../../theme.js?v=20260903"></script>
+</head>
+<body class="pg-body" data-base="../../" data-op="kornia.augmentation.RandomSnow">
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../../../index.html">kornia.org</a>
+            </div>
+
+            <button type="button"
+                    class="nav-toggle"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded="false"
+                    aria-controls="primary-nav-links">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+
+            <div class="nav-links" id="primary-nav-links">
+                <a href="../../../playground/" class="nav-experiment pg-nav-current active"><i class="fas fa-flask" aria-hidden="true"></i> Experiment</a>
+                <div class="nav-dropdown">
+                    <a href="../../../projects/" role="button" aria-haspopup="menu" aria-expanded="false">Projects <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://github.com/kornia/kornia" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia</span><span class="nav-dd-desc">Differentiable vision for PyTorch</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Image and 3D kernels in Rust</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Vision agent runtime for Jetson and Pi</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-map-location-dot" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-slam</span><span class="nav-dd-desc">Real-time pose and mapping</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/vision-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-microchip" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">vision-rt</span><span class="nav-dd-desc">TensorRT inference on Jetson Orin</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/sensor-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-camera" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">sensor-rt</span><span class="nav-dd-desc">Camera, stereo and IMU drivers</span></span>
+                        </a>
+                        <a class="nav-dd-all" href="../../../projects/">All projects, with install commands &rarr;</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#" role="button" aria-haspopup="menu" aria-expanded="false">Docs <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://kornia.readthedocs.io" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Kornia (PyTorch)</span><span class="nav-dd-desc">API reference and guides</span></span>
+                        </a>
+                        <a href="https://docs.rs/kornia-imgproc" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Crate docs on docs.rs</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/bubbaloop/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Install and run an agent</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/tutorials/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Tutorials</span><span class="nav-dd-desc">Runnable notebooks</span></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="../../../sponsor/" role="button" aria-haspopup="menu" aria-expanded="false">Support <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="../../../sponsor/">
+                            <span class="nav-dd-icon"><i class="fas fa-heart" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Sponsor Kornia</span><span class="nav-dd-desc">What funding buys, and the tiers</span></span>
+                        </a>
+                        <a href="../../../community/">
+                            <span class="nav-dd-icon"><i class="fas fa-users" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Community</span><span class="nav-dd-desc">Get help, contribute, programmes</span></span>
+                        </a>
+                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-discord" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Discord</span><span class="nav-dd-desc">Quick questions, same-day answers</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">GitHub Discussions</span><span class="nav-dd-desc">Design questions and proposals</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/issues/new/choose" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-bug" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Report a bug</span><span class="nav-dd-desc">Issue templates</span></span>
+                        </a>
+                    </div>
+                </div>
+                <button type="button" class="nav-icon nav-theme" aria-label="Switch theme"><i class="fas fa-moon" aria-hidden="true"></i></button>
+                <a href="https://github.com/kornia" target="_blank" rel="noopener" class="nav-icon" aria-label="Kornia on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <a href="https://opencollective.com/kornia" target="_blank" rel="noopener" class="btn nav-donate-btn">
+                    <i class="fas fa-heart" aria-hidden="true"></i> Sponsor
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pg-shell">
+        <aside class="pg-side" id="pg-side" aria-label="Operators">
+            <div class="pg-side-head">
+                <a class="pg-pipelines-btn" href="../../pipelines/"><i class="fas fa-diagram-project" aria-hidden="true"></i> Pipelines</a>
+                <div class="pg-mode" id="pg-mode" role="tablist" aria-label="Section">
+                    <button type="button" role="tab" data-mode="ops" aria-selected="true">Operators</button>
+                    <button type="button" role="tab" data-mode="models" aria-selected="false">Models</button>
+                </div>
+                <label class="pg-search">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input type="search" id="pg-search" placeholder="Search operators" autocomplete="off">
+                </label>
+                <div class="pg-filters" id="pg-filters" role="group" aria-label="Filter">
+                    <label><input type="radio" name="pg-status" value="all" checked> All</label>
+                    <label><input type="radio" name="pg-status" value="rust"> Rust</label>
+                </div>
+                <p class="pg-meta" id="pg-meta"></p>
+            </div>
+            <nav class="pg-side-list" id="pg-catalog"></nav>
+        </aside>
+
+        <section class="pg-detail" id="pg-ops">
+            <noscript><p class="pg-status pg-error">The playground needs JavaScript.</p></noscript>
+        </section>
+
+        <aside class="pg-right" id="pg-right" aria-label="Page tools">
+            <div class="pg-right-item">
+                <p class="pg-right-title"><i class="fas fa-list" aria-hidden="true"></i> On this page</p>
+                <ul class="pg-toc">
+                    <li><a href="#demo">Input and output</a></li>
+                    <li><a href="#parameters">Parameters</a></li>
+                    <li><a href="#code">Code</a></li>
+                </ul>
+            </div>
+            <div class="pg-right-item pg-right-links" id="pg-right-links">
+                <a id="pg-link-docs" href="https://kornia.readthedocs.io" target="_blank" rel="noopener"><i class="fas fa-book" aria-hidden="true"></i> API reference</a>
+                <a id="pg-link-edit" href="https://github.com/kornia/kornia.github.io/edit/master/playground/build/specs.py" target="_blank" rel="noopener"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit on GitHub</a>
+                <a id="pg-link-issue" href="https://github.com/kornia/kornia.github.io/issues/new" target="_blank" rel="noopener"><i class="fas fa-bug" aria-hidden="true"></i> Report an issue</a>
+            </div>
+            <div class="pg-right-item">
+                <div class="pg-sponsors">
+                    <p class="pg-sponsors__title">Sponsors</p>
+                    <p>Your logo can be here &mdash; we welcome sponsors who help keep Kornia free and maintained.</p>
+                    <p>You may <a href="https://opencollective.com/kornia" target="_blank" rel="noopener">directly sponsor</a> or
+                        contact us through <a href="mailto:sponsor@kornia.org">sponsor@kornia.org</a>.</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 kornia.org. Sample images: Kodak Lossless True Color Image Suite. Graphs run with
+                <a href="https://onnxruntime.ai/docs/tutorials/web/" target="_blank" rel="noopener">onnxruntime-web</a>;
+                the <a href="https://kornia.readthedocs.io/en/latest/get-started/export-support.html">export support page</a>
+                tracks every operator.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.29.0/dist/ort.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.2/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.2/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.2/languages/rust.min.js"></script>
+    <script src="../../models.js?v=20260903"></script>
+    <script src="../../playground.js?v=20260903"></script>
+</body>
+</html>

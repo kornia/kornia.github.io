@@ -1,0 +1,29 @@
+[
+ {
+  "id": "traffic",
+  "label": "Bangkok traffic",
+  "file": "traffic_source.webm",
+  "start": 4.0,
+  "credit": "U.S. Army National Guard video by Staff Sgt. James Bunn, via Wikimedia Commons",
+  "license": "Public domain (work of the U.S. federal government)",
+  "source": "https://commons.wikimedia.org/wiki/File:Bangkok_Traffic_During_Enduring_Partners_26_(1009429).webm"
+ },
+ {
+  "id": "boats",
+  "label": "Boats from above",
+  "file": "boats_source.webm",
+  "start": 6.0,
+  "credit": "Wayne McKelvie, via Wikimedia Commons",
+  "license": "CC0 1.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Aerial_view_of_sea_and_boats.webm"
+ },
+ {
+  "id": "astronaut",
+  "label": "Astronaut on the ISS",
+  "file": "astronaut_source.webm",
+  "start": 13.0,
+  "credit": "NASA Johnson, \"Space Station Live: Williams Talks Candidly about Cameras\" (2016), via Wikimedia Commons",
+  "license": "Public domain (work of NASA, U.S. federal government)",
+  "source": "https://commons.wikimedia.org/wiki/File:Space_Station_Live-_Williams_Talks_Candidly_about_Cameras.webm"
+ }
+]
