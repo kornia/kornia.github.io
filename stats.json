@@ -1,26 +1,28 @@
 {
-  "generated_at": "2026-07-31T00:00:00Z",
+  "generated_at": "2026-09-03T17:41:13Z",
   "repos": {
     "kornia/kornia": {
-      "stars": 11297
+      "stars": 11342,
+      "contributors": 380,
+      "dependents": 17571
     },
     "kornia/kornia-rs": {
-      "stars": 682
+      "stars": 699
     },
     "kornia/bubbaloop": {
-      "stars": 25
+      "stars": 28
     },
     "kornia/kornia-slam": {
-      "stars": 34
+      "stars": 36
     },
     "kornia/vision-rt": {
-      "stars": 13
+      "stars": 16
     },
     "kornia/sensor-rt": {
       "stars": 2
     },
     "kornia/tutorials": {
-      "stars": 52
+      "stars": 53
     },
     "kornia/kornia-examples": {
       "stars": 91
@@ -33,5 +35,10 @@
     "kornia": {
       "downloads_last_month": 2991596
     }
+  },
+  "playground": {
+    "operators": 156,
+    "live": 124,
+    "demos": 134
   }
 }

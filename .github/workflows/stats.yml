@@ -1,4 +1,6 @@
-# Refreshes stats.json (GitHub stars + PyPI monthly downloads) once a day.
+# Refreshes stats.json (GitHub stars, PyPI monthly downloads, contributors,
+# dependents, playground counts) and feed.xml (RSS built from news.json) once
+# a day, and feed.xml again whenever news.json changes.
 #
 # The site reads the committed stats.json directly, so visitors make no
 # third-party requests and are never rate limited. This job uses the
@@ -17,6 +19,9 @@ on:
     # 04:17 UTC daily — off the hour to avoid the Actions rush.
     - cron: '17 4 * * *'
   workflow_dispatch:
+  push:
+    branches: [master]
+    paths: [news.json, playground/registry.json]
 
 permissions:
   contents: write
@@ -37,14 +42,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 .github/scripts/build_stats.py
 
+      - name: Build feed.xml
+        run: python3 .github/scripts/build_feed.py
+
       - name: Commit if changed
         run: |
-          if git diff --quiet -- stats.json; then
-            echo "stats.json unchanged — nothing to commit."
+          if git diff --quiet -- stats.json feed.xml; then
+            echo "stats.json and feed.xml unchanged — nothing to commit."
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stats.json
-          git commit -m "chore: refresh stats.json"
+          git add stats.json feed.xml
+          git commit -m "chore: refresh stats.json and feed.xml"
           git push

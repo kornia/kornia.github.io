@@ -13,6 +13,7 @@ leaves stats.json byte-identical and the workflow has nothing to commit.
 
 import json
 import os
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -36,6 +37,10 @@ REPOS = [
 ]
 
 PACKAGES = ["kornia"]
+
+# Extra per-repo numbers, only for the main library.
+COMMUNITY_REPO = "kornia/kornia"
+PLAYGROUND_REGISTRY = os.path.join(REPO_ROOT, "playground", "registry.json")
 
 TIMEOUT = 30
 
@@ -96,7 +101,7 @@ def previous_downloads(previous, package):
     return as_count(entry.get("downloads_last_month"))
 
 
-def fetch_stars(repo):
+def github_headers():
     headers = {
         "Accept": "application/vnd.github+json",
         "User-Agent": "kornia.github.io-stats",
@@ -105,10 +110,77 @@ def fetch_stars(repo):
     token = os.environ.get("GITHUB_TOKEN")
     if token:
         headers["Authorization"] = f"Bearer {token}"
-    data = get_json(f"https://api.github.com/repos/{repo}", headers)
+    return headers
+
+
+def fetch_stars(repo):
+    data = get_json(f"https://api.github.com/repos/{repo}", github_headers())
     if not isinstance(data, dict):
         return None
     return as_count(data.get("stargazers_count"))
+
+
+def fetch_contributors(repo):
+    """Contributor count via the Link header: one item per page, so the last page number is the count."""
+    url = f"https://api.github.com/repos/{repo}/contributors?per_page=1&anon=false"
+    request = urllib.request.Request(url, headers=github_headers())
+    try:
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            if response.status != 200:
+                print(f"  ! {url} -> HTTP {response.status}", file=sys.stderr)
+                return None
+            link = response.headers.get("Link", "")
+            body = response.read()
+    except urllib.error.HTTPError as exc:
+        print(f"  ! {url} -> HTTP {exc.code}", file=sys.stderr)
+        return None
+    except Exception as exc:
+        print(f"  ! {url} -> {type(exc).__name__}: {exc}", file=sys.stderr)
+        return None
+    match = re.search(r'[?&]page=(\d+)>; rel="last"', link)
+    if match:
+        return as_count(int(match.group(1)))
+    try:
+        return as_count(len(json.loads(body)))  # a single page: fewer contributors than per_page
+    except ValueError:
+        return None
+
+
+def fetch_dependents(repo):
+    """Dependent repositories from the dependents page; GitHub has no API for this number."""
+    url = f"https://github.com/{repo}/network/dependents"
+    request = urllib.request.Request(url, headers={"User-Agent": "kornia.github.io-stats"})
+    try:
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            html = response.read().decode("utf-8", "replace")
+    except Exception as exc:
+        print(f"  ! {url} -> {type(exc).__name__}: {exc}", file=sys.stderr)
+        return None
+    match = re.search(r"([\d,]+)\s+Repositories", html)
+    if not match:
+        print(f"  ! {url} -> repository count not found in page", file=sys.stderr)
+        return None
+    return as_count(int(match.group(1).replace(",", "")))
+
+
+def playground_counts():
+    """Operator counts from the playground registry checked into this repository."""
+    try:
+        with open(PLAYGROUND_REGISTRY, encoding="utf-8") as handle:
+            registry = json.load(handle)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"  ! playground registry unreadable ({exc})", file=sys.stderr)
+        return None
+    ops = registry.get("ops", [])
+    if not ops:
+        return None
+    return OrderedDict(
+        [
+            ("operators", len(ops)),
+            ("live", sum(1 for op in ops if op.get("mode") == "onnx")),
+            ("demos", sum(1 for op in ops if op.get("mode") in ("onnx", "frames"))),
+        ]
+    )
 
 
 def fetch_downloads(package):
@@ -144,6 +216,25 @@ def main():
             print(f"  = {repo}: {new}")
         repos[repo] = {"stars": new}
 
+    # Contributors and dependents of the main repository, same carry-forward rule.
+    if COMMUNITY_REPO in repos:
+        for kind, fetch in (("contributors", fetch_contributors), ("dependents", fetch_dependents)):
+            old = as_count((previous.get("repos", {}).get(COMMUNITY_REPO) or {}).get(kind))
+            new = fetch(COMMUNITY_REPO)
+            if new is None:
+                if old is None:
+                    missing.append(f"{COMMUNITY_REPO} {kind}")
+                    print(f"  - {COMMUNITY_REPO} {kind}: no value and no previous value; omitted")
+                    continue
+                new = old
+                print(f"  = {COMMUNITY_REPO} {kind}: fetch failed, keeping {old}")
+            elif new != old:
+                changed.append(f"{COMMUNITY_REPO} {kind} {old} -> {new}")
+                print(f"  * {COMMUNITY_REPO} {kind}: {old} -> {new}")
+            else:
+                print(f"  = {COMMUNITY_REPO} {kind}: {new}")
+            repos[COMMUNITY_REPO][kind] = new
+
     packages = OrderedDict()
     for package in PACKAGES:
         old = previous_downloads(previous, package)
@@ -176,9 +267,16 @@ def main():
         else previous.get("generated_at", datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
     )
 
+    playground = playground_counts() or previous.get("playground")
+    if playground and playground != previous.get("playground"):
+        changed.append("playground counts")
+        generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
     stats = OrderedDict(
         [("generated_at", generated_at), ("repos", repos), ("packages", packages)]
     )
+    if playground:
+        stats["playground"] = playground
     with open(STATS_PATH, "w", encoding="utf-8") as handle:
         json.dump(stats, handle, indent=2)
         handle.write("\n")
