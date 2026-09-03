@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Community - Kornia</title>
+    <meta name="description" content="Where the Kornia community meets, how to contribute, and the programmes and projects we work alongside.">
+    <link rel="canonical" href="https://www.kornia.org/community/">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="icon" href="/assets/kornia-logo-mini.svg" type="image/svg+xml">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kornia">
+    <meta property="og:title" content="Community - Kornia">
+    <meta property="og:description" content="Where the Kornia community meets, how to contribute, and the programmes and projects we work alongside.">
+    <meta property="og:image" content="https://www.kornia.org/assets/kornia-logo.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css?v=20260903">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha384-blOohCVdhjmtROpu8+CfTnUWham9nkX7P7OZQMst+RUnhtoY/9qemFAkIKOYxDI3"
+          crossorigin="anonymous">
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .project-logo { width: 60px; height: 60px; object-fit: contain; }
+        .project-icon {
+            display: flex; align-items: center; justify-content: center;
+            background: none !important; padding: 0 !important; margin-right: 15px;
+        }
+        .project-icon i { font-size: 56px; }
+        .project-emoji { font-size: 48px; line-height: 1; }
+        .logo a, .logo a:hover, .logo a:visited, .logo a:active {
+            color: var(--text-secondary); text-decoration: none;
+        }
+
+        /* ---- Hero CTA ---- */
+        .hero-actions {
+            display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.75rem 0 2rem;
+        }
+        .hero-install {
+            display: flex; align-items: center; gap: 0.75rem;
+            background: var(--code-bg); color: #e2e8f0;
+            border-radius: 8px; padding: 0.7rem 1rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.95rem; margin-bottom: 1.25rem; max-width: 22rem;
+        }
+        .hero-install code { color: #e2e8f0; background: none; padding: 0; }
+        .copy-btn {
+            margin-left: auto; background: none; border: 1px solid #475569;
+            color: #cbd5e1; border-radius: 6px; cursor: pointer;
+            min-width: 44px; min-height: 32px; padding: 0.2rem 0.6rem; font-size: 0.85rem;
+        }
+        .copy-btn:hover { background: var(--code-bg-2); }
+
+        /* ---- Ecosystem / stack ---- */
+        .ecosystem { padding: 5rem 2rem; background: var(--surface-color); }
+        .ecosystem-container { max-width: 1200px; margin: 0 auto; }
+        .stack { display: flex; flex-direction: column; gap: 0.6rem; margin: 2.5rem 0 1rem; }
+        .stack-group-label {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;
+            font-weight: 700; color: var(--text-secondary); margin: 1.25rem 0 0.5rem;
+        }
+        .stack-layer {
+            display: grid; grid-template-columns: 11rem 1fr; gap: 1rem;
+            align-items: baseline; text-decoration: none;
+            background: var(--card-bg); border: 1px solid var(--border-color); border-left: 4px solid #6c5ce7;
+            border-radius: 8px; padding: 1rem 1.25rem; transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .stack-layer:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
+        .stack-layer h3 { font-size: 1.05rem; margin: 0; color: #0f172a; font-weight: 700; }
+        .stack-layer p { margin: 0; color: var(--text-secondary); font-size: 0.94rem; }
+        .stack-layer.is-pytorch { border-left-color: #ee4c2c; }
+        .stack-note { color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.75rem; }
+        .ecosystem-doors {
+            display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;
+            padding-top: 1.5rem; border-top: 1px solid var(--border-color);
+        }
+
+        /* ---- Maturity badges ---- */
+        .maturity {
+            display: inline-block; font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            padding: 0.15rem 0.5rem; border-radius: 999px; margin-left: 0.5rem; vertical-align: middle;
+        }
+        .maturity-stable { background: #dcfce7; color: #166534; }
+        .maturity-beta   { background: #dbeafe; color: #1e40af; }
+        .maturity-early  { background: var(--warn-bg); color: #854d0e; }
+
+        /* ---- Contribute ---- */
+        .contribute { padding: 5rem 2rem; }
+        .contribute-container { max-width: 1200px; margin: 0 auto; }
+        .paths-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem; margin-top: 2.5rem;
+        }
+        .path-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.75rem;
+        }
+        .path-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; color: #0f172a; }
+        .path-card p { color: var(--text-secondary); font-size: 0.95rem; }
+        .path-links { list-style: none; padding: 0; margin: 1rem 0 0; }
+        .path-links li { padding: 0.3rem 0; font-size: 0.92rem; }
+        .contribute-closing {
+            margin-top: 2rem; padding: 1.25rem 1.5rem;
+            background: var(--border-light); border-radius: 8px; color: var(--text-primary);
+        }
+
+        /* ---- Sponsors ---- */
+        .sponsors { padding: 5rem 2rem; background: var(--surface-color); }
+        .sponsors-container { max-width: 1100px; margin: 0 auto; }
+        .sponsor-what { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+        .sponsor-what div { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; }
+        .sponsor-what h3 { font-size: 1rem; margin-bottom: 0.4rem; color: #0f172a; }
+        .sponsor-what p { margin: 0; font-size: 0.92rem; color: var(--text-secondary); }
+        .sponsor-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
+        .sponsor-wall { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
+        .sponsor-wall h3 { font-size: 1.05rem; margin-bottom: 1rem; }
+        .backer-list { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; padding: 0; }
+        .backer-list li {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 999px;
+            padding: 0.35rem 0.9rem; font-size: 0.9rem; color: var(--text-primary);
+        }
+        .ledger-note { margin-top: 1.25rem; font-size: 0.92rem; color: var(--text-secondary); }
+
+        @media (max-width: 640px) {
+            .stack-layer { grid-template-columns: 1fr; gap: 0.25rem; }
+        }
+    </style>
+    <script src="../theme.js?v=20260903"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../">kornia.org</a>
+            </div>
+
+            <button type="button"
+                    class="nav-toggle"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded="false"
+                    aria-controls="primary-nav-links">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+
+            <div class="nav-links" id="primary-nav-links">
+                <a href="../playground/" class="nav-experiment"><i class="fas fa-flask" aria-hidden="true"></i> Experiment</a>
+                <div class="nav-dropdown">
+                    <a href="../projects/" role="button" aria-haspopup="menu" aria-expanded="false">Projects <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://github.com/kornia/kornia" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia</span><span class="nav-dd-desc">Differentiable vision for PyTorch</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Image and 3D kernels in Rust</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Vision agent runtime for Jetson and Pi</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-map-location-dot" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-slam</span><span class="nav-dd-desc">Real-time pose and mapping</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/vision-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-microchip" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">vision-rt</span><span class="nav-dd-desc">TensorRT inference on Jetson Orin</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/sensor-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-camera" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">sensor-rt</span><span class="nav-dd-desc">Camera, stereo and IMU drivers</span></span>
+                        </a>
+                        <a class="nav-dd-all" href="../projects/">All projects, with install commands &rarr;</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#" role="button" aria-haspopup="menu" aria-expanded="false">Docs <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://kornia.readthedocs.io" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Kornia (PyTorch)</span><span class="nav-dd-desc">API reference and guides</span></span>
+                        </a>
+                        <a href="https://docs.rs/kornia-imgproc" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Crate docs on docs.rs</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/bubbaloop/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Install and run an agent</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/tutorials/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Tutorials</span><span class="nav-dd-desc">Runnable notebooks</span></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="../sponsor/" role="button" aria-haspopup="menu" aria-expanded="false" class="active">Support <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="../sponsor/">
+                            <span class="nav-dd-icon"><i class="fas fa-heart" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Sponsor Kornia</span><span class="nav-dd-desc">What funding buys, and the tiers</span></span>
+                        </a>
+                        <a href="../community/">
+                            <span class="nav-dd-icon"><i class="fas fa-users" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Community</span><span class="nav-dd-desc">Get help, contribute, programmes</span></span>
+                        </a>
+                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-discord" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Discord</span><span class="nav-dd-desc">Quick questions, same-day answers</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">GitHub Discussions</span><span class="nav-dd-desc">Design questions and proposals</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/issues/new/choose" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-bug" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Report a bug</span><span class="nav-dd-desc">Issue templates</span></span>
+                        </a>
+                    </div>
+                </div>
+                <button type="button" class="nav-icon nav-theme" aria-label="Switch theme"><i class="fas fa-moon" aria-hidden="true"></i></button>
+                <a href="https://github.com/kornia" target="_blank" rel="noopener" class="nav-icon" aria-label="Kornia on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <a href="https://opencollective.com/kornia" target="_blank" rel="noopener" class="btn nav-donate-btn">
+                    <i class="fas fa-heart" aria-hidden="true"></i> Sponsor
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="subpage">
+        <section class="page-head">
+            <div class="page-head-inner">
+                <h1>Community</h1>
+                <p>Researchers, developers and companies building computer vision in the open. Say hi, ask a question, or bring a proposal.</p>
+            </div>
+        </section>
+
+
+        <section id="help" class="get-help">
+            <div class="communities-container">
+                <div class="section-header">
+                    <h2 class="section-title">Get help</h2>
+                    <p class="section-subtitle">Where to ask depends on what you have. Pick the closest one.</p>
+                </div>
+                <div class="help-grid">
+                    <a class="help-card" href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">
+                        <i class="fab fa-discord" aria-hidden="true"></i>
+                        <h3>A quick question</h3>
+                        <p>"Which function does X?", "why is this shape wrong?". Discord, usually answered the same day.</p>
+                    </a>
+                    <a class="help-card" href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">
+                        <i class="fas fa-comments" aria-hidden="true"></i>
+                        <h3>A design question or an idea</h3>
+                        <p>Something that needs a longer answer, or a feature you want to propose before writing code. GitHub Discussions.</p>
+                    </a>
+                    <a class="help-card" href="https://github.com/kornia/kornia/issues/new/choose" target="_blank" rel="noopener">
+                        <i class="fas fa-bug" aria-hidden="true"></i>
+                        <h3>A bug</h3>
+                        <p>Open an issue with a minimal reproduction and the output of the command below. Redact paths and hostnames before pasting.</p>
+                    </a>
+                </div>
+                <pre class="code-block code-block-cmd help-cmd"><code>python -W ignore -c &quot;import kornia, platform, sys, torch; gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else &#x27;none&#x27;; backend=torch.version.cuda or getattr(torch.version, &#x27;hip&#x27;, None); print(f&#x27;kornia {kornia.__version__} | torch {torch.__version__} | python {sys.version.split()[0]} | OS {platform.platform()} | CUDA/ROCm {backend} (available={torch.cuda.is_available()}, GPU={gpu}) | MPS={torch.backends.mps.is_available()}&#x27;)&quot;</code></pre>
+            </div>
+        </section>
+        <section id="communities" class="communities">
+            <div class="communities-container">
+                <div class="section-header">
+                    <h2 class="section-title">Join Our Community</h2>
+                    <p class="section-subtitle">Connect with researchers, developers and companies building computer vision in the open.</p>
+                </div>
+
+                <div class="social-grid">
+                    <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener" class="social-card">
+                        <i class="fab fa-discord" aria-hidden="true"></i>
+                        <span>Discord</span>
+                    </a>
+                    <a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener" class="social-card">
+                        <i class="fas fa-comments" aria-hidden="true"></i>
+                        <span>Discussions</span>
+                    </a>
+                    <a href="https://x.com/kornia_foss" target="_blank" rel="noopener" class="social-card">
+                        <i class="fab fa-x-twitter" aria-hidden="true"></i>
+                        <span>X</span>
+                    </a>
+                    <a href="https://www.linkedin.com/company/kornia/" target="_blank" rel="noopener" class="social-card">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/kornia" target="_blank" rel="noopener" class="social-card">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="contribute" class="contribute">
+            <div class="contribute-container">
+                <div class="section-header">
+                    <h2 class="section-title">Build Kornia with us</h2>
+                    <p class="section-subtitle"><span data-repo="kornia/kornia" data-stat="contributors">380</span> people have shipped code to Kornia, and 121 pull requests were merged in the last 90 days &mdash; most of them the same day they were opened. Here is where to start.</p>
+                </div>
+
+                <div class="paths-grid">
+                    <div class="path-card">
+                        <h3>First contribution</h3>
+                        <p>Small, self-contained, reviewed quickly. Docs fixes, test coverage, error messages and missing operators. Read the contributor guide and the AI &amp; Authorship Policy first &mdash; we require a pasted test log and a reference implementation with every PR, and we would rather tell you now than in review.</p>
+                        <ul class="path-links">
+                            <li><a href="https://github.com/kornia/kornia/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22" target="_blank" rel="noopener">Issues needing a hand &rarr;</a></li>
+                            <li><a href="https://github.com/kornia/kornia/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributor guide &rarr;</a></li>
+                            <li><a href="https://github.com/kornia/kornia/blob/main/AI_POLICY.md" target="_blank" rel="noopener">AI &amp; Authorship Policy &rarr;</a></li>
+                            <li><a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">Say hi first &rarr;</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="path-card">
+                        <h3>Library &amp; systems developer</h3>
+                        <p>Rust, CUDA and edge runtime. Image ops, linear algebra, camera geometry and Jetson deployment in kornia-rs. These are real gaps in the roadmap, not busywork.</p>
+                        <ul class="path-links">
+                            <li><a href="https://github.com/kornia/kornia-rs/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22" target="_blank" rel="noopener">Open work &rarr;</a></li>
+                            <li><a href="https://github.com/kornia/kornia-rs/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22" target="_blank" rel="noopener">Scoped starters &rarr;</a></li>
+                            <li><a href="https://github.com/kornia/kornia-rs/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributor guide &rarr;</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="path-card">
+                        <h3>Researcher</h3>
+                        <p>Bring a paper into a differentiable, production computer vision library and put it in front of thousands of downstream projects. Propose it in Discussions before you write code &mdash; we will help you scope it.</p>
+                        <ul class="path-links">
+                            <li><a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">Propose a feature &rarr;</a></li>
+                            <li><a href="https://github.com/kornia/kornia/issues/new/choose" target="_blank" rel="noopener">Feature request template &rarr;</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="path-card">
+                        <h3>Get mentored</h3>
+                        <p>Kornia has mentored students through Google Summer of Code in 2025 and 2026, and we mentor outside the programme too. If you want to spend a summer &mdash; or a semester &mdash; going deep on differentiable CV, Rust image processing or edge deployment, we will pair you with a maintainer.</p>
+                        <ul class="path-links">
+                            <li><a href="https://summerofcode.withgoogle.com/programs/2026/organizations/kornia" target="_blank" rel="noopener">GSoC 2026 &rarr;</a></li>
+                            <li><a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">Not a GSoC year? Bring a proposal &rarr;</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="contribute-closing">Not writing code? Reviewing a pull request, reproducing a bug, or answering one question in Discord is worth as much. Maintainer review is our scarcest resource &mdash; if you want to help most, help us review.</p>
+            </div>
+        </section>
+        <section id="collaborators" class="collaborators">
+            <div class="collaborators-container">
+                <div class="section-header">
+                    <h2 class="section-title">Programmes &amp; Collaborations</h2>
+                    <p class="section-subtitle">Programmes we take part in and projects we build alongside.</p>
+                </div>
+
+                <div class="collaborators-grid">
+                    <a href="https://summerofcode.withgoogle.com/programs/2026/organizations/kornia" target="_blank" rel="noopener" class="collaborator-card">
+                        <img src="../assets/gsoc.png" alt="Google Summer of Code" class="collaborator-logo" loading="lazy">
+                        <div class="collaborator-info">
+                            <h3>Google Summer of Code</h3>
+                            <p>Mentoring organisation, 2025 and 2026</p>
+                        </div>
+                    </a>
+
+                    <a href="https://rerun.io/" target="_blank" rel="noopener" class="collaborator-card">
+                        <img src="../assets/rr.png" alt="Rerun" class="collaborator-logo" loading="lazy">
+                        <div class="collaborator-info">
+                            <h3>Rerun</h3>
+                            <p>Data stack for physical AI</p>
+                        </div>
+                    </a>
+
+                    <a href="https://dora-rs.ai/" target="_blank" rel="noopener" class="collaborator-card">
+                        <img src="../assets/dora.png" alt="Dora" class="collaborator-logo" loading="lazy">
+                        <div class="collaborator-info">
+                            <h3>dora-rs</h3>
+                            <p>Robotics dataflow framework &mdash; we maintain dora-nodes-hub</p>
+                        </div>
+                    </a>
+
+                    <a href="https://opencv.org/" target="_blank" rel="noopener" class="collaborator-card">
+                        <img src="../assets/ocv.svg" alt="OpenCV" class="collaborator-logo" loading="lazy">
+                        <div class="collaborator-info">
+                            <h3>OpenCV</h3>
+                            <p>Computer vision library</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.copper-robotics.com/" target="_blank" rel="noopener" class="collaborator-card">
+                        <img src="../assets/copper.png" alt="Copper Robotics" class="collaborator-logo" loading="lazy">
+                        <div class="collaborator-info">
+                            <h3>Copper Robotics</h3>
+                            <p>Security and service robots</p>
+                        </div>
+                    </a>
+
+                    <a href="https://deepmind.google/" target="_blank" rel="noopener" class="collaborator-card">
+                        <img src="../assets/gdm.png" alt="Google DeepMind" class="collaborator-logo" loading="lazy">
+                        <div class="collaborator-info">
+                            <h3>Google DeepMind</h3>
+                            <p>AI research</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Kornia</h4>
+                <p>Computer vision for robotics &amp; spatial AI</p>
+            </div>
+            <div class="footer-section">
+                <h4>Projects</h4>
+                <a href="https://github.com/kornia/kornia">Kornia</a>
+                <a href="https://github.com/kornia/kornia-rs">kornia-rs</a>
+                <a href="https://github.com/kornia/kornia-slam">kornia-slam</a>
+                <a href="https://github.com/kornia/vision-rt">vision-rt</a>
+                <a href="https://github.com/kornia/sensor-rt">sensor-rt</a>
+                <a href="https://github.com/kornia/bubbaloop">Bubbaloop</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="https://kornia.readthedocs.io">Documentation</a>
+                <a href="https://www.kornia.org/tutorials/">Tutorials</a>
+                <a href="../news/">News &amp; updates</a>
+                <a href="https://kornia.readthedocs.io/en/latest/get-started/governance.html">Governance</a>
+                <a href="https://github.com/kornia">GitHub</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contribute</h4>
+                <a href="../community/#contribute">Start contributing</a>
+                <a href="https://github.com/kornia/kornia/blob/main/CONTRIBUTING.md">Contributor guide</a>
+                <a href="https://github.com/kornia/kornia/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a>
+                <a href="../sponsor/">Sponsor</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://discord.gg/HfnywwpBnD">Discord</a>
+                <a href="https://x.com/kornia_foss">X</a>
+                <a href="https://www.linkedin.com/company/kornia/">LinkedIn</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <span id="email-contact"></span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 kornia.org</p>
+        </div>
+    </footer>
+
+    <script src="../site.js?v=20260903"></script>
+    <script src="../script.js?v=20260903"></script>
+
+</body>
+</html>

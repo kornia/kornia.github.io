@@ -1,2 +1,5 @@
 _site
 *.swp
+__pycache__/
+playground/build/samples/videos/*_source.*
+.kornia_hub/

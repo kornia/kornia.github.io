@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Kornia — Differentiable computer vision, from PyTorch to the edge</title>
-    <meta name="description" content="Kornia is a non-profit open-source organisation building geometric computer vision: a differentiable PyTorch library with millions of installs a month, and a Rust stack that runs the same geometry on Jetson, Raspberry Pi and any Linux device.">
+    <title>Kornia — Computer vision for robotics & spatial AI</title>
+    <meta name="description" content="Kornia is a non-profit organisation building computer vision for robotics and spatial AI: a differentiable PyTorch library with millions of installs a month, and a Rust stack that runs the same geometry on Jetson, Raspberry Pi and any Linux device.">
     <link rel="canonical" href="https://www.kornia.org/">
+    <link rel="alternate" type="application/rss+xml" title="Kornia news" href="https://www.kornia.org/feed.xml">
+    <!-- Analytics: privacy-friendly, cookie-less. Uncomment once the site is registered with the provider.
+    <script defer data-domain="kornia.org" src="https://plausible.io/js/script.outbound-links.js"></script>
+    -->
     <meta name="theme-color" content="#1a1a2e">
 
     <link rel="icon" href="assets/kornia-logo-mini.svg" type="image/svg+xml">
@@ -16,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Kornia">
     <meta property="og:url" content="https://www.kornia.org/">
-    <meta property="og:title" content="Kornia — Differentiable computer vision, from PyTorch to the edge">
+    <meta property="og:title" content="Kornia — Computer vision for robotics & spatial AI">
     <meta property="og:description" content="Prototype in PyTorch. Deploy in Rust. One team maintaining geometric computer vision on both sides of the research/deployment gap.">
     <meta property="og:image" content="https://www.kornia.org/assets/kornia-logo.png">
     <meta property="og:image:alt" content="Kornia logo">
@@ -25,14 +29,11 @@
     <!-- Twitter/X -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@kornia_foss">
-    <meta name="twitter:title" content="Kornia — Differentiable computer vision, from PyTorch to the edge">
+    <meta name="twitter:title" content="Kornia — Computer vision for robotics & spatial AI">
     <meta name="twitter:description" content="Prototype in PyTorch. Deploy in Rust. One team maintaining geometric computer vision on both sides of the research/deployment gap.">
     <meta name="twitter:image" content="https://www.kornia.org/assets/kornia-logo.png">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260903">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -60,7 +61,7 @@
         }
         .hero-install {
             display: flex; align-items: center; gap: 0.75rem;
-            background: #0f172a; color: #e2e8f0;
+            background: var(--code-bg); color: #e2e8f0;
             border-radius: 8px; padding: 0.7rem 1rem;
             font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
             font-size: 0.95rem; margin-bottom: 1.25rem; max-width: 22rem;
@@ -71,30 +72,30 @@
             color: #cbd5e1; border-radius: 6px; cursor: pointer;
             min-width: 44px; min-height: 32px; padding: 0.2rem 0.6rem; font-size: 0.85rem;
         }
-        .copy-btn:hover { background: #1e293b; }
+        .copy-btn:hover { background: var(--code-bg-2); }
 
         /* ---- Ecosystem / stack ---- */
-        .ecosystem { padding: 5rem 2rem; background: #f8fafc; }
+        .ecosystem { padding: 5rem 2rem; background: var(--surface-color); }
         .ecosystem-container { max-width: 1200px; margin: 0 auto; }
         .stack { display: flex; flex-direction: column; gap: 0.6rem; margin: 2.5rem 0 1rem; }
         .stack-group-label {
             font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;
-            font-weight: 700; color: #475569; margin: 1.25rem 0 0.5rem;
+            font-weight: 700; color: var(--text-secondary); margin: 1.25rem 0 0.5rem;
         }
         .stack-layer {
             display: grid; grid-template-columns: 11rem 1fr; gap: 1rem;
             align-items: baseline; text-decoration: none;
-            background: #fff; border: 1px solid #e2e8f0; border-left: 4px solid #6c5ce7;
+            background: var(--card-bg); border: 1px solid var(--border-color); border-left: 4px solid #6c5ce7;
             border-radius: 8px; padding: 1rem 1.25rem; transition: transform 0.15s, box-shadow 0.15s;
         }
         .stack-layer:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
         .stack-layer h3 { font-size: 1.05rem; margin: 0; color: #0f172a; font-weight: 700; }
-        .stack-layer p { margin: 0; color: #475569; font-size: 0.94rem; }
+        .stack-layer p { margin: 0; color: var(--text-secondary); font-size: 0.94rem; }
         .stack-layer.is-pytorch { border-left-color: #ee4c2c; }
-        .stack-note { color: #475569; font-size: 0.95rem; margin-top: 0.75rem; }
+        .stack-note { color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.75rem; }
         .ecosystem-doors {
             display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;
-            padding-top: 1.5rem; border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem; border-top: 1px solid var(--border-color);
         }
 
         /* ---- Maturity badges ---- */
@@ -105,7 +106,7 @@
         }
         .maturity-stable { background: #dcfce7; color: #166534; }
         .maturity-beta   { background: #dbeafe; color: #1e40af; }
-        .maturity-early  { background: #fef3c7; color: #854d0e; }
+        .maturity-early  { background: var(--warn-bg); color: #854d0e; }
 
         /* ---- Contribute ---- */
         .contribute { padding: 5rem 2rem; }
@@ -115,33 +116,33 @@
             gap: 1.5rem; margin-top: 2.5rem;
         }
         .path-card {
-            background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.75rem;
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.75rem;
         }
         .path-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; color: #0f172a; }
-        .path-card p { color: #475569; font-size: 0.95rem; }
+        .path-card p { color: var(--text-secondary); font-size: 0.95rem; }
         .path-links { list-style: none; padding: 0; margin: 1rem 0 0; }
         .path-links li { padding: 0.3rem 0; font-size: 0.92rem; }
         .contribute-closing {
             margin-top: 2rem; padding: 1.25rem 1.5rem;
-            background: #f1f5f9; border-radius: 8px; color: #334155;
+            background: var(--border-light); border-radius: 8px; color: var(--text-primary);
         }
 
         /* ---- Sponsors ---- */
-        .sponsors { padding: 5rem 2rem; background: #f8fafc; }
+        .sponsors { padding: 5rem 2rem; background: var(--surface-color); }
         .sponsors-container { max-width: 1100px; margin: 0 auto; }
         .sponsor-what { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
-        .sponsor-what div { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; }
+        .sponsor-what div { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; }
         .sponsor-what h3 { font-size: 1rem; margin-bottom: 0.4rem; color: #0f172a; }
-        .sponsor-what p { margin: 0; font-size: 0.92rem; color: #475569; }
+        .sponsor-what p { margin: 0; font-size: 0.92rem; color: var(--text-secondary); }
         .sponsor-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
-        .sponsor-wall { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; }
+        .sponsor-wall { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
         .sponsor-wall h3 { font-size: 1.05rem; margin-bottom: 1rem; }
         .backer-list { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; padding: 0; }
         .backer-list li {
-            background: #fff; border: 1px solid #e2e8f0; border-radius: 999px;
-            padding: 0.35rem 0.9rem; font-size: 0.9rem; color: #334155;
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 999px;
+            padding: 0.35rem 0.9rem; font-size: 0.9rem; color: var(--text-primary);
         }
-        .ledger-note { margin-top: 1.25rem; font-size: 0.92rem; color: #475569; }
+        .ledger-note { margin-top: 1.25rem; font-size: 0.92rem; color: var(--text-secondary); }
 
         @media (max-width: 640px) {
             .stack-layer { grid-template-columns: 1fr; gap: 0.25rem; }
@@ -157,7 +158,7 @@
       "url": "https://www.kornia.org/",
       "logo": "https://www.kornia.org/assets/kornia-logo.png",
       "email": "hello@kornia.org",
-      "description": "Non-profit open-source organisation building geometric computer vision and spatial AI libraries for PyTorch and Rust.",
+      "description": "Non-profit organisation building computer vision and spatial AI libraries for PyTorch and Rust.",
       "foundingDate": "2018",
       "sameAs": [
         "https://github.com/kornia",
@@ -179,12 +180,13 @@
       "url": "https://www.kornia.org/"
     }
     </script>
+    <script src="theme.js?v=20260903"></script>
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
-                <a href="#">kornia.org</a>
+                <a href="./">kornia.org</a>
             </div>
 
             <button type="button"
@@ -198,46 +200,86 @@
             </button>
 
             <div class="nav-links" id="primary-nav-links">
-                <a href="#ecosystem">Stack</a>
-                <a href="#projects">Projects</a>
-                <a href="#contribute">Contribute</a>
-                <a href="#sponsors">Sponsors</a>
-                <a href="#communities">Community</a>
-                <a href="#news">News</a>
-                <a href="#about">About</a>
-                <div class="github-dropdown">
-                    <a href="#" role="button" aria-haspopup="menu" aria-expanded="false" aria-controls="github-dropdown-menu">GitHub <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
-                    <div class="github-dropdown-content" id="github-dropdown-menu">
+                <a href="playground/" class="nav-experiment"><i class="fas fa-flask" aria-hidden="true"></i> Experiment</a>
+                <div class="nav-dropdown">
+                    <a href="projects/" role="button" aria-haspopup="menu" aria-expanded="false">Projects <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
                         <a href="https://github.com/kornia/kornia" target="_blank" rel="noopener">
-                            <div><i class="fab fa-python" aria-hidden="true"></i> Kornia</div>
-                            <span class="star-count" data-repo="kornia/kornia" data-stat="stars">
-                                <i class="fas fa-star" aria-hidden="true"></i> <span class="count">11.3k</span>
-                            </span>
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia</span><span class="nav-dd-desc">Differentiable vision for PyTorch</span></span>
                         </a>
                         <a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener">
-                            <div><i class="fab fa-rust" aria-hidden="true"></i> kornia-rs</div>
-                            <span class="star-count" data-repo="kornia/kornia-rs" data-stat="stars">
-                                <i class="fas fa-star" aria-hidden="true"></i> <span class="count">682</span>
-                            </span>
-                        </a>
-                        <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener">
-                            <div><i class="fas fa-map-location-dot" aria-hidden="true"></i> kornia-slam</div>
-                            <span class="star-count" data-repo="kornia/kornia-slam" data-stat="stars">
-                                <i class="fas fa-star" aria-hidden="true"></i> <span class="count">34</span>
-                            </span>
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Image and 3D kernels in Rust</span></span>
                         </a>
                         <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener">
-                            <div><i class="fas fa-rocket" aria-hidden="true"></i> Bubbaloop</div>
-                            <span class="star-count" data-repo="kornia/bubbaloop" data-stat="stars">
-                                <i class="fas fa-star" aria-hidden="true"></i> <span class="count">25</span>
-                            </span>
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Vision agent runtime for Jetson and Pi</span></span>
                         </a>
-                        <a href="https://github.com/kornia" target="_blank" rel="noopener">
-                            <div><i class="fab fa-github" aria-hidden="true"></i> All repositories</div>
+                        <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-map-location-dot" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-slam</span><span class="nav-dd-desc">Real-time pose and mapping</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/vision-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-microchip" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">vision-rt</span><span class="nav-dd-desc">TensorRT inference on Jetson Orin</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/sensor-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-camera" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">sensor-rt</span><span class="nav-dd-desc">Camera, stereo and IMU drivers</span></span>
+                        </a>
+                        <a class="nav-dd-all" href="projects/">All projects, with install commands &rarr;</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#" role="button" aria-haspopup="menu" aria-expanded="false">Docs <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://kornia.readthedocs.io" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Kornia (PyTorch)</span><span class="nav-dd-desc">API reference and guides</span></span>
+                        </a>
+                        <a href="https://docs.rs/kornia-imgproc" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Crate docs on docs.rs</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/bubbaloop/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Install and run an agent</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/tutorials/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Tutorials</span><span class="nav-dd-desc">Runnable notebooks</span></span>
                         </a>
                     </div>
                 </div>
-                <a href="#sponsors" class="btn nav-donate-btn">
+                <div class="nav-dropdown">
+                    <a href="sponsor/" role="button" aria-haspopup="menu" aria-expanded="false">Support <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="sponsor/">
+                            <span class="nav-dd-icon"><i class="fas fa-heart" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Sponsor Kornia</span><span class="nav-dd-desc">What funding buys, and the tiers</span></span>
+                        </a>
+                        <a href="community/">
+                            <span class="nav-dd-icon"><i class="fas fa-users" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Community</span><span class="nav-dd-desc">Get help, contribute, programmes</span></span>
+                        </a>
+                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-discord" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Discord</span><span class="nav-dd-desc">Quick questions, same-day answers</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">GitHub Discussions</span><span class="nav-dd-desc">Design questions and proposals</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/issues/new/choose" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-bug" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Report a bug</span><span class="nav-dd-desc">Issue templates</span></span>
+                        </a>
+                    </div>
+                </div>
+                <button type="button" class="nav-icon nav-theme" aria-label="Switch theme"><i class="fas fa-moon" aria-hidden="true"></i></button>
+                <a href="https://github.com/kornia" target="_blank" rel="noopener" class="nav-icon" aria-label="Kornia on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <a href="https://opencollective.com/kornia" target="_blank" rel="noopener" class="btn nav-donate-btn">
                     <i class="fas fa-heart" aria-hidden="true"></i> Sponsor
                 </a>
             </div>
@@ -248,581 +290,201 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Prototype in PyTorch. Deploy in Rust.<br>Same geometry, same maintainers.</h1>
-                    <p>Kornia maintains both halves of the vision stack: a differentiable library with millions of installs a month for research, and a Rust toolchain &mdash; sensor-rt, vision-rt, kornia-rs, kornia-slam, bubbaloop &mdash; that drives cameras, runs TensorRT inference, and estimates pose on a Jetson or a Raspberry Pi with no Python runtime on the device.</p>
-
-                    <div class="hero-install">
-                        <code id="install-cmd">pip install kornia</code>
-                        <button type="button" class="copy-btn" data-copy-target="install-cmd" aria-label="Copy install command">Copy</button>
-                    </div>
+                    <h1>Computer vision for<br>robotics &amp; spatial AI.</h1>
+                    <p>Perception that runs from the notebook to the robot.</p>
 
                     <div class="hero-actions">
-                        <a href="#ecosystem" class="btn btn-primary">
+                        <a href="projects/" class="btn btn-primary">
                             <i class="fas fa-layer-group" aria-hidden="true"></i> Explore the stack
                         </a>
-                        <a href="https://kornia.readthedocs.io" target="_blank" rel="noopener" class="btn btn-secondary">
-                            <i class="fas fa-book" aria-hidden="true"></i> Documentation
+                        <!-- TODO: a dedicated robotics entry point; points at the playground until then -->
+                        <a href="playground/" class="btn btn-secondary">
+                            <i class="fas fa-robot" aria-hidden="true"></i> Run it on a robot
                         </a>
-                        <a href="https://github.com/kornia" target="_blank" rel="noopener" class="btn btn-secondary">
-                            <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                        <a href="playground/" class="btn btn-secondary">
+                            <i class="fas fa-flask" aria-hidden="true"></i> Try it in the browser
                         </a>
                     </div>
+                    <a class="hero-news" href="news/" id="hero-news">
+                        <span class="hero-news-label"><i class="fas fa-bolt" aria-hidden="true"></i> News</span>
+                        <span class="hero-news-title">Releases, talks and milestones across the projects</span>
+                        <span class="hero-news-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
 
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number" data-pkg="kornia" data-stat="downloads">2.99M</span>
-                            <span class="stat-label">PyPI installs / month</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number" data-repo="kornia/kornia" data-stat="stars">11.3k</span>
-                            <span class="stat-label">GitHub stars</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">17k+</span>
-                            <span class="stat-label"><a href="https://github.com/kornia/kornia/network/dependents" target="_blank" rel="noopener">Repositories depend on it</a></span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">461</span>
-                            <span class="stat-label"><a href="https://www.semanticscholar.org/paper/arXiv:1910.02190" target="_blank" rel="noopener">Paper citations</a></span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">347</span>
-                            <span class="stat-label"><a href="https://github.com/kornia/kornia/graphs/contributors" target="_blank" rel="noopener">Contributors</a></span>
-                        </div>
-                    </div>
                 </div>
-                <div class="hero-logo">
-                    <img src="assets/kornia-logo.png" alt="Kornia logo" width="400" height="400">
+                <div class="hero-stack" aria-label="The Kornia stack, from research to product">
+                    <p class="hs-title">One stack, research to product</p>
+                    <p class="hs-group">Research</p>
+                    <ol class="hs-layers hs-layers-research">
+                        <li><a href="https://github.com/kornia/kornia" target="_blank" rel="noopener"><span class="hs-name">kornia</span><span class="hs-role">Differentiable computer vision in PyTorch: geometry, features, augmentation</span></a></li>
+                    </ol>
+                    <p class="hs-group">Product: Jetson, Raspberry Pi, any Linux</p>
+                    <ol class="hs-layers">
+                        <li><a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener"><span class="hs-name">bubbaloop</span><span class="hs-role">Agent runtime: memory, tools, fleet telemetry</span></a></li>
+                        <li><a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener"><span class="hs-name">kornia-slam</span><span class="hs-role">Where am I, and what does the space look like</span></a></li>
+                        <li><a href="https://github.com/kornia/vision-rt" target="_blank" rel="noopener"><span class="hs-name">vision-rt</span><span class="hs-role">What is in the frame: TensorRT on Jetson Orin</span></a></li>
+                        <li><a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener"><span class="hs-name">kornia-rs</span><span class="hs-role">Geometry and image kernels, CPU SIMD and CUDA</span></a></li>
+                        <li><a href="https://github.com/kornia/sensor-rt" target="_blank" rel="noopener"><span class="hs-name">sensor-rt</span><span class="hs-role">Cameras, stereo and IMU, zero-copy to the GPU</span></a></li>
+                    </ol>
                 </div>
             </div>
         </section>
 
-        <section id="ecosystem" class="ecosystem">
-            <div class="ecosystem-container">
+        <section id="sponsors" class="intro-band">
+            <div class="intro-band-inner">
+                <p>Kornia is a non-profit building the stack for spatial AI &mdash; from differentiable vision for research to real-time perception on robots &mdash; maintained by a small team and funded by the people who use it.</p>
+                <div class="intro-band-actions">
+                    <a href="https://opencollective.com/kornia" target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-heart" aria-hidden="true"></i> Sponsor on Open Collective</a>
+                    <a href="sponsor/" class="intro-band-link">Why sponsor, and the tiers &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="start" class="start">
+            <div class="start-container">
                 <div class="section-header">
-                    <h2 class="section-title">One stack, camera to agent</h2>
-                    <p class="section-subtitle">Each layer is a separate open-source library. Take the whole stack, or take one piece.</p>
+                    <h2 class="section-title">From a notebook to a robot, without a rewrite</h2>
+                    <p class="section-subtitle">Most vision projects die between the prototype and the device. This is the path the stack is built for: write the perception once, then carry it down to the hardware.</p>
                 </div>
 
-                <div class="stack">
-                    <div class="stack-group-label">Runs on the device &mdash; Jetson, Raspberry Pi, any Linux</div>
+                <ol class="steps">
+                    <li class="step">
+                        <div class="step-text">
+                            <span class="step-num">1</span>
+                            <h3>Prototype the perception</h3>
+                            <p>Start where research starts: in PyTorch, with operators and models that gradients flow through. On the right, three of them run on a clip in your browser: YuNet finding a face, a random affine augmentation held fixed for the whole pass, and Sobel edges. Try the rest in the playground before writing a line.</p>
+                            <div class="step-actions">
+                                <a href="playground/" class="btn btn-primary"><i class="fas fa-flask" aria-hidden="true"></i> Try the operators live</a>
+                                <a href="https://www.kornia.org/tutorials/" class="btn btn-secondary">Tutorials</a>
+                            </div>
+                        </div>
+                        <div class="step-aside">
+                            <div class="hero-demo" id="hero-demo" aria-label="Live demo: an operator running in your browser">
+                                <noscript><a href="playground/">Open the playground</a></noscript>
+                            </div>
+                        </div>
+                    </li>
 
-                    <a class="stack-layer" href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener">
-                        <h3>bubbaloop</h3>
-                        <p>Agent runtime. One binary per device, with fleet telemetry, memory and tools.</p>
-                    </a>
-                    <a class="stack-layer" href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener">
-                        <h3>kornia-slam</h3>
-                        <p>Spatial runtime. Where am I, and what does the space look like.</p>
-                    </a>
-                    <a class="stack-layer" href="https://github.com/kornia/vision-rt" target="_blank" rel="noopener">
-                        <h3>vision-rt</h3>
-                        <p>Neural inference. What is in the frame &mdash; TensorRT on Jetson Orin.</p>
-                    </a>
-                    <a class="stack-layer" href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener">
-                        <h3>kornia-rs</h3>
-                        <p>Geometry and image kernels. The math, in Rust, on CPU SIMD and CUDA.</p>
-                    </a>
-                    <a class="stack-layer" href="https://github.com/kornia/sensor-rt" target="_blank" rel="noopener">
-                        <h3>sensor-rt</h3>
-                        <p>Sensors. Cameras, stereo and IMU, zero-copy to the GPU.</p>
-                    </a>
+                    <li class="step">
+                        <div class="step-text">
+                            <span class="step-num">2</span>
+                            <h3>Carry it to the device, unchanged</h3>
+                            <p>The prototype does not get rewritten under deadline. The same operators exist in Rust under the same names, so the port is a translation, not a redesign. Trained models and whole pipelines leave PyTorch as ONNX; the pipeline builder does that export in the browser.</p>
+                            <div class="step-actions">
+                                <a href="playground/pipelines/" class="btn btn-primary"><i class="fas fa-diagram-project" aria-hidden="true"></i> Export a pipeline as ONNX</a>
+                                <a href="https://docs.rs/kornia-imgproc" target="_blank" rel="noopener" class="btn btn-secondary">kornia-rs reference</a>
+                            </div>
+                        </div>
+                        <div class="step-aside">
+                            <div class="code-pair">
+                                <div>
+                                    <p class="step-aside-label">Prototype, Python</p>
+                                    <pre class="code-block"><code>import kornia as K
 
-                    <div class="stack-group-label">Runs where you train</div>
+blurred = K.filters.gaussian_blur2d(
+    x, (9, 9), (2.0, 2.0))
+edges = K.filters.sobel(blurred)</code></pre>
+                                </div>
+                                <div>
+                                    <p class="step-aside-label">Device, Rust</p>
+                                    <pre class="code-block"><code>use kornia_imgproc::filter::*;
 
-                    <a class="stack-layer is-pytorch" href="https://github.com/kornia/kornia" target="_blank" rel="noopener">
-                        <h3>kornia (PyTorch)</h3>
-                        <p>The research bench. The same geometry, written to be differentiated.</p>
-                    </a>
-                </div>
+gaussian_blur(&amp;img, &amp;mut blurred,
+              (9, 9), (2.0, 2.0))?;
+sobel(&amp;blurred, &amp;mut edges, 3)?;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
 
-                <p class="stack-note">Most computer vision work dies in the gap between the notebook and the machine. You prototype in Python with autograd and a GPU workstation, then rewrite it &mdash; once, under deadline &mdash; for a device with 8&nbsp;GB of RAM and no Python. Kornia maintains both ends, and every layer is usable on its own.</p>
+                    <li class="step step-robot">
+                        <div class="step-text">
+                            <span class="step-num">3</span>
+                            <h3>Run it on a robot</h3>
+                            <p>Bubbaloop is the runtime that puts all of it on the machine: one 13&nbsp;MB Rust binary on a Jetson, a Raspberry Pi or any Linux box. It drives cameras and sensors through sensor-rt, runs models through vision-rt, keeps pose with kornia-slam, and exposes the whole device to an AI agent you can talk to. Four commands from an empty board to asking your camera what it sees.</p>
+                            <ul class="check-list">
+                                <li>Cameras, stereo and IMU as self-describing sensor nodes over zero-copy pub/sub</li>
+                                <li>A web dashboard and a chat with tool-call traces, images included</li>
+                                <li>Works with Gemini, Claude or a fully local Ollama model</li>
+                                <li>Fleets: the same agent across many devices, with telemetry</li>
+                            </ul>
+                            <div class="step-actions">
+                                <a href="https://www.kornia.org/bubbaloop/" target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-robot" aria-hidden="true"></i> Bubbaloop install guide</a>
+                                <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener" class="btn btn-secondary"><i class="fab fa-github" aria-hidden="true"></i> Source</a>
+                            </div>
+                        </div>
+                        <div class="step-aside">
+                            <svg class="robot-diagram" viewBox="0 0 520 210" role="img" aria-label="Cameras and sensors feed a device running Bubbaloop, which an agent and a dashboard talk to">
+                                <defs>
+                                    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+                                </defs>
+                                <g font-family="Inter, system-ui, sans-serif" font-size="12" fill="#0f172a">
+                                    <rect x="8" y="22" width="112" height="44" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/><text x="64" y="41" text-anchor="middle" font-weight="600">RTSP camera</text><text x="64" y="57" text-anchor="middle" fill="#64748b" font-size="11">front-door</text>
+                                    <rect x="8" y="84" width="112" height="44" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/><text x="64" y="103" text-anchor="middle" font-weight="600">OAK-D stereo</text><text x="64" y="119" text-anchor="middle" fill="#64748b" font-size="11">depth + IMU</text>
+                                    <rect x="8" y="146" width="112" height="44" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/><text x="64" y="165" text-anchor="middle" font-weight="600">CSI camera</text><text x="64" y="181" text-anchor="middle" fill="#64748b" font-size="11">Jetson / Pi</text>
+                                    <path d="M120 44 H160 V106 H186" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+                                    <path d="M120 106 H186" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+                                    <path d="M120 168 H160 V106" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+                                    <rect x="190" y="30" width="170" height="152" rx="12" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+                                    <text x="275" y="52" text-anchor="middle" font-weight="700" fill="#2563eb">bubbaloop</text>
+                                    <text x="275" y="67" text-anchor="middle" fill="#64748b" font-size="10.5">one binary on the device</text>
+                                    <rect x="204" y="80" width="142" height="22" rx="5" fill="#eff6ff"/><text x="275" y="95" text-anchor="middle" font-size="11">sensor-rt · drivers</text>
+                                    <rect x="204" y="106" width="142" height="22" rx="5" fill="#eff6ff"/><text x="275" y="121" text-anchor="middle" font-size="11">vision-rt · inference</text>
+                                    <rect x="204" y="132" width="142" height="22" rx="5" fill="#eff6ff"/><text x="275" y="147" text-anchor="middle" font-size="11">kornia-slam · pose</text>
+                                    <text x="275" y="172" text-anchor="middle" fill="#64748b" font-size="10.5">zero-copy pub/sub · MCP server</text>
+                                    <path d="M360 76 H400" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+                                    <path d="M360 136 H400" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+                                    <rect x="402" y="54" width="110" height="44" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/><text x="457" y="73" text-anchor="middle" font-weight="600">AI agent</text><text x="457" y="89" text-anchor="middle" fill="#64748b" font-size="11">"what do you see?"</text>
+                                    <rect x="402" y="114" width="110" height="44" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/><text x="457" y="133" text-anchor="middle" font-weight="600">Dashboard</text><text x="457" y="149" text-anchor="middle" fill="#64748b" font-size="11">localhost:8080</text>
+                                </g>
+                            </svg>
+                            <pre class="code-block"><code># 1. install (Linux x86_64 / ARM64): binary, pub/sub router,
+#    web dashboard, all as user services
+curl -sSL https://github.com/kornia/bubbaloop/releases/latest/download/install.sh | bash
+source ~/.bashrc
 
-                <div class="ecosystem-doors">
-                    <a href="https://kornia.readthedocs.io" target="_blank" rel="noopener" class="btn btn-primary">
-                        Start here if you train models
-                    </a>
-                    <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener" class="btn btn-secondary">
-                        Start here if you have hardware in front of you
-                    </a>
-                </div>
+# 2. describe a camera: RTSP, or CSI/USB on a Jetson or Pi
+cat &gt; ~/.bubbaloop/skills/front-door.yaml &lt;&lt;&#x27;YAML&#x27;
+name: front-door
+driver: rtsp
+config:
+  url: rtsp://192.168.1.100/stream
+YAML
+
+# 3. start; the driver node is installed and streams
+bubbaloop up
+
+# 4. talk to the hardware (dashboard: http://localhost:8080)
+bubbaloop agent chat &quot;what does the front-door camera see?&quot;</code></pre>
+                        </div>
+                    </li>
+                </ol>
             </div>
         </section>
 
-        <section id="projects" class="projects">
-            <div class="projects-container">
-                <div class="section-header">
-                    <h2 class="section-title">Our Projects</h2>
-                    <p class="section-subtitle">Six open-source libraries, from sensor drivers to an agent runtime.</p>
+
+
+
+        <section id="subscribe" class="subscribe">
+            <div class="subscribe-inner">
+                <div>
+                    <h2>Stay in the loop</h2>
+                    <p>One email when something ships: releases, new operators in the playground, talks. No tracking pixels, unsubscribe in one click.</p>
                 </div>
-
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <img src="assets/kornia-pytorch-logo.png" alt="" class="project-logo" width="60" height="60">
-                            </div>
-                            <div class="project-info">
-                                <h3>Kornia <span class="maturity maturity-stable">stable</span></h3>
-                                <span class="project-tech">PyTorch &bull; Differentiable vision</span>
-                            </div>
-                        </div>
-                        <p class="project-description">Kornia adds differentiable geometry to PyTorch: camera models, epipolar geometry, homographies, feature detection and matching, and image and augmentation operators that gradients flow through. For researchers and ML engineers who need geometric operations inside the training loop rather than beside it.</p>
-
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value" data-pkg="kornia" data-stat="downloads">2.99M</span>
-                                    <span class="metric-label">Installs / month</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value" data-repo="kornia/kornia" data-stat="stars">11.3k</span>
-                                    <span class="metric-label">GitHub stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Apache-2.0</span>
-                                    <span class="metric-label">License</span>
-                                </div>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/kornia" target="_blank" rel="noopener" class="btn btn-primary">
-                                    <i class="fab fa-github" aria-hidden="true"></i> GitHub
-                                </a>
-                                <a href="https://kornia.readthedocs.io" target="_blank" rel="noopener" class="btn btn-secondary">
-                                    <i class="fas fa-book" aria-hidden="true"></i> Documentation
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fab fa-rust" aria-hidden="true"></i>
-                            </div>
-                            <div class="project-info">
-                                <h3>kornia-rs <span class="maturity maturity-beta">beta</span></h3>
-                                <span class="project-tech">Rust &bull; Image and 3D kernels</span>
-                            </div>
-                        </div>
-                        <p class="project-description">kornia-rs implements low-level 2D and 3D vision in Rust &mdash; image I/O and colour conversion, warps and resampling, camera models, feature matching &mdash; with CPU SIMD and CUDA backends and no Python in the hot path. For engineers putting vision on hardware where a Python interpreter is not an option, and for Rust developers who would otherwise bind to OpenCV.</p>
-
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value" data-repo="kornia/kornia-rs" data-stat="stars">682</span>
-                                    <span class="metric-label">GitHub stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">SIMD + CUDA</span>
-                                    <span class="metric-label">Backends</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Apache-2.0</span>
-                                    <span class="metric-label">License</span>
-                                </div>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener" class="btn btn-primary">
-                                    <i class="fab fa-github" aria-hidden="true"></i> GitHub
-                                </a>
-                                <a href="https://github.com/kornia/kornia-rs#readme" target="_blank" rel="noopener" class="btn btn-secondary">
-                                    <i class="fas fa-book" aria-hidden="true"></i> Documentation
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <span class="project-emoji" aria-hidden="true">&#129412;</span>
-                            </div>
-                            <div class="project-info">
-                                <h3>Bubbaloop <span class="maturity maturity-early">early</span></h3>
-                                <span class="project-tech">Rust &bull; Hardware AI agent</span>
-                            </div>
-                        </div>
-                        <p class="project-description">Bubbaloop is a single Rust binary that turns a Jetson, a Raspberry Pi, or any Linux box into a hardware AI agent: it drives the cameras and sensors, streams real-time telemetry, and gives an AI agent the memory and tools to act on what the device sees. For people operating robots, camera fleets or IoT hardware who want one binary to deploy instead of a container stack per site.</p>
-
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value" data-repo="kornia/bubbaloop" data-stat="stars">25</span>
-                                    <span class="metric-label">GitHub stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Single binary</span>
-                                    <span class="metric-label">Deployment</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Jetson / Pi</span>
-                                    <span class="metric-label">Runs on</span>
-                                </div>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener" class="btn btn-primary">
-                                    <i class="fab fa-github" aria-hidden="true"></i> GitHub
-                                </a>
-                                <a href="https://www.kornia.org/bubbaloop/" target="_blank" rel="noopener" class="btn btn-secondary">
-                                    <i class="fas fa-book" aria-hidden="true"></i> Documentation
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-map-location-dot" aria-hidden="true"></i>
-                            </div>
-                            <div class="project-info">
-                                <h3>kornia-slam <span class="maturity maturity-early">early</span></h3>
-                                <span class="project-tech">Rust &bull; Spatial runtime</span>
-                            </div>
-                        </div>
-                        <p class="project-description">kornia-slam estimates camera pose in real time, builds a reusable map of the space, and exposes both to the software that needs to know where it is. For robotics and spatial-AI developers who want SLAM as a library they call from their own process, not a graph of nodes they have to adopt wholesale.</p>
-
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value" data-repo="kornia/kornia-slam" data-stat="stars">34</span>
-                                    <span class="metric-label">GitHub stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Real-time</span>
-                                    <span class="metric-label">Pose + mapping</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Rust</span>
-                                    <span class="metric-label">Language</span>
-                                </div>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener" class="btn btn-primary">
-                                    <i class="fab fa-github" aria-hidden="true"></i> GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-microchip" aria-hidden="true"></i>
-                            </div>
-                            <div class="project-info">
-                                <h3>vision-rt <span class="maturity maturity-early">early</span></h3>
-                                <span class="project-tech">Rust &bull; TensorRT on Jetson Orin</span>
-                            </div>
-                        </div>
-                        <p class="project-description">vision-rt runs neural vision models &mdash; detection, keypoints, depth, re-identification &mdash; on NVIDIA Jetson Orin through TensorRT, driven from Rust, at real-time frame rates. For engineers deploying perception on Orin who need TensorRT throughput without a Python inference server in the loop.</p>
-
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value" data-repo="kornia/vision-rt" data-stat="stars">13</span>
-                                    <span class="metric-label">GitHub stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">TensorRT</span>
-                                    <span class="metric-label">Inference</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Apache-2.0</span>
-                                    <span class="metric-label">License</span>
-                                </div>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/vision-rt" target="_blank" rel="noopener" class="btn btn-primary">
-                                    <i class="fab fa-github" aria-hidden="true"></i> GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-camera" aria-hidden="true"></i>
-                            </div>
-                            <div class="project-info">
-                                <h3>sensor-rt <span class="maturity maturity-early">early</span></h3>
-                                <span class="project-tech">Rust &bull; Sensor drivers</span>
-                            </div>
-                        </div>
-                        <p class="project-description">sensor-rt is the driver layer underneath the rest: RTSP and NVMM camera capture, OAK-D stereo and IMU, delivering frames as buffers the GPU can use without a copy. For anyone wiring real sensors into a Rust vision pipeline on Jetson instead of shelling out to GStreamer.</p>
-
-                        <div class="project-bottom">
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <span class="metric-value" data-repo="kornia/sensor-rt" data-stat="stars">2</span>
-                                    <span class="metric-label">GitHub stars</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Zero-copy</span>
-                                    <span class="metric-label">To GPU</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">Apache-2.0</span>
-                                    <span class="metric-label">License</span>
-                                </div>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kornia/sensor-rt" target="_blank" rel="noopener" class="btn btn-primary">
-                                    <i class="fab fa-github" aria-hidden="true"></i> GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <p class="stack-note" style="margin-top:2rem;">Also maintained: <a href="https://github.com/kornia/tutorials" target="_blank" rel="noopener">tutorials</a> and <a href="https://github.com/kornia/kornia-examples" target="_blank" rel="noopener">examples</a> notebooks, <a href="https://github.com/kornia/limbus" target="_blank" rel="noopener">limbus</a> async AI pipelines, and <a href="https://github.com/kornia/dora-nodes-hub" target="_blank" rel="noopener">dora-nodes-hub</a> for the dora-rs framework.</p>
-            </div>
-        </section>
-
-        <section id="contribute" class="contribute">
-            <div class="contribute-container">
-                <div class="section-header">
-                    <h2 class="section-title">Build Kornia with us</h2>
-                    <p class="section-subtitle">347 people have shipped code to Kornia, and 121 pull requests were merged in the last 90 days &mdash; most of them the same day they were opened. Here is where to start.</p>
-                </div>
-
-                <div class="paths-grid">
-                    <div class="path-card">
-                        <h3>First contribution</h3>
-                        <p>Small, self-contained, reviewed quickly. Docs fixes, test coverage, error messages and missing operators. Read the contributor guide and the AI &amp; Authorship Policy first &mdash; we require a pasted test log and a reference implementation with every PR, and we would rather tell you now than in review.</p>
-                        <ul class="path-links">
-                            <li><a href="https://github.com/kornia/kornia/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22" target="_blank" rel="noopener">Issues needing a hand &rarr;</a></li>
-                            <li><a href="https://github.com/kornia/kornia/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributor guide &rarr;</a></li>
-                            <li><a href="https://github.com/kornia/kornia/blob/main/AI_POLICY.md" target="_blank" rel="noopener">AI &amp; Authorship Policy &rarr;</a></li>
-                            <li><a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">Say hi first &rarr;</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="path-card">
-                        <h3>Library &amp; systems developer</h3>
-                        <p>Rust, CUDA and edge runtime. Image ops, linear algebra, camera geometry and Jetson deployment in kornia-rs. These are real gaps in the roadmap, not busywork.</p>
-                        <ul class="path-links">
-                            <li><a href="https://github.com/kornia/kornia-rs/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22" target="_blank" rel="noopener">Open work &rarr;</a></li>
-                            <li><a href="https://github.com/kornia/kornia-rs/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22" target="_blank" rel="noopener">Scoped starters &rarr;</a></li>
-                            <li><a href="https://github.com/kornia/kornia-rs/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributor guide &rarr;</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="path-card">
-                        <h3>Researcher</h3>
-                        <p>Bring a paper into a differentiable, production computer vision library and put it in front of thousands of downstream projects. Propose it in Discussions before you write code &mdash; we will help you scope it.</p>
-                        <ul class="path-links">
-                            <li><a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">Propose a feature &rarr;</a></li>
-                            <li><a href="https://github.com/kornia/kornia/issues/new/choose" target="_blank" rel="noopener">Feature request template &rarr;</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="path-card">
-                        <h3>Get mentored</h3>
-                        <p>Kornia has mentored students through Google Summer of Code in 2025 and 2026, and we mentor outside the programme too. If you want to spend a summer &mdash; or a semester &mdash; going deep on differentiable CV, Rust image processing or edge deployment, we will pair you with a maintainer.</p>
-                        <ul class="path-links">
-                            <li><a href="https://summerofcode.withgoogle.com/programs/2026/organizations/kornia" target="_blank" rel="noopener">GSoC 2026 &rarr;</a></li>
-                            <li><a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">Not a GSoC year? Bring a proposal &rarr;</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <p class="contribute-closing">Not writing code? Reviewing a pull request, reproducing a bug, or answering one question in Discord is worth as much. Maintainer review is our scarcest resource &mdash; if you want to help most, help us review.</p>
-            </div>
-        </section>
-
-        <section id="sponsors" class="sponsors">
-            <div class="sponsors-container">
-                <div class="section-header">
-                    <h2 class="section-title">Sponsor Kornia</h2>
-                    <p class="section-subtitle">Kornia is free and always will be. Sponsorship pays for the maintenance that keeps it that way.</p>
-                </div>
-
-                <div class="sponsor-what">
-                    <div>
-                        <h3>Monthly releases</h3>
-                        <p>Regular, tested releases across the Python and Rust projects instead of whenever someone finds an evening.</p>
-                    </div>
-                    <div>
-                        <h3>Real hardware testing</h3>
-                        <p>Jetson and edge builds verified on actual devices before they ship, not just in CI.</p>
-                    </div>
-                    <div>
-                        <h3>Faster review</h3>
-                        <p>Maintainer review is our bottleneck. Funding buys dependable review time for the people contributing code.</p>
-                    </div>
-                </div>
-
-                <div class="sponsor-actions">
-                    <a href="https://github.com/sponsors/kornia" target="_blank" rel="noopener" class="btn btn-primary">
-                        <i class="fas fa-heart" aria-hidden="true"></i> Sponsor on GitHub
-                    </a>
-                    <a href="https://opencollective.com/kornia" target="_blank" rel="noopener" class="btn btn-secondary">
-                        <i class="fas fa-file-invoice" aria-hidden="true"></i> Sponsor via Open Collective &mdash; invoicing &amp; POs
-                    </a>
-                </div>
-
-                <p class="ledger-note">Donations made through Open Collective are held by Open Source Collective, which can issue invoices and receipts for company purchasing. <a href="https://opencollective.com/kornia" target="_blank" rel="noopener">Every transaction is public</a>.</p>
-
-                <div class="sponsor-wall">
-                    <h3>Our backers</h3>
-                    <p class="ledger-note" style="margin-top:0;">Thank you to everyone funding this work. Sponsor logos are placed here.</p>
-                    <ul class="backer-list" id="backer-list">
-                        <li>Google Summer of Code</li>
-                        <li>Hassan Abu Alhaija</li>
-                        <li>Gabriele Berton</li>
-                        <li>Duc Nguyen</li>
-                        <li>pixray</li>
-                        <li>zhaoguangyuan123</li>
-                        <li>Edgar Riba Pi</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="communities" class="communities">
-            <div class="communities-container">
-                <div class="section-header">
-                    <h2 class="section-title">Join Our Community</h2>
-                    <p class="section-subtitle">Connect with researchers, developers and companies building computer vision in the open.</p>
-                </div>
-
-                <div class="social-grid">
-                    <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener" class="social-card">
-                        <i class="fab fa-discord" aria-hidden="true"></i>
-                        <span>Discord</span>
-                    </a>
-                    <a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener" class="social-card">
-                        <i class="fas fa-comments" aria-hidden="true"></i>
-                        <span>Discussions</span>
-                    </a>
-                    <a href="https://x.com/kornia_foss" target="_blank" rel="noopener" class="social-card">
-                        <i class="fab fa-x-twitter" aria-hidden="true"></i>
-                        <span>X</span>
-                    </a>
-                    <a href="https://www.linkedin.com/company/kornia/" target="_blank" rel="noopener" class="social-card">
-                        <i class="fab fa-linkedin" aria-hidden="true"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/kornia" target="_blank" rel="noopener" class="social-card">
-                        <i class="fab fa-github" aria-hidden="true"></i>
-                        <span>GitHub</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="news" class="news-section">
-            <div class="section-header">
-                <h2 class="section-title">Latest News &amp; Updates</h2>
-                <p class="section-subtitle">Releases, talks and milestones across the Kornia ecosystem</p>
-            </div>
-            <div class="news-container">
-                <div class="news-filters">
-                    <div class="hashtag-filters" id="hashtagFilters"></div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <button id="newsLeft" class="btn btn-light me-2" type="button" aria-label="Scroll news left">&#8592;</button>
-                    <div class="news-list row flex-nowrap overflow-auto" id="newsList" style="scroll-behavior: smooth; width: 100%;"></div>
-                    <button id="newsRight" class="btn btn-light ms-2" type="button" aria-label="Scroll news right">&#8594;</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="collaborators" class="collaborators">
-            <div class="collaborators-container">
-                <div class="section-header">
-                    <h2 class="section-title">Programmes &amp; Collaborations</h2>
-                    <p class="section-subtitle">Programmes we take part in and projects we build alongside.</p>
-                </div>
-
-                <div class="collaborators-grid">
-                    <a href="https://summerofcode.withgoogle.com/programs/2026/organizations/kornia" target="_blank" rel="noopener" class="collaborator-card">
-                        <img src="assets/gsoc.png" alt="Google Summer of Code" class="collaborator-logo" loading="lazy">
-                        <div class="collaborator-info">
-                            <h3>Google Summer of Code</h3>
-                            <p>Mentoring organisation, 2025 and 2026</p>
-                        </div>
-                    </a>
-
-                    <a href="https://rerun.io/" target="_blank" rel="noopener" class="collaborator-card">
-                        <img src="assets/rr.png" alt="Rerun" class="collaborator-logo" loading="lazy">
-                        <div class="collaborator-info">
-                            <h3>Rerun</h3>
-                            <p>Data stack for physical AI</p>
-                        </div>
-                    </a>
-
-                    <a href="https://dora-rs.ai/" target="_blank" rel="noopener" class="collaborator-card">
-                        <img src="assets/dora.png" alt="Dora" class="collaborator-logo" loading="lazy">
-                        <div class="collaborator-info">
-                            <h3>dora-rs</h3>
-                            <p>Robotics dataflow framework &mdash; we maintain dora-nodes-hub</p>
-                        </div>
-                    </a>
-
-                    <a href="https://opencv.org/" target="_blank" rel="noopener" class="collaborator-card">
-                        <img src="assets/ocv.svg" alt="OpenCV" class="collaborator-logo" loading="lazy">
-                        <div class="collaborator-info">
-                            <h3>OpenCV</h3>
-                            <p>Computer vision library</p>
-                        </div>
-                    </a>
-
-                    <a href="https://www.copper-robotics.com/" target="_blank" rel="noopener" class="collaborator-card">
-                        <img src="assets/copper.png" alt="Copper Robotics" class="collaborator-logo" loading="lazy">
-                        <div class="collaborator-info">
-                            <h3>Copper Robotics</h3>
-                            <p>Security and service robots</p>
-                        </div>
-                    </a>
-
-                    <a href="https://deepmind.google/" target="_blank" rel="noopener" class="collaborator-card">
-                        <img src="assets/gdm.png" alt="Google DeepMind" class="collaborator-logo" loading="lazy">
-                        <div class="collaborator-info">
-                            <h3>Google DeepMind</h3>
-                            <p>AI research</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="about">
-            <div class="about-container">
-                <div class="section-header">
-                    <h2 class="section-title">About Kornia</h2>
-                </div>
-
-                <div class="about-content">
-                    <p>Kornia is a non-profit organisation dedicated to advancing spatial artificial intelligence through open collaboration. Founded in 2018 and registered as a non-profit in 2023, it is supported by an international community of contributors driving work in computer vision.</p>
-                </div>
-
-                <div class="values-grid">
-                    <div class="value-card">
-                        <div class="value-icon"><i class="fas fa-code-branch" aria-hidden="true"></i></div>
-                        <h3>Open source first</h3>
-                        <p>Kornia projects are developed in the open under permissive licences, free for anyone to use, modify and build on.</p>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
-                        <h3>Global community</h3>
-                        <p>347 people have contributed code to the Kornia library, from research labs and companies around the world.</p>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon"><i class="fas fa-microchip" aria-hidden="true"></i></div>
-                        <h3>Research to hardware</h3>
-                        <p>The same geometry, maintained from the training loop through to a robot running on an 8&nbsp;GB board.</p>
-                    </div>
-                </div>
+                <!-- Newsletter provider: Buttondown, list "kornia". Create the list at buttondown.com before publishing;
+                     until then the form points at a list that does not exist. -->
+                <form class="subscribe-form" action="https://buttondown.com/api/emails/embed-subscribe/kornia" method="post" target="_blank">
+                    <label for="subscribe-email" class="visually-hidden">Email address</label>
+                    <input type="email" id="subscribe-email" name="email" placeholder="you@example.org" required autocomplete="email">
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+                <ul class="subscribe-alt">
+                    <li><a href="feed.xml"><i class="fas fa-rss" aria-hidden="true"></i> RSS feed</a></li>
+                    <li><a href="https://github.com/kornia/kornia/releases.atom" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> Release feed</a></li>
+                    <li><a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener"><i class="fab fa-discord" aria-hidden="true"></i> Discord</a></li>
+                </ul>
             </div>
         </section>
     </main>
@@ -831,7 +493,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Kornia</h4>
-                <p>Advancing computer vision &amp; spatial AI, openly</p>
+                <p>Computer vision for robotics &amp; spatial AI</p>
             </div>
             <div class="footer-section">
                 <h4>Projects</h4>
@@ -846,13 +508,13 @@
                 <h4>Resources</h4>
                 <a href="https://kornia.readthedocs.io">Documentation</a>
                 <a href="https://www.kornia.org/tutorials/">Tutorials</a>
-                <a href="#news">News &amp; updates</a>
+                <a href="news/">News &amp; updates</a>
                 <a href="https://kornia.readthedocs.io/en/latest/get-started/governance.html">Governance</a>
                 <a href="https://github.com/kornia">GitHub</a>
             </div>
             <div class="footer-section">
                 <h4>Contribute</h4>
-                <a href="#contribute">Start contributing</a>
+                <a href="community/#contribute">Start contributing</a>
                 <a href="https://github.com/kornia/kornia/blob/main/CONTRIBUTING.md">Contributor guide</a>
                 <a href="https://github.com/kornia/kornia/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a>
                 <a href="#sponsors">Sponsor</a>
@@ -873,122 +535,10 @@
         </div>
     </footer>
 
-    <!-- News Modal -->
-    <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="newsModalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="news-modal-date mb-3"></div>
-                    <div class="news-modal-tags mb-3"></div>
-                    <div class="news-modal-content"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <div id="newsModalReadMore"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // ---- Contact email (kept out of the raw markup) ----
-            var emailSlot = document.getElementById('email-contact');
-            if (emailSlot) {
-                var addr = 'hello' + '@' + 'kornia.org';
-                emailSlot.innerHTML = '<a href="mailto:' + addr + '">' + addr + '</a>';
-            }
-
-            // ---- Smooth scroll for in-page anchors ----
-            document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-                link.addEventListener('click', function (e) {
-                    var targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    var target = document.querySelector(targetId);
-                    if (!target) return;
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    history.pushState(null, null, targetId);
-                });
-            });
-
-            // ---- Mobile nav toggle ----
-            var navToggle = document.querySelector('.nav-toggle');
-            var navLinks = document.getElementById('primary-nav-links');
-
-            function closeNav() {
-                if (!navToggle || !navLinks) return;
-                navLinks.classList.remove('is-open');
-                navToggle.classList.remove('is-active');
-                navToggle.setAttribute('aria-expanded', 'false');
-            }
-
-            if (navToggle && navLinks) {
-                navToggle.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    var open = navLinks.classList.toggle('is-open');
-                    navToggle.classList.toggle('is-active', open);
-                    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-                });
-                navLinks.querySelectorAll('a').forEach(function (a) {
-                    a.addEventListener('click', function () {
-                        if (!a.closest('.github-dropdown')) closeNav();
-                    });
-                });
-            }
-
-            // ---- GitHub dropdown: click/touch support alongside :hover and :focus-within ----
-            var ghDropdown = document.querySelector('.github-dropdown');
-            var ghTrigger = ghDropdown ? ghDropdown.querySelector('a[aria-haspopup="menu"]') : null;
-
-            function closeDropdown() {
-                if (!ghDropdown || !ghTrigger) return;
-                ghDropdown.classList.remove('is-open');
-                ghTrigger.setAttribute('aria-expanded', 'false');
-            }
-
-            if (ghDropdown && ghTrigger) {
-                ghTrigger.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    var open = ghDropdown.classList.toggle('is-open');
-                    ghTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-                });
-            }
-
-            document.addEventListener('click', function (e) {
-                if (!e.target.closest('nav')) { closeNav(); closeDropdown(); }
-            });
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closeNav();
-                    closeDropdown();
-                    if (ghTrigger) ghTrigger.focus();
-                }
-            });
-
-            // ---- Copy install command ----
-            document.querySelectorAll('.copy-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var src = document.getElementById(btn.dataset.copyTarget);
-                    if (!src || !navigator.clipboard) return;
-                    navigator.clipboard.writeText(src.textContent.trim()).then(function () {
-                        var prev = btn.textContent;
-                        btn.textContent = 'Copied';
-                        setTimeout(function () { btn.textContent = prev; }, 1500);
-                    }).catch(function () { /* clipboard unavailable; the command stays selectable */ });
-                });
-            });
-        });
-    </script>
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-    <script src="news.js"></script>
+    <script src="site.js?v=20260903"></script>
+    <script src="script.js?v=20260903"></script>
+    <script src="playground/models.js" defer></script>
+    <script src="hero-demo.js?v=20260903" defer></script>
 </body>
 </html>

@@ -11,6 +11,8 @@
 // Contract with index.html — an element opts in by carrying:
 //   data-stat="stars"     + data-repo="kornia/kornia"
 //   data-stat="downloads" + data-pkg="kornia"
+//   data-stat="contributors" / "dependents" + data-repo="kornia/kornia"
+//   data-stat="playground_ops" / "playground_live"   (counts from playground/registry.json)
 // The value is written into a descendant .count if one exists, otherwise into
 // the element's own text. Elements without data-stat are never touched.
 //
@@ -18,7 +20,7 @@
 // A value is only ever written after passing isCount(), so "undefined"/"NaN"
 // can never reach the page.
 
-const STATS_URL = 'stats.json';
+const STATS_URL = new URL('stats.json', document.currentScript ? document.currentScript.src : location.href).href;
 const CACHE_KEY = 'kornia:stats:v1';
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
 
@@ -52,11 +54,14 @@ function formatDownloads(count) {
 // The lookup key for an element, or null if it is not a well-formed target.
 function statKey(element) {
     const stat = element.dataset.stat;
-    if (stat === 'stars') {
+    if (stat === 'stars' || stat === 'contributors' || stat === 'dependents') {
         return element.dataset.repo || null;
     }
     if (stat === 'downloads') {
         return element.dataset.pkg || null;
+    }
+    if (stat === 'playground_ops' || stat === 'playground_live') {
+        return 'playground';
     }
     return null;
 }
@@ -65,9 +70,11 @@ function render(element, value) {
     if (!isCount(value)) {
         return; // leave the hardcoded HTML in place
     }
-    const text = element.dataset.stat === 'downloads'
-        ? formatDownloads(value)
-        : formatStars(value);
+    const kind = element.dataset.stat;
+    let text;
+    if (kind === 'downloads') text = formatDownloads(value);
+    else if (kind === 'stars' || kind === 'dependents') text = formatStars(value) + (kind === 'dependents' ? '+' : '');
+    else text = value.toLocaleString('en-US'); // contributors, playground counts
     const slot = element.querySelector('.count') || element;
     slot.textContent = text;
 }
@@ -78,9 +85,14 @@ function lookup(stats, element) {
     if (!key || !stats) {
         return undefined;
     }
-    if (element.dataset.stat === 'stars') {
+    const kind = element.dataset.stat;
+    if (kind === 'stars' || kind === 'contributors' || kind === 'dependents') {
         const entry = stats.repos && stats.repos[key];
-        return entry ? entry.stars : undefined;
+        return entry ? entry[kind] : undefined;
+    }
+    if (kind === 'playground_ops' || kind === 'playground_live') {
+        const entry = stats.playground || {};
+        return entry[kind === 'playground_ops' ? 'operators' : 'live'];
     }
     const entry = stats.packages && stats.packages[key];
     return entry ? entry.downloads_last_month : undefined;
