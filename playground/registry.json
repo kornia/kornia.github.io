@@ -6261,7 +6261,7 @@
    "snippet": "kornia.augmentation.RandomChannelDropout({num_drop_channels}, fill_value={fill_value}, p=1.0)({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": true,
+   "stochastic": false,
    "pre": "",
    "guidance": null,
    "params": [
@@ -6354,7 +6354,7 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 1.0,
-   "sampling_folded": false,
+   "sampling_folded": true,
    "kind": "class"
   },
   {
@@ -6368,7 +6368,7 @@
    "snippet": "kornia.augmentation.RandomChannelShuffle(p=1.0)({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": true,
+   "stochastic": false,
    "pre": "",
    "guidance": null,
    "params": [
@@ -6407,7 +6407,7 @@
    "dynamic": true,
    "cpu_latency_ms": 0.5,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": true
   },
   {
    "id": "kornia.augmentation.RandomContrast",
@@ -7530,7 +7530,7 @@
    "snippet": "kornia.augmentation.RandomGrayscale(p={p})({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": true,
+   "stochastic": false,
    "pre": "",
    "guidance": null,
    "params": [
@@ -7569,7 +7569,7 @@
    "dynamic": true,
    "cpu_latency_ms": 1.1,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": true
   },
   {
    "id": "kornia.augmentation.RandomHorizontalFlip",
@@ -7582,7 +7582,7 @@
    "snippet": "kornia.augmentation.RandomHorizontalFlip(p={p})({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": true,
+   "stochastic": false,
    "pre": "",
    "guidance": null,
    "params": [
@@ -7621,7 +7621,7 @@
    "dynamic": true,
    "cpu_latency_ms": 3.4,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": true
   },
   {
    "id": "kornia.augmentation.RandomHorizontalFlip3D",
@@ -7758,7 +7758,7 @@
    "snippet": "kornia.augmentation.RandomInvert(p={p})({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": true,
+   "stochastic": false,
    "pre": "",
    "guidance": null,
    "params": [
@@ -7797,7 +7797,7 @@
    "dynamic": true,
    "cpu_latency_ms": 1.0,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": true
   },
   {
    "id": "kornia.augmentation.RandomJigsaw",
@@ -9855,7 +9855,7 @@
    "snippet": "kornia.augmentation.RandomVerticalFlip(p={p})({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": true,
+   "stochastic": false,
    "pre": "",
    "guidance": null,
    "params": [
@@ -9894,7 +9894,7 @@
    "dynamic": true,
    "cpu_latency_ms": 2.0,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": true
   },
   {
    "id": "kornia.augmentation.RandomVerticalFlip3D",

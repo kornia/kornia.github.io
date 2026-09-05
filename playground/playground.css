@@ -219,7 +219,8 @@
 }
 
 .pg-head h1,
-.pg-head h2 {
+.pg-head h2,
+.pg-op-head h1 {
     font-size: 1.75rem;
     font-weight: 800;
     letter-spacing: -0.01em;

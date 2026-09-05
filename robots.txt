@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /dashboard/
+Disallow: /hub/
 
 Sitemap: https://www.kornia.org/sitemap.xml

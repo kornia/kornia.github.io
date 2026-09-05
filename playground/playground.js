@@ -188,7 +188,7 @@
     const root = el("article", "pg-op pg-op-volume", { id: op.slug });
     const frames = op.mode === "frames";   // the output was rendered offline per choice; nothing runs here
     const head = el("div", "pg-op-head pg-head");
-    const title = el("h2"); title.textContent = op.name;
+    const title = el("h1"); title.textContent = op.name;
     const code = el("code"); code.textContent = op.id;
     const tag = el("span", "pg-tag"); tag.textContent = frames ? "3D volume · pre-rendered" : "3D volume";
     head.appendChild(title); head.appendChild(code); head.appendChild(tag);
@@ -412,7 +412,7 @@
 
     const root = el("article", "pg-op", { id: op.slug });
     const head = el("div", "pg-op-head pg-head");
-    const title = el("h2");
+    const title = el("h1");
     title.textContent = op.name;
     const code = el("code");
     code.textContent = op.id;
@@ -1057,7 +1057,7 @@
   function buildUnsupported(op, container) {
     const root = el("article", "pg-op pg-op-unsupported", { id: op.slug });
     const head = el("div", "pg-op-head");
-    const title = el("h2");
+    const title = el("h1");
     title.textContent = op.name;
     const code = el("code");
     code.textContent = op.id;

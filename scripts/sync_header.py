@@ -13,6 +13,7 @@ The current section is not baked into the pages: site.js adds `active` to the li
 from __future__ import annotations
 
 import glob
+import os
 import re
 from pathlib import Path
 
@@ -175,7 +176,13 @@ def main() -> None:
     pages += [Path(p) for p in glob.glob(str(ROOT / "*/index.html"))]
     pages += [Path(p) for p in glob.glob(str(ROOT / "playground/*/index.html"))]
     pages += [Path(p) for p in glob.glob(str(ROOT / "playground/*/*/index.html"))]
-    pages += [ROOT / "playground/build/op_template.html"]
+    # the page template lives in the private kornia-backend checkout (KORNIA_BACKEND, or a sibling directory)
+
+    template = Path(os.environ.get("KORNIA_BACKEND", ROOT.parent / "kornia-backend")) / "build" / "op_template.html"
+
+    if template.exists():
+
+        pages.append(template)
     pat = re.compile(r"    <header>\n.*?    </header>", re.S)
     fpat = re.compile(r"    <footer>\n.*?    </footer>", re.S)
     n = 0
