@@ -103,7 +103,59 @@
 
   // ------------------------------------------------------------------ code snippets
 
-  function pythonSnippet(op, state, registry) {
+  // ---- annotations of the sample images (boxes, keypoints, a mask) and their overlays
+  const annotationCache = {};
+  function loadAnnotations(root, image) {
+    if (!image || !image.annotations) return Promise.resolve(null);
+    if (!annotationCache[image.id]) {
+      annotationCache[image.id] = fetch(root + image.annotations).then(function (r) { return r.ok ? r.json() : null; }).then(function (a) {
+        if (!a) return null;
+        return new Promise(function (resolve) {
+          const img = new Image();
+          img.onload = function () {
+            const c = document.createElement("canvas"); c.width = img.width; c.height = img.height;
+            c.getContext("2d").drawImage(img, 0, 0);
+            const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+            const m = new Float32Array(c.width * c.height);
+            for (let i = 0; i < m.length; i++) m[i] = d[4 * i] > 127 ? 1 : 0;
+            resolve({ boxes: a.boxes, keypoints: a.keypoints, mask: { data: m, width: c.width, height: c.height } });
+          };
+          img.onerror = function () { resolve({ boxes: a.boxes, keypoints: a.keypoints, mask: null }); };
+          img.src = root + a.mask;
+        });
+      }).catch(function () { return null; });
+    }
+    return annotationCache[image.id];
+  }
+  const OVERLAY = { mask: "rgba(37, 99, 235, 0.45)", boxes: "#f59e0b", keypoints: "#10b981" };
+  // draw a mask (Float32Array or ort tensor 1x1xHxW), boxes (K x 4 xyxy) and keypoints (P x 2) over a canvas
+  function drawOverlays(canvas, items, on) {
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width, H = canvas.height;
+    if (on.mask && items.mask) {
+      const m = items.mask, data = m.data || m, w = m.width || (m.dims ? m.dims[3] : W), h = m.height || (m.dims ? m.dims[2] : H);
+      const layer = ctx.createImageData(w, h);
+      for (let i = 0; i < w * h; i++) { if (data[i] > 0.5) { layer.data[4 * i] = 37; layer.data[4 * i + 1] = 99; layer.data[4 * i + 2] = 235; layer.data[4 * i + 3] = 115; } }
+      const tmp = document.createElement("canvas"); tmp.width = w; tmp.height = h; tmp.getContext("2d").putImageData(layer, 0, 0);
+      ctx.drawImage(tmp, 0, 0, W, H);
+    }
+    if (on.boxes && items.boxes) {
+      ctx.lineWidth = 2; ctx.strokeStyle = OVERLAY.boxes;
+      items.boxes.forEach(function (b) { ctx.strokeRect(b[0], b[1], b[2] - b[0], b[3] - b[1]); });
+    }
+    if (on.keypoints && items.keypoints) {
+      ctx.fillStyle = OVERLAY.keypoints; ctx.strokeStyle = "#064e3b"; ctx.lineWidth = 1;
+      items.keypoints.forEach(function (k) { ctx.beginPath(); ctx.arc(k[0], k[1], 3.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
+    }
+  }
+  function rows2d(tensor, cols) {   // an ort tensor 1xKxC -> [[...C], ...]
+    const out = [], d = tensor.data, n = tensor.dims[1];
+    for (let i = 0; i < n; i++) { const r = []; for (let c = 0; c < cols; c++) r.push(d[i * cols + c]); out.push(r); }
+    return out;
+  }
+  window.PGOverlays = { loadAnnotations: loadAnnotations, drawOverlays: drawOverlays, rows2d: rows2d, colors: OVERLAY };
+
+  function snippetValues(op, state) {
     const values = { img: "img" };
     op.params.forEach(function (p) {
       values[p.name] = fmt(state.params[p.name], p);
@@ -115,6 +167,12 @@
         for (const k in d) values[p.name + "_" + k] = d[k];
       }
     });
+    return values;
+  }
+  window.PGSnippets = { values: snippetValues, fill: fill };
+
+  function pythonSnippet(op, state, registry) {
+    const values = snippetValues(op, state);
     const image = registry.images.find(function (im) { return im.id === state.image; });
     const lines = ["import torch", "import kornia", "from kornia.io import load_image", ""];
     if (image) {
@@ -171,10 +229,12 @@
   const sessions = {};
   function getSession(path) {
     if (!sessions[path]) {
-      sessions[path] = ort.InferenceSession.create(path, { executionProviders: ["wasm"], graphOptimizationLevel: "all" });
+      const bytes = window.KorniaCache ? window.KorniaCache.fetch(path) : fetch(path).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); }).then(function (b) { return new Uint8Array(b); });
+      sessions[path] = bytes.then(function (b) { return ort.InferenceSession.create(b, { executionProviders: ["wasm"], graphOptimizationLevel: "all" }); }).catch(function (e) { delete sessions[path]; throw e; });
     }
     return sessions[path];
   }
+  function fetchBytes(url) { return window.KorniaCache ? window.KorniaCache.fetch(url) : fetch(url).then(function (r) { return r.arrayBuffer(); }).then(function (b) { return new Uint8Array(b); }); }
 
   // ------------------------------------------------------------------ the widget
 
@@ -374,7 +434,7 @@
     function showFrame() {
       const idx = op.frames.param === null ? 0 : nearest(op.frames.values, state.params[op.frames.param]);
       const shape = op.frames.shapes[idx];
-      fetch(ROOT + op.frames.dir + "/phantom/" + String(idx).padStart(2, "0") + ".bin").then(function (r) { return r.arrayBuffer(); }).then(function (buf) {
+      fetchBytes(ROOT + op.frames.dir + "/phantom/" + String(idx).padStart(2, "0") + ".bin").then(function (u) { return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength); }).then(function (buf) {
         return getViewers().then(function (v) { v.b.setVolume(new Float32Array(buf), shape[0], shape[1], shape[2]); status.textContent = "volume " + (idx + 1) + " of " + op.frames.values.length; });
       }).catch(function (e) { status.classList.add("pg-error"); status.textContent = "could not load the frame: " + (e.message || e); });
     }
@@ -397,7 +457,7 @@
         .then(function () { running = false; if (pending) { pending = false; run(); } });
     }
     renderCode();
-    fetch(ROOT + (vol ? vol.file : "volumes/phantom.bin")).then(function (r) { return r.arrayBuffer(); }).then(function (buf) {
+    fetchBytes(ROOT + (vol ? vol.file : "volumes/phantom.bin")).then(function (u) { return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength); }).then(function (buf) {
       const data = new Float32Array(buf);
       if (!frames && typeof ort !== "undefined") inputTensor = new ort.Tensor("float32", data, [1, 1, N, N, N]);
       return getViewers().then(function (v) { v.a.setVolume(data, N, N, N); status.textContent = frames ? "" : "loading graph…"; run(); });
@@ -589,6 +649,30 @@
       const none = el("p", "pg-note");
       none.textContent = "This operator has no parameters.";
       controls.appendChild(none);
+    }
+    // geometric augmentations: the same random draw applied to the sample's mask, boxes and keypoints
+    state.modalities = { mask: false, boxes: false, keypoints: false };
+    let annotations = null;   // of the current sample, when it has any
+    const modalityBoxes = {};
+    if (op.graphs_multi) {
+      const row = el("div", "pg-param pg-modalities");
+      const label = el("span", "pg-modalities-label"); label.textContent = "also transform";
+      row.appendChild(label);
+      ["mask", "boxes", "keypoints"].forEach(function (m) {
+        const l = el("label", "pg-modality pg-modality-" + m);
+        const cb = el("input", "", { type: "checkbox" });
+        cb.addEventListener("change", function () { state.modalities[m] = cb.checked; schedule(); });
+        l.appendChild(cb); l.appendChild(document.createTextNode(" " + m));
+        modalityBoxes[m] = cb;
+        row.appendChild(l);
+      });
+      controls.appendChild(row);
+    }
+    function anyModality() { return op.graphs_multi && annotations && (state.modalities.mask || state.modalities.boxes || state.modalities.keypoints); }
+    function refreshModalityControls() {
+      if (!op.graphs_multi) return;
+      const ok = !!annotations;
+      Object.keys(modalityBoxes).forEach(function (m) { modalityBoxes[m].disabled = !ok; modalityBoxes[m].parentElement.title = ok ? "" : "the sample images carry annotations; your own image and the clips do not"; });
     }
 
     // frame-mode operators: on kornia's server every parameter is live and your own image is accepted
@@ -947,7 +1031,17 @@
       ].join("\n");
     }
     function renderCode() {
-      setCode(pres.python, pythonSnippet(op, state, registry));
+      let py = pythonSnippet(op, state, registry);
+      if (anyModality()) {
+        const ctor = fill(op.snippet.replace(/\(\{img\}\)\s*$/, ""), snippetValues(op, state));
+        const keys = ["input"].concat(["mask", "boxes", "keypoints"].filter(function (m) { return state.modalities[m]; }).map(function (m) { return m === "boxes" ? "bbox_xyxy" : m; }));
+        const names = ["img"].concat(["mask", "boxes", "keypoints"].filter(function (m) { return state.modalities[m]; }));
+        py += "\n\n# the same random draw applied to the sample's " + names.slice(1).join(", ") + ":\n"
+          + "#   mask (1, 1, H, W) float, boxes (1, K, 4) xyxy in pixels, keypoints (1, P, 2) xy in pixels\n"
+          + "aug = kornia.augmentation.AugmentationSequential(\n    " + ctor + ",\n    data_keys=" + JSON.stringify(keys).replace(/"/g, "'") + ",\n)\n"
+          + names.map(function (n) { return n + "_out"; }).join(", ") + " = aug(" + names.join(", ") + ")";
+      }
+      setCode(pres.python, py);
       if (pres.rust) setCode(pres.rust, rustSnippet(op, state, registry));
       if (pres.onnx) setCode(pres.onnx, onnxSnippet());
     }
@@ -964,13 +1058,15 @@
         if (cover) { ctx.fillStyle = "#000"; ctx.fillRect(0, 0, size, size); }
         ctx.drawImage(uploaded, (size - w) / 2, (size - h) / 2, w, h);
         inputTensor = op.mode === "onnx" && haveOrt ? canvasToTensor(canvasIn, size) : null;
+        annotations = null; refreshModalityControls();
         return Promise.resolve();
       }
-      if (!im) return Promise.resolve(); // a clip is selected: frames come from the video loop
+      if (!im) { annotations = null; refreshModalityControls(); return Promise.resolve(); } // a clip is selected: frames come from the video loop
       const steps = [loadImage(ROOT +im.file).then(function (img) {
         canvasIn.getContext("2d").drawImage(img, 0, 0, size, size);
         inputTensor = op.mode === "onnx" && haveOrt ? canvasToTensor(canvasIn, size) : null;
       })];
+      if (op.graphs_multi) steps.push(loadAnnotations(ROOT, im).then(function (a) { annotations = a; refreshModalityControls(); }));
       if (op.guidance && op.mode === "onnx" && haveOrt && !guideTensor) {
         steps.push(loadImage(ROOT +op.guidance.file).then(function (img) {
           const scratch = el("canvas", "", { width: size, height: size });
@@ -1020,18 +1116,51 @@
     function execute() {
       status.classList.remove("pg-error");
       const feeds = {};
+      const multi = anyModality();
+      const t0 = performance.now();
+      if (multi) {
+        // the four-input graph: one random draw moves the image, its mask, its boxes and its keypoints together
+        const K = Math.max(1, annotations.boxes.length), P = Math.max(1, annotations.keypoints.length);
+        const boxes = new Float32Array(K * 4), kps = new Float32Array(P * 2);
+        annotations.boxes.forEach(function (b, i) { boxes[4 * i] = b[0]; boxes[4 * i + 1] = b[1]; boxes[4 * i + 2] = b[2]; boxes[4 * i + 3] = b[3]; });
+        annotations.keypoints.forEach(function (k, i) { kps[2 * i] = k[0]; kps[2 * i + 1] = k[1]; });
+        const m = annotations.mask;
+        feeds.image = inputTensor;
+        feeds.mask = new ort.Tensor("float32", m ? m.data : new Float32Array(size * size), [1, 1, size, size]);
+        feeds.boxes = new ort.Tensor("float32", boxes, [1, K, 4]);
+        feeds.keypoints = new ort.Tensor("float32", kps, [1, P, 2]);
+        // the input canvas shows what goes in
+        const imgIn = registry.images.find(function (i) { return i.id === state.image; });
+        return (imgIn ? loadImage(ROOT + imgIn.file) : Promise.resolve(null)).then(function (img) {
+          if (img) canvasIn.getContext("2d").drawImage(img, 0, 0, size, size);
+          drawOverlays(canvasIn, { mask: m, boxes: annotations.boxes, keypoints: annotations.keypoints }, state.modalities);
+          return getSession(ROOT + op.graphs_multi[graphKey()]);
+        }).then(function (session) { return session.run(feeds); }).then(function (results) {
+          tensorToCanvas(results.image_out, canvasOut, op.output.display);
+          drawOverlays(canvasOut, { mask: results.mask_out, boxes: rows2d(results.boxes_out, 4), keypoints: rows2d(results.keypoints_out, 2) }, state.modalities);
+          const ms = performance.now() - t0;
+          status.textContent = ms.toFixed(0) + " ms on your machine · image, mask, boxes and keypoints from one draw";
+        }).catch(function (err) {
+          status.classList.add("pg-error");
+          status.textContent = "could not run the graph: " + (err.message || err);
+        });
+      }
       feeds[op.inputs[0]] = inputTensor;
       let next = 1;
       if (op.guidance) feeds[op.inputs[next++]] = guideTensor;
       op.params.filter(function (p) { return p.kind === "live"; }).forEach(function (p) {
         feeds[op.inputs[next++]] = new ort.Tensor("float32", new Float32Array([state.params[p.name]]), [1]);
       });
-      const t0 = performance.now();
       return getSession(ROOT +op.graphs[graphKey()])
         .then(function (session) { return session.run(feeds); })
         .then(function (results) {
           const out = results[Object.keys(results)[0]];
           tensorToCanvas(out, canvasOut, op.output.display);
+          if (op.graphs_multi && state.kind === "image" && registry.images.some(function (i) { return i.id === state.image; })) {
+            // no modality on: the input shows the plain sample again
+            const imgIn = registry.images.find(function (i) { return i.id === state.image; });
+            loadImage(ROOT + imgIn.file).then(function (img) { canvasIn.getContext("2d").drawImage(img, 0, 0, size, size); });
+          }
           const ms = performance.now() - t0;
           status.textContent = ms.toFixed(0) + " ms on your machine" + (state.kind === "video" && ms > 0 ? " (" + (1000 / ms).toFixed(0) + " fps)" : "");
         })
@@ -1096,9 +1225,9 @@
         const li = el("li", "pg-row pg-row-" + op.status);
         const a = el("a", "pg-row-name", { href: ROOT +"ops/" + op.slug + "/", "data-op": op.id, title: op.reason || op.summary || op.name });
         a.textContent = op.name;
-        if (op.mode === "frames") {
-          const tag = el("span", "pg-tag pg-tag-small");
-          tag.textContent = "frames";
+        if (op.mode === "frames") {   // pre-rendered frames: the result is shown from images made offline
+          const tag = el("span", "pg-tag pg-tag-small pg-tag-pre", { title: "pre-rendered frames: this operator has no live graph in the browser" });
+          tag.textContent = "pre";
           a.appendChild(tag);
         }
         a.addEventListener("click", function (ev) {

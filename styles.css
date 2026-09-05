@@ -4017,7 +4017,7 @@ footer a:focus-visible {
 
 .db-pricing {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
     margin-bottom: 1rem;
 }
@@ -4175,4 +4175,178 @@ footer a:focus-visible {
 .nav-auth-usage-reset {
     display: block;
     color: var(--text-muted);
+}
+
+/* downloads kept by the browser */
+.db-cache-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.db-cache-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-right: 0.75rem;
+}
+
+.db-cache-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.db-cache-table th {
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 0.3rem 0.4rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.db-cache-table td {
+    padding: 0.35rem 0.4rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.db-cache-table code {
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+}
+
+.db-cache-out {
+    margin-top: 1rem;
+}
+
+.db-cache-out h2 {
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+}
+
+.db-signin {
+    flex-direction: column;
+    align-items: center;
+}
+
+/* the dashboard's section list is a <nav> too: undo the header's centring and layout for it */
+.db-side .db-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.15rem;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    text-align: left;
+}
+
+.db-side .db-nav a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    text-align: left;
+}
+
+.db-side .db-nav a::after {
+    display: none;
+}
+
+/* dashboard section heads are plain blocks, never the site's fixed header */
+.db-content .db-head {
+    position: static;
+    inset: auto;
+    width: auto;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+    z-index: auto;
+    backdrop-filter: none;
+}
+
+.db-price-contact {
+    gap: 0.75rem;
+}
+
+.db-price-contact .db-lead {
+    margin: 0;
+    flex: 1;
+}
+
+.db-price-contact .pg-btn {
+    align-self: flex-start;
+}
+
+/* pipeline rows on the dashboard: the name and the buttons on one line, the comment under them */
+.hub-list li.hub-pipe-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.2rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hub-list li.hub-pipe-row:last-child {
+    border-bottom: 0;
+}
+
+.hub-pipe-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.hub-pipe-line > a {
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.hub-pipe-line > a:hover {
+    color: var(--primary-color);
+}
+
+.hub-pipe-tools {
+    display: flex;
+    gap: 0.4rem;
+    flex: none;
+}
+
+.hub-pipe-note {
+    width: 100%;
+    box-sizing: border-box;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 0.2rem 0.4rem;
+    margin-left: -0.4rem;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.hub-pipe-note:hover,
+.hub-pipe-note:focus {
+    border-color: var(--border-color);
+    background: var(--card-bg);
+    outline: none;
 }

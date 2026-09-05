@@ -77,6 +77,7 @@ if (!cfg.configured) {
     if (!sections.some((s) => s.dataset.section === name)) name = "overview";
     current = name;
     sections.forEach((s) => { s.hidden = s.dataset.section !== name; });
+    if (name === "downloads" && typeof renderCache === "function") renderCache();   // the list may have grown since the page loaded
     tabs.forEach((t) => t.setAttribute("aria-selected", t.dataset.section === name ? "true" : "false"));
     // an unverified account sees the notice where the data would be
     const active = sections.find((s) => s.dataset.section === name);
@@ -115,48 +116,82 @@ if (!cfg.configured) {
     try {
       const snap = await getDocs(query(collection(db, USERS, user.uid, "pipelines"), orderBy("updated", "desc")));
       list.innerHTML = "";
-      if (snap.empty) list.innerHTML = "<li class='pg-note'>Nothing saved yet. Build one in the playground, then press Sync below.</li>";
+      if (snap.empty) list.innerHTML = "<li class='pg-note'>Nothing saved yet. Build one in the experiment while signed in and it appears here.</li>";
       snap.forEach((d) => {
         const p = d.data();
         const li = document.createElement("li");
         const a = document.createElement("a");
-        a.href = "../playground/pipelines/?share=" + b64url(JSON.stringify({ name: p.name, container: p.container, steps: p.steps, model: p.model || null }));
+        a.href = "../playground/pipelines/?share=" + b64url(JSON.stringify(p.version === 2 ? { name: p.name, version: 2, nodes: p.nodes, edges: p.edges } : { name: p.name, container: p.container, steps: p.steps, model: p.model || null }));
         a.textContent = p.name;
-        const meta = document.createElement("span");
-        meta.className = "hub-item-meta";
-        meta.textContent = (p.steps || []).length + " step" + ((p.steps || []).length === 1 ? "" : "s") + (p.model ? " + model" : "") + " · " + (p.container || "");
+        const meta = noteField(p.note || "", async (text) => {
+          await window.KorniaAuth.pipelines.note(d.id, text);
+          const local = localPipelines(); const lp = local.find((x) => x.id === d.id); if (lp) { lp.note = text; localStorage.setItem(PIPELINES_KEY, JSON.stringify(local)); }
+        });
         const rm = document.createElement("button");
-        rm.type = "button"; rm.className = "pg-link pg-link-danger"; rm.title = "delete from the cloud"; rm.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
-        rm.addEventListener("click", () => deleteDoc(doc(db, USERS, user.uid, "pipelines", d.id)).then(loadPipelines));
-        li.appendChild(a); li.appendChild(meta); li.appendChild(rm);
+        rm.type = "button"; rm.className = "pg-btn pg-btn-ghost pg-btn-small hub-btn-danger"; rm.innerHTML = '<i class="fas fa-trash" aria-hidden="true"></i> Delete';
+        rm.addEventListener("click", () => {
+          if (!window.confirm('Delete "' + p.name + '"? This cannot be undone.')) return;
+          deleteDoc(doc(db, USERS, user.uid, "pipelines", d.id)).then(() => {
+            localStorage.setItem(PIPELINES_KEY, JSON.stringify(localPipelines().filter((x) => x.id !== d.id)));
+            loadPipelines();
+          });
+        });
+        li.className = "hub-pipe-row";
+        const line = document.createElement("div"); line.className = "hub-pipe-line";
+        const tools = document.createElement("span"); tools.className = "hub-pipe-tools"; tools.appendChild(rm);
+        line.appendChild(a); line.appendChild(tools);
+        li.appendChild(line); li.appendChild(meta);
         list.appendChild(li);
       });
-      $("hub-local-count").textContent = String(localPipelines().length);
       $("db-pipes").textContent = String(snap.size);
+      // the account's copies count as saved in this browser too, so nothing shows twice
+      const ids = new Set(); snap.forEach((d) => ids.add(d.id));
+      const local = localPipelines(); let changed = false;
+      local.forEach((p) => { const on = ids.has(p.id); if (!!p.synced !== on) { p.synced = on; changed = true; } });
+      if (changed) localStorage.setItem(PIPELINES_KEY, JSON.stringify(local));
+      renderLocal();
     } catch (e) { list.innerHTML = ""; note("could not read your pipelines: " + friendly(e), true); }
   }
-  $("hub-sync").addEventListener("click", async () => {
-    const local = localPipelines();
-    if (!local.length) { note("No pipelines in this browser to upload."); return; }
-    try {
-      await Promise.all(local.map((p) => setDoc(doc(db, USERS, user.uid, "pipelines", p.id), {
-        name: p.name, container: p.container, steps: p.steps, model: p.model || null, created: p.created || Date.now(), updated: serverTimestamp(),
-      }, { merge: true })));
-      note(local.length + " pipeline" + (local.length === 1 ? "" : "s") + " saved to your account.");
-      loadPipelines();
-    } catch (e) { note("sync failed: " + friendly(e), true); }
-  });
-  $("hub-pull").addEventListener("click", async () => {
-    try {
-      const snap = await getDocs(collection(db, USERS, user.uid, "pipelines"));
-      const local = localPipelines();
-      const byId = {}; local.forEach((p) => { byId[p.id] = p; });
-      snap.forEach((d) => { const p = d.data(); byId[d.id] = { id: d.id, name: p.name, container: p.container, steps: p.steps, model: p.model || null, created: p.created || Date.now() }; });
-      localStorage.setItem(PIPELINES_KEY, JSON.stringify(Object.values(byId)));
-      note(snap.size + " pipeline" + (snap.size === 1 ? "" : "s") + " now available in this browser's playground.");
-      $("hub-local-count").textContent = String(Object.keys(byId).length);
-    } catch (e) { note("could not download: " + friendly(e), true); }
-  });
+  // the comment under a pipeline's name: click to edit, saved on change
+  function noteField(text, onSave) {
+    const input = document.createElement("input");
+    input.type = "text"; input.className = "hub-pipe-note"; input.maxLength = 160; input.value = text; input.placeholder = "add a comment"; input.setAttribute("aria-label", "Comment");
+    input.addEventListener("change", async () => { input.disabled = true; try { await onSave(input.value.trim()); } catch (e) { note("could not save the comment: " + friendly(e), true); } input.disabled = false; });
+    return input;
+  }
+  function markLocal(id, synced) {
+    const local = localPipelines(); const p = local.find((x) => x.id === id);
+    if (p) { p.synced = synced; localStorage.setItem(PIPELINES_KEY, JSON.stringify(local)); }
+  }
+  function renderLocal() {
+    const panel = $("hub-local-panel"), list = $("hub-local");
+    if (!panel) return;
+    const pending = localPipelines().filter((p) => !p.synced);
+    panel.hidden = !pending.length;
+    list.innerHTML = "";
+    pending.forEach((p) => {
+      const li = document.createElement("li"); li.className = "hub-pipe-row";
+      const a = document.createElement("a"); a.href = "../playground/pipelines/?p=" + p.id; a.textContent = p.name;
+      const meta = noteField(p.note || "", async (text) => { const local = localPipelines(); const lp = local.find((x) => x.id === p.id); if (lp) { lp.note = text; localStorage.setItem(PIPELINES_KEY, JSON.stringify(local)); } p.note = text; });
+      const tools = document.createElement("span"); tools.className = "hub-pipe-tools";
+      const save = document.createElement("button"); save.type = "button"; save.className = "pg-btn pg-btn-small"; save.innerHTML = '<i class="fas fa-cloud-arrow-up" aria-hidden="true"></i> Save';
+      save.addEventListener("click", async () => {
+        save.disabled = true;
+        try { await window.KorniaAuth.pipelines.save(p); markLocal(p.id, true); await loadPipelines(); }
+        catch (e) { save.disabled = false; note("could not save: " + friendly(e), true); }
+      });
+      const rm = document.createElement("button"); rm.type = "button"; rm.className = "pg-btn pg-btn-ghost pg-btn-small hub-btn-danger"; rm.innerHTML = '<i class="fas fa-trash" aria-hidden="true"></i> Delete';
+      rm.addEventListener("click", () => {
+        if (!window.confirm('Delete "' + p.name + '" from this browser?')) return;
+        localStorage.setItem(PIPELINES_KEY, JSON.stringify(localPipelines().filter((x) => x.id !== p.id))); renderLocal();
+      });
+      tools.appendChild(save); tools.appendChild(rm);
+      const line = document.createElement("div"); line.className = "hub-pipe-line";
+      line.appendChild(a); line.appendChild(tools);
+      li.appendChild(line); li.appendChild(meta);
+      list.appendChild(li);
+    });
+  }
   // ---- quota, from hub-api; and the ?next= return trip from a playground page
   // ?api=http://127.0.0.1:8765 points the page at a local copy of the service; that copy accepts unverified accounts
   const params = new URLSearchParams(location.search);
@@ -164,6 +199,37 @@ if (!cfg.configured) {
   const devApi = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(apiBase);
   const next = params.get("next");
   const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
+
+  // ---- downloads kept by this browser (cache.js): listed, removable, switchable
+  const fmtBytes = (b) => b >= 1073741824 ? (b / 1073741824).toFixed(1) + " GB" : b >= 1048576 ? (b / 1048576).toFixed(1) + " MB" : b >= 1024 ? Math.round(b / 1024) + " KB" : b + " B";
+  function renderCache() {
+    const C = window.KorniaCache;
+    [["db-cache", "db-cache-summary", true], ["db-cache-out", "db-cache-summary-out", false]].forEach(([tableId, sumId, full]) => {
+      const table = $(tableId), sum = $(sumId);
+      if (!table || !sum) return;
+      const body = table.querySelector("tbody"); body.innerHTML = "";
+      if (!C || !C.supported) { sum.textContent = "this browser does not keep downloads (no Cache API)"; return; }
+      const entries = C.list();
+      C.usage().then((u) => { sum.textContent = (entries.length ? entries.length + " file" + (entries.length === 1 ? "" : "s") + ", " + fmtBytes(u.bytes) : "nothing kept yet") + (u.quota ? " · the browser allows about " + fmtBytes(u.quota) + " for this site" : "") + (C.enabled() ? "" : " · keeping is off"); });
+      if (!entries.length) { const tr = el("tr"); const td = el("td", "hub-item-meta", "Run an experiment and its graph or model appears here."); td.colSpan = full ? 5 : 3; tr.appendChild(td); body.appendChild(tr); return; }
+      entries.forEach((e) => {
+        const tr = el("tr");
+        const name = el("td"); name.appendChild(el("code", "", e.label)); name.title = e.url; tr.appendChild(name);
+        if (full) tr.appendChild(el("td", "hub-item-meta", e.kind));
+        tr.appendChild(el("td", "", fmtBytes(e.bytes)));
+        if (full) tr.appendChild(el("td", "hub-item-meta", new Date(e.at).toLocaleDateString()));
+        const act = el("td"); const rm = el("button", "pg-link pg-link-danger", "remove"); rm.type = "button";
+        rm.addEventListener("click", () => C.remove(e.url).then(renderCache)); act.appendChild(rm); tr.appendChild(act);
+        body.appendChild(tr);
+      });
+    });
+    const toggle = $("db-cache-enabled");
+    if (toggle && C) toggle.checked = C.enabled();
+  }
+  ["db-cache-clear", "db-cache-clear-out"].forEach((id) => { const b = $(id); if (b) b.addEventListener("click", () => { if (!window.KorniaCache) return; if (!window.confirm("Remove every kept download? They are fetched again when needed.")) return; window.KorniaCache.clear().then(renderCache); }); });
+  if ($("db-cache-enabled")) $("db-cache-enabled").addEventListener("change", (e) => { if (window.KorniaCache) { window.KorniaCache.setEnabled(e.target.checked); if (!e.target.checked) window.KorniaCache.clear().then(renderCache); else renderCache(); } });
+  renderCache();
+
   const NAMES = { rtdetr: "RT-DETR", yunet: "YuNet", xfeat: "XFeat", keynet_hardnet: "KeyNet + HardNet", loftr: "LoFTR", dexined: "DexiNed", depth_anything: "Depth Anything", tinyvit: "TinyViT", small_sr: "ESPCN" };
   const untilReset = () => { const now = new Date(), next = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1)); const s = Math.max(0, Math.round((next - now) / 1000)), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60); return (h ? h + " h " : "") + m + " min"; };
   const fmtSecs = (s) => { s = Number(s) || 0; return s >= 60 ? Math.floor(s / 60) + " min" + (Math.round(s % 60) ? " " + Math.round(s % 60) + " s" : "") : s >= 10 ? Math.round(s) + " s" : s.toFixed(1) + " s"; };

@@ -368,7 +368,7 @@ async function main() {
 
   // ------------------------------------------------------------------ perception on the camera feed
   const sessions = {};
-  const session = (url) => (sessions[url] = sessions[url] || ort.InferenceSession.create(url, { executionProviders: ["wasm"], graphOptimizationLevel: "all" }));
+  const session = (url) => (sessions[url] = sessions[url] || (window.KorniaCache ? window.KorniaCache.fetch(url) : fetch(url).then((r) => r.arrayBuffer()).then((b) => new Uint8Array(b))).then((b) => ort.InferenceSession.create(b, { executionProviders: ["wasm"], graphOptimizationLevel: "all" })));
   function canvasToTensor(canvas, input) {
     const d = canvas.getContext("2d").getImageData(0, 0, CAM, CAM).data, plane = CAM * CAM;
     const mean = (input && input.mean) || [0, 0, 0], std = (input && input.std) || [1, 1, 1], scale = (input && input.scale) || 1;

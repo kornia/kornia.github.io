@@ -76,26 +76,15 @@ exports is the 350 kB YuNet the homepage demo runs in the browser.
 
 ## Pipelines
 
-`pipelines/` lets a visitor chain operators: pick a container (`torch.nn.Sequential`,
-`kornia.augmentation.ImageSequential` or `AugmentationSequential`), add steps from the catalog,
-set their parameters, and run the chain on the sample images. Everything happens in the browser:
+`pipelines/` is a graph editor. A pipeline is a directed acyclic graph of nodes with typed ports: inputs (an image,
+a mask, boxes, keypoints), operators from `registry.json`, models that run in the browser, and outputs. Edges join
+compatible ports; branches split and join; a graph can have several inputs and outputs. The editor composes the
+operators' ONNX graphs into one ONNX graph following the edges (protobuf.js over `vendor/onnx.proto`), runs it with
+onnxruntime-web, and exports it as one file or as a `torch.nn.Module` in Python. Geometric augmentations carry
+mask, boxes and keypoints ports (their `graphs_multi` in the registry); the sample images' annotations come from
+`annotations/`. Pipelines live in localStorage as version-2 documents (`nodes`, `edges`); version-1 lists of steps
+are migrated on load. The dashboard syncs them to the account.
 
-- Each step's exported graph is fetched, decoded with protobuf.js against `vendor/onnx.proto`,
-  renamed with an `s<i>/` prefix and spliced to the previous step's output. Live parameters stay
-  graph inputs, so one composed graph serves every slider position; "parameters baked" turns them
-  into initializers at export time.
-- The composed graph runs through onnxruntime-web for the preview and downloads as one `.onnx`.
-  The Python block prints the equivalent container with the module form of every step.
-- Eligible steps are live ONNX operators with a module form (or augmentations) and a single image
-  input. Channel and size mismatches, and fixed-shape steps, are listed as warnings.
-- Under the steps sits an optional **Model** dropdown (the single-image server models). The steps are the
-  preprocessing and run in the browser; the model runs on kornia's server on their output, for signed-in
-  users. The ONNX downloads contain the preprocessing steps; composing the model into the graph server-side
-  is a next step. Graphs exported at opset 14 to 17 are lifted
-  to 18 when composed (`Reduce*` axes become an input, `Split` gets `num_outputs`). Fixed-size models such
-  as TinyViT warn until a `resize` to their size precedes them; the generated Python builds the model after
-  the container and calls it on the container's output.
-- Pipelines are stored in `localStorage`; "Copy share link" encodes one into the URL.
 
 ## Theme
 

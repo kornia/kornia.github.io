@@ -134,7 +134,7 @@
     const sessions = {};
 
     function session(key) {
-      if (!sessions[key]) sessions[key] = ort.InferenceSession.create(graphs[key], { executionProviders: ["wasm"], graphOptimizationLevel: "all" });
+      if (!sessions[key]) sessions[key] = (window.KorniaCache ? window.KorniaCache.fetch(graphs[key]) : fetch(graphs[key]).then(function (r) { return r.arrayBuffer(); }).then(function (b) { return new Uint8Array(b); })).then(function (b) { return ort.InferenceSession.create(b, { executionProviders: ["wasm"], graphOptimizationLevel: "all" }); });
       return sessions[key];
     }
 

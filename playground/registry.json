@@ -11,28 +11,32 @@
    "label": "Parrots",
    "file": "images/parrots.png",
    "thumb": "images/parrots_thumb.jpg",
-   "selectable": true
+   "selectable": true,
+   "annotations": "annotations/parrots.json"
   },
   {
    "id": "motorcycles",
    "label": "Motorcycles",
    "file": "images/motorcycles.png",
    "thumb": "images/motorcycles_thumb.jpg",
-   "selectable": true
+   "selectable": true,
+   "annotations": "annotations/motorcycles.json"
   },
   {
    "id": "lighthouse",
    "label": "Lighthouse",
    "file": "images/lighthouse.png",
    "thumb": "images/lighthouse_thumb.jpg",
-   "selectable": true
+   "selectable": true,
+   "annotations": "annotations/lighthouse.json"
   },
   {
    "id": "barn",
    "label": "Barn",
    "file": "images/barn.png",
    "thumb": "images/barn_thumb.jpg",
-   "selectable": false
+   "selectable": false,
+   "annotations": "annotations/barn.json"
   }
  ],
  "volumes": [
@@ -187,7 +191,25 @@
    "dynamic": true,
    "cpu_latency_ms": 793.0,
    "kind": "function",
-   "module_name": "kornia.filters.BilateralBlur"
+   "module_name": "kornia.filters.BilateralBlur",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.blur_pool2d",
@@ -243,7 +265,25 @@
    "dynamic": true,
    "cpu_latency_ms": 2.0,
    "kind": "function",
-   "module_name": "kornia.filters.BlurPool2D"
+   "module_name": "kornia.filters.BlurPool2D",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.box_blur",
@@ -321,7 +361,25 @@
    "dynamic": true,
    "cpu_latency_ms": 6.4,
    "kind": "function",
-   "module_name": "kornia.filters.BoxBlur"
+   "module_name": "kornia.filters.BoxBlur",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.canny",
@@ -393,7 +451,25 @@
     "note": "high_threshold is fixed at 0.2 in this demo"
    },
    "kind": "function",
-   "module_name": "kornia.filters.Canny"
+   "module_name": "kornia.filters.Canny",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.edge_aware_blur_pool2d",
@@ -475,7 +551,25 @@
    "dynamic": true,
    "cpu_latency_ms": 5.9,
    "kind": "function",
-   "module_name": "kornia.filters.EdgeAwareBlurPool2D"
+   "module_name": "kornia.filters.EdgeAwareBlurPool2D",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.fft_conv",
@@ -537,7 +631,25 @@
     "fixed": {},
     "note": ""
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.filter2d",
@@ -609,7 +721,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 1.5,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.filter2d_separable",
@@ -673,7 +803,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 2.3,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.filter3d",
@@ -745,7 +893,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.gaussian_blur2d",
@@ -834,7 +996,25 @@
    "dynamic": true,
    "cpu_latency_ms": 3.2,
    "kind": "function",
-   "module_name": "kornia.filters.GaussianBlur2d"
+   "module_name": "kornia.filters.GaussianBlur2d",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.guided_blur",
@@ -910,7 +1090,25 @@
     "note": ""
    },
    "kind": "function",
-   "module_name": "kornia.filters.GuidedBlur"
+   "module_name": "kornia.filters.GuidedBlur",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.in_range",
@@ -969,7 +1167,25 @@
    "dynamic": false,
    "cpu_latency_ms": 2.4,
    "kind": "function",
-   "module_name": "kornia.filters.InRange"
+   "module_name": "kornia.filters.InRange",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.joint_bilateral_blur",
@@ -1056,7 +1272,32 @@
    "dynamic": true,
    "cpu_latency_ms": 1570.5,
    "kind": "function",
-   "module_name": "kornia.filters.JointBilateralBlur"
+   "module_name": "kornia.filters.JointBilateralBlur",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     },
+     {
+      "name": "guide",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.laplacian",
@@ -1118,7 +1359,25 @@
    "dynamic": true,
    "cpu_latency_ms": 4.6,
    "kind": "function",
-   "module_name": "kornia.filters.Laplacian"
+   "module_name": "kornia.filters.Laplacian",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.max_blur_pool2d",
@@ -1174,7 +1433,25 @@
    "dynamic": true,
    "cpu_latency_ms": 3.1,
    "kind": "function",
-   "module_name": "kornia.filters.MaxBlurPool2D"
+   "module_name": "kornia.filters.MaxBlurPool2D",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.median_blur",
@@ -1236,7 +1513,25 @@
    "dynamic": true,
    "cpu_latency_ms": 244.4,
    "kind": "function",
-   "module_name": "kornia.filters.MedianBlur"
+   "module_name": "kornia.filters.MedianBlur",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.motion_blur",
@@ -1326,7 +1621,25 @@
    "dynamic": true,
    "cpu_latency_ms": 7.4,
    "kind": "function",
-   "module_name": "kornia.filters.MotionBlur"
+   "module_name": "kornia.filters.MotionBlur",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.motion_blur3d",
@@ -1436,7 +1749,21 @@
     "channels": 1
    },
    "kind": "function",
-   "module_name": "kornia.filters.MotionBlur3D"
+   "module_name": "kornia.filters.MotionBlur3D",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.sobel",
@@ -1482,7 +1809,25 @@
    "dynamic": true,
    "cpu_latency_ms": 4.7,
    "kind": "function",
-   "module_name": "kornia.filters.Sobel"
+   "module_name": "kornia.filters.Sobel",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.filters.unsharp_mask",
@@ -1555,7 +1900,25 @@
    "dynamic": true,
    "cpu_latency_ms": 2.9,
    "kind": "function",
-   "module_name": "kornia.filters.UnsharpMask"
+   "module_name": "kornia.filters.UnsharpMask",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.apply_colormap",
@@ -1632,7 +1995,25 @@
    "dynamic": false,
    "cpu_latency_ms": 24.0,
    "kind": "function",
-   "module_name": "kornia.color.ApplyColorMap"
+   "module_name": "kornia.color.ApplyColorMap",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.bgr_to_rgb",
@@ -1678,7 +2059,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.4,
    "kind": "function",
-   "module_name": "kornia.color.BgrToRgb"
+   "module_name": "kornia.color.BgrToRgb",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.grayscale_to_rgb",
@@ -1726,7 +2125,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.8,
    "kind": "function",
-   "module_name": "kornia.color.GrayscaleToRgb"
+   "module_name": "kornia.color.GrayscaleToRgb",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.linear_rgb_to_rgb",
@@ -1762,7 +2179,25 @@
    "dynamic": true,
    "cpu_latency_ms": 2.5,
    "kind": "function",
-   "module_name": "kornia.color.LinearRgbToRgb"
+   "module_name": "kornia.color.LinearRgbToRgb",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_bgr",
@@ -1808,7 +2243,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.4,
    "kind": "function",
-   "module_name": "kornia.color.RgbToBgr"
+   "module_name": "kornia.color.RgbToBgr",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_grayscale",
@@ -1854,7 +2307,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.6,
    "kind": "function",
-   "module_name": "kornia.color.RgbToGrayscale"
+   "module_name": "kornia.color.RgbToGrayscale",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_hls",
@@ -1890,7 +2361,25 @@
    "dynamic": false,
    "cpu_latency_ms": 16.6,
    "kind": "function",
-   "module_name": "kornia.color.RgbToHls"
+   "module_name": "kornia.color.RgbToHls",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_hsv",
@@ -1936,7 +2425,25 @@
    "dynamic": true,
    "cpu_latency_ms": 4.6,
    "kind": "function",
-   "module_name": "kornia.color.RgbToHsv"
+   "module_name": "kornia.color.RgbToHsv",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_lab",
@@ -1972,7 +2479,25 @@
    "dynamic": false,
    "cpu_latency_ms": 7.9,
    "kind": "function",
-   "module_name": "kornia.color.RgbToLab"
+   "module_name": "kornia.color.RgbToLab",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_linear_rgb",
@@ -2008,7 +2533,25 @@
    "dynamic": true,
    "cpu_latency_ms": 2.1,
    "kind": "function",
-   "module_name": "kornia.color.RgbToLinearRgb"
+   "module_name": "kornia.color.RgbToLinearRgb",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_luv",
@@ -2044,7 +2587,25 @@
    "dynamic": false,
    "cpu_latency_ms": 5.7,
    "kind": "function",
-   "module_name": "kornia.color.RgbToLuv"
+   "module_name": "kornia.color.RgbToLuv",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_raw",
@@ -2103,7 +2664,25 @@
    "dynamic": false,
    "cpu_latency_ms": 2.6,
    "kind": "function",
-   "module_name": "kornia.color.RgbToRaw"
+   "module_name": "kornia.color.RgbToRaw",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_rgba",
@@ -2151,7 +2730,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.6,
    "kind": "function",
-   "module_name": "kornia.color.RgbToRgba"
+   "module_name": "kornia.color.RgbToRgba",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 4
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_xyz",
@@ -2187,7 +2784,25 @@
    "dynamic": false,
    "cpu_latency_ms": 1.0,
    "kind": "function",
-   "module_name": "kornia.color.RgbToXyz"
+   "module_name": "kornia.color.RgbToXyz",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_y",
@@ -2222,7 +2837,25 @@
    "select_order": [],
    "dynamic": true,
    "cpu_latency_ms": 0.6,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_ycbcr",
@@ -2258,7 +2891,25 @@
    "dynamic": true,
    "cpu_latency_ms": 2.3,
    "kind": "function",
-   "module_name": "kornia.color.RgbToYcbcr"
+   "module_name": "kornia.color.RgbToYcbcr",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.rgb_to_yuv",
@@ -2294,7 +2945,25 @@
    "dynamic": false,
    "cpu_latency_ms": 4.6,
    "kind": "function",
-   "module_name": "kornia.color.RgbToYuv"
+   "module_name": "kornia.color.RgbToYuv",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.color.sepia",
@@ -2330,7 +2999,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.8,
    "kind": "function",
-   "module_name": "kornia.color.Sepia"
+   "module_name": "kornia.color.Sepia",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.add_weighted",
@@ -2338,19 +3025,17 @@
    "name": "add_weighted",
    "package": "kornia.enhance",
    "status": "live",
-   "summary": "Weighted sum of the image and its horizontal mirror.",
+   "summary": "Weighted sum of two images: alpha * image + beta * image2 + gamma.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/enhance.html#kornia.enhance.add_weighted",
-   "snippet": "kornia.enhance.add_weighted({img}, {alpha}, kornia.geometry.transform.hflip({img}), {beta}, {gamma})",
-   "module_snippet": "kornia.enhance.AddWeighted({alpha}, {beta}, {gamma})({img}, kornia.geometry.transform.hflip({img}))",
+   "snippet": "kornia.enhance.add_weighted({img}, {alpha}, {guide}, {beta}, {gamma})",
+   "module_snippet": "kornia.enhance.AddWeighted({alpha}, {beta}, {gamma})({img}, {guide})",
    "rust": {
     "use": [
-     "kornia_imgproc::enhance::add_weighted",
-     "kornia_imgproc::flip::horizontal_flip"
+     "kornia_imgproc::enhance::add_weighted"
     ],
     "call": [
-     "let mut mirror = Image::<f32, 3, _>::from_size_val(img.size(), 0.0, CpuAllocator)?;",
-     "horizontal_flip(&img, &mut mirror)?;",
-     "add_weighted(&img, {alpha}, &mirror, {beta}, {gamma}, &mut out)?;"
+     "// img2: the second image, the same size as img",
+     "add_weighted(&img, {alpha}, &img2, {beta}, {gamma}, &mut out)?;"
     ],
     "channels": 3,
     "out_size": "",
@@ -2358,6 +3043,15 @@
    },
    "stochastic": false,
    "pre": "",
+   "guidance": {
+    "id": "barn",
+    "label": "Barn",
+    "file": "images/barn.png",
+    "thumb": "images/barn_thumb.jpg",
+    "selectable": false,
+    "annotations": "annotations/barn.json"
+   },
+   "guide_port": "image2",
    "params": [
     {
      "name": "alpha",
@@ -2396,24 +3090,53 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "default": "graphs/enhance-add_weighted/default.onnx"
    },
    "graph_kb": {
-    "default": 12.7
+    "default": 10.5
    },
    "inputs": [
     "x",
-    "a",
-    "b",
-    "c"
+    "guide",
+    "p0",
+    "p1",
+    "p2"
    ],
    "select_order": [],
    "dynamic": true,
-   "cpu_latency_ms": 1.9,
+   "cpu_latency_ms": 3.6,
    "kind": "function",
-   "module_name": "kornia.enhance.AddWeighted"
+   "module_name": "kornia.enhance.AddWeighted",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     },
+     {
+      "name": "image2",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_brightness",
@@ -2461,7 +3184,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.5,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustBrightness"
+   "module_name": "kornia.enhance.AdjustBrightness",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_brightness_accumulative",
@@ -2509,7 +3250,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.4,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustBrightnessAccumulative"
+   "module_name": "kornia.enhance.AdjustBrightnessAccumulative",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_contrast",
@@ -2557,7 +3316,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.5,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustContrast"
+   "module_name": "kornia.enhance.AdjustContrast",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_contrast_with_mean_subtraction",
@@ -2605,7 +3382,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.9,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustContrastWithMeanSubtraction"
+   "module_name": "kornia.enhance.AdjustContrastWithMeanSubtraction",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_gamma",
@@ -2664,7 +3459,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.0,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustGamma"
+   "module_name": "kornia.enhance.AdjustGamma",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_hue",
@@ -2712,7 +3525,25 @@
    "dynamic": true,
    "cpu_latency_ms": 5.0,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustHue"
+   "module_name": "kornia.enhance.AdjustHue",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_log",
@@ -2760,7 +3591,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.7,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustLog"
+   "module_name": "kornia.enhance.AdjustLog",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_saturation",
@@ -2808,7 +3657,25 @@
    "dynamic": true,
    "cpu_latency_ms": 5.8,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustSaturation"
+   "module_name": "kornia.enhance.AdjustSaturation",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_saturation_with_gray_subtraction",
@@ -2856,7 +3723,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.8,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustSaturationWithGraySubtraction"
+   "module_name": "kornia.enhance.AdjustSaturationWithGraySubtraction",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.adjust_sigmoid",
@@ -2915,7 +3800,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.6,
    "kind": "function",
-   "module_name": "kornia.enhance.AdjustSigmoid"
+   "module_name": "kornia.enhance.AdjustSigmoid",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.equalize",
@@ -2950,7 +3853,25 @@
    "select_order": [],
    "dynamic": false,
    "cpu_latency_ms": 8.1,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.equalize3d",
@@ -2993,7 +3914,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.equalize_clahe",
@@ -3043,7 +3978,25 @@
     "fixed": {},
     "note": ""
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.integral_image",
@@ -3076,7 +4029,25 @@
     "note": ""
    },
    "kind": "function",
-   "module_name": "kornia.enhance.IntegralImage"
+   "module_name": "kornia.enhance.IntegralImage",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.invert",
@@ -3112,7 +4083,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.4,
    "kind": "function",
-   "module_name": "kornia.enhance.Invert"
+   "module_name": "kornia.enhance.Invert",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.jpeg_codec_differentiable",
@@ -3160,7 +4149,25 @@
    "dynamic": false,
    "cpu_latency_ms": 27.0,
    "kind": "function",
-   "module_name": "kornia.enhance.JPEGCodecDifferentiable"
+   "module_name": "kornia.enhance.JPEGCodecDifferentiable",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.normalize",
@@ -3219,7 +4226,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.8,
    "kind": "function",
-   "module_name": "kornia.enhance.Normalize"
+   "module_name": "kornia.enhance.Normalize",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.normalize_min_max",
@@ -3264,7 +4289,25 @@
    "select_order": [],
    "dynamic": false,
    "cpu_latency_ms": 0.8,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.posterize",
@@ -3334,7 +4377,25 @@
    ],
    "dynamic": false,
    "cpu_latency_ms": 2.7,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.sharpness",
@@ -3381,7 +4442,25 @@
    "select_order": [],
    "dynamic": false,
    "cpu_latency_ms": 1.7,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.shift_rgb",
@@ -3450,7 +4529,25 @@
    "select_order": [],
    "dynamic": false,
    "cpu_latency_ms": 0.5,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.solarize",
@@ -3497,7 +4594,25 @@
    "select_order": [],
    "dynamic": false,
    "cpu_latency_ms": 2.3,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.enhance.threshold",
@@ -3555,7 +4670,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.0,
    "kind": "function",
-   "module_name": "kornia.enhance.Threshold"
+   "module_name": "kornia.enhance.Threshold",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.morphology.bottom_hat",
@@ -3616,7 +4749,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 2526.0,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.morphology.closing",
@@ -3677,7 +4828,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 1371.8,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.morphology.dilation",
@@ -3738,7 +4907,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 1264.6,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.morphology.erosion",
@@ -3799,7 +4986,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 1294.9,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.morphology.gradient",
@@ -3860,7 +5065,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 2195.5,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.morphology.opening",
@@ -3921,7 +5144,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 2471.8,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.morphology.top_hat",
@@ -3982,7 +5223,25 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 2578.0,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.affine",
@@ -3992,7 +5251,25 @@
    "kind": "function",
    "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.affine",
    "status": "unsupported",
-   "reason": "needs a transformation matrix or point set as input"
+   "reason": "needs a transformation matrix or point set as input",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.affine3d",
@@ -4083,7 +5360,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.center_crop",
@@ -4148,7 +5439,25 @@
    "dynamic": false,
    "cpu_latency_ms": 2.5,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.CenterCrop2D"
+   "module_name": "kornia.geometry.transform.CenterCrop2D",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.center_crop3d",
@@ -4209,7 +5518,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.crop_and_resize3d",
@@ -4270,7 +5593,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.crop_by_boxes3d",
@@ -4331,7 +5668,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.crop_by_indices",
@@ -4409,7 +5760,25 @@
    ],
    "dynamic": false,
    "cpu_latency_ms": 2.0,
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.elastic_transform2d",
@@ -4473,7 +5842,25 @@
    "dynamic": true,
    "cpu_latency_ms": 11.4,
    "kind": "function",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.hflip",
@@ -4519,7 +5906,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.8,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Hflip"
+   "module_name": "kornia.geometry.transform.Hflip",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.pyrdown",
@@ -4555,7 +5960,25 @@
    "dynamic": false,
    "cpu_latency_ms": 4.1,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.PyrDown"
+   "module_name": "kornia.geometry.transform.PyrDown",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.pyrup",
@@ -4591,7 +6014,25 @@
    "dynamic": true,
    "cpu_latency_ms": 13.7,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.PyrUp"
+   "module_name": "kornia.geometry.transform.PyrUp",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.remap",
@@ -4601,7 +6042,25 @@
    "kind": "function",
    "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.remap",
    "status": "unsupported",
-   "reason": "needs a transformation matrix or point set as input"
+   "reason": "needs a transformation matrix or point set as input",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.rescale",
@@ -4663,7 +6122,25 @@
    "dynamic": true,
    "cpu_latency_ms": 2.2,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Rescale"
+   "module_name": "kornia.geometry.transform.Rescale",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.resize",
@@ -4744,7 +6221,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.0,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Resize"
+   "module_name": "kornia.geometry.transform.Resize",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.rot180",
@@ -4780,7 +6275,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.9,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Rot180"
+   "module_name": "kornia.geometry.transform.Rot180",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.rotate",
@@ -4841,7 +6354,25 @@
    "dynamic": false,
    "cpu_latency_ms": 5.2,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Rotate"
+   "module_name": "kornia.geometry.transform.Rotate",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.rotate3d",
@@ -4918,7 +6449,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.scale",
@@ -4979,7 +6524,25 @@
    "dynamic": false,
    "cpu_latency_ms": 5.2,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Scale"
+   "module_name": "kornia.geometry.transform.Scale",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.shear",
@@ -5038,7 +6601,25 @@
    "dynamic": false,
    "cpu_latency_ms": 5.2,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Shear"
+   "module_name": "kornia.geometry.transform.Shear",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.translate",
@@ -5109,7 +6690,25 @@
    "dynamic": false,
    "cpu_latency_ms": 5.3,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Translate"
+   "module_name": "kornia.geometry.transform.Translate",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.vflip",
@@ -5155,7 +6754,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.5,
    "kind": "function",
-   "module_name": "kornia.geometry.transform.Vflip"
+   "module_name": "kornia.geometry.transform.Vflip",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.warp_affine3d",
@@ -5219,7 +6836,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.geometry.transform.warp_perspective3d",
@@ -5283,7 +6914,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "function"
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.CenterCrop",
@@ -5338,6 +6983,10 @@
     "height": 128,
     "width": 128
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "96": "graphs/augmentation-CenterCrop/96.onnx",
@@ -5345,7 +6994,7 @@
     "192": "graphs/augmentation-CenterCrop/192.onnx"
    },
    "graph_kb": {
-    "96": 23.9,
+    "96": 24.7,
     "128": 2.4,
     "192": 2.4
    },
@@ -5356,9 +7005,28 @@
     "size"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 1.0,
+   "cpu_latency_ms": 1.4,
+   "sampling_folded": true,
    "kind": "class",
-   "sampling_folded": true
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.CenterCrop3D",
@@ -5437,7 +7105,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.ColorJiggle",
@@ -5487,7 +7169,25 @@
     "fixed": {},
     "note": ""
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.ColorJitter",
@@ -5537,7 +7237,25 @@
     "fixed": {},
     "note": ""
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.Denormalize",
@@ -5604,7 +7322,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.7,
    "sampling_folded": true,
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.LongestMaxSize",
@@ -5679,7 +7415,25 @@
    "dynamic": false,
    "cpu_latency_ms": 0.6,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.Normalize",
@@ -5734,7 +7488,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.7,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.PadTo",
@@ -5809,7 +7581,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.9,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.PatchMix",
@@ -5819,7 +7609,25 @@
    "kind": "class",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.PatchMix",
    "status": "unsupported",
-   "reason": "needs labels or a batch of several images"
+   "reason": "needs labels or a batch of several images",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomAffine",
@@ -5924,6 +7732,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "15|0|0": "graphs/augmentation-RandomAffine/15_0_0.onnx",
@@ -5962,9 +7774,79 @@
     "scale_jitter"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 4.6,
+   "cpu_latency_ms": 4.7,
+   "graphs_multi": {
+    "15|0|0": "graphs/augmentation-RandomAffine/15_0_0_multi.onnx",
+    "15|0|0.3": "graphs/augmentation-RandomAffine/15_0_0p3_multi.onnx",
+    "15|0.2|0": "graphs/augmentation-RandomAffine/15_0p2_0_multi.onnx",
+    "15|0.2|0.3": "graphs/augmentation-RandomAffine/15_0p2_0p3_multi.onnx",
+    "30|0|0": "graphs/augmentation-RandomAffine/30_0_0_multi.onnx",
+    "30|0|0.3": "graphs/augmentation-RandomAffine/30_0_0p3_multi.onnx",
+    "30|0.2|0": "graphs/augmentation-RandomAffine/30_0p2_0_multi.onnx",
+    "30|0.2|0.3": "graphs/augmentation-RandomAffine/30_0p2_0p3_multi.onnx",
+    "90|0|0": "graphs/augmentation-RandomAffine/90_0_0_multi.onnx",
+    "90|0|0.3": "graphs/augmentation-RandomAffine/90_0_0p3_multi.onnx",
+    "90|0.2|0": "graphs/augmentation-RandomAffine/90_0p2_0_multi.onnx",
+    "90|0.2|0.3": "graphs/augmentation-RandomAffine/90_0p2_0p3_multi.onnx"
+   },
+   "modalities": [
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
+   "inputs_multi": [
+    "image",
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
    "kind": "class",
-   "sampling_folded": false
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     },
+     {
+      "name": "mask",
+      "type": "mask",
+      "optional": true
+     },
+     {
+      "name": "boxes",
+      "type": "boxes",
+      "optional": true
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints",
+      "optional": true
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     },
+     {
+      "name": "mask",
+      "type": "mask"
+     },
+     {
+      "name": "boxes",
+      "type": "boxes"
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomAffine3D",
@@ -6046,7 +7928,21 @@
     "channels": 1
    },
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomAutoContrast",
@@ -6098,7 +7994,25 @@
    "dynamic": false,
    "cpu_latency_ms": 1.0,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomBoxBlur",
@@ -6173,7 +8087,25 @@
    "dynamic": true,
    "cpu_latency_ms": 3.1,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomBrightness",
@@ -6248,7 +8180,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.2,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomChannelDropout",
@@ -6355,7 +8305,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.0,
    "sampling_folded": true,
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomChannelShuffle",
@@ -6407,7 +8375,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.5,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomContrast",
@@ -6482,7 +8468,25 @@
    "dynamic": true,
    "cpu_latency_ms": 0.6,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomCrop",
@@ -6537,6 +8541,10 @@
     "height": 128,
     "width": 128
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "96": "graphs/augmentation-RandomCrop/96.onnx",
@@ -6555,9 +8563,27 @@
     "size"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 2.8,
+   "cpu_latency_ms": 2.4,
    "kind": "class",
-   "sampling_folded": false
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomCrop3D",
@@ -6636,7 +8662,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomCutMixV2",
@@ -6646,7 +8686,25 @@
    "kind": "class",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomCutMixV2",
    "status": "unsupported",
-   "reason": "needs labels or a batch of several images"
+   "reason": "needs labels or a batch of several images",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomDepthicalFlip3D",
@@ -6712,7 +8770,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomElasticTransform",
@@ -6819,7 +8891,25 @@
    "dynamic": true,
    "cpu_latency_ms": 11.6,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomEqualize",
@@ -6871,7 +8961,25 @@
    "dynamic": false,
    "cpu_latency_ms": 6.1,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomEqualize3D",
@@ -6937,7 +9045,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomErasing",
@@ -7056,7 +9178,25 @@
    "dynamic": false,
    "cpu_latency_ms": 1.9,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomFisheye",
@@ -7114,7 +9254,25 @@
    "dynamic": true,
    "cpu_latency_ms": 9.5,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomGamma",
@@ -7221,7 +9379,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.0,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomGaussianBlur",
@@ -7340,7 +9516,25 @@
    "dynamic": false,
    "cpu_latency_ms": 4.6,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomGaussianIllumination",
@@ -7398,7 +9592,25 @@
    "dynamic": false,
    "cpu_latency_ms": 1.7,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomGaussianNoise",
@@ -7517,7 +9729,25 @@
    "dynamic": true,
    "cpu_latency_ms": 5.3,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomGrayscale",
@@ -7569,7 +9799,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.1,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomHorizontalFlip",
@@ -7596,7 +9844,14 @@
      "labels": null,
      "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float",
+     "derived": {
+      "0.5": {
+       "one_minus": "0.5",
+       "one_plus": "1.5",
+       "plus_200": ""
+      }
+     }
     }
    ],
    "output": {
@@ -7605,6 +9860,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "0.5": "graphs/augmentation-RandomHorizontalFlip/0p5.onnx"
@@ -7619,9 +9878,69 @@
     "p"
    ],
    "dynamic": true,
-   "cpu_latency_ms": 3.4,
+   "cpu_latency_ms": 2.5,
+   "sampling_folded": true,
+   "graphs_multi": {
+    "0.5": "graphs/augmentation-RandomHorizontalFlip/0p5_multi.onnx"
+   },
+   "modalities": [
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
+   "inputs_multi": [
+    "image",
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
    "kind": "class",
-   "sampling_folded": true
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     },
+     {
+      "name": "mask",
+      "type": "mask",
+      "optional": true
+     },
+     {
+      "name": "boxes",
+      "type": "boxes",
+      "optional": true
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints",
+      "optional": true
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     },
+     {
+      "name": "mask",
+      "type": "mask"
+     },
+     {
+      "name": "boxes",
+      "type": "boxes"
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomHorizontalFlip3D",
@@ -7687,7 +10006,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomHue",
@@ -7745,7 +10078,25 @@
    "dynamic": false,
    "cpu_latency_ms": 9.0,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomInvert",
@@ -7797,7 +10148,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.0,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomJigsaw",
@@ -7857,7 +10226,25 @@
     "fixed": {},
     "note": ""
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomLinearCornerIllumination",
@@ -7915,7 +10302,25 @@
    "dynamic": false,
    "cpu_latency_ms": 1.1,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomLinearIllumination",
@@ -7973,7 +10378,25 @@
    "dynamic": false,
    "cpu_latency_ms": 2.2,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomMedianBlur",
@@ -8048,7 +10471,25 @@
    "dynamic": true,
    "cpu_latency_ms": 120.3,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomMixUpV2",
@@ -8058,7 +10499,25 @@
    "kind": "class",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomMixUpV2",
    "status": "unsupported",
-   "reason": "needs labels or a batch of several images"
+   "reason": "needs labels or a batch of several images",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomMosaic",
@@ -8068,7 +10527,25 @@
    "kind": "class",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomMosaic",
    "status": "unsupported",
-   "reason": "needs labels or a batch of several images"
+   "reason": "needs labels or a batch of several images",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomMotionBlur",
@@ -8187,7 +10664,25 @@
    "dynamic": false,
    "cpu_latency_ms": 5.8,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomMotionBlur3D",
@@ -8278,7 +10773,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomPerspective",
@@ -8346,6 +10855,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "0.2|basic": "graphs/augmentation-RandomPerspective/0p2_basic.onnx",
@@ -8371,9 +10884,73 @@
     "sampling_method"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 4.8,
+   "cpu_latency_ms": 4.7,
+   "graphs_multi": {
+    "0.2|basic": "graphs/augmentation-RandomPerspective/0p2_basic_multi.onnx",
+    "0.2|area_preserving": "graphs/augmentation-RandomPerspective/0p2_area_preserving_multi.onnx",
+    "0.5|basic": "graphs/augmentation-RandomPerspective/0p5_basic_multi.onnx",
+    "0.5|area_preserving": "graphs/augmentation-RandomPerspective/0p5_area_preserving_multi.onnx",
+    "0.8|basic": "graphs/augmentation-RandomPerspective/0p8_basic_multi.onnx",
+    "0.8|area_preserving": "graphs/augmentation-RandomPerspective/0p8_area_preserving_multi.onnx"
+   },
+   "modalities": [
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
+   "inputs_multi": [
+    "image",
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
    "kind": "class",
-   "sampling_folded": false
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     },
+     {
+      "name": "mask",
+      "type": "mask",
+      "optional": true
+     },
+     {
+      "name": "boxes",
+      "type": "boxes",
+      "optional": true
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints",
+      "optional": true
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     },
+     {
+      "name": "mask",
+      "type": "mask"
+     },
+     {
+      "name": "boxes",
+      "type": "boxes"
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomPerspective3D",
@@ -8464,7 +11041,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomPlanckianJitter",
@@ -8519,7 +11110,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.6,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomPlasmaBrightness",
@@ -8571,7 +11180,25 @@
    "dynamic": false,
    "cpu_latency_ms": 12.3,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomPlasmaContrast",
@@ -8623,7 +11250,25 @@
    "dynamic": false,
    "cpu_latency_ms": 11.7,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomPlasmaShadow",
@@ -8675,7 +11320,25 @@
    "dynamic": false,
    "cpu_latency_ms": 7.1,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomPosterize",
@@ -8750,7 +11413,25 @@
    "dynamic": false,
    "cpu_latency_ms": 3.1,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomRGBShift",
@@ -8881,7 +11562,25 @@
    "dynamic": false,
    "cpu_latency_ms": 1.3,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomRain",
@@ -8941,7 +11640,25 @@
     "fixed": {},
     "note": ""
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomResizedCrop",
@@ -9021,6 +11738,10 @@
     "height": 128,
     "width": 128
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "128|0.08": "graphs/augmentation-RandomResizedCrop/128_0p08.onnx",
@@ -9046,9 +11767,27 @@
     "min_scale"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 2.5,
+   "cpu_latency_ms": 2.1,
    "kind": "class",
-   "sampling_folded": false
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomRotation",
@@ -9109,6 +11848,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "15": "graphs/augmentation-RandomRotation/15.onnx",
@@ -9129,9 +11872,71 @@
     "degrees"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 4.6,
+   "cpu_latency_ms": 5.3,
+   "graphs_multi": {
+    "15": "graphs/augmentation-RandomRotation/15_multi.onnx",
+    "45": "graphs/augmentation-RandomRotation/45_multi.onnx",
+    "90": "graphs/augmentation-RandomRotation/90_multi.onnx",
+    "180": "graphs/augmentation-RandomRotation/180_multi.onnx"
+   },
+   "modalities": [
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
+   "inputs_multi": [
+    "image",
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
    "kind": "class",
-   "sampling_folded": false
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     },
+     {
+      "name": "mask",
+      "type": "mask",
+      "optional": true
+     },
+     {
+      "name": "boxes",
+      "type": "boxes",
+      "optional": true
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints",
+      "optional": true
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     },
+     {
+      "name": "mask",
+      "type": "mask"
+     },
+     {
+      "name": "boxes",
+      "type": "boxes"
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomRotation3D",
@@ -9213,7 +12018,21 @@
     "channels": 1
    },
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomRotation90",
@@ -9226,7 +12045,7 @@
    "snippet": "kornia.augmentation.RandomRotation90((0, 3), p=1.0)({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": true,
+   "stochastic": false,
    "pre": "",
    "guidance": null,
    "params": [
@@ -9240,7 +12059,14 @@
      "labels": null,
      "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float",
+     "derived": {
+      "1.0": {
+       "one_minus": "0",
+       "one_plus": "2",
+       "plus_200": ""
+      }
+     }
     }
    ],
    "output": {
@@ -9249,6 +12075,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "1": "graphs/augmentation-RandomRotation90/1.onnx"
@@ -9263,9 +12093,69 @@
     "p"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 5.0,
+   "cpu_latency_ms": 5.1,
+   "sampling_folded": true,
+   "graphs_multi": {
+    "1": "graphs/augmentation-RandomRotation90/1_multi.onnx"
+   },
+   "modalities": [
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
+   "inputs_multi": [
+    "image",
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
    "kind": "class",
-   "sampling_folded": false
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     },
+     {
+      "name": "mask",
+      "type": "mask",
+      "optional": true
+     },
+     {
+      "name": "boxes",
+      "type": "boxes",
+      "optional": true
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints",
+      "optional": true
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     },
+     {
+      "name": "mask",
+      "type": "mask"
+     },
+     {
+      "name": "boxes",
+      "type": "boxes"
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomSaltAndPepperNoise",
@@ -9384,7 +12274,25 @@
    "dynamic": true,
    "cpu_latency_ms": 4.0,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomSaturation",
@@ -9459,7 +12367,25 @@
    "dynamic": true,
    "cpu_latency_ms": 7.3,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomSharpness",
@@ -9517,7 +12443,25 @@
    "dynamic": true,
    "cpu_latency_ms": 7.8,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomShear",
@@ -9546,7 +12490,24 @@
      "labels": null,
      "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float",
+     "derived": {
+      "0.2": {
+       "one_minus": "0.8",
+       "one_plus": "1.2",
+       "plus_200": ""
+      },
+      "0.4": {
+       "one_minus": "0.6",
+       "one_plus": "1.4",
+       "plus_200": ""
+      },
+      "0.6": {
+       "one_minus": "0.4",
+       "one_plus": "1.6",
+       "plus_200": ""
+      }
+     }
     }
    ],
    "output": {
@@ -9555,6 +12516,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "0.2": "graphs/augmentation-RandomShear/0p2.onnx",
@@ -9573,9 +12538,70 @@
     "shear"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 5.3,
+   "cpu_latency_ms": 5.0,
+   "graphs_multi": {
+    "0.2": "graphs/augmentation-RandomShear/0p2_multi.onnx",
+    "0.4": "graphs/augmentation-RandomShear/0p4_multi.onnx",
+    "0.6": "graphs/augmentation-RandomShear/0p6_multi.onnx"
+   },
+   "modalities": [
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
+   "inputs_multi": [
+    "image",
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
    "kind": "class",
-   "sampling_folded": false
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     },
+     {
+      "name": "mask",
+      "type": "mask",
+      "optional": true
+     },
+     {
+      "name": "boxes",
+      "type": "boxes",
+      "optional": true
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints",
+      "optional": true
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     },
+     {
+      "name": "mask",
+      "type": "mask"
+     },
+     {
+      "name": "boxes",
+      "type": "boxes"
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomSnow",
@@ -9627,7 +12653,25 @@
    "dynamic": false,
    "cpu_latency_ms": 18.4,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomSolarize",
@@ -9734,7 +12778,25 @@
    "dynamic": true,
    "cpu_latency_ms": 1.7,
    "kind": "class",
-   "sampling_folded": false
+   "sampling_folded": false,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomThinPlateSpline",
@@ -9784,7 +12846,25 @@
     "fixed": {},
     "note": ""
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomTranslate",
@@ -9813,7 +12893,24 @@
      "labels": null,
      "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float",
+     "derived": {
+      "0.1": {
+       "one_minus": "0.9",
+       "one_plus": "1.1",
+       "plus_200": ""
+      },
+      "0.2": {
+       "one_minus": "0.8",
+       "one_plus": "1.2",
+       "plus_200": ""
+      },
+      "0.3": {
+       "one_minus": "0.7",
+       "one_plus": "1.3",
+       "plus_200": ""
+      }
+     }
     }
    ],
    "output": {
@@ -9822,6 +12919,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "0.1": "graphs/augmentation-RandomTranslate/0p1.onnx",
@@ -9840,9 +12941,70 @@
     "translate"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 5.2,
+   "cpu_latency_ms": 6.0,
+   "graphs_multi": {
+    "0.1": "graphs/augmentation-RandomTranslate/0p1_multi.onnx",
+    "0.2": "graphs/augmentation-RandomTranslate/0p2_multi.onnx",
+    "0.3": "graphs/augmentation-RandomTranslate/0p3_multi.onnx"
+   },
+   "modalities": [
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
+   "inputs_multi": [
+    "image",
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
    "kind": "class",
-   "sampling_folded": false
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     },
+     {
+      "name": "mask",
+      "type": "mask",
+      "optional": true
+     },
+     {
+      "name": "boxes",
+      "type": "boxes",
+      "optional": true
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints",
+      "optional": true
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     },
+     {
+      "name": "mask",
+      "type": "mask"
+     },
+     {
+      "name": "boxes",
+      "type": "boxes"
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomVerticalFlip",
@@ -9869,7 +13031,14 @@
      "labels": null,
      "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float",
+     "derived": {
+      "0.5": {
+       "one_minus": "0.5",
+       "one_plus": "1.5",
+       "plus_200": ""
+      }
+     }
     }
    ],
    "output": {
@@ -9878,6 +13047,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "0.5": "graphs/augmentation-RandomVerticalFlip/0p5.onnx"
@@ -9892,9 +13065,69 @@
     "p"
    ],
    "dynamic": true,
-   "cpu_latency_ms": 2.0,
+   "cpu_latency_ms": 1.4,
+   "sampling_folded": true,
+   "graphs_multi": {
+    "0.5": "graphs/augmentation-RandomVerticalFlip/0p5_multi.onnx"
+   },
+   "modalities": [
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
+   "inputs_multi": [
+    "image",
+    "mask",
+    "boxes",
+    "keypoints"
+   ],
    "kind": "class",
-   "sampling_folded": true
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     },
+     {
+      "name": "mask",
+      "type": "mask",
+      "optional": true
+     },
+     {
+      "name": "boxes",
+      "type": "boxes",
+      "optional": true
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints",
+      "optional": true
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     },
+     {
+      "name": "mask",
+      "type": "mask"
+     },
+     {
+      "name": "boxes",
+      "type": "boxes"
+     },
+     {
+      "name": "keypoints",
+      "type": "keypoints"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.RandomVerticalFlip3D",
@@ -9960,7 +13193,21 @@
     "size": 32,
     "channels": 1
    },
-   "kind": "class"
+   "kind": "class",
+   "ports": {
+    "inputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ],
+    "outputs": [
+     {
+      "name": "volume",
+      "type": "volume"
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.Resize",
@@ -10015,6 +13262,10 @@
     "height": 128,
     "width": 128
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "128": "graphs/augmentation-Resize/128.onnx",
@@ -10022,9 +13273,9 @@
     "256": "graphs/augmentation-Resize/256.onnx"
    },
    "graph_kb": {
-    "128": 7.8,
-    "192": 7.8,
-    "256": 7.8
+    "128": 8.0,
+    "192": 8.0,
+    "256": 8.0
    },
    "inputs": [
     "x"
@@ -10033,9 +13284,28 @@
     "size"
    ],
    "dynamic": true,
-   "cpu_latency_ms": 1.0,
+   "cpu_latency_ms": 0.8,
+   "sampling_folded": true,
    "kind": "class",
-   "sampling_folded": true
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   },
   {
    "id": "kornia.augmentation.SmallestMaxSize",
@@ -10110,7 +13380,25 @@
    "dynamic": false,
    "cpu_latency_ms": 0.6,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": true,
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
   }
  ]
 }

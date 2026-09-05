@@ -13,8 +13,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="../styles.css?v=20260944">
-    <link rel="stylesheet" href="../playground/playground.css?v=20260952">
+    <link rel="stylesheet" href="../styles.css?v=20260978">
+    <link rel="stylesheet" href="../playground/playground.css?v=20260979">
     <script src="../theme.js?v=20260903"></script>
 </head>
 <body class="pg-body hub-body">
@@ -170,6 +170,13 @@
                 </form>
                 <p class="hub-fineprint">We store your email and what you save here, nothing else, in the EU. No newsletter unless you subscribe to it separately.</p>
             </div>
+            <div class="db-signin-card db-cache-out">
+                <h2>Downloads on this device</h2>
+                <p class="hub-item-meta">Graphs and models the experiments fetched, kept by this browser so they are not downloaded twice. No account needed.</p>
+                <p class="hub-item-meta" id="db-cache-summary-out">…</p>
+                <table class="db-cache-table" id="db-cache-out"><thead><tr><th>file</th><th>size</th><th></th></tr></thead><tbody></tbody></table>
+                <div class="hub-actions"><button type="button" class="pg-btn pg-btn-ghost pg-btn-small" id="db-cache-clear-out"><i class="fas fa-broom" aria-hidden="true"></i> Remove all</button></div>
+            </div>
         </section>
 
         <div class="db-layout" id="hub-account" hidden>
@@ -187,6 +194,7 @@
                     <a href="#pipelines" role="tab" data-section="pipelines" aria-selected="false"><i class="fas fa-diagram-project" aria-hidden="true"></i> Pipelines</a>
                     <a href="#exports" role="tab" data-section="exports" aria-selected="false"><i class="fas fa-file-export" aria-hidden="true"></i> Exports</a>
                     <a href="#pricing" role="tab" data-section="pricing" aria-selected="false"><i class="fas fa-tags" aria-hidden="true"></i> Pricing</a>
+                    <a href="#downloads" role="tab" data-section="downloads" aria-selected="false"><i class="fas fa-hard-drive" aria-hidden="true"></i> Downloads</a>
                     <a href="#account" role="tab" data-section="account" aria-selected="false"><i class="fas fa-user-gear" aria-hidden="true"></i> Account</a>
                 </nav>
                 <div class="db-side-foot">
@@ -199,7 +207,7 @@
 
                 <div id="hub-data">
                     <section class="db-section" data-section="overview" data-needs-verified>
-                        <header class="db-head"><h1>Overview</h1><p class="db-lead">What your account has done on kornia's servers.</p></header>
+                        <div class="db-head"><h1>Overview</h1><p class="db-lead">What your account has done on kornia's servers.</p></div>
                         <div class="db-stats">
                             <div class="db-stat"><span class="db-stat-label">Server time today</span><span class="db-stat-value" id="db-today">–</span><span class="db-stat-sub" id="db-today-sub"></span></div>
                             <div class="db-stat"><span class="db-stat-label">Last 30 days</span><span class="db-stat-value" id="db-month">–</span><span class="db-stat-sub">server time on runs and exports</span></div>
@@ -227,19 +235,19 @@
                     </section>
 
                     <section class="db-section" data-section="pipelines" data-needs-verified hidden>
-                        <header class="db-head"><h1>Pipelines</h1><p class="db-lead">Pipelines you built in the experiment, kept in your account and available in every browser you sign in from.</p></header>
+                        <div class="db-head"><h1>Pipelines</h1><p class="db-lead">Pipelines you build while signed in are saved to your account as you work and follow you to every browser you sign in from.</p></div>
                         <div class="db-panel">
                             <ul class="hub-list" id="hub-pipelines"></ul>
-                            <div class="hub-actions">
-                                <button type="button" class="pg-btn" id="hub-sync"><i class="fas fa-cloud-arrow-up" aria-hidden="true"></i> Save this browser's pipelines to my account</button>
-                                <button type="button" class="pg-btn pg-btn-ghost" id="hub-pull"><i class="fas fa-cloud-arrow-down" aria-hidden="true"></i> Load my pipelines into this browser</button>
-                                <span class="hub-item-meta"><span id="hub-local-count">0</span> in this browser</span>
-                            </div>
+                        </div>
+                        <div class="db-panel" id="hub-local-panel" hidden>
+                            <h3>In this browser only</h3>
+                            <p class="hub-item-meta">Made before you signed in. Save the ones you want to keep; the others stay here.</p>
+                            <ul class="hub-list" id="hub-local"></ul>
                         </div>
                     </section>
 
                     <section class="db-section" data-section="exports" data-needs-verified hidden>
-                        <header class="db-head"><h1>Exports</h1><p class="db-lead">Targeted ONNX exports you made on the server: opset, shape, precision. Each is charged the time it took.</p></header>
+                        <div class="db-head"><h1>Exports</h1><p class="db-lead">Targeted ONNX exports you made on the server: opset, shape, precision. Each is charged the time it took.</p></div>
                         <div class="db-panel">
                             <ul class="hub-runs" id="db-exports"></ul>
                             <p class="hub-item-meta">Exports are built on request and downloaded straight to your browser; nothing is kept on the server. Use <em>Customise…</em> on any operator or model page to make one.</p>
@@ -247,46 +255,43 @@
                     </section>
 
                     <section class="db-section" data-section="pricing" hidden>
-                        <header class="db-head"><h1>Pricing</h1><p class="db-lead">Every experiment runs in your browser for free, with no account. The server tiers below are what an account adds.</p></header>
+                        <div class="db-head"><h1>Pricing</h1><p class="db-lead">Every experiment runs in your browser for free, with no account. An account adds the server side below; for more than that, write to us.</p></div>
                         <div class="db-pricing">
                             <div class="db-price">
                                 <h3>Free</h3>
                                 <p class="db-price-amount">€0</p>
                                 <ul>
-                                    <li>Every operator, model and pipeline in your browser</li>
+                                    <li>Every operator, model and pipeline in your browser, no account needed</li>
                                     <li><span id="db-free-runs">10 min</span> of server time a day, for runs and exports</li>
                                     <li>Pipelines saved to your account</li>
                                     <li>Targeted ONNX export with verification</li>
                                 </ul>
                                 <span class="db-price-current" id="db-price-free">Your plan</span>
                             </div>
-                            <div class="db-price db-price-soon">
-                                <h3>Pro <span class="pg-tag">coming soon</span></h3>
-                                <p class="db-price-amount">TBA</p>
-                                <ul>
-                                    <li>More server time a day, GPU inference</li>
-                                    <li>Deployed models: your own API endpoints and tokens</li>
-                                    <li>int8 quantisation and per-runtime compatibility checks</li>
-                                    <li>Priority for new models</li>
-                                </ul>
-                                <span class="db-price-current">Not available yet</span>
-                            </div>
-                            <div class="db-price db-price-soon">
-                                <h3>Team <span class="pg-tag">coming soon</span></h3>
-                                <p class="db-price-amount">TBA</p>
-                                <ul>
-                                    <li>Shared pipelines and deployments</li>
-                                    <li>Usage by member</li>
-                                    <li>Support with an SLA</li>
-                                </ul>
-                                <span class="db-price-current">Not available yet</span>
+                            <div class="db-price db-price-contact">
+                                <h3>Need more?</h3>
+                                <p class="db-lead">More server time, GPU runs, deployed models with their own endpoints, or a shared workspace for a team: tell us what you are building and we will set it up.</p>
+                                <a class="pg-btn" href="mailto:hello@kornia.org?subject=kornia.org%20usage"><i class="fas fa-envelope" aria-hidden="true"></i> Contact us</a>
+                                <span class="hub-item-meta">hello@kornia.org</span>
                             </div>
                         </div>
-                        <p class="hub-item-meta">Interested in a paid tier before it launches? Write to <a href="mailto:hello@kornia.org">hello@kornia.org</a>.</p>
                     </section>
 
+                    <section class="db-section" data-section="downloads" hidden>
+                        <div class="db-head"><h1>Downloads</h1><p class="db-lead">The operator graphs, models and volumes this browser has fetched for the experiments. They stay on this device, so nothing is downloaded twice; this list is the browser's, not your account's.</p></div>
+                        <div class="db-panel">
+                            <div class="db-cache-head">
+                                <p class="hub-item-meta" id="db-cache-summary">…</p>
+                                <div class="hub-actions">
+                                    <label class="db-cache-toggle"><input type="checkbox" id="db-cache-enabled" checked> keep downloads on this device</label>
+                                    <button type="button" class="pg-btn pg-btn-ghost pg-btn-small" id="db-cache-clear"><i class="fas fa-broom" aria-hidden="true"></i> Remove all</button>
+                                </div>
+                            </div>
+                            <table class="db-cache-table" id="db-cache"><thead><tr><th>file</th><th>kind</th><th>size</th><th>fetched</th><th></th></tr></thead><tbody></tbody></table>
+                        </div>
+                    </section>
                     <section class="db-section" data-section="account" hidden>
-                        <header class="db-head"><h1>Account</h1><p class="db-lead">Your profile and the data kornia keeps for you.</p></header>
+                        <div class="db-head"><h1>Account</h1><p class="db-lead">Your profile and the data kornia keeps for you.</p></div>
                         <div class="db-panel">
                             <h3>Profile</h3>
                             <dl class="db-dl">
@@ -359,9 +364,10 @@
         </div>
     </footer>
 
-    <script type="module" src="dashboard.js?v=20260950"></script>
+    <script src="../cache.js?v=20260966"></script>
+    <script type="module" src="dashboard.js?v=20260977"></script>
     <script src="../site.js?v=20260905"></script>
     <script src="firebase-config.js?v=20260950"></script>
-    <script type="module" src="../auth.js?v=20260944"></script>
+    <script type="module" src="../auth.js?v=20260976"></script>
 </body>
 </html>

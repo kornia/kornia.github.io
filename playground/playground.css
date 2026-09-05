@@ -2455,3 +2455,528 @@
     font-size: 0.76rem;
     color: var(--text-muted);
 }
+
+/* augmentations: the sample's mask, boxes and keypoints follow the same draw */
+.pg-modalities {
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    margin-top: 0.35rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--border-color);
+}
+
+.pg-modalities-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.pg-modalities .pg-modality {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-right: 0.9rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+.pg-modality::before {
+    content: "";
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: 0.85;
+}
+
+.pg-modality-mask::before { background: #2563eb; }
+.pg-modality-boxes::before { background: #f59e0b; }
+.pg-modality-keypoints::before { background: #10b981; }
+
+.pg-modality input:disabled + * ,
+.pg-modality:has(input:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ---- the pipeline graph editor ---- */
+.pg-graph-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pg-graph-bar .pg-select {
+    max-width: 16rem;
+}
+
+.pg-graph-hint {
+    margin-left: auto;
+    font-size: 0.78rem;
+}
+
+.pg-graph {
+    position: relative;
+    min-height: 26rem;
+    max-height: 40rem;
+    overflow: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background:
+        linear-gradient(var(--border-color) 1px, transparent 1px) 0 0 / 100% 24px,
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px) 0 0 / 24px 100%,
+        var(--surface-color);
+    background-blend-mode: normal;
+}
+
+.pg-graph .pg-wires {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.pg-graph .pg-wire {
+    fill: none;
+    stroke-width: 2.5;
+    pointer-events: stroke;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.pg-graph .pg-wire:hover {
+    stroke-width: 4;
+}
+
+.pg-graph .pg-wire-temp {
+    stroke-dasharray: 6 4;
+    pointer-events: none;
+}
+
+.pg-nodes {
+    position: relative;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.pg-node {
+    position: absolute;
+    width: 220px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-bg);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    font-size: 0.82rem;
+    user-select: none;
+}
+
+.pg-node-input { border-color: #93c5fd; }
+.pg-node-output { border-color: #fca5a5; }
+.pg-node-model { border-color: #c4b5fd; }
+
+.pg-node-head {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.5rem 0.4rem 0.7rem;
+    border-bottom: 1px solid var(--border-color);
+    cursor: grab;
+    border-radius: 10px 10px 0 0;
+    background: var(--surface-color);
+}
+
+.pg-node-head:active {
+    cursor: grabbing;
+}
+
+.pg-node-title {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 600;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    flex: 1;
+}
+
+.pg-node-id {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.pg-node-remove {
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0 0.2rem;
+    font-size: 0.85rem;
+}
+
+.pg-node-remove:hover {
+    color: #b91c1c;
+}
+
+.pg-node-body {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.3rem;
+    padding: 0.4rem 0;
+    align-items: start;
+}
+
+.pg-ports {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.2rem;
+}
+
+.pg-port {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    cursor: crosshair;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.pg-ports-in .pg-port {
+    margin-left: -7px;
+}
+
+.pg-ports-out .pg-port {
+    margin-right: -7px;
+    justify-content: flex-end;
+}
+
+.pg-port-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #94a3b8;
+    background: var(--card-bg);
+    flex: none;
+    box-sizing: border-box;
+}
+
+.pg-port-optional .pg-port-dot {
+    border-style: dashed;
+}
+
+.pg-port-ok .pg-port-dot {
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+}
+
+.pg-node-mid {
+    min-width: 0;
+    padding: 0 0.2rem;
+}
+
+.pg-node-params {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.pg-node-param {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    cursor: default;
+}
+
+.pg-node-param span {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.pg-node-param input[type="range"] {
+    width: 100%;
+    margin: 0;
+}
+
+.pg-node-param output {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+.pg-select-small,
+.pg-input-small {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.3rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pg-graph-results {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pg-graph-results figure {
+    width: min(256px, 45vw);
+}
+
+@media (max-width: 720px) {
+    .pg-graph-hint {
+        display: none;
+    }
+}
+
+/* pipelines: inputs left, outputs right, one panel per node */
+.pg-io {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.pg-io-block {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.8rem 1rem 1rem;
+    background: var(--card-bg);
+    min-height: 8rem;
+}
+
+.pg-io-block h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+}
+
+.pg-io-empty::after {
+    content: "none yet: add a node in the graph above";
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.pg-io-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pg-io-item {
+    display: grid;
+    grid-template-columns: minmax(0, 256px) auto;
+    justify-content: start;
+    gap: 0.6rem;
+    align-items: start;
+}
+
+.pg-io-item figure,
+.pg-io-outputs figure {
+    margin: 0;
+    max-width: 256px;
+}
+
+.pg-io-item canvas,
+.pg-io-outputs canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    background: #000;
+}
+
+.pg-io-item figcaption,
+.pg-io-outputs figcaption {
+    margin-top: 0.3rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.pg-io-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    max-height: 256px;
+    overflow-y: auto;
+    padding-right: 2px;
+}
+
+.pg-io-side button {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface-color);
+    cursor: pointer;
+    flex: none;
+}
+
+.pg-io-side button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pg-io-side button.pg-selected {
+    border-color: var(--primary-color);
+}
+
+.pg-io-side .pg-thumb-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.8rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.pg-io-side .pg-thumb-upload {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.pg-io-actions {
+    justify-content: flex-start;
+}
+
+@media (max-width: 900px) {
+    .pg-io {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.pg-graph-run {
+    margin-left: 0.25rem;
+}
+
+.pg-io-item-mask canvas,
+.pg-io-item-boxes canvas,
+.pg-io-item-keypoints canvas {
+    background: #f1f5f9;
+}
+
+.pg-io-side button canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.pg-row-name .pg-tag-pre {
+    margin-left: auto;
+}
+
+/* the searchable node pickers on the graph toolbar */
+.pg-picker {
+    position: relative;
+}
+
+.pg-picker-panel {
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    left: 0;
+    z-index: 30;
+    width: 22rem;
+    max-width: 90vw;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-bg);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+}
+
+.pg-picker-panel .pg-input-small {
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.5rem;
+}
+
+.pg-picker-list {
+    max-height: 20rem;
+    overflow-y: auto;
+}
+
+.pg-picker-group {
+    padding: 0.4rem 0.4rem 0.15rem;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.pg-picker-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    width: 100%;
+    padding: 0.35rem 0.5rem;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-primary);
+    font: inherit;
+}
+
+.pg-picker-item strong {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.pg-picker-item .pg-note {
+    font-size: 0.72rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pg-picker-item:hover,
+.pg-picker-item:focus {
+    background: var(--surface-color);
+    outline: none;
+}
+
+.pg-pipe-note {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0.35rem 0 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    border-color: transparent;
+    background: transparent;
+    padding-left: 0.2rem;
+}
+
+.pg-pipe-note:hover,
+.pg-pipe-note:focus {
+    border-color: var(--border-color);
+    background: var(--card-bg);
+}
+
+.pg-pipe-import {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: flex-start;
+}
+
+.pg-row-import .pg-link {
+    padding: 0.28rem 0.5rem;
+    font-size: 0.8rem;
+}

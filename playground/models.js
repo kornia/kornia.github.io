@@ -104,6 +104,7 @@
   // ------------------------------------------------------------------ loading with progress
 
   function fetchWithProgress(url, onProgress) {
+    if (window.KorniaCache) return window.KorniaCache.fetch(url, onProgress);   // kept on this device after the first download
     return fetch(url).then(function (response) {
       if (!response.ok) throw new Error("HTTP " + response.status + " fetching the model");
       const total = Number(response.headers.get("Content-Length")) || 0;

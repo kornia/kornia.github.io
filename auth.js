@@ -24,7 +24,35 @@ window.KorniaAuth = {
   signIn(provider) { return signInWithPopup(auth, provider === "github" ? new GithubAuthProvider() : new GoogleAuthProvider()); },
   signOut() { return signOut(auth); },
   hubUrl: root + "dashboard/",
+  // the account's pipelines (Firestore, users/<uid>/pipelines, or dev_users/ on the dev site); needs a verified email
+  pipelines: {
+    canSync() { return !!(user && user.emailVerified); },
+    async save(p) {
+      const f = await firestore();
+      const data = { name: p.name, note: p.note || "", version: p.version || 1, container: p.container || null, steps: p.steps || null, model: p.model || null, nodes: p.nodes || null, edges: p.edges || null,
+                     created: p.created || Date.now(), updated_ms: p.updated || Date.now(), updated: f.serverTimestamp() };
+      await f.setDoc(f.doc(f.db, cfg.usersRoot || "users", user.uid, "pipelines", p.id), data);
+    },
+    async list() {
+      const f = await firestore();
+      const snap = await f.getDocs(f.collection(f.db, cfg.usersRoot || "users", user.uid, "pipelines"));
+      const out = [];
+      snap.forEach((d) => { const p = d.data(); out.push(p.version === 2 ? { id: d.id, name: p.name, note: p.note || "", version: 2, nodes: p.nodes, edges: p.edges, created: p.created || Date.now(), updated: p.updated_ms || 0, synced: true }
+                                                        : { id: d.id, name: p.name, note: p.note || "", container: p.container, steps: p.steps, model: p.model || null, created: p.created || Date.now(), updated: p.updated_ms || 0, synced: true }); });
+      return out;
+    },
+    async remove(id) { const f = await firestore(); await f.deleteDoc(f.doc(f.db, cfg.usersRoot || "users", user.uid, "pipelines", id)); },
+    async note(id, text) { const f = await firestore(); await f.setDoc(f.doc(f.db, cfg.usersRoot || "users", user.uid, "pipelines", id), { note: text, updated_ms: Date.now(), updated: f.serverTimestamp() }, { merge: true }); },
+  },
 };
+let firestoreMod = null;
+async function firestore() {
+  if (!firestoreMod) {
+    const m = await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js");
+    firestoreMod = { db: m.getFirestore(getApps()[0]), doc: m.doc, setDoc: m.setDoc, getDocs: m.getDocs, collection: m.collection, deleteDoc: m.deleteDoc, serverTimestamp: m.serverTimestamp };
+  }
+  return firestoreMod;
+}
 let ready = false, auth = null;
 
 function el(tag, cls, attrs) { const n = document.createElement(tag); if (cls) n.className = cls; for (const k in attrs || {}) n.setAttribute(k, attrs[k]); return n; }

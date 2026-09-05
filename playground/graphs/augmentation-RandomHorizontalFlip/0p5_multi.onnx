@@ -1,0 +1,2985 @@
+
+pytorch2.9.1+cu128:ÑÚ
+
+é
+boxesval_0node_Shape_0"Shape*
+
+end†*
+start†JÉ
+	namespacev_empty_nn_module_stack_from_metadata_hook: _empty_nn_module_stack_from_metadata_hook/sym_size_int_2: aten.sym_size.intJd
+pkg.torch.onnx.class_hierarchyB['_empty_nn_module_stack_from_metadata_hook', 'aten.sym_size.int']Jé
+pkg.torch.onnx.fx_nodet%sym_size_int_2 : [num_users=8] = call_function[target=torch.ops.aten.sym_size.int](args = (%boxes, 1), kwargs = {})J]
+pkg.torch.onnx.name_scopes?['_empty_nn_module_stack_from_metadata_hook', 'sym_size_int_2']Js
+pkg.torch.onnx.stack_traceUFile "torch/fx/passes/runtime_assert.py", line 24, in insert_deferred_runtime_asserts
+Ü
+val_0sym_size_int_2node_sym_size_int_2"SqueezeJÉ
+	namespacev_empty_nn_module_stack_from_metadata_hook: _empty_nn_module_stack_from_metadata_hook/sym_size_int_2: aten.sym_size.intJd
+pkg.torch.onnx.class_hierarchyB['_empty_nn_module_stack_from_metadata_hook', 'aten.sym_size.int']Jé
+pkg.torch.onnx.fx_nodet%sym_size_int_2 : [num_users=8] = call_function[target=torch.ops.aten.sym_size.int](args = (%boxes, 1), kwargs = {})J]
+pkg.torch.onnx.name_scopes?['_empty_nn_module_stack_from_metadata_hook', 'sym_size_int_2']Js
+pkg.torch.onnx.stack_traceUFile "torch/fx/passes/runtime_assert.py", line 24, in insert_deferred_runtime_asserts
+ñ
+	keypointsval_1node_Shape_1"Shape*
+
+end†*
+start†JÉ
+	namespacev_empty_nn_module_stack_from_metadata_hook: _empty_nn_module_stack_from_metadata_hook/sym_size_int_3: aten.sym_size.intJd
+pkg.torch.onnx.class_hierarchyB['_empty_nn_module_stack_from_metadata_hook', 'aten.sym_size.int']Jí
+pkg.torch.onnx.fx_nodex%sym_size_int_3 : [num_users=2] = call_function[target=torch.ops.aten.sym_size.int](args = (%keypoints, 1), kwargs = {})J]
+pkg.torch.onnx.name_scopes?['_empty_nn_module_stack_from_metadata_hook', 'sym_size_int_3']Js
+pkg.torch.onnx.stack_traceUFile "torch/fx/passes/runtime_assert.py", line 24, in insert_deferred_runtime_asserts
+¬
+boxes
+val_2select_1node_select_1"Gather*
+axis†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_1: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jâ
+pkg.torch.onnx.fx_nodeo%select_1 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%boxes, 2, 3), kwargs = {})J5
+pkg.torch.onnx.name_scopes['', 'aug', 'select_1']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+¬
+boxes
+val_3select_2node_select_2"Gather*
+axis†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_2: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jâ
+pkg.torch.onnx.fx_nodeo%select_2 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%boxes, 2, 1), kwargs = {})J5
+pkg.torch.onnx.name_scopes['', 'aug', 'select_2']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+∞
+select_1
+select_2sub_2
+node_sub_2"SubJ~
+	namespaceq: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/sub_2: aten.sub.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.sub.Tensor']Jé
+pkg.torch.onnx.fx_nodet%sub_2 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%select_1, %select_2), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'sub_2']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ƒ
+sub_2
+scalar_tensor_defaultadd_6
+node_add_6"AddJ~
+	namespaceq: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/add_6: aten.add.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.add.Tensor']Jò
+pkg.torch.onnx.fx_node~%add_6 : [num_users=2] = call_function[target=torch.ops.aten.add.Tensor](args = (%sub_2, %scalar_tensor_default), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'add_6']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+¬
+boxes
+val_4select_3node_select_3"Gather*
+axis†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_3: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jâ
+pkg.torch.onnx.fx_nodeo%select_3 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%boxes, 2, 2), kwargs = {})J5
+pkg.torch.onnx.name_scopes['', 'aug', 'select_3']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+¬
+boxes
+val_5select_4node_select_4"Gather*
+axis†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_4: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jâ
+pkg.torch.onnx.fx_nodeo%select_4 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%boxes, 2, 0), kwargs = {})J5
+pkg.torch.onnx.name_scopes['', 'aug', 'select_4']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+∞
+select_3
+select_4sub_7
+node_sub_7"SubJ~
+	namespaceq: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/sub_7: aten.sub.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.sub.Tensor']Jé
+pkg.torch.onnx.fx_nodet%sub_7 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%select_3, %select_4), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'sub_7']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ã
+sub_7
+scalar_tensor_defaultadd_15node_add_15"AddJ
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/add_15: aten.add.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.add.Tensor']Jú
+pkg.torch.onnx.fx_nodeÅ%add_15 : [num_users=2] = call_function[target=torch.ops.aten.add.Tensor](args = (%sub_7, %scalar_tensor_default_1), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'add_15']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ñ
+val_8
+val_0
+val_10
+val_147val_12node_Concat_12"Concat*
+axis †JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/zeros: aten.zeros.defaultJí
+pkg.torch.onnx.class_hierarchyp['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.zeros.default']JÕ
+pkg.torch.onnx.fx_node≤%zeros : [num_users=2] = call_function[target=torch.ops.aten.zeros.default](args = ([1, %sym_size_int_2, 4, 2],), kwargs = {dtype: torch.float32, device: cpu, pin_memory: False})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'zeros']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ù
+val_6
+val_12zeros
+node_zeros"ExpandJÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/zeros: aten.zeros.defaultJí
+pkg.torch.onnx.class_hierarchyp['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.zeros.default']JÕ
+pkg.torch.onnx.fx_node≤%zeros : [num_users=2] = call_function[target=torch.ops.aten.zeros.default](args = ([1, %sym_size_int_2, 4, 2],), kwargs = {dtype: torch.float32, device: cpu, pin_memory: False})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'zeros']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ÿ
+select_4
+val_140	unsqueezenode_unsqueeze"	UnsqueezeJâ
+	namespace|: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/unsqueeze: aten.unsqueeze.defaultJñ
+pkg.torch.onnx.class_hierarchyt['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.unsqueeze.default']Jí
+pkg.torch.onnx.fx_nodex%unsqueeze : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%select_5, -1), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'unsqueeze']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+œ
+val_0
+val_8val_17node_Concat_17"Concat*
+axis †J
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jú
+pkg.torch.onnx.fx_nodeÅ%view : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%unsqueeze, [%sym_size_int_2, 1]), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'aug', 'view']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+”
+	unsqueeze
+val_17view	node_view"Reshape*
+	allowzero†J
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jú
+pkg.torch.onnx.fx_nodeÅ%view : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%unsqueeze, [%sym_size_int_2, 1]), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'aug', 'view']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+‚
+val_8
+val_0
+val_10val_22node_Concat_22"Concat*
+axis †JÉ
+	namespacev: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/expand: aten.expand.defaultJì
+pkg.torch.onnx.class_hierarchyq['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.expand.default']Jû
+pkg.torch.onnx.fx_nodeÉ%expand : [num_users=1] = call_function[target=torch.ops.aten.expand.default](args = (%view, [1, %sym_size_int_2, 4]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'expand']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+∆
+view
+val_22copy	node_copy"ExpandJÉ
+	namespacev: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/expand: aten.expand.defaultJì
+pkg.torch.onnx.class_hierarchyq['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.expand.default']Jû
+pkg.torch.onnx.fx_nodeÉ%expand : [num_users=1] = call_function[target=torch.ops.aten.expand.default](args = (%view, [1, %sym_size_int_2, 4]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'expand']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+˘
+copy
+val_23val_24node_Unsqueeze_24"	UnsqueezeJî
+	namespaceÜ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J£
+pkg.torch.onnx.fx_nodeà%select_scatter : [num_users=2] = call_function[target=torch.ops.aten.select_scatter.default](args = (%zeros, %copy, 3, 0), kwargs = {})J;
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+˘
+val_24val_25node_Shape_25"Shape*
+start †Jî
+	namespaceÜ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J£
+pkg.torch.onnx.fx_nodeà%select_scatter : [num_users=2] = call_function[target=torch.ops.aten.select_scatter.default](args = (%zeros, %copy, 3, 0), kwargs = {})J;
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ù
+val_5
+val_25val_26node_Expand_26"ExpandJî
+	namespaceÜ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J£
+pkg.torch.onnx.fx_nodeà%select_scatter : [num_users=2] = call_function[target=torch.ops.aten.select_scatter.default](args = (%zeros, %copy, 3, 0), kwargs = {})J;
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+µ
+zeros
+val_26
+val_24select_scatternode_select_scatter"ScatterElements*
+	reduction"none†*
+axis†Jî
+	namespaceÜ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J£
+pkg.torch.onnx.fx_nodeà%select_scatter : [num_users=2] = call_function[target=torch.ops.aten.select_scatter.default](args = (%zeros, %copy, 3, 0), kwargs = {})J;
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+‚
+select_2
+val_140unsqueeze_1node_unsqueeze_1"	UnsqueezeJã
+	namespace~: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/unsqueeze_1: aten.unsqueeze.defaultJñ
+pkg.torch.onnx.class_hierarchyt['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.unsqueeze.default']Jî
+pkg.torch.onnx.fx_nodez%unsqueeze_1 : [num_users=1] = call_function[target=torch.ops.aten.unsqueeze.default](args = (%select_6, -1), kwargs = {})J8
+pkg.torch.onnx.name_scopes['', 'aug', 'unsqueeze_1']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+‚
+unsqueeze_1
+val_17view_1node_view_1"Reshape*
+	allowzero†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_1: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']J†
+pkg.torch.onnx.fx_nodeÖ%view_1 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%unsqueeze_1, [%sym_size_int_2, 1]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'view_1']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+‘
+view_1
+val_22copy_1node_copy_1"ExpandJÖ
+	namespacex: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/expand_1: aten.expand.defaultJì
+pkg.torch.onnx.class_hierarchyq['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.expand.default']J¢
+pkg.torch.onnx.fx_nodeá%expand_1 : [num_users=1] = call_function[target=torch.ops.aten.expand.default](args = (%view_1, [1, %sym_size_int_2, 4]), kwargs = {})J5
+pkg.torch.onnx.name_scopes['', 'aug', 'expand_1']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+å
+copy_1
+val_23val_36node_Unsqueeze_36"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_1: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J∞
+pkg.torch.onnx.fx_nodeï%select_scatter_1 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter, %copy_1, 3, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_1']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ä
+val_36val_37node_Shape_37"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_1: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J∞
+pkg.torch.onnx.fx_nodeï%select_scatter_1 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter, %copy_1, 3, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_1']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ö
+val_3
+val_37val_38node_Expand_38"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_1: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J∞
+pkg.torch.onnx.fx_nodeï%select_scatter_1 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter, %copy_1, 3, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_1']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+”
+select_scatter
+val_38
+val_36select_scatter_1node_select_scatter_1"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_1: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J∞
+pkg.torch.onnx.fx_nodeï%select_scatter_1 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter, %copy_1, 3, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_1']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Œ
+add_15
+scalar_tensor_defaultsub_29node_sub_29"SubJ
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/sub_29: aten.sub.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.sub.Tensor']Jù
+pkg.torch.onnx.fx_nodeÇ%sub_29 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%add_15, %scalar_tensor_default_2), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'sub_29']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+›
+select_scatter_1
+val_3	select_14node_select_14"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_14: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jï
+pkg.torch.onnx.fx_node{%select_14 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_scatter_1, 2, 1), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_14']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+œ
+	select_14
+val_5	select_15node_select_15"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_15: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jé
+pkg.torch.onnx.fx_nodet%select_15 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_14, 2, 0), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_15']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+≥
+	select_15
+sub_29add_79node_add_79"AddJ
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/add_79: aten.add.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.add.Tensor']Jé
+pkg.torch.onnx.fx_nodet%add_79 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%select_15, %sub_29), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'add_79']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+à
+add_79
+val_147val_40node_Unsqueeze_40"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_2: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_2 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_16, %add_79, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_2']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ö
+val_40val_41node_Shape_41"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_2: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_2 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_16, %add_79, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_2']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ä
+val_5
+val_41val_42node_Expand_42"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_2: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_2 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_16, %add_79, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_2']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+…
+	select_14
+val_42
+val_40select_scatter_2node_select_scatter_2"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_2: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_2 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_16, %add_79, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_2']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+£
+select_scatter_2
+val_147val_43node_Unsqueeze_43"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_3: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_3 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_1, %select_scatter_2, 2, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_3']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ñ
+val_43val_44node_Shape_44"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_3: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_3 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_1, %select_scatter_2, 2, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_3']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ë
+val_3
+val_44val_45node_Expand_45"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_3: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_3 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_1, %select_scatter_2, 2, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_3']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+·
+select_scatter_1
+val_45
+val_43select_scatter_3node_select_scatter_3"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_3: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_3 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_1, %select_scatter_2, 2, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_3']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+›
+select_scatter_3
+val_3	select_17node_select_17"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_17: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jï
+pkg.torch.onnx.fx_node{%select_17 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_scatter_3, 2, 1), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_17']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+…
+	select_17
+val_5copy_2node_copy_2"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_18: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jé
+pkg.torch.onnx.fx_nodet%select_18 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_17, 2, 0), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_18']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+à
+copy_2
+val_147val_46node_Unsqueeze_46"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_4: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_4 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_23, %copy_2, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_4']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ö
+val_46val_47node_Shape_47"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_4: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_4 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_23, %copy_2, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_4']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ä
+val_5
+val_47val_48node_Expand_48"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_4: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_4 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_23, %copy_2, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_4']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+…
+	select_17
+val_48
+val_46select_scatter_4node_select_scatter_4"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_4: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_4 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_23, %copy_2, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_4']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+£
+select_scatter_4
+val_147val_49node_Unsqueeze_49"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_5: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_5 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_3, %select_scatter_4, 2, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_5']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ñ
+val_49val_50node_Shape_50"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_5: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_5 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_3, %select_scatter_4, 2, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_5']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ë
+val_3
+val_50val_51node_Expand_51"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_5: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_5 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_3, %select_scatter_4, 2, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_5']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+·
+select_scatter_3
+val_51
+val_49select_scatter_5node_select_scatter_5"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_5: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_5 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_3, %select_scatter_4, 2, 1), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_5']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+›
+select_scatter_5
+val_4	select_28node_select_28"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_28: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jï
+pkg.torch.onnx.fx_node{%select_28 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_scatter_5, 2, 2), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_28']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+œ
+	select_28
+val_5	select_29node_select_29"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_29: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jé
+pkg.torch.onnx.fx_nodet%select_29 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_28, 2, 0), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_29']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+π
+	select_29
+sub_29add_104node_add_104"AddJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/add_104: aten.add.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.add.Tensor']Jè
+pkg.torch.onnx.fx_nodeu%add_104 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%select_29, %sub_41), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'add_104']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ä
+add_104
+val_147val_52node_Unsqueeze_52"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_6: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_6 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_30, %add_104, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_6']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ü
+val_52val_53node_Shape_53"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_6: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_6 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_30, %add_104, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_6']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Å
+val_5
+val_53val_54node_Expand_54"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_6: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_6 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_30, %add_104, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_6']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ 
+	select_28
+val_54
+val_52select_scatter_6node_select_scatter_6"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_6: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_6 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_30, %add_104, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_6']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+£
+select_scatter_6
+val_147val_55node_Unsqueeze_55"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_7: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_7 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_5, %select_scatter_6, 2, 2), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_7']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ñ
+val_55val_56node_Shape_56"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_7: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_7 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_5, %select_scatter_6, 2, 2), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_7']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ë
+val_4
+val_56val_57node_Expand_57"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_7: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_7 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_5, %select_scatter_6, 2, 2), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_7']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+·
+select_scatter_5
+val_57
+val_55select_scatter_7node_select_scatter_7"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_7: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_7 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_5, %select_scatter_6, 2, 2), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_7']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+›
+select_scatter_7
+val_4	select_31node_select_31"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_31: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jï
+pkg.torch.onnx.fx_node{%select_31 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_scatter_7, 2, 2), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_31']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+…
+	select_31
+val_5copy_3node_copy_3"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_32: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jé
+pkg.torch.onnx.fx_nodet%select_32 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_31, 2, 0), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_32']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+à
+copy_3
+val_147val_58node_Unsqueeze_58"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_8: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_8 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_37, %copy_3, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_8']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ö
+val_58val_59node_Shape_59"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_8: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_8 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_37, %copy_3, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_8']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ä
+val_5
+val_59val_60node_Expand_60"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_8: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_8 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_37, %copy_3, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_8']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+…
+	select_31
+val_60
+val_58select_scatter_8node_select_scatter_8"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_8: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J´
+pkg.torch.onnx.fx_nodeê%select_scatter_8 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_37, %copy_3, 2, 0), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_8']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+£
+select_scatter_8
+val_147val_61node_Unsqueeze_61"	UnsqueezeJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_9: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_9 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_7, %select_scatter_8, 2, 2), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_9']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ñ
+val_61val_62node_Shape_62"Shape*
+start †Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_9: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_9 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_7, %select_scatter_8, 2, 2), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_9']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ë
+val_4
+val_62val_63node_Expand_63"ExpandJñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_9: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_9 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_7, %select_scatter_8, 2, 2), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_9']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+·
+select_scatter_7
+val_63
+val_61select_scatter_9node_select_scatter_9"ScatterElements*
+	reduction"none†*
+axis†Jñ
+	namespaceà: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_9: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jº
+pkg.torch.onnx.fx_node°%select_scatter_9 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_7, %select_scatter_8, 2, 2), kwargs = {})J=
+pkg.torch.onnx.name_scopes['', 'aug', 'select_scatter_9']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ã
+add_6
+scalar_tensor_defaultsub_53node_sub_53"SubJ
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/sub_53: aten.sub.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.sub.Tensor']Jú
+pkg.torch.onnx.fx_nodeÅ%sub_53 : [num_users=1] = call_function[target=torch.ops.aten.sub.Tensor](args = (%add_6, %scalar_tensor_default_4), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'sub_53']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+›
+select_scatter_9
+val_4	select_42node_select_42"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_42: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jï
+pkg.torch.onnx.fx_node{%select_42 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_scatter_9, 2, 2), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_42']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+œ
+	select_42
+val_3	select_43node_select_43"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_43: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jé
+pkg.torch.onnx.fx_nodet%select_43 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_42, 2, 1), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_43']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+π
+	select_43
+sub_53add_129node_add_129"AddJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/add_129: aten.add.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.add.Tensor']Jè
+pkg.torch.onnx.fx_nodeu%add_129 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%select_43, %sub_53), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'add_129']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ç
+add_129
+val_147val_64node_Unsqueeze_64"	UnsqueezeJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_10: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J≠
+pkg.torch.onnx.fx_nodeí%select_scatter_10 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_44, %add_129, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_10']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+â
+val_64val_65node_Shape_65"Shape*
+start †Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_10: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J≠
+pkg.torch.onnx.fx_nodeí%select_scatter_10 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_44, %add_129, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_10']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ñ
+val_3
+val_65val_66node_Expand_66"ExpandJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_10: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J≠
+pkg.torch.onnx.fx_nodeí%select_scatter_10 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_44, %add_129, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_10']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+œ
+	select_42
+val_66
+val_64select_scatter_10node_select_scatter_10"ScatterElements*
+	reduction"none†*
+axis†Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_10: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J≠
+pkg.torch.onnx.fx_nodeí%select_scatter_10 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_44, %add_129, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_10']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+®
+select_scatter_10
+val_147val_67node_Unsqueeze_67"	UnsqueezeJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_11: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jæ
+pkg.torch.onnx.fx_node£%select_scatter_11 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_9, %select_scatter_10, 2, 2), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_11']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ö
+val_67val_68node_Shape_68"Shape*
+start †Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_11: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jæ
+pkg.torch.onnx.fx_node£%select_scatter_11 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_9, %select_scatter_10, 2, 2), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_11']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ï
+val_4
+val_68val_69node_Expand_69"ExpandJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_11: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jæ
+pkg.torch.onnx.fx_node£%select_scatter_11 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_9, %select_scatter_10, 2, 2), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_11']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Á
+select_scatter_9
+val_69
+val_67select_scatter_11node_select_scatter_11"ScatterElements*
+	reduction"none†*
+axis†Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_11: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jæ
+pkg.torch.onnx.fx_node£%select_scatter_11 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_9, %select_scatter_10, 2, 2), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_11']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ﬂ
+select_scatter_11
+val_4	select_45node_select_45"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_45: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jñ
+pkg.torch.onnx.fx_node|%select_45 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_scatter_11, 2, 2), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_45']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+…
+	select_45
+val_3copy_4node_copy_4"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_46: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jé
+pkg.torch.onnx.fx_nodet%select_46 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_45, 2, 1), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_46']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ã
+copy_4
+val_147val_70node_Unsqueeze_70"	UnsqueezeJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_12: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_12 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_51, %copy_4, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_12']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+à
+val_70val_71node_Shape_71"Shape*
+start †Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_12: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_12 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_51, %copy_4, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_12']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+É
+val_3
+val_71val_72node_Expand_72"ExpandJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_12: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_12 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_51, %copy_4, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_12']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Œ
+	select_45
+val_72
+val_70select_scatter_12node_select_scatter_12"ScatterElements*
+	reduction"none†*
+axis†Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_12: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_12 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_51, %copy_4, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_12']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+©
+select_scatter_12
+val_147val_73node_Unsqueeze_73"	UnsqueezeJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_13: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_13 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_11, %select_scatter_12, 2, 2), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_13']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+õ
+val_73val_74node_Shape_74"Shape*
+start †Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_13: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_13 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_11, %select_scatter_12, 2, 2), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_13']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ñ
+val_4
+val_74val_75node_Expand_75"ExpandJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_13: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_13 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_11, %select_scatter_12, 2, 2), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_13']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+È
+select_scatter_11
+val_75
+val_73select_scatter_13node_select_scatter_13"ScatterElements*
+	reduction"none†*
+axis†Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_13: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_13 : [num_users=3] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_11, %select_scatter_12, 2, 2), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_13']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ﬂ
+select_scatter_13
+val_2	select_56node_select_56"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_56: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jñ
+pkg.torch.onnx.fx_node|%select_56 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_scatter_13, 2, 3), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_56']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+œ
+	select_56
+val_3	select_57node_select_57"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_57: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jé
+pkg.torch.onnx.fx_nodet%select_57 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_56, 2, 1), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_57']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+π
+	select_57
+sub_53add_154node_add_154"AddJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/add_154: aten.add.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.add.Tensor']Jè
+pkg.torch.onnx.fx_nodeu%add_154 : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%select_57, %sub_65), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'add_154']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ç
+add_154
+val_147val_76node_Unsqueeze_76"	UnsqueezeJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_14: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J≠
+pkg.torch.onnx.fx_nodeí%select_scatter_14 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_58, %add_154, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_14']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+â
+val_76val_77node_Shape_77"Shape*
+start †Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_14: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J≠
+pkg.torch.onnx.fx_nodeí%select_scatter_14 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_58, %add_154, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_14']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Ñ
+val_3
+val_77val_78node_Expand_78"ExpandJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_14: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J≠
+pkg.torch.onnx.fx_nodeí%select_scatter_14 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_58, %add_154, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_14']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+œ
+	select_56
+val_78
+val_76select_scatter_14node_select_scatter_14"ScatterElements*
+	reduction"none†*
+axis†Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_14: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J≠
+pkg.torch.onnx.fx_nodeí%select_scatter_14 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_58, %add_154, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_14']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+©
+select_scatter_14
+val_147val_79node_Unsqueeze_79"	UnsqueezeJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_15: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_15 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_13, %select_scatter_14, 2, 3), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_15']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+õ
+val_79val_80node_Shape_80"Shape*
+start †Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_15: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_15 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_13, %select_scatter_14, 2, 3), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_15']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ñ
+val_2
+val_80val_81node_Expand_81"ExpandJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_15: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_15 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_13, %select_scatter_14, 2, 3), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_15']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+È
+select_scatter_13
+val_81
+val_79select_scatter_15node_select_scatter_15"ScatterElements*
+	reduction"none†*
+axis†Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_15: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_15 : [num_users=4] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_13, %select_scatter_14, 2, 3), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_15']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ﬂ
+select_scatter_15
+val_2	select_59node_select_59"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_59: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jñ
+pkg.torch.onnx.fx_node|%select_59 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_scatter_15, 2, 3), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_59']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+…
+	select_59
+val_3copy_5node_copy_5"Gather*
+axis†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_60: aten.select.intJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select.int']Jé
+pkg.torch.onnx.fx_nodet%select_60 : [num_users=1] = call_function[target=torch.ops.aten.select.int](args = (%select_59, 2, 1), kwargs = {})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'select_60']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ã
+copy_5
+val_147val_82node_Unsqueeze_82"	UnsqueezeJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_16: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_16 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_65, %copy_5, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_16']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+à
+val_82val_83node_Shape_83"Shape*
+start †Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_16: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_16 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_65, %copy_5, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_16']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+É
+val_3
+val_83val_84node_Expand_84"ExpandJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_16: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_16 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_65, %copy_5, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_16']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+Œ
+	select_59
+val_84
+val_82select_scatter_16node_select_scatter_16"ScatterElements*
+	reduction"none†*
+axis†Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_16: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']J¨
+pkg.torch.onnx.fx_nodeë%select_scatter_16 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_65, %copy_5, 2, 1), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_16']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+©
+select_scatter_16
+val_147val_85node_Unsqueeze_85"	UnsqueezeJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_17: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_17 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_15, %select_scatter_16, 2, 3), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_17']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+õ
+val_85val_86node_Shape_86"Shape*
+start †Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_17: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_17 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_15, %select_scatter_16, 2, 3), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_17']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+ñ
+val_2
+val_86val_87node_Expand_87"ExpandJó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_17: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_17 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_15, %select_scatter_16, 2, 3), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_17']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+È
+select_scatter_15
+val_87
+val_85select_scatter_17node_select_scatter_17"ScatterElements*
+	reduction"none†*
+axis†Jó
+	namespaceâ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/select_scatter_17: aten.select_scatter.defaultJõ
+pkg.torch.onnx.class_hierarchyy['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.select_scatter.default']Jø
+pkg.torch.onnx.fx_node§%select_scatter_17 : [num_users=1] = call_function[target=torch.ops.aten.select_scatter.default](args = (%select_scatter_15, %select_scatter_16, 2, 3), kwargs = {})J>
+pkg.torch.onnx.name_scopes ['', 'aug', 'select_scatter_17']J™
+pkg.torch.onnx.stack_traceãFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 458, in forward
+    in_args = self._arguments_preproc(*args, data_keys=self.transform_op.data_keys)  # type: ignore
+õ
+val_8val_92node_ConstantOfShape_92"ConstantOfShapeJ
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/rand: aten.rand.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.rand.default']Jû
+pkg.torch.onnx.fx_nodeÉ%rand : [num_users=1] = call_function[target=torch.ops.aten.rand.default](args = ([1],), kwargs = {device: cpu, pin_memory: False})J1
+pkg.torch.onnx.name_scopes['', 'aug', 'rand']Jˆ
+pkg.torch.onnx.stack_trace◊File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 471, in forward
+    params = self.forward_parameters(out_shape)
+ª
+val_92rand	node_rand"RandomUniformLike*
+dtype†*
+high  Ä?†*
+low    †J
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/rand: aten.rand.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.rand.default']Jû
+pkg.torch.onnx.fx_nodeÉ%rand : [num_users=1] = call_function[target=torch.ops.aten.rand.default](args = ([1],), kwargs = {device: cpu, pin_memory: False})J1
+pkg.torch.onnx.name_scopes['', 'aug', 'rand']Jˆ
+pkg.torch.onnx.stack_trace◊File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 471, in forward
+    params = self.forward_parameters(out_shape)
+Í
+rand
+val_93lt_16
+node_lt_16"LessJ}
+	namespacep: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/lt_16: aten.lt.ScalarJé
+pkg.torch.onnx.class_hierarchyl['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.lt.Scalar']JÉ
+pkg.torch.onnx.fx_nodei%lt_16 : [num_users=1] = call_function[target=torch.ops.aten.lt.Scalar](args = (%rand, 0.5), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'lt_16']Jˆ
+pkg.torch.onnx.stack_trace◊File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 471, in forward
+    params = self.forward_parameters(out_shape)
+•
+lt_16_to_copynode__to_copy"Cast*	
+to†Já
+	namespacez: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/_to_copy: aten._to_copy.defaultJï
+pkg.torch.onnx.class_hierarchys['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten._to_copy.default']Jü
+pkg.torch.onnx.fx_nodeÑ%_to_copy : [num_users=1] = call_function[target=torch.ops.aten._to_copy.default](args = (%lt_16,), kwargs = {dtype: torch.float32})J5
+pkg.torch.onnx.name_scopes['', 'aug', '_to_copy']Jˆ
+pkg.torch.onnx.stack_trace◊File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 471, in forward
+    params = self.forward_parameters(out_shape)
+ˇ
+ones
+_to_copymul_197node_mul_197"MulJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/mul_197: aten.mul.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.mul.Tensor']Jå
+pkg.torch.onnx.fx_noder%mul_197 : [num_users=4] = call_function[target=torch.ops.aten.mul.Tensor](args = (%ones, %_to_copy), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'mul_197']Jˆ
+pkg.torch.onnx.stack_trace◊File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 471, in forward
+    params = self.forward_parameters(out_shape)
+	
+image
+val_140
+val_95
+val_140
+val_140flip	node_flip"SliceJ„
+	namespace’: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/aug.RandomHorizontalFlip_0: kornia.augmentation._2d.geometric.horizontal_flip.RandomHorizontalFlip/flip: aten.flip.defaultJ‹
+pkg.torch.onnx.class_hierarchyπ['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'kornia.augmentation._2d.geometric.horizontal_flip.RandomHorizontalFlip', 'aten.flip.default']Já
+pkg.torch.onnx.fx_nodem%flip : [num_users=1] = call_function[target=torch.ops.aten.flip.default](args = (%image, [-1]), kwargs = {})JO
+pkg.torch.onnx.name_scopes1['', 'aug', 'aug.RandomHorizontalFlip_0', 'flip']Jã
+pkg.torch.onnx.stack_traceÏFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+  File "/home/shij0c/git/kornia/kornia/augmentation/base.py", line 306, in forward
+    output = self.apply_func(in_tensor, params, flags)
+—	
+mul_197
+val_93gt_6	node_gt_6"GreaterJ‡
+	namespace“: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/aug.RandomHorizontalFlip_0: kornia.augmentation._2d.geometric.horizontal_flip.RandomHorizontalFlip/gt_6: aten.gt.ScalarJŸ
+pkg.torch.onnx.class_hierarchy∂['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'kornia.augmentation._2d.geometric.horizontal_flip.RandomHorizontalFlip', 'aten.gt.Scalar']JÖ
+pkg.torch.onnx.fx_nodek%gt_6 : [num_users=1] = call_function[target=torch.ops.aten.gt.Scalar](args = (%clone_1, 0.5), kwargs = {})JO
+pkg.torch.onnx.name_scopes1['', 'aug', 'aug.RandomHorizontalFlip_0', 'gt_6']Jã
+pkg.torch.onnx.stack_traceÏFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+  File "/home/shij0c/git/kornia/kornia/augmentation/base.py", line 306, in forward
+    output = self.apply_func(in_tensor, params, flags)
+˚	
+gt_6
+val_102view_2node_view_2"Reshape*
+	allowzero†JÂ
+	namespace◊: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/aug.RandomHorizontalFlip_0: kornia.augmentation._2d.geometric.horizontal_flip.RandomHorizontalFlip/view_2: aten.view.defaultJ‹
+pkg.torch.onnx.class_hierarchyπ['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'kornia.augmentation._2d.geometric.horizontal_flip.RandomHorizontalFlip', 'aten.view.default']Jë
+pkg.torch.onnx.fx_nodew%view_2 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%gt_6, [-1, 1, 1, 1]), kwargs = {})JQ
+pkg.torch.onnx.name_scopes3['', 'aug', 'aug.RandomHorizontalFlip_0', 'view_2']Jã
+pkg.torch.onnx.stack_traceÏFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+  File "/home/shij0c/git/kornia/kornia/augmentation/base.py", line 306, in forward
+    output = self.apply_func(in_tensor, params, flags)
+Î	
+view_2
+flip
+image	image_out
+node_where"WhereJ‚
+	namespace‘: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/aug.RandomHorizontalFlip_0: kornia.augmentation._2d.geometric.horizontal_flip.RandomHorizontalFlip/where: aten.where.selfJ⁄
+pkg.torch.onnx.class_hierarchy∑['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'kornia.augmentation._2d.geometric.horizontal_flip.RandomHorizontalFlip', 'aten.where.self']Jì
+pkg.torch.onnx.fx_nodey%where : [num_users=1] = call_function[target=torch.ops.aten.where.self](args = (%view_2, %clone_3, %image), kwargs = {})JP
+pkg.torch.onnx.name_scopes2['', 'aug', 'aug.RandomHorizontalFlip_0', 'where']Jã
+pkg.torch.onnx.stack_traceÏFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+  File "/home/shij0c/git/kornia/kornia/augmentation/base.py", line 306, in forward
+    output = self.apply_func(in_tensor, params, flags)
+°
+mask
+val_140
+val_95
+val_140
+val_140flip_1node_flip_1"SliceJÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/flip_1: aten.flip.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.flip.default']Jà
+pkg.torch.onnx.fx_noden%flip_1 : [num_users=1] = call_function[target=torch.ops.aten.flip.default](args = (%mask, [-1]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'flip_1']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+ö
+view_2
+flip_1
+maskmask_outnode_where_1"WhereJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/where_1: aten.where.selfJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.where.self']Jì
+pkg.torch.onnx.fx_nodey%where_1 : [num_users=1] = call_function[target=torch.ops.aten.where.self](args = (%view_3, %flip_1, %mask), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'where_1']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+ò
+val_112
+sym_size_int_2mul_201node_mul_201"MulJà
+	namespace{: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/mul_201: <built-in function mul>Jó
+pkg.torch.onnx.class_hierarchyu['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', '<built-in function mul>']JÅ
+pkg.torch.onnx.fx_nodeg%mul_201 : [num_users=3] = call_function[target=operator.mul](args = (4, %sym_size_int_2), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'mul_201']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+¥
+mul_201
+val_140val_115node_Reshape_115"Reshape*
+	allowzero †JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_4: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jò
+pkg.torch.onnx.fx_node~%view_4 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%clone_6, [-1, %mul_201, 2]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'view_4']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+∂
+val_140
+val_115
+val_147val_117node_Concat_117"Concat*
+axis †JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_4: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jò
+pkg.torch.onnx.fx_node~%view_4 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%clone_6, [-1, %mul_201, 2]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'view_4']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+∏
+select_scatter_17
+val_117view_4node_view_4"Reshape*
+	allowzero†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_4: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jò
+pkg.torch.onnx.fx_node~%view_4 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%clone_6, [-1, %mul_201, 2]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'view_4']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+¨
+view_4
+val_117view_5node_view_5"Reshape*
+	allowzero†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_5: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jó
+pkg.torch.onnx.fx_node}%view_5 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%view_4, [-1, %mul_201, 2]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'view_5']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+≥
+view_5
+val_135
+scalar_tensor_defaultpadnode_pad"Pad*
+mode"constant†J}
+	namespacep: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/pad: aten.pad.defaultJê
+pkg.torch.onnx.class_hierarchyn['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.pad.default']Jó
+pkg.torch.onnx.fx_node}%pad : [num_users=1] = call_function[target=torch.ops.aten.pad.default](args = (%view_5, [0, 1], constant, 1.0), kwargs = {})J0
+pkg.torch.onnx.name_scopes['', 'aug', 'pad']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+˜
+pad
+permutebmmnode_bmm"MatMulJ}
+	namespacep: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/bmm: aten.bmm.defaultJê
+pkg.torch.onnx.class_hierarchyn['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.bmm.default']Já
+pkg.torch.onnx.fx_nodem%bmm : [num_users=2] = call_function[target=torch.ops.aten.bmm.default](args = (%pad, %permute), kwargs = {})J0
+pkg.torch.onnx.name_scopes['', 'aug', 'bmm']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+∫
+bmm
+val_140
+val_144
+val_147
+val_8slice_1node_slice_1"SliceJÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/slice_1: aten.slice.TensorJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.slice.Tensor']Jü
+pkg.torch.onnx.fx_nodeÑ%slice_1 : [num_users=4] = call_function[target=torch.ops.aten.slice.Tensor](args = (%bmm, 2, -1, 9223372036854775807), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'slice_1']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+Ù
+slice_1abs_1
+node_abs_1"AbsJ
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/abs_1: aten.abs.defaultJê
+pkg.torch.onnx.class_hierarchyn['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.abs.default']JÑ
+pkg.torch.onnx.fx_nodej%abs_1 : [num_users=1] = call_function[target=torch.ops.aten.abs.default](args = (%slice_1,), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'abs_1']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+¯
+abs_1
+val_149gt_9	node_gt_9"GreaterJ|
+	namespaceo: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/gt_9: aten.gt.ScalarJé
+pkg.torch.onnx.class_hierarchyl['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.gt.Scalar']JÖ
+pkg.torch.onnx.fx_nodek%gt_9 : [num_users=2] = call_function[target=torch.ops.aten.gt.Scalar](args = (%abs_1, 1e-08), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'aug', 'gt_9']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+ª
+slice_1val_151node_Shape_151"Shape*
+start †Jâ
+	namespace|: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/ones_like: aten.ones_like.defaultJñ
+pkg.torch.onnx.class_hierarchyt['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.ones_like.default']J†
+pkg.torch.onnx.fx_nodeÖ%ones_like : [num_users=1] = call_function[target=torch.ops.aten.ones_like.default](args = (%slice_1,), kwargs = {pin_memory: False})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'ones_like']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+«
+scalar_tensor_default
+val_151	ones_likenode_ones_like"ExpandJâ
+	namespace|: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/ones_like: aten.ones_like.defaultJñ
+pkg.torch.onnx.class_hierarchyt['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.ones_like.default']J†
+pkg.torch.onnx.fx_nodeÖ%ones_like : [num_users=1] = call_function[target=torch.ops.aten.ones_like.default](args = (%slice_1,), kwargs = {pin_memory: False})J6
+pkg.torch.onnx.name_scopes['', 'aug', 'ones_like']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+°
+gt_9
+slice_1
+	ones_likewhere_2node_where_2"WhereJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/where_2: aten.where.selfJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.where.self']Jó
+pkg.torch.onnx.fx_node}%where_2 : [num_users=1] = call_function[target=torch.ops.aten.where.self](args = (%gt_9, %slice_1, %ones_like), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'where_2']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+™
+where_2
+reciprocalnode_reciprocal"
+ReciprocalJã
+	namespace~: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/reciprocal: aten.reciprocal.defaultJó
+pkg.torch.onnx.class_hierarchyu['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.reciprocal.default']Jê
+pkg.torch.onnx.fx_nodev%reciprocal : [num_users=1] = call_function[target=torch.ops.aten.reciprocal.default](args = (%where_2,), kwargs = {})J7
+pkg.torch.onnx.name_scopes['', 'aug', 'reciprocal']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+¶
+gt_9
+
+reciprocal
+	ones_likewhere_3node_where_3"WhereJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/where_3: aten.where.selfJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.where.self']Jô
+pkg.torch.onnx.fx_node%where_3 : [num_users=1] = call_function[target=torch.ops.aten.where.self](args = (%gt_9, %mul_229, %ones_like_1), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'where_3']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+ß
+bmm
+val_157
+val_140
+val_147
+val_8slice_2node_slice_2"SliceJÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/slice_2: aten.slice.TensorJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.slice.Tensor']Jå
+pkg.torch.onnx.fx_noder%slice_2 : [num_users=1] = call_function[target=torch.ops.aten.slice.Tensor](args = (%bmm, 2, 0, -1), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'slice_2']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+é
+where_3
+slice_2mul_239node_mul_239"MulJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/mul_239: aten.mul.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.mul.Tensor']Jé
+pkg.torch.onnx.fx_nodet%mul_239 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%where_3, %slice_2), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'mul_239']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+≥
+val_8
+val_115
+val_147val_169node_Concat_169"Concat*
+axis †JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_7: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jó
+pkg.torch.onnx.fx_node}%view_7 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%mul_239, [1, %mul_201, 2]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'view_7']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+≠
+mul_239
+val_169view_7node_view_7"Reshape*
+	allowzero†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_7: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jó
+pkg.torch.onnx.fx_node}%view_7 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%mul_239, [1, %mul_201, 2]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'view_7']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+µ
+view_7
+val_12view_8node_view_8"Reshape*
+	allowzero†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_8: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']J°
+pkg.torch.onnx.fx_nodeÜ%view_8 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%view_7, [1, %sym_size_int_2, 4, 2]), kwargs = {})J3
+pkg.torch.onnx.name_scopes['', 'aug', 'view_8']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+ù
+view_2
+view_8
+view_8where_4node_where_4"WhereJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/where_4: aten.where.selfJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.where.self']Jï
+pkg.torch.onnx.fx_node{%where_4 : [num_users=2] = call_function[target=torch.ops.aten.where.self](args = (%view_9, %view_8, %view_8), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'where_4']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+ø
+val_140
+val_1
+val_147val_186node_Concat_186"Concat*
+axis †JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_10: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']J°
+pkg.torch.onnx.fx_nodeÜ%view_10 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%clone_8, [-1, %sym_size_int_3, 2]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'view_10']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+Ω
+	keypoints
+val_186view_10node_view_10"Reshape*
+	allowzero†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_10: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']J°
+pkg.torch.onnx.fx_nodeÜ%view_10 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%clone_8, [-1, %sym_size_int_3, 2]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'view_10']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+¿
+view_10
+val_135
+scalar_tensor_defaultpad_1
+node_pad_1"Pad*
+mode"constant†J
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/pad_1: aten.pad.defaultJê
+pkg.torch.onnx.class_hierarchyn['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.pad.default']Jõ
+pkg.torch.onnx.fx_nodeÄ%pad_1 : [num_users=1] = call_function[target=torch.ops.aten.pad.default](args = (%view_10, [0, 1], constant, 1.0), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'pad_1']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+á
+pad_1
+permutebmm_1
+node_bmm_1"MatMulJ
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/bmm_1: aten.bmm.defaultJê
+pkg.torch.onnx.class_hierarchyn['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.bmm.default']Jç
+pkg.torch.onnx.fx_nodes%bmm_1 : [num_users=2] = call_function[target=torch.ops.aten.bmm.default](args = (%pad_1, %permute_1), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'bmm_1']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+æ
+bmm_1
+val_140
+val_144
+val_147
+val_8slice_3node_slice_3"SliceJÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/slice_3: aten.slice.TensorJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.slice.Tensor']J°
+pkg.torch.onnx.fx_nodeÜ%slice_3 : [num_users=4] = call_function[target=torch.ops.aten.slice.Tensor](args = (%bmm_1, 2, -1, 9223372036854775807), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'slice_3']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+Ù
+slice_3abs_2
+node_abs_2"AbsJ
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/abs_2: aten.abs.defaultJê
+pkg.torch.onnx.class_hierarchyn['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.abs.default']JÑ
+pkg.torch.onnx.fx_nodej%abs_2 : [num_users=1] = call_function[target=torch.ops.aten.abs.default](args = (%slice_3,), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'abs_2']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+˝
+abs_2
+val_149gt_11
+node_gt_11"GreaterJ}
+	namespacep: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/gt_11: aten.gt.ScalarJé
+pkg.torch.onnx.class_hierarchyl['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.gt.Scalar']JÜ
+pkg.torch.onnx.fx_nodel%gt_11 : [num_users=2] = call_function[target=torch.ops.aten.gt.Scalar](args = (%abs_2, 1e-08), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'gt_11']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+¡
+slice_3val_212node_Shape_212"Shape*
+start †Jã
+	namespace~: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/ones_like_2: aten.ones_like.defaultJñ
+pkg.torch.onnx.class_hierarchyt['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.ones_like.default']J¢
+pkg.torch.onnx.fx_nodeá%ones_like_2 : [num_users=1] = call_function[target=torch.ops.aten.ones_like.default](args = (%slice_3,), kwargs = {pin_memory: False})J8
+pkg.torch.onnx.name_scopes['', 'aug', 'ones_like_2']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+—
+scalar_tensor_default
+val_212ones_like_2node_ones_like_2"ExpandJã
+	namespace~: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/ones_like_2: aten.ones_like.defaultJñ
+pkg.torch.onnx.class_hierarchyt['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.ones_like.default']J¢
+pkg.torch.onnx.fx_nodeá%ones_like_2 : [num_users=1] = call_function[target=torch.ops.aten.ones_like.default](args = (%slice_3,), kwargs = {pin_memory: False})J8
+pkg.torch.onnx.name_scopes['', 'aug', 'ones_like_2']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+®
+gt_11
+slice_3
+ones_like_2where_5node_where_5"WhereJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/where_5: aten.where.selfJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.where.self']Jõ
+pkg.torch.onnx.fx_nodeÄ%where_5 : [num_users=1] = call_function[target=torch.ops.aten.where.self](args = (%gt_11, %slice_3, %ones_like_2), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'where_5']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+µ
+where_5reciprocal_1node_reciprocal_1"
+ReciprocalJé
+	namespaceÄ: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/reciprocal_1: aten.reciprocal.defaultJó
+pkg.torch.onnx.class_hierarchyu['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.reciprocal.default']Jí
+pkg.torch.onnx.fx_nodex%reciprocal_1 : [num_users=1] = call_function[target=torch.ops.aten.reciprocal.default](args = (%where_5,), kwargs = {})J9
+pkg.torch.onnx.name_scopes['', 'aug', 'reciprocal_1']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+≠
+gt_11
+reciprocal_1
+ones_like_2where_6node_where_6"WhereJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/where_6: aten.where.selfJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.where.self']Jõ
+pkg.torch.onnx.fx_nodeÄ%where_6 : [num_users=1] = call_function[target=torch.ops.aten.where.self](args = (%gt_11, %mul_285, %ones_like_3), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'where_6']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+´
+bmm_1
+val_157
+val_140
+val_147
+val_8slice_4node_slice_4"SliceJÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/slice_4: aten.slice.TensorJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.slice.Tensor']Jé
+pkg.torch.onnx.fx_nodet%slice_4 : [num_users=1] = call_function[target=torch.ops.aten.slice.Tensor](args = (%bmm_1, 2, 0, -1), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'slice_4']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+é
+where_6
+slice_4mul_295node_mul_295"MulJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/mul_295: aten.mul.TensorJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.mul.Tensor']Jé
+pkg.torch.onnx.fx_nodet%mul_295 : [num_users=1] = call_function[target=torch.ops.aten.mul.Tensor](args = (%where_6, %slice_4), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'mul_295']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+ß
+gt_6
+val_234view_13node_view_13"Reshape*
+	allowzero†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_13: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jê
+pkg.torch.onnx.fx_nodev%view_13 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%gt_10, [-1, 1, 1]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'view_13']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+©
+view_13
+mul_295
+mul_295keypoints_outnode_where_7"WhereJÄ
+	namespaces: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/where_7: aten.where.selfJè
+pkg.torch.onnx.class_hierarchym['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.where.self']Jò
+pkg.torch.onnx.fx_node~%where_7 : [num_users=1] = call_function[target=torch.ops.aten.where.self](args = (%view_13, %view_12, %view_12), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'where_7']JÅ
+pkg.torch.onnx.stack_trace‚File "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 478, in forward
+    outputs = self.transform_op.transform(  # type: ignore
+¬
+where_4
+val_235aminn0"	ReduceMin*
+keepdims †J
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/amin: aten.amin.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.amin.default']Jâ
+pkg.torch.onnx.fx_nodeo%amin : [num_users=1] = call_function[target=torch.ops.aten.amin.default](args = (%where_4, [-2]), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'aug', 'amin']J≥
+pkg.torch.onnx.stack_traceîFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 486, in forward
+    outputs = self._arguments_postproc(args, outputs, data_keys=self.transform_op.data_keys)  # type: ignore
+ƒ
+where_4
+val_235amaxn0_2"	ReduceMax*
+keepdims †J
+	namespacer: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/amax: aten.amax.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.amax.default']Jâ
+pkg.torch.onnx.fx_nodeo%amax : [num_users=1] = call_function[target=torch.ops.aten.amax.default](args = (%where_4, [-2]), kwargs = {})J1
+pkg.torch.onnx.name_scopes['', 'aug', 'amax']J≥
+pkg.torch.onnx.stack_traceîFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 486, in forward
+    outputs = self._arguments_postproc(args, outputs, data_keys=self.transform_op.data_keys)  # type: ignore
+Ã
+amin
+val_235val_237node_Unsqueeze_237"	UnsqueezeJÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/stack: aten.stack.defaultJí
+pkg.torch.onnx.class_hierarchyp['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.stack.default']Jè
+pkg.torch.onnx.fx_nodeu%stack : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%amin, %amax], -2), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'stack']J≥
+pkg.torch.onnx.stack_traceîFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 486, in forward
+    outputs = self._arguments_postproc(args, outputs, data_keys=self.transform_op.data_keys)  # type: ignore
+Ã
+amax
+val_235val_239node_Unsqueeze_239"	UnsqueezeJÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/stack: aten.stack.defaultJí
+pkg.torch.onnx.class_hierarchyp['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.stack.default']Jè
+pkg.torch.onnx.fx_nodeu%stack : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%amin, %amax], -2), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'stack']J≥
+pkg.torch.onnx.stack_traceîFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 486, in forward
+    outputs = self._arguments_postproc(args, outputs, data_keys=self.transform_op.data_keys)  # type: ignore
+ÿ
+val_237
+val_239stack
+node_stack"Concat*
+axis˛ˇˇˇˇˇˇˇˇ†JÅ
+	namespacet: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/stack: aten.stack.defaultJí
+pkg.torch.onnx.class_hierarchyp['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.stack.default']Jè
+pkg.torch.onnx.fx_nodeu%stack : [num_users=1] = call_function[target=torch.ops.aten.stack.default](args = ([%amin, %amax], -2), kwargs = {})J2
+pkg.torch.onnx.name_scopes['', 'aug', 'stack']J≥
+pkg.torch.onnx.stack_traceîFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 486, in forward
+    outputs = self._arguments_postproc(args, outputs, data_keys=self.transform_op.data_keys)  # type: ignore
+È
+stack
+val_22	boxes_outnode_view_14"Reshape*
+	allowzero†JÇ
+	namespaceu: __main__._MultiWrapper/aug: kornia.augmentation.container.augment.AugmentationSequential/view_14: aten.view.defaultJë
+pkg.torch.onnx.class_hierarchyo['__main__._MultiWrapper', 'kornia.augmentation.container.augment.AugmentationSequential', 'aten.view.default']Jû
+pkg.torch.onnx.fx_nodeÉ%view_14 : [num_users=1] = call_function[target=torch.ops.aten.view.default](args = (%stack, [1, %sym_size_int_2, 4]), kwargs = {})J4
+pkg.torch.onnx.name_scopes['', 'aug', 'view_14']J≥
+pkg.torch.onnx.stack_traceîFile "/tmp/claude-185887/-home-shij0c-git-kornia/e7e31637-081b-4afc-a171-235de242fba2/scratchpad/kornia-backend/build/build.py", line 272, in forward
+    out = self.aug(image, mask, boxes, keypoints)
+  File "/home/shij0c/git/kornia/kornia/augmentation/container/augment.py", line 486, in forward
+    outputs = self._arguments_postproc(args, outputs, data_keys=self.transform_op.data_keys)  # type: ignore
+main_graph*Bscalar_tensor_defaultJ  Ä?*BonesJ  Ä?*/Bval_102J ˇˇˇˇˇˇˇˇ                     *7BpermuteJ$  Äø              Ä?      C      Ä?*Bval_140Jˇˇˇˇˇˇˇˇ*Bval_144Jˇˇˇˇˇˇˇ*Bval_147J       *Bval_157J        *'Bval_234Jˇˇˇˇˇˇˇˇ              *Bval_2J       *Bval_3J       *Bval_4J       *Bval_5J        *Bval_6J    *Bval_8J       *Bval_10J       *Bval_23J       *Bval_93J   ?*Bval_95J       Ä*Bval_112J       *?Bval_135J0                                               *Bval_149JwÃ+2*Bval_235J˛ˇˇˇˇˇˇˇZÀ
+image
+
+
+
+Ä
+Ä"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"*
+!pkg.torch.onnx.original_node_nameimageZ…
+mask
+
+
+
+Ä
+Ä"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone")
+!pkg.torch.onnx.original_node_namemaskZ∆
+boxes
+
+
+K
+"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone"*
+!pkg.torch.onnx.original_node_nameboxesZŒ
+	keypoints
+
+
+P
+"=
+/pkg.torch.export.graph_signature.InputSpec.kind
+USER_INPUT"=
+5pkg.torch.export.graph_signature.InputSpec.persistentNone".
+!pkg.torch.onnx.original_node_name	keypointsbí
+	image_out
+
+
+
+Ä
+Ä"?
+0pkg.torch.export.graph_signature.OutputSpec.kindUSER_OUTPUT"*
+!pkg.torch.onnx.original_node_namewherebì
+mask_out
+
+
+
+Ä
+Ä"?
+0pkg.torch.export.graph_signature.OutputSpec.kindUSER_OUTPUT",
+!pkg.torch.onnx.original_node_namewhere_1bè
+	boxes_out
+
+
+K
+"?
+0pkg.torch.export.graph_signature.OutputSpec.kindUSER_OUTPUT",
+!pkg.torch.onnx.original_node_nameview_14bì
+keypoints_out
+
+
+P
+"?
+0pkg.torch.export.graph_signature.OutputSpec.kindUSER_OUTPUT",
+!pkg.torch.onnx.original_node_namewhere_7jR
+scalar_tensor_default
+ "1
+$pkg.onnxscript.optimizer.folded_from	['val_3']jd
+ones
+
+
+"P
+$pkg.onnxscript.optimizer.folded_from(['val_88', 'val_89', 'val_90', 'val_91']ji
+val_102
+
+
+"R
+$pkg.onnxscript.optimizer.folded_from*['val_100', 'val_101', 'val_98', 'val_99']jê
+permute
+
+
+
+"
+$pkg.onnxscript.optimizer.folded_from«['aug.RandomHorizontalFlip_0._transform_matrix', 'repeat_interleave', 'val_124', 'val_125', 'val_126', 'val_127', 'val_128', 'val_129', 'val_130', 'val_132', 'val_133', 'val_134', 'val_88', 'view_6']j`
+val_140
+
+
+"I
+$pkg.onnxscript.optimizer.folded_from!['val_137', 'val_138', 'val_139']j`
+val_144
+
+
+"I
+$pkg.onnxscript.optimizer.folded_from!['val_141', 'val_142', 'val_143']j^
+val_147
+
+
+"G
+$pkg.onnxscript.optimizer.folded_from['val_145', 'val_146', 'val_4']j^
+val_157
+
+
+"G
+$pkg.onnxscript.optimizer.folded_from['val_155', 'val_156', 'val_5']j`
+val_234
+
+
+"I
+$pkg.onnxscript.optimizer.folded_from!['val_231', 'val_232', 'val_233']j
+val_2
+ j
+val_3
+ j
+val_4
+ j
+val_5
+ j
+val_6
+ j
+val_8
+
+
+j
+val_10
+
+
+j
+val_23
+
+
+j
+val_93
+ j
+val_95
+
+
+j
+val_112
+ j
+val_135
+
+
+j
+val_149
+ j
+val_235
+
+
+j
+val_0
+
+
+j
+sym_size_int_2
+ j
+val_1
+
+
+j
+select_1
+	
+
+Kj
+select_2
+	
+
+Kj
+sub_2
+	
+
+Kj
+add_6
+	
+
+Kj
+select_3
+	
+
+Kj
+select_4
+	
+
+Kj
+sub_7
+	
+
+Kj
+add_15
+	
+
+Kj
+val_12
+
+
+j 
+zeros
+
+
+K
+
+j 
+	unsqueeze
+
+
+K
+j
+val_17
+
+
+j
+view
+	
+K
+j
+val_22
+
+
+j
+copy
+
+
+K
+j!
+val_24
+
+
+K
+
+j
+val_25
+
+
+j
+val_26
+
+ 
+ 
+ 
+ j)
+select_scatter
+
+
+K
+
+j"
+unsqueeze_1
+
+
+K
+j
+view_1
+	
+K
+j
+copy_1
+
+
+K
+j!
+val_36
+
+
+K
+
+j
+val_37
+
+
+j
+val_38
+
+ 
+ 
+ 
+ j+
+select_scatter_1
+
+
+K
+
+j
+sub_29
+	
+
+Kj 
+	select_14
+
+
+K
+j
+	select_15
+	
+
+Kj
+add_79
+	
+
+Kj
+val_40
+
+
+K
+j
+val_41
+
+
+j
+val_42
+
+
+ 
+ 
+ j'
+select_scatter_2
+
+
+K
+j!
+val_43
+
+
+K
+
+j
+val_44
+
+
+j
+val_45
+
+ 
+ 
+ 
+ j+
+select_scatter_3
+
+
+K
+
+j 
+	select_17
+
+
+K
+j
+copy_2
+	
+
+Kj
+val_46
+
+
+K
+j
+val_47
+
+
+j
+val_48
+
+
+ 
+ 
+ j'
+select_scatter_4
+
+
+K
+j!
+val_49
+
+
+K
+
+j
+val_50
+
+
+j
+val_51
+
+ 
+ 
+ 
+ j+
+select_scatter_5
+
+
+K
+
+j 
+	select_28
+
+
+K
+j
+	select_29
+	
+
+Kj
+add_104
+	
+
+Kj
+val_52
+
+
+K
+j
+val_53
+
+
+j
+val_54
+
+
+ 
+ 
+ j'
+select_scatter_6
+
+
+K
+j!
+val_55
+
+
+K
+
+j
+val_56
+
+
+j
+val_57
+
+ 
+ 
+ 
+ j+
+select_scatter_7
+
+
+K
+
+j 
+	select_31
+
+
+K
+j
+copy_3
+	
+
+Kj
+val_58
+
+
+K
+j
+val_59
+
+
+j
+val_60
+
+
+ 
+ 
+ j'
+select_scatter_8
+
+
+K
+j!
+val_61
+
+
+K
+
+j
+val_62
+
+
+j
+val_63
+
+ 
+ 
+ 
+ j+
+select_scatter_9
+
+
+K
+
+j
+sub_53
+	
+
+Kj 
+	select_42
+
+
+K
+j
+	select_43
+	
+
+Kj
+add_129
+	
+
+Kj
+val_64
+
+
+K
+j
+val_65
+
+
+j
+val_66
+
+
+ 
+ 
+ j(
+select_scatter_10
+
+
+K
+j!
+val_67
+
+
+K
+
+j
+val_68
+
+
+j
+val_69
+
+ 
+ 
+ 
+ j,
+select_scatter_11
+
+
+K
+
+j 
+	select_45
+
+
+K
+j
+copy_4
+	
+
+Kj
+val_70
+
+
+K
+j
+val_71
+
+
+j
+val_72
+
+
+ 
+ 
+ j(
+select_scatter_12
+
+
+K
+j!
+val_73
+
+
+K
+
+j
+val_74
+
+
+j
+val_75
+
+ 
+ 
+ 
+ j,
+select_scatter_13
+
+
+K
+
+j 
+	select_56
+
+
+K
+j
+	select_57
+	
+
+Kj
+add_154
+	
+
+Kj
+val_76
+
+
+K
+j
+val_77
+
+
+j
+val_78
+
+
+ 
+ 
+ j(
+select_scatter_14
+
+
+K
+j!
+val_79
+
+
+K
+
+j
+val_80
+
+
+j
+val_81
+
+ 
+ 
+ 
+ j,
+select_scatter_15
+
+
+K
+
+j 
+	select_59
+
+
+K
+j
+copy_5
+	
+
+Kj
+val_82
+
+
+K
+j
+val_83
+
+
+j
+val_84
+
+
+ 
+ 
+ j(
+select_scatter_16
+
+
+K
+j!
+val_85
+
+
+K
+
+j
+val_86
+
+
+j
+val_87
+
+ 
+ 
+ 
+ j,
+select_scatter_17
+
+
+K
+
+j
+val_92
+
+
+j
+rand
+
+
+j
+lt_16
+
+	
+j
+_to_copy
+
+
+j
+mul_197
+
+
+j 
+flip
+
+
+
+Ä
+Äj
+gt_6
+
+	
+j 
+view_2
+	
+
+
+
+j"
+flip_1
+
+
+
+Ä
+Äj
+mul_201
+ j
+val_115
+
+
+j
+val_117
+
+
+j
+view_4
+
+
+4*K
+j
+view_5
+
+
+4*K
+j
+pad
+
+
+4*K
+j
+bmm
+
+
+4*K
+j 
+slice_1
+
+
+4*K
+j
+abs_1
+
+
+4*K
+j
+gt_9
+	
+
+4*K
+j
+val_151
+
+
+j"
+	ones_like
+
+
+4*K
+j 
+where_2
+
+
+4*K
+j#
+
+reciprocal
+
+
+4*K
+j 
+where_3
+
+
+4*K
+j 
+slice_2
+
+
+4*K
+j 
+mul_239
+
+
+4*K
+j
+val_169
+
+
+j
+view_7
+
+
+4*K
+j!
+view_8
+
+
+K
+
+j"
+where_4
+
+
+K
+
+j
+val_186
+
+
+j
+view_10
+
+
+P
+j
+pad_1
+
+
+P
+j
+bmm_1
+
+
+P
+j
+slice_3
+
+
+P
+j
+abs_2
+
+
+P
+j
+gt_11
+	
+
+P
+j
+val_212
+
+
+j"
+ones_like_2
+
+
+P
+j
+where_5
+
+
+P
+j#
+reciprocal_1
+
+
+P
+j
+where_6
+
+
+P
+j
+slice_4
+
+
+P
+j
+mul_295
+
+
+P
+j
+view_13
+	
+
+
+j
+amin
+
+
+K
+j
+amax
+
+
+K
+j"
+val_237
+
+
+K
+
+j"
+val_239
+
+
+K
+
+j 
+stack
+
+
+K
+
+Ç°
+0pkg.torch.export.ExportedProgram.graph_signatureÏ
+# inputs
+c_aug_lifted_tensor_0: CONSTANT_TENSOR target='aug.lifted_tensor_0'
+c_aug_randomhorizontalflip_0__transform_matrix: CONSTANT_TENSOR target='aug.RandomHorizontalFlip_0._transform_matrix'
+image: USER_INPUT
+mask: USER_INPUT
+boxes: USER_INPUT
+keypoints: USER_INPUT
+
+# outputs
+where: USER_OUTPUT
+where_1: USER_OUTPUT
+view_14: USER_OUTPUT
+where_7: USER_OUTPUT
+ÇÅ
+2pkg.torch.export.ExportedProgram.range_constraintsK{s20: VR[1, 512], s88: VR[1, 4096], s38: VR[0, int_oo], s34: VR[0, int_oo]}B
+ 
