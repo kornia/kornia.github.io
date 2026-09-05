@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // production data under users/{uid}, the dev service's under dev_users/{uid}; each owner-only,
+    // with a verified email. The API writes the quota documents with admin credentials; the site
+    // reads and writes the pipelines with the user's own token.
+    function owner(uid) {
+      return request.auth != null && request.auth.uid == uid && request.auth.token.email_verified == true;
+    }
+    match /users/{uid} {
+      allow read, write: if owner(uid);
+      match /{document=**} {
+        allow read, write: if owner(uid);
+      }
+    }
+    match /dev_users/{uid} {
+      allow read, write: if owner(uid);
+      match /{document=**} {
+        allow read, write: if owner(uid);
+      }
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -20,14 +20,9 @@ playground/
   graphs/<slug>/      GENERATED: one .onnx per discrete-parameter value
   frames/<slug>/      GENERATED: fallback frames for operators that cannot export
   images/             GENERATED: 256 px sample images + thumbnails
-  videos/             GENERATED: three 4-second 256 px clips (mp4 + webm) + posters, see build/videos.py
+  videos/             GENERATED: three 4-second 256 px clips (mp4 + webm) + posters
   models/             GENERATED: models/index.json, the small vendored .onnx files, COCO labels, one page per model
-  build/specs.py      the operator specs (call, parameters, Python/Rust snippets) and catalog rules
-  build/models.py     the Models section: exports the small models, references the large ones on the hub
-  build/home.py       the homepage demo's affine graph (parameters as inputs, so one draw holds for a whole clip)
-  home/               GENERATED: affine_256.onnx for the homepage demo
-  build/build.py      the generator; build/op_template.html the per-operator page template
-  build/samples/      the Kodak originals
+  home/               GENERATED: kornia.geometry.transform.affwarp.warp_affine_256x256.onnx for the homepage demo
 ```
 
 ## How a widget works
@@ -70,35 +65,14 @@ and have not been compiled here; operators without a kornia-rs counterpart say s
 
 ## Models
 
-The sidebar switches between **Operators** (the catalog above) and **Models**: ready-to-use neural networks,
-kept apart from the operators because they are heavy, task-specific and mostly hosted elsewhere.
-`build/models.py` writes `models/index.json`, and each entry says where its graph lives:
-
-- small models are exported here and vendored, each verified against eager kornia at build time: YuNet
-  (0.35 MB), XFeat (2.8 MB), KeyNet + HardNet (5.4 MB), TinyViT-5M (27 MB) and the ESPCN super-resolution
-  network (0.25 MB);
-- large models are fetched by the browser straight from the Hugging Face hub, which serves them with CORS
-  headers: RT-DETR r18 from `kornia/ONNX_models` (81 MB) and Depth Anything V2 small from `onnx-community`
-  (27 MB, int8). Nothing is downloaded until the visitor presses **Load**.
-
-The page shows a progress bar during the download. Nothing runs by itself: the visitor picks a sample
-image and presses **Run on this frame** (the clips are not offered here, the large models are too slow
-for video). `models.js` decodes the output. Local-feature models run twice, on the frame and on a copy warped by the
-homepage's affine graph (a gentle one: up to 8 degrees, 5 % translation and 5 % scale, no shear), and the page draws the mutual-nearest-neighbour matches between the two; XFeat's
-NMS, reliability scoring and descriptor sampling are a port of `detectAndCompute` whose numpy twin the
-build checks against kornia (99 % identical keypoints), while KeyNet + HardNet is single-scale with a
-40-px window around each peak resized to a 32x32 patch. Classification shows the top-5 ImageNet classes.
-The other outputs: COCO boxes and labels
-for RT-DETR, YuNet's priors, box decoding and NMS (a port of `kornia.contrib.FaceDetector`, because the
-traced NMS loop does not generalise to other images), a colour map for relative depth, and the upscaled
-image for super-resolution. Each page also carries the Python call, a Download ONNX link and a model card
-(size, licence, paper, source). Left out, and why: DexiNed (140 MB graph, belongs on the hub first), DISK
-(its keypoint selection does not export; XFeat covers the use case), LoFTR and DeDoDe (dense matchers,
-too slow without threads), MobileSAM (1024-px encoder), SuperPoint + LightGlue (the fused ONNX is a
-matcher only, and its GitHub release asset is not served with CORS headers), Real-ESRGAN (needs the
-optional `basicsr` dependency). Two kornia issues surfaced: the dynamo exporter produces a wrong KeyNet
-response map (the legacy exporter is used instead), and `DepthAnythingONNXBuilder.build` fails on its
-preprocessor export.
+The sidebar switches between **Operators** (the catalog above, running in the browser) and **Models**: the
+neural networks, which run on kornia's server (the private `kornia-backend` repository, Cloud Run) for signed-in users. Nothing
+model-sized is sent to the browser: the page posts the frame (two frames for the matchers, the second an
+affine-warped copy made with the homepage's operator graph) with the user's Firebase token, and draws the
+small JSON result that comes back, boxes, faces, matches, classes or a PNG. Pressing Run without an
+account opens a sign-in prompt (GitHub, Google, or email via the hub page). `build/models.py` writes
+`models/index.json` (task, sizes, snippets, model cards) and the per-model pages; the only graph it still
+exports is the 350 kB YuNet the homepage demo runs in the browser.
 
 ## Pipelines
 
@@ -114,11 +88,10 @@ set their parameters, and run the chain on the sample images. Everything happens
   The Python block prints the equivalent container with the module form of every step.
 - Eligible steps are live ONNX operators with a module form (or augmentations) and a single image
   input. Channel and size mismatches, and fixed-shape steps, are listed as warnings.
-- Under the steps sits an optional **Model** dropdown (detection, faces, depth, classification,
-  super-resolution; the two-pass feature models are excluded). The steps are the preprocessing; the model
-  always runs after them. Its graph is fetched (from this site or the Hugging Face hub), its input
-  normalisation (`scale`, `mean`, `std`) is spliced in as constant nodes, and the whole thing runs and
-  downloads as one standalone ONNX graph. Graphs exported at opset 14 to 17 are lifted
+- Under the steps sits an optional **Model** dropdown (the single-image server models). The steps are the
+  preprocessing and run in the browser; the model runs on kornia's server on their output, for signed-in
+  users. The ONNX downloads contain the preprocessing steps; composing the model into the graph server-side
+  is a next step. Graphs exported at opset 14 to 17 are lifted
   to 18 when composed (`Reduce*` axes become an input, `Split` gets `num_outputs`). Fixed-size models such
   as TinyViT warn until a `resize` to their size precedes them; the generated Python builds the model after
   the container and calls it on the container's output.
@@ -136,10 +109,8 @@ keep their own colours in both themes.
 Run from a checkout of kornia (the exported graphs are only as current as that checkout):
 
 ```bash
-python -m venv .venv && .venv/bin/pip install -r playground/build/requirements.txt
-.venv/bin/python playground/build/build.py              # everything (~10 min on CPU)
-.venv/bin/python playground/build/build.py rotate hue   # only matching specs, merged into the registry
-.venv/bin/python playground/build/build.py --pages-only # regenerate registry + pages from cached graphs
+# from a checkout of the private kornia-backend repository, with KORNIA_SITE pointing here
+python build/build.py              # everything (~10 min on CPU)
 ```
 
 Then serve the repository root (`python -m http.server`) and open `/playground/`; `file://` will
@@ -178,3 +149,6 @@ status line shows the resulting frame rate. Frame-mode operators have no clip bu
 
 From the [Kodak Lossless True Color Image Suite](https://r0k.us/graphics/kodak/), released for
 unrestricted usage.
+
+
+The generator (operator specs, model exports, sample sources) lives in the private `kornia-backend` repository under `build/`; it writes the generated files above into this checkout. `CREDITS.md` lists the sample image and clip sources.

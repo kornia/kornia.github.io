@@ -1,0 +1,124 @@
+<!-- A 1.6 m humanoid built from primitives, with a camera in its head. The pelvis rides on two slides and a
+     yaw hinge that the page moves kinematically (it cannot fall); the limbs are position-controlled and run a
+     gait cycle while it walks. Radians and metres. -->
+<mujoco model="kornia_humanoid_room">
+  <compiler angle="radian" autolimits="true"/>
+  <option timestep="0.002"/>
+
+  <asset>
+    <texture name="floor" type="2d" builtin="checker" width="512" height="512" rgb1=".78 .78 .74" rgb2=".55 .58 .62" mark="edge" markrgb=".35 .35 .35"/>
+    <material name="floor" texture="floor" texrepeat="12 12" texuniform="true" reflectance=".1"/>
+    <texture name="wall" type="2d" builtin="flat" width="512" height="512" rgb1=".86 .84 .78" mark="random" random=".15" markrgb=".45 .42 .38"/>
+    <material name="wall" texture="wall" texrepeat="8 2"/>
+    <texture name="poster" type="2d" builtin="checker" width="256" height="256" rgb1=".95 .55 .15" rgb2=".15 .25 .55" mark="cross" markrgb="1 1 1"/>
+    <material name="poster" texture="poster" texrepeat="3 2"/>
+    <texture name="crate" type="2d" builtin="gradient" width="128" height="128" rgb1=".55 .35 .15" rgb2=".35 .2 .08" mark="edge" markrgb=".2 .1 0"/>
+    <material name="crate" texture="crate" texrepeat="2 2"/>
+  </asset>
+
+  <default>
+    <joint damping="4" armature=".1"/>
+    <default class="body">
+      <geom rgba=".82 .84 .9 1" contype="0" conaffinity="0"/>
+    </default>
+    <default class="joint">
+      <geom type="sphere" size=".055" rgba=".3 .35 .5 1" contype="0" conaffinity="0"/>
+    </default>
+    <default class="wallgeom">
+      <geom type="box" material="wall"/>
+    </default>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 4" dir="0 0 -1" diffuse=".8 .8 .8" specular=".2 .2 .2" castshadow="true"/>
+    <geom name="floor" type="plane" size="3 3 .05" material="floor"/>
+    <geom name="wall_n" class="wallgeom" pos="0 3 1" size="3 .02 1"/>
+    <geom name="wall_s" class="wallgeom" pos="0 -3 1" size="3 .02 1"/>
+    <geom name="wall_e" class="wallgeom" pos="3 0 1" size=".02 3 1"/>
+    <geom name="wall_w" class="wallgeom" pos="-3 0 1" size=".02 3 1"/>
+    <geom name="poster" type="box" pos="0 2.96 1.1" size="1 .01 .35" material="poster"/>
+
+    <body name="crate" pos="1.6 -1.6 .15"><geom type="box" size=".15 .15 .15" material="crate"/></body>
+    <body name="pillar" pos="-1.4 1.8 .3"><geom type="cylinder" size=".08 .3" rgba=".2 .6 .3 1"/></body>
+    <body name="cone" pos="2.0 2.0 .12"><geom type="capsule" size=".05 .08" rgba=".95 .75 .1 1"/></body>
+    <body name="ball" pos="1.8 .6 .12"><freejoint/><geom name="ball" type="sphere" size=".12" rgba=".9 .12 .12 1" mass=".3"/></body>
+    <body name="ball2" pos="-1.2 -2.0 .08"><freejoint/><geom type="sphere" size=".08" rgba=".15 .35 .9 1" mass=".2"/></body>
+
+    <body name="pelvis" pos="-2 0 .9">
+      <joint name="root_x" type="slide" axis="1 0 0" damping="0" armature="0"/>
+      <joint name="root_y" type="slide" axis="0 1 0" damping="0" armature="0"/>
+      <joint name="root_yaw" type="hinge" axis="0 0 1" damping="0" armature="0"/>
+      <geom class="body" type="box" size=".1 .14 .07"/>
+      <body name="thigh_l" pos="0 .1 -.05">
+        <joint name="hip_l" axis="0 1 0" range="-1.2 1.2"/>
+        <geom class="joint"/>
+        <geom class="body" type="capsule" size=".055" fromto="0 0 0 0 0 -.4"/>
+        <body name="shin_l" pos="0 0 -.4">
+          <joint name="knee_l" axis="0 1 0" range="0 1.8"/>
+          <geom class="joint" size=".045"/>
+          <geom class="body" type="capsule" size=".045" fromto="0 0 0 0 0 -.4"/>
+          <body name="foot_l" pos="0 0 -.4">
+            <joint name="ankle_l" axis="0 1 0" range="-.8 .8"/>
+            <geom class="body" type="box" pos=".05 0 -.02" size=".12 .05 .02" rgba=".25 .25 .3 1"/>
+          </body>
+        </body>
+      </body>
+      <body name="thigh_r" pos="0 -.1 -.05">
+        <joint name="hip_r" axis="0 1 0" range="-1.2 1.2"/>
+        <geom class="joint"/>
+        <geom class="body" type="capsule" size=".055" fromto="0 0 0 0 0 -.4"/>
+        <body name="shin_r" pos="0 0 -.4">
+          <joint name="knee_r" axis="0 1 0" range="0 1.8"/>
+          <geom class="joint" size=".045"/>
+          <geom class="body" type="capsule" size=".045" fromto="0 0 0 0 0 -.4"/>
+          <body name="foot_r" pos="0 0 -.4">
+            <joint name="ankle_r" axis="0 1 0" range="-.8 .8"/>
+            <geom class="body" type="box" pos=".05 0 -.02" size=".12 .05 .02" rgba=".25 .25 .3 1"/>
+          </body>
+        </body>
+      </body>
+      <body name="torso" pos="0 0 .07">
+        <geom class="body" type="capsule" size=".11" fromto="0 0 0 0 0 .38" rgba=".25 .45 .85 1"/>
+        <geom class="body" type="box" pos="0 0 .38" size=".07 .2 .05" rgba=".25 .45 .85 1"/>
+        <body name="head" pos="0 0 .56">
+          <geom class="body" type="sphere" size=".11" rgba=".9 .8 .7 1"/>
+          <geom class="body" type="box" pos=".09 0 .02" size=".03 .06 .02" rgba=".1 .1 .12 1"/>
+          <camera name="head" pos=".12 0 .02" xyaxes="0 -1 0 .5736 0 .8192" fovy="75"/>
+        </body>
+        <body name="uarm_l" pos="0 .27 .38">
+          <joint name="shoulder_l" axis="0 1 0" range="-1.5 1.5"/>
+          <geom class="joint"/>
+          <geom class="body" type="capsule" size=".04" fromto="0 0 0 0 0 -.3"/>
+          <body name="farm_l" pos="0 0 -.3">
+            <joint name="elbow_l" axis="0 1 0" range="-2 0"/>
+            <geom class="joint" size=".038"/>
+            <geom class="body" type="capsule" size=".035" fromto="0 0 0 0 0 -.28"/>
+          </body>
+        </body>
+        <body name="uarm_r" pos="0 -.27 .38">
+          <joint name="shoulder_r" axis="0 1 0" range="-1.5 1.5"/>
+          <geom class="joint"/>
+          <geom class="body" type="capsule" size=".04" fromto="0 0 0 0 0 -.3"/>
+          <body name="farm_r" pos="0 0 -.3">
+            <joint name="elbow_r" axis="0 1 0" range="-2 0"/>
+            <geom class="joint" size=".038"/>
+            <geom class="body" type="capsule" size=".035" fromto="0 0 0 0 0 -.28"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="hip_l" joint="hip_l" kp="200"/>
+    <position name="knee_l" joint="knee_l" kp="200"/>
+    <position name="ankle_l" joint="ankle_l" kp="60"/>
+    <position name="hip_r" joint="hip_r" kp="200"/>
+    <position name="knee_r" joint="knee_r" kp="200"/>
+    <position name="ankle_r" joint="ankle_r" kp="60"/>
+    <position name="shoulder_l" joint="shoulder_l" kp="80"/>
+    <position name="elbow_l" joint="elbow_l" kp="40"/>
+    <position name="shoulder_r" joint="shoulder_r" kp="80"/>
+    <position name="elbow_r" joint="elbow_r" kp="40"/>
+  </actuator>
+</mujoco>

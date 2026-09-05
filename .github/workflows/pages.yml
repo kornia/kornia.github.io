@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["master"]
+    branches: ["master", "site/homepage-refresh"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,6 +30,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Drop the custom domain on forks
+        # CNAME claims www.kornia.org for whichever repository publishes it; only upstream may. A fork publishes
+        # a preview on its own github.io host, and the site picks its dev backend from that host.
+        if: github.repository != 'kornia/kornia.github.io'
+        run: rm -f CNAME
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact

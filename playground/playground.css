@@ -1,11 +1,6 @@
 /* kornia.org/playground: two-pane shell (operator list left, demo right) and the widget.
    Colours and type come from ../styles.css tokens. */
 
-.pg-body header nav .pg-nav-current {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
 /* same treatment index.html gives the wordmark in its inline styles */
 .pg-body .logo a,
 .pg-body .logo a:hover,
@@ -18,7 +13,7 @@
 
 .pg-shell {
     display: grid;
-    grid-template-columns: 17rem minmax(0, 1fr) 14rem;  /* list | content | page tools, as in the docs */
+    grid-template-columns: 17rem minmax(0, 1fr);  /* list | content */
     max-width: 1400px;
     margin: 0 auto;
     padding: 5.5rem 1.5rem 3rem;  /* the site header is fixed; clear it */
@@ -212,11 +207,7 @@
 }
 
 .pg-op {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    background: var(--background-color);
-    box-shadow: var(--shadow-sm);
-    padding: 1.5rem;
+    padding: 0 0 1rem;
 }
 
 .pg-op-head {
@@ -227,21 +218,23 @@
     margin-bottom: 0.25rem;
 }
 
-.pg-op-head h2 {
-    font-size: 1.6rem;
+.pg-head h1,
+.pg-head h2 {
+    font-size: 1.75rem;
     font-weight: 800;
     letter-spacing: -0.01em;
+    line-height: 1.2;
     margin: 0;
     color: var(--text-primary);
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 .pg-op-head code {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     background: var(--surface-color);
-    padding: 0.1rem 0.45rem;
-    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
 }
 
 .pg-op-head .pg-tag {
@@ -249,7 +242,7 @@
 }
 
 .pg-summary {
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.5rem;
     color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.55;
@@ -263,40 +256,120 @@
     color: var(--text-muted);
 }
 
-/* two columns, three rows: images | parameters; sample picker | download row; code block spanning both */
+/* the stage template: stage | control bar | parameters | code | details, one column */
 .pg-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
-        "images controls"
-        "thumbs actions"
-        "code code";
-    gap: 0.75rem 2rem;
+        "images"
+        "bar"
+        "controls"
+        "code"
+        "details";
+    gap: 1rem;
     align-items: start;
 }
 
 .pg-cell-images { grid-area: images; }
+.pg-cell-bar { grid-area: bar; }
 .pg-cell-controls { grid-area: controls; }
-.pg-cell-thumbs { grid-area: thumbs; margin-top: 0; }
-.pg-cell-actions { grid-area: actions; align-self: center; margin-top: 0; }
-.pg-code { grid-area: code; margin-top: 0.5rem; }
+.pg-code { grid-area: code; margin-top: 0.25rem; }
+.pg-cell-details { grid-area: details; margin-top: 0; }
 
-@media (max-width: 1100px) {
-    .pg-grid {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-areas:
-            "images"
-            "thumbs"
-            "controls"
-            "actions"
-            "code";
-    }
+/* the row under the stage: samples on the left, the actions on the right */
+.pg-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+}
+
+.pg-bar .pg-actions {
+    margin: 0;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+    min-height: 60px;   /* one thumbnail row: the buttons sit level with the pictures */
+}
+
+.pg-bar .pg-thumbs {
+    display: block;
+    margin: 0;
+}
+
+.pg-actions .pg-where {
+    margin: 0;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.pg-actions .pg-status {
+    flex-basis: 100%;
+    text-align: right;
+}
+
+/* the parameters panel */
+.pg-cell-controls {
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--surface-color);
+}
+
+.pg-model-panel:not(:has(> :not([hidden]))) {
+    display: none;
+}
+
+/* a toggle switch for the checkboxes that pick where things run */
+.pg-switch {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 2rem;
+    height: 1.1rem;
+    margin: 0;
+    border-radius: 999px;
+    background: var(--border-color);
+    position: relative;
+    cursor: pointer;
+    flex: none;
+    transition: background 0.15s ease;
+}
+
+.pg-switch::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(1.1rem - 4px);
+    height: calc(1.1rem - 4px);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease;
+}
+
+.pg-switch:checked {
+    background: var(--primary-color);
+}
+
+.pg-switch:checked::after {
+    transform: translateX(0.9rem);
+}
+
+.pg-switch:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.pg-switch:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
 .pg-images {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .pg-images figure {
@@ -313,6 +386,11 @@
     image-rendering: auto;
 }
 
+/* a server result keeps the image's own aspect ratio inside the square */
+.pg-images img.pg-contain {
+    object-fit: contain;
+}
+
 /* ``display: block`` above would otherwise beat the ``hidden`` attribute */
 .pg-images [hidden] {
     display: none !important;
@@ -326,17 +404,16 @@
 }
 
 .pg-thumbs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;  /* mirrors the input | output figures above */
-    gap: 0.75rem;
+    display: flex;
+    gap: 1rem;
     margin-top: 0.75rem;
-    align-items: start;  /* thumbnails share the top edge; the guidance label hangs below */
+    align-items: flex-start;  /* thumbnails share the top edge; the guidance label hangs below */
 }
 
-/* 3 images on the first row, 3 clips on the second: a fixed 2x3 grid that cannot overflow */
+/* images, then the upload button, then the clips: a left-aligned 2x4 grid that cannot overflow */
 .pg-thumbs-pick {
     display: grid;
-    grid-template-columns: repeat(3, 56px);
+    grid-template-columns: repeat(4, 56px);
     gap: 0.5rem;
     justify-content: start;
 }
@@ -362,9 +439,19 @@
 }
 
 .pg-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 2rem;
+}
+
+.pg-controls > .pg-note {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 760px) {
+    .pg-controls {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 .pg-param {
@@ -748,28 +835,6 @@
 }
 
 /* ---- pipelines ---- */
-
-.pg-pipelines-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin: 0.25rem 0 0.9rem;
-    padding: 0.55rem 0.9rem;
-    border: 1px solid var(--primary-color);
-    border-radius: 8px;
-    background: var(--background-color);
-    color: var(--primary-color);
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.pg-pipelines-btn:hover,
-.pg-pipelines-btn-current {
-    background: var(--primary-color);
-    color: #fff;
-}
 
 .pg-pipe-head {
     display: flex;
@@ -1232,7 +1297,7 @@
 
 .pg-mode button {
     flex: 1;
-    padding: 0.4rem 0.5rem;
+    padding: 0.4rem 0.25rem;
     border: none;
     border-radius: 6px;
     background: transparent;
@@ -1338,7 +1403,11 @@
 }
 
 .pg-model-actions {
-    margin-top: 0.9rem;
+    margin-top: 0;
+}
+
+.pg-model-thumbs {
+    margin-top: 0.75rem;
 }
 
 .pg-progress {
@@ -1369,7 +1438,7 @@
 }
 
 .pg-model-card {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     border: 1px solid var(--border-color);
     border-radius: 10px;
     overflow: hidden;
@@ -1416,8 +1485,9 @@
 }
 
 .pg-model-thumbs {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 56px);
+    justify-content: start;
     gap: 0.5rem;
     margin: 0.8rem 0 0;
 }
@@ -1534,4 +1604,853 @@
 
 .pg-pipe-model-info .pg-tag {
     vertical-align: middle;
+}
+
+
+/* ---- robot page ---- */
+/* ---- robot page: the view on the left, the three camera feeds stacked on the right ---- */
+.rb-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 172px;
+    gap: 1rem;
+    align-items: stretch;
+    margin-top: 0.75rem;
+}
+
+.rb-view {
+    position: relative;
+    min-height: 320px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: #0b1220;
+    overflow: hidden;
+}
+
+.rb-view canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.rb-hud {
+    position: absolute;
+    left: 0.6rem;
+    bottom: 0.6rem;
+    margin: 0;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    background: rgba(11, 18, 32, 0.7);
+    color: #cbd5e1;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    max-width: calc(100% - 1.2rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rb-hud.pg-error {
+    color: #fecaca;
+}
+
+.rb-feeds {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.rb-feeds figure {
+    margin: 0;
+}
+
+.rb-feeds canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--code-bg);
+}
+
+.rb-feeds figcaption {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.rb-select {
+    width: 100%;
+    padding: 0.25rem 0.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--background-color);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 0.78rem;
+}
+
+@media (max-width: 760px) {
+    .rb-stage {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .rb-view {
+        aspect-ratio: 2 / 1;
+        min-height: 0;
+    }
+
+    .rb-feeds {
+        flex-direction: row;
+    }
+
+    .rb-feeds figure {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+}
+
+.rb-bar {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    align-items: center;
+}
+
+.rb-bar .pg-actions {
+    min-height: 0;
+}
+
+.rb-panel {
+    margin: 0 0 0.75rem;
+}
+
+/* the arm's four sliders share one row */
+.rb-sliders {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem 1.25rem;
+}
+
+.rb-sliders .pg-param {
+    grid-template-columns: auto minmax(0, 1fr) 3rem;
+    gap: 0.5rem;
+}
+
+@media (max-width: 900px) {
+    .rb-sliders {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.rb-keys {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.rb-keys kbd {
+    display: inline-block;
+    min-width: 1.4rem;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid var(--border-color);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    background: var(--card-bg);
+    font-family: inherit;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.rb-keys kbd + kbd {
+    margin-left: -0.2rem;
+}
+
+.rb-keys .pg-note {
+    margin-left: 0.5rem;
+}
+
+.rb-toggle {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.pg-controls-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.pg-controls-cell .pg-where {
+    margin: 0;
+    align-items: center;
+}
+
+/* the display rules on flex/grid children would otherwise beat the ``hidden`` attribute */
+.pg-shell [hidden] {
+    display: none !important;
+}
+
+.pg-where-note {
+    margin: 0;
+}
+
+.pg-quota-line {
+    margin-top: 0.2rem;
+}
+
+
+/* where a model runs: the visitor's choice, above the Run button */
+.pg-where {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin: 0.9rem 0 0.2rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.pg-where input {
+    margin-top: 0.2rem;
+    accent-color: var(--primary-color);
+}
+
+.pg-where input:disabled + span {
+    color: var(--text-muted);
+}
+
+.pg-pipe-where {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.pg-pipe-where input {
+    accent-color: var(--primary-color);
+}
+
+
+/* upload-your-own-image thumbnail: dashed, greyed until signed in */
+.pg-thumbs button.pg-thumb-upload,
+.pg-thumbs-pick button.pg-thumb-upload {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--border-color);
+    border-radius: 6px;
+    background: var(--surface-color);
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.pg-thumbs button.pg-thumb-upload:hover,
+.pg-thumbs-pick button.pg-thumb-upload:hover {
+    border-color: var(--primary-color);
+}
+
+.pg-thumbs button.pg-thumb-upload.is-locked,
+.pg-thumbs-pick button.pg-thumb-upload.is-locked {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.pg-thumbs button.pg-thumb-upload.is-locked::after,
+.pg-thumbs-pick button.pg-thumb-upload.is-locked::after {
+    content: "\f023";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.6rem;
+    position: absolute;
+    right: 5px;
+    bottom: 4px;
+}
+
+.pg-thumbs-pick {
+    grid-auto-rows: 56px;
+}
+
+/* ---- pipelines sidebar ---- */
+.pg-row-name.pg-row-new .pg-model-title {
+    color: var(--primary-color);
+}
+
+.pg-pipe-head-actions {
+    display: flex;
+    gap: 0.9rem;
+    margin-left: auto;
+    font-size: 0.8rem;
+}
+
+.pg-pipe-head-actions .pg-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.pg-pipe-head-actions .pg-link:hover {
+    color: var(--primary-color);
+}
+
+.pg-pipe-head-actions .pg-link-danger:hover {
+    color: #b91c1c;
+}
+
+.pg-row-unsupported .pg-row-name {
+    cursor: default;
+}
+
+/* ---- sidebar row tools (pipelines): duplicate and delete on hover ---- */
+.pg-row {
+    position: relative;
+}
+
+.pg-row-tools {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.35rem;
+    display: none;
+    gap: 0.15rem;
+}
+
+.pg-row:hover .pg-row-tools,
+.pg-row:focus-within .pg-row-tools {
+    display: flex;
+}
+
+/* only rows that carry tools (the pipelines list) hide their count while hovered */
+.pg-row:has(.pg-row-tools):hover .pg-model-size,
+.pg-row:has(.pg-row-tools):focus-within .pg-model-size {
+    visibility: hidden;
+}
+
+.pg-row-tool {
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+
+.pg-row-tool:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.pg-row-tool-danger:hover {
+    color: #b91c1c;
+    border-color: #b91c1c;
+}
+
+/* ---- the sign-in prompt is always dismissable ---- */
+.pg-dialog-signin {
+    position: relative;
+}
+
+.pg-dialog-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+
+.pg-dialog-close:hover {
+    background: var(--surface-color);
+    color: var(--text-primary);
+}
+
+/* ---- the links about the current thing, at the foot of the details table ---- */
+.pg-details-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    padding: 0.6rem 1rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--surface-color);
+    font-size: 0.85rem;
+}
+
+.pg-details-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.pg-details-links a:hover {
+    text-decoration: underline;
+}
+
+.pg-details-links i {
+    width: 1.1rem;
+}
+
+/* ---- one Run button with the run-target switch above it ---- */
+.pg-run-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+}
+
+.pg-target {
+    display: inline-flex;
+    padding: 2px;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background: var(--surface-color);
+    font-size: 0.7rem;
+}
+
+.pg-target button {
+    border: none;
+    border-radius: 999px;
+    padding: 0.12rem 0.6rem;
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pg-target button[aria-pressed="true"] {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.pg-target button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* the ONNX tab: the file, then the lines that run it */
+.pg-tabs > .pg-copy {
+    margin-left: auto;
+}
+
+.pg-onnx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 0.85rem 1rem 0.25rem;
+    background: var(--code-bg);
+}
+
+.pg-onnx-note {
+    font-size: 0.78rem;
+    color: #94a3b8;
+}
+
+.pg-btn.pg-btn-small {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.82rem;
+}
+
+.pg-pane[hidden] {
+    display: none;
+}
+
+/* a model's single threshold slider matches the operator sliders instead of spanning the panel */
+.pg-model-panel .pg-param {
+    grid-template-columns: 8.5rem minmax(0, 18rem) 4.5rem;
+}
+
+/* ---- pipelines: starter templates under the create box ---- */
+.pg-pipe-templates {
+    margin-top: 2rem;
+}
+
+.pg-pipe-templates h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.pg-pipe-template-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+@media (max-width: 760px) {
+    .pg-pipe-template-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.pg-pipe-template {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-bg);
+    text-align: left;
+    font: inherit;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.pg-pipe-template:hover {
+    border-color: var(--primary-color);
+}
+
+.pg-pipe-template .pg-pipe-steps {
+    margin: 0;
+}
+
+.pg-pipe-links {
+    margin-top: 1.5rem;
+}
+
+/* the robot page keeps its links without the table */
+.rb-links {
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+
+/* ---- point clouds ---- */
+.pg-3d {
+    margin: 1rem 0 0;
+}
+
+.pg-3d-canvas {
+    display: block;
+    width: 100%;
+    height: 360px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: #0b1220;
+    touch-action: none;
+    cursor: grab;
+}
+
+.pg-3d figcaption {
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.rb-cloud {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: #0b1220;
+    touch-action: none;
+    cursor: grab;
+}
+
+.rb-mini {
+    margin-left: 0.3rem;
+    padding: 0 0.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.rb-mini[aria-pressed="true"] {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+/* ---- volume operators: two ray-marched views ---- */
+.pg-vol-stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.pg-vol-stage figure {
+    margin: 0;
+}
+
+.pg-vol-stage canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: #0b1220;
+    touch-action: none;
+    cursor: grab;
+}
+
+.pg-vol-stage figcaption {
+    margin-top: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.pg-thumb-volume {
+    width: auto;
+    min-width: 56px;
+    height: 56px;
+    padding: 0 0.7rem;
+    display: grid;
+    place-items: center;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: var(--surface-color);
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.78rem;
+    cursor: pointer;
+}
+
+.pg-thumb-volume.pg-selected {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.pg-thumbs-pick.pg-thumbs-volumes {
+    grid-template-columns: auto;
+}
+
+/* ---- the targeted export modal ---- */
+.pg-export-grid {
+    display: grid;
+    gap: 0.7rem;
+    margin: 0.75rem 0;
+}
+
+.pg-export-grid > label {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+}
+
+.pg-export-grid > label > span:first-child {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.pg-export-grid select,
+.pg-export-grid input[type="number"] {
+    padding: 0.3rem 0.45rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--background-color);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 0.85rem;
+}
+
+.pg-export-grid input[type="number"] {
+    width: 5rem;
+}
+
+.pg-export-shape {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.pg-export-choice,
+.pg-export-params {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+}
+
+.pg-export-choice label,
+.pg-export-params label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.pg-export-fixed {
+    color: var(--text-muted);
+}
+
+.pg-export-status {
+    min-height: 1.2em;
+    margin: 0.25rem 0 0.5rem;
+    overflow-wrap: anywhere;
+}
+
+.pg-onnx-head .pg-btn-ghost.pg-btn-small {
+    border-color: rgba(255, 255, 255, 0.25);
+    background: transparent;
+    color: #e2e8f0;
+}
+
+.pg-onnx-head .pg-btn-ghost.pg-btn-small:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.pg-export-shape input[type="number"] {
+    width: 4.2rem;
+}
+
+/* the operator's full signature in the export modal */
+.pg-export-sig {
+    grid-column: 1 / -1;
+    margin: -0.2rem 0 0.2rem;
+}
+
+.pg-export-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.pg-export-table th {
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 0.2rem 0.4rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.pg-export-table td {
+    padding: 0.25rem 0.4rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.pg-export-table code {
+    font-size: 0.82rem;
+}
+
+.pg-export-type {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.pg-export-value {
+    width: 100%;
+    padding: 0.28rem 0.45rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--background-color);
+    color: var(--text-primary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem;
+}
+
+.pg-export-sig .hub-item-meta {
+    margin: 0.4rem 0 0;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.pg-dialog.pg-export {
+    width: min(52rem, 94vw);
+    max-width: 52rem;
+}
+
+/* the export report */
+.pg-export-report {
+    margin: 0.5rem 0 0.25rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--surface-color);
+    color: var(--text-secondary);
+    font-size: 0.83rem;
+    text-align: left;
+}
+
+.pg-export-report-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.pg-export-report-head strong {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+}
+
+.pg-export-report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pg-export-report-table th {
+    width: 6.5rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 0.2rem 0.5rem 0.2rem 0;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.pg-export-report-table td {
+    padding: 0.2rem 0;
+    overflow-wrap: anywhere;
+}
+
+.pg-export-report-code {
+    margin: 0.6rem 0 0.4rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    background: var(--code-bg);
+    color: #e2e8f0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    overflow-x: auto;
+}
+
+.pg-export-report .hub-item-meta {
+    margin: 0;
+    font-size: 0.76rem;
+    color: var(--text-muted);
 }

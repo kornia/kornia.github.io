@@ -1,0 +1,87 @@
+<!-- A four-joint arm on a table, built from primitives so the page stays small. The wrist carries the
+     camera the page reads; position actuators hold each joint at the target the visitor sets. Metres. -->
+<mujoco model="kornia_arm_table">
+  <compiler angle="radian" autolimits="true"/>
+  <option timestep="0.002"/>
+
+  <asset>
+    <texture name="floor" type="2d" builtin="checker" width="512" height="512" rgb1=".78 .78 .74" rgb2=".55 .58 .62" mark="edge" markrgb=".35 .35 .35"/>
+    <material name="floor" texture="floor" texrepeat="12 12" texuniform="true" reflectance=".1"/>
+    <texture name="wall" type="2d" builtin="flat" width="512" height="512" rgb1=".86 .84 .78" mark="random" random=".15" markrgb=".45 .42 .38"/>
+    <material name="wall" texture="wall" texrepeat="8 1"/>
+    <texture name="poster" type="2d" builtin="checker" width="256" height="256" rgb1=".95 .55 .15" rgb2=".15 .25 .55" mark="cross" markrgb="1 1 1"/>
+    <material name="poster" texture="poster" texrepeat="3 2"/>
+    <texture name="wood" type="2d" builtin="gradient" width="128" height="128" rgb1=".72 .55 .35" rgb2=".6 .43 .25" mark="edge" markrgb=".45 .3 .15"/>
+    <material name="wood" texture="wood" texrepeat="3 2"/>
+  </asset>
+
+  <default>
+    <joint damping=".8" armature=".02"/>
+    <default class="link">
+      <geom type="capsule" size=".018" rgba=".86 .87 .9 1"/>
+    </default>
+    <default class="hinge">
+      <geom type="cylinder" size=".026 .022" rgba=".22 .27 .38 1" euler="1.5708 0 0" contype="0" conaffinity="0"/>
+    </default>
+    <default class="wallgeom">
+      <geom type="box" material="wall"/>
+    </default>
+    <default class="block">
+      <geom type="box" size=".02 .02 .02" mass=".05"/>
+    </default>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 3" dir="0 0 -1" diffuse=".8 .8 .8" specular=".2 .2 .2" castshadow="true"/>
+    <geom name="floor" type="plane" size="3 3 .05" material="floor"/>
+    <geom name="wall_n" class="wallgeom" pos="0 3 .2" size="3 .02 .2"/>
+    <geom name="wall_s" class="wallgeom" pos="0 -3 .2" size="3 .02 .2"/>
+    <geom name="wall_e" class="wallgeom" pos="3 0 .2" size=".02 3 .2"/>
+    <geom name="wall_w" class="wallgeom" pos="-3 0 .2" size=".02 3 .2"/>
+    <geom name="poster" type="box" pos="0 2.96 .22" size="1 .01 .15" material="poster"/>
+
+    <body name="table" pos="0 0 .3">
+      <geom name="top" type="box" size=".45 .35 .02" material="wood"/>
+      <geom type="box" pos=".41 .31 -.16" size=".02 .02 .14" rgba=".35 .3 .25 1"/>
+      <geom type="box" pos="-.41 .31 -.16" size=".02 .02 .14" rgba=".35 .3 .25 1"/>
+      <geom type="box" pos=".41 -.31 -.16" size=".02 .02 .14" rgba=".35 .3 .25 1"/>
+      <geom type="box" pos="-.41 -.31 -.16" size=".02 .02 .14" rgba=".35 .3 .25 1"/>
+    </body>
+
+    <body name="base" pos="-.18 0 .335">
+      <geom type="cylinder" size=".06 .015" rgba=".22 .27 .38 1"/>
+      <body name="shoulder" pos="0 0 .045">
+        <joint name="yaw" axis="0 0 1" range="-2.6 2.6"/>
+        <geom class="hinge"/>
+        <body name="link1">
+          <joint name="shoulder" axis="0 1 0" range="-1.3 1.3"/>
+          <geom class="link" fromto="0 0 0 0 0 .25"/>
+          <body name="link2" pos="0 0 .25">
+            <joint name="elbow" axis="0 1 0" range="-1.6 1.6"/>
+            <geom class="hinge"/>
+            <geom class="link" fromto="0 0 0 .18 0 0"/>
+            <body name="wrist" pos=".18 0 0">
+              <joint name="wrist" axis="0 1 0" range="-1.7 1.7"/>
+              <geom class="hinge" size=".02 .018"/>
+              <geom type="box" pos=".045 0 0" size=".03 .02 .013" rgba=".18 .18 .22 1"/>
+              <geom type="cylinder" pos=".077 0 0" size=".009 .003" rgba=".05 .05 .08 1" euler="0 1.5708 0"/>
+              <camera name="wrist" pos=".095 0 0" xyaxes="0 -1 0 0 0 1" fovy="70"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+
+    <body name="red" pos=".25 .03 .36"><freejoint/><geom class="block" rgba=".9 .12 .12 1"/></body>
+    <body name="green" pos=".32 -.1 .36"><freejoint/><geom class="block" rgba=".15 .65 .3 1"/></body>
+    <body name="blue" pos=".38 .11 .36"><freejoint/><geom class="block" size=".025 .025 .025" rgba=".15 .35 .9 1"/></body>
+    <body name="ball" pos=".2 -.15 .35"><freejoint/><geom type="sphere" size=".02" rgba=".95 .75 .1 1" mass=".03"/></body>
+  </worldbody>
+
+  <actuator>
+    <position name="yaw" joint="yaw" kp="25" ctrlrange="-2.6 2.6"/>
+    <position name="shoulder" joint="shoulder" kp="45" ctrlrange="-1.3 1.3"/>
+    <position name="elbow" joint="elbow" kp="30" ctrlrange="-1.6 1.6"/>
+    <position name="wrist" joint="wrist" kp="15" ctrlrange="-1.7 1.7"/>
+  </actuator>
+</mujoco>

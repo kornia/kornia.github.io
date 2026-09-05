@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-03",
+ "generated_at": "2026-09-05",
  "kornia": "0.9.0rc1",
  "torch": "2.9.1+cu128",
  "onnx_opset": 18,
@@ -33,6 +33,17 @@
    "file": "images/barn.png",
    "thumb": "images/barn_thumb.jpg",
    "selectable": false
+  }
+ ],
+ "volumes": [
+  {
+   "id": "phantom",
+   "label": "3D phantom",
+   "file": "volumes/phantom.bin",
+   "size": 32,
+   "channels": 1,
+   "dtype": "float32",
+   "order": "DHW"
   }
  ],
  "videos": [
@@ -669,10 +680,72 @@
    "slug": "filters-filter3d",
    "name": "filter3d",
    "package": "kornia.filters",
-   "kind": "function",
+   "status": "live",
+   "summary": "3D convolution of a volume with a user kernel.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/filters.html#kornia.filters.filter3d",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.filters.filter3d({img}, torch.tensor({kernel_literal})[None])",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "kernel",
+     "choices": [
+      "box3",
+      "gaussian3",
+      "sharpen3",
+      "laplacian3"
+     ],
+     "default": "gaussian3",
+     "label": "",
+     "labels": null,
+     "literals": {
+      "box3": "[[[0.037, 0.037, 0.037], [0.037, 0.037, 0.037], [0.037, 0.037, 0.037]], [[0.037, 0.037, 0.037], [0.037, 0.037, 0.037], [0.037, 0.037, 0.037]], [[0.037, 0.037, 0.037], [0.037, 0.037, 0.037], [0.037, 0.037, 0.037]]]",
+      "gaussian3": "[[[0.0156, 0.0312, 0.0156], [0.0312, 0.0625, 0.0312], [0.0156, 0.0312, 0.0156]], [[0.0312, 0.0625, 0.0312], [0.0625, 0.125, 0.0625], [0.0312, 0.0625, 0.0312]], [[0.0156, 0.0312, 0.0156], [0.0312, 0.0625, 0.0312], [0.0156, 0.0312, 0.0156]]]",
+      "sharpen3": "[[[0.0, 0.0, 0.0], [0.0, -1.0, 0.0], [0.0, 0.0, 0.0]], [[0.0, -1.0, 0.0], [-1.0, 7.0, -1.0], [0.0, -1.0, 0.0]], [[0.0, 0.0, 0.0], [0.0, -1.0, 0.0], [0.0, 0.0, 0.0]]]",
+      "laplacian3": "[[[0.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 0.0]], [[0.0, 1.0, 0.0], [1.0, -6.0, 1.0], [0.0, 1.0, 0.0]], [[0.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 0.0]]]"
+     },
+     "kind": "select",
+     "type": "str"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "box3": "graphs/filters-filter3d/box3.onnx",
+    "gaussian3": "graphs/filters-filter3d/gaussian3.onnx",
+    "sharpen3": "graphs/filters-filter3d/sharpen3.onnx",
+    "laplacian3": "graphs/filters-filter3d/laplacian3.onnx"
+   },
+   "graph_kb": {
+    "box3": 5.5,
+    "gaussian3": 5.5,
+    "sharpen3": 5.5,
+    "laplacian3": 5.5
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "kernel"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 0.5,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
   },
   {
    "id": "kornia.filters.gaussian_blur2d",
@@ -1260,10 +1333,110 @@
    "slug": "filters-motion_blur3d",
    "name": "motion_blur3d",
    "package": "kornia.filters",
-   "kind": "function",
+   "status": "live",
+   "summary": "Motion blur along a 3D direction: a line kernel of the given size, rotated by the angles.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/filters.html#kornia.filters.motion_blur3d",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.filters.motion_blur3d({img}, {kernel_size}, (0.0, {angle}, 0.0), {direction})",
+   "module_snippet": "kornia.filters.MotionBlur3D({kernel_size}, (0.0, {angle}, 0.0), {direction})({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "kernel_size",
+     "choices": [
+      3,
+      5,
+      7
+     ],
+     "default": 5,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    },
+    {
+     "name": "angle",
+     "choices": [
+      0,
+      30,
+      60,
+      90
+     ],
+     "default": 30,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    },
+    {
+     "name": "direction",
+     "min": -1.0,
+     "max": 1.0,
+     "step": 0.1,
+     "default": 0.0,
+     "label": "",
+     "kind": "live",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "3|0": "graphs/filters-motion_blur3d/3_0.onnx",
+    "3|30": "graphs/filters-motion_blur3d/3_30.onnx",
+    "3|60": "graphs/filters-motion_blur3d/3_60.onnx",
+    "3|90": "graphs/filters-motion_blur3d/3_90.onnx",
+    "5|0": "graphs/filters-motion_blur3d/5_0.onnx",
+    "5|30": "graphs/filters-motion_blur3d/5_30.onnx",
+    "5|60": "graphs/filters-motion_blur3d/5_60.onnx",
+    "5|90": "graphs/filters-motion_blur3d/5_90.onnx",
+    "7|0": "graphs/filters-motion_blur3d/7_0.onnx",
+    "7|30": "graphs/filters-motion_blur3d/7_30.onnx",
+    "7|60": "graphs/filters-motion_blur3d/7_60.onnx",
+    "7|90": "graphs/filters-motion_blur3d/7_90.onnx"
+   },
+   "graph_kb": {
+    "3|0": 30.2,
+    "3|30": 30.2,
+    "3|60": 30.2,
+    "3|90": 30.2,
+    "5|0": 34.4,
+    "5|30": 34.4,
+    "5|60": 34.4,
+    "5|90": 34.4,
+    "7|0": 40.0,
+    "7|30": 40.0,
+    "7|60": 40.0,
+    "7|90": 40.0
+   },
+   "inputs": [
+    "x",
+    "p0"
+   ],
+   "select_order": [
+    "kernel_size",
+    "angle"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 1.5,
+   "input_kind": "volume",
+   "opset": 18,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function",
+   "module_name": "kornia.filters.MotionBlur3D"
   },
   {
    "id": "kornia.filters.sobel",
@@ -2784,10 +2957,43 @@
    "slug": "enhance-equalize3d",
    "name": "equalize3d",
    "package": "kornia.enhance",
-   "kind": "function",
+   "status": "live",
+   "summary": "Histogram equalisation of a volume.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/enhance.html#kornia.enhance.equalize3d",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.enhance.equalize3d({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/enhance-equalize3d/default.onnx"
+   },
+   "graph_kb": {
+    "default": 138.4
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 1.6,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
   },
   {
    "id": "kornia.enhance.equalize_clahe",
@@ -3793,10 +3999,91 @@
    "slug": "geometry-transform-affine3d",
    "name": "affine3d",
    "package": "kornia.geometry.transform",
-   "kind": "function",
+   "status": "live",
+   "summary": "Applies a 3\u00d74 affine matrix to a volume; the page bakes a rotation about the centre with a scale.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.affine3d",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.geometry.transform.affine3d({img}, matrix)  # matrix: (1, 3, 4), e.g. a rotation of {yaw}\u00b0 about z scaled by {scale}, built with kornia.geometry.conversions",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "yaw",
+     "choices": [
+      0,
+      20,
+      45
+     ],
+     "default": 20,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    },
+    {
+     "name": "scale",
+     "choices": [
+      0.8,
+      1.0,
+      1.25
+     ],
+     "default": 1.0,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "0|0.8": "graphs/geometry-transform-affine3d/0_0p8.onnx",
+    "0|1": "graphs/geometry-transform-affine3d/0_1.onnx",
+    "0|1.25": "graphs/geometry-transform-affine3d/0_1p25.onnx",
+    "20|0.8": "graphs/geometry-transform-affine3d/20_0p8.onnx",
+    "20|1": "graphs/geometry-transform-affine3d/20_1.onnx",
+    "20|1.25": "graphs/geometry-transform-affine3d/20_1p25.onnx",
+    "45|0.8": "graphs/geometry-transform-affine3d/45_0p8.onnx",
+    "45|1": "graphs/geometry-transform-affine3d/45_1.onnx",
+    "45|1.25": "graphs/geometry-transform-affine3d/45_1p25.onnx"
+   },
+   "graph_kb": {
+    "0|0.8": 48.9,
+    "0|1": 48.9,
+    "0|1.25": 48.9,
+    "20|0.8": 48.9,
+    "20|1": 48.9,
+    "20|1.25": 48.9,
+    "45|0.8": 48.9,
+    "45|1": 48.9,
+    "45|1.25": 48.9
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "yaw",
+    "scale"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 2.1,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
   },
   {
    "id": "kornia.geometry.transform.center_crop",
@@ -3868,10 +4155,183 @@
    "slug": "geometry-transform-center_crop3d",
    "name": "center_crop3d",
    "package": "kornia.geometry.transform",
-   "kind": "function",
+   "status": "live",
+   "summary": "Crops the central block of a volume.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.center_crop3d",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.geometry.transform.center_crop3d({img}, ({size}, {size}, {size}))",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "size",
+     "choices": [
+      16,
+      24
+     ],
+     "default": 16,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 16,
+    "height": 16,
+    "width": 16
+   },
+   "mode": "onnx",
+   "graphs": {
+    "16": "graphs/geometry-transform-center_crop3d/16.onnx",
+    "24": "graphs/geometry-transform-center_crop3d/24.onnx"
+   },
+   "graph_kb": {
+    "16": 56.1,
+    "24": 56.1
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "size"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 0.9,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
+  },
+  {
+   "id": "kornia.geometry.transform.crop_and_resize3d",
+   "slug": "geometry-transform-crop_and_resize3d",
+   "name": "crop_and_resize3d",
+   "package": "kornia.geometry.transform",
+   "status": "live",
+   "summary": "Crops a box out of a volume and resizes it to a given size.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.crop_and_resize3d",
+   "snippet": "kornia.geometry.transform.crop_and_resize3d({img}, box, ({size}, {size}, {size}))  # box: (1, 8, 3) corners of the region, here voxels 4 to 27",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "size",
+     "choices": [
+      16,
+      24
+     ],
+     "default": 16,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 16,
+    "height": 16,
+    "width": 16
+   },
+   "mode": "onnx",
+   "graphs": {
+    "16": "graphs/geometry-transform-crop_and_resize3d/16.onnx",
+    "24": "graphs/geometry-transform-crop_and_resize3d/24.onnx"
+   },
+   "graph_kb": {
+    "16": 56.1,
+    "24": 56.1
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "size"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 0.7,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
+  },
+  {
+   "id": "kornia.geometry.transform.crop_by_boxes3d",
+   "slug": "geometry-transform-crop_by_boxes3d",
+   "name": "crop_by_boxes3d",
+   "package": "kornia.geometry.transform",
+   "status": "live",
+   "summary": "Crops a volume to a box given by its eight corners; the page bakes a centred box.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.crop_by_boxes3d",
+   "snippet": "kornia.geometry.transform.crop_by_boxes3d({img}, src_box, dst_box)  # (1, 8, 3) corners each: a centred {size}\u00b3 box to a {size}\u00b3 output",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "size",
+     "choices": [
+      16,
+      24
+     ],
+     "default": 24,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 24,
+    "height": 24,
+    "width": 24
+   },
+   "mode": "onnx",
+   "graphs": {
+    "16": "graphs/geometry-transform-crop_by_boxes3d/16.onnx",
+    "24": "graphs/geometry-transform-crop_by_boxes3d/24.onnx"
+   },
+   "graph_kb": {
+    "16": 56.1,
+    "24": 56.1
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "size"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 0.6,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
   },
   {
    "id": "kornia.geometry.transform.crop_by_indices",
@@ -4388,10 +4848,77 @@
    "slug": "geometry-transform-rotate3d",
    "name": "rotate3d",
    "package": "kornia.geometry.transform",
-   "kind": "function",
+   "status": "live",
+   "summary": "Rotates a volume about its centre by yaw, pitch and roll in degrees.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.rotate3d",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.geometry.transform.rotate3d({img}, torch.tensor([{yaw}]), torch.tensor([{pitch}]), torch.tensor([{roll}]))",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "yaw",
+     "min": -90.0,
+     "max": 90.0,
+     "step": 1.0,
+     "default": 0.0,
+     "label": "",
+     "kind": "live",
+     "type": "float"
+    },
+    {
+     "name": "pitch",
+     "min": -90.0,
+     "max": 90.0,
+     "step": 1.0,
+     "default": 30.0,
+     "label": "",
+     "kind": "live",
+     "type": "float"
+    },
+    {
+     "name": "roll",
+     "min": -90.0,
+     "max": 90.0,
+     "step": 1.0,
+     "default": 0.0,
+     "label": "",
+     "kind": "live",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/geometry-transform-rotate3d/default.onnx"
+   },
+   "graph_kb": {
+    "default": 104.8
+   },
+   "inputs": [
+    "volume",
+    "yaw",
+    "pitch",
+    "roll"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 2.3,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
   },
   {
    "id": "kornia.geometry.transform.scale",
@@ -4631,6 +5158,134 @@
    "module_name": "kornia.geometry.transform.Vflip"
   },
   {
+   "id": "kornia.geometry.transform.warp_affine3d",
+   "slug": "geometry-transform-warp_affine3d",
+   "name": "warp_affine3d",
+   "package": "kornia.geometry.transform",
+   "status": "live",
+   "summary": "Warps a volume with a 3\u00d74 affine matrix into a given output size; the page bakes a rotation about the centre.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.warp_affine3d",
+   "snippet": "kornia.geometry.transform.warp_affine3d({img}, matrix, (32, 32, 32))  # matrix: (1, 3, 4), a rotation of {pitch}\u00b0 about y",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "pitch",
+     "choices": [
+      0,
+      20,
+      45
+     ],
+     "default": 20,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "0": "graphs/geometry-transform-warp_affine3d/0.onnx",
+    "20": "graphs/geometry-transform-warp_affine3d/20.onnx",
+    "45": "graphs/geometry-transform-warp_affine3d/45.onnx"
+   },
+   "graph_kb": {
+    "0": 48.3,
+    "20": 48.3,
+    "45": 48.3
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "pitch"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 2.0,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
+  },
+  {
+   "id": "kornia.geometry.transform.warp_perspective3d",
+   "slug": "geometry-transform-warp_perspective3d",
+   "name": "warp_perspective3d",
+   "package": "kornia.geometry.transform",
+   "status": "live",
+   "summary": "Warps a volume with a 4\u00d74 homography; the page bakes a shift along x.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.transform.html#kornia.geometry.transform.warp_perspective3d",
+   "snippet": "kornia.geometry.transform.warp_perspective3d({img}, H, (32, 32, 32))  # H: (1, 4, 4), here the identity with a translation of {shift} voxels along x",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "shift",
+     "choices": [
+      -4,
+      0,
+      4
+     ],
+     "default": 4,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "-4": "graphs/geometry-transform-warp_perspective3d/-4.onnx",
+    "0": "graphs/geometry-transform-warp_perspective3d/0.onnx",
+    "4": "graphs/geometry-transform-warp_perspective3d/4.onnx"
+   },
+   "graph_kb": {
+    "-4": 428.7,
+    "0": 428.7,
+    "4": 428.7
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "shift"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 1.7,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "function"
+  },
+  {
    "id": "kornia.augmentation.CenterCrop",
    "slug": "augmentation-CenterCrop",
    "name": "CenterCrop",
@@ -4710,10 +5365,79 @@
    "slug": "augmentation-CenterCrop3D",
    "name": "CenterCrop3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "frames",
+   "summary": "Centre crop of a volume (needs a linear solver, so this shows frames).",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.CenterCrop3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.CenterCrop3D(({size}, {size}, {size}), p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "size",
+     "choices": [
+      16,
+      24
+     ],
+     "default": 16,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int",
+     "derived": {
+      "16": {
+       "one_minus": "-15",
+       "one_plus": "17",
+       "plus_200": "216"
+      },
+      "24": {
+       "one_minus": "-23",
+       "one_plus": "25",
+       "plus_200": "224"
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 16,
+    "height": 16,
+    "width": 16
+   },
+   "mode": "frames",
+   "frames": {
+    "param": "size",
+    "values": [
+     16,
+     24
+    ],
+    "dir": "frames/augmentation-CenterCrop3D",
+    "fixed": {},
+    "note": "the crop solves a linear system that does not export",
+    "shapes": [
+     [
+      16,
+      16,
+      16
+     ],
+     [
+      24,
+      24,
+      24
+     ]
+    ],
+    "format": "float32"
+   },
+   "input_kind": "volume",
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class"
   },
   {
    "id": "kornia.augmentation.ColorJiggle",
@@ -5247,10 +5971,82 @@
    "slug": "augmentation-RandomAffine3D",
    "name": "RandomAffine3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "live",
+   "summary": "Random rotation, translation and scale of a volume.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomAffine3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomAffine3D(degrees={degrees}, p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "degrees",
+     "choices": [
+      15,
+      30,
+      45
+     ],
+     "default": 30,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int",
+     "derived": {
+      "15": {
+       "one_minus": "-14",
+       "one_plus": "16",
+       "plus_200": "215"
+      },
+      "30": {
+       "one_minus": "-29",
+       "one_plus": "31",
+       "plus_200": "230"
+      },
+      "45": {
+       "one_minus": "-44",
+       "one_plus": "46",
+       "plus_200": "245"
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "15": "graphs/augmentation-RandomAffine3D/15.onnx",
+    "30": "graphs/augmentation-RandomAffine3D/30.onnx",
+    "45": "graphs/augmentation-RandomAffine3D/45.onnx"
+   },
+   "graph_kb": {
+    "15": 141.5,
+    "30": 141.5,
+    "45": 141.5
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "degrees"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 2.3,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class",
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomAutoContrast",
@@ -5768,10 +6564,79 @@
    "slug": "augmentation-RandomCrop3D",
    "name": "RandomCrop3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "frames",
+   "summary": "Random crop of a volume (the crop is read in Python, so this shows frames).",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomCrop3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomCrop3D(({size}, {size}, {size}), p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "size",
+     "choices": [
+      16,
+      24
+     ],
+     "default": 16,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int",
+     "derived": {
+      "16": {
+       "one_minus": "-15",
+       "one_plus": "17",
+       "plus_200": "216"
+      },
+      "24": {
+       "one_minus": "-23",
+       "one_plus": "25",
+       "plus_200": "224"
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 16,
+    "height": 16,
+    "width": 16
+   },
+   "mode": "frames",
+   "frames": {
+    "param": "size",
+    "values": [
+     16,
+     24
+    ],
+    "dir": "frames/augmentation-RandomCrop3D",
+    "fixed": {},
+    "note": "the crop position is read in Python at run time",
+    "shapes": [
+     [
+      16,
+      16,
+      16
+     ],
+     [
+      24,
+      24,
+      24
+     ]
+    ],
+    "format": "float32"
+   },
+   "input_kind": "volume",
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class"
   },
   {
    "id": "kornia.augmentation.RandomCutMixV2",
@@ -5788,10 +6653,66 @@
    "slug": "augmentation-RandomDepthicalFlip3D",
    "name": "RandomDepthicalFlip3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "live",
+   "summary": "Flips the volume along depth.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomDepthicalFlip3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomDepthicalFlip3D(p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "p",
+     "choices": [
+      1.0
+     ],
+     "default": 1.0,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float",
+     "derived": {
+      "1.0": {
+       "one_minus": "0",
+       "one_plus": "2",
+       "plus_200": ""
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "1": "graphs/augmentation-RandomDepthicalFlip3D/1.onnx"
+   },
+   "graph_kb": {
+    "1": 0.5
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "p"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 0.0,
+   "sampling_folded": true,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class"
   },
   {
    "id": "kornia.augmentation.RandomElasticTransform",
@@ -5957,10 +6878,66 @@
    "slug": "augmentation-RandomEqualize3D",
    "name": "RandomEqualize3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "live",
+   "summary": "Histogram equalisation of a volume with probability p.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomEqualize3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomEqualize3D(p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "p",
+     "choices": [
+      1.0
+     ],
+     "default": 1.0,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float",
+     "derived": {
+      "1.0": {
+       "one_minus": "0",
+       "one_plus": "2",
+       "plus_200": ""
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "1": "graphs/augmentation-RandomEqualize3D/1.onnx"
+   },
+   "graph_kb": {
+    "1": 138.4
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "p"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 1.0,
+   "sampling_folded": true,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class"
   },
   {
    "id": "kornia.augmentation.RandomErasing",
@@ -6651,10 +7628,66 @@
    "slug": "augmentation-RandomHorizontalFlip3D",
    "name": "RandomHorizontalFlip3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "live",
+   "summary": "Flips the volume horizontally.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomHorizontalFlip3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomHorizontalFlip3D(p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "p",
+     "choices": [
+      1.0
+     ],
+     "default": 1.0,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float",
+     "derived": {
+      "1.0": {
+       "one_minus": "0",
+       "one_plus": "2",
+       "plus_200": ""
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "1": "graphs/augmentation-RandomHorizontalFlip3D/1.onnx"
+   },
+   "graph_kb": {
+    "1": 0.5
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "p"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 0.2,
+   "sampling_folded": true,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class"
   },
   {
    "id": "kornia.augmentation.RandomHue",
@@ -7161,10 +8194,91 @@
    "slug": "augmentation-RandomMotionBlur3D",
    "name": "RandomMotionBlur3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "frames",
+   "summary": "Motion blur with a random 3D direction (the kernel is built at run time, so this shows frames).",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomMotionBlur3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomMotionBlur3D({kernel_size}, 30.0, 0.5, p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "kernel_size",
+     "choices": [
+      3,
+      5,
+      7
+     ],
+     "default": 5,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int",
+     "derived": {
+      "3": {
+       "one_minus": "-2",
+       "one_plus": "4",
+       "plus_200": "203"
+      },
+      "5": {
+       "one_minus": "-4",
+       "one_plus": "6",
+       "plus_200": "205"
+      },
+      "7": {
+       "one_minus": "-6",
+       "one_plus": "8",
+       "plus_200": "207"
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "frames",
+   "frames": {
+    "param": "kernel_size",
+    "values": [
+     3,
+     5,
+     7
+    ],
+    "dir": "frames/augmentation-RandomMotionBlur3D",
+    "fixed": {},
+    "note": "the kernel is built at run time from the drawn angles",
+    "shapes": [
+     [
+      32,
+      32,
+      32
+     ],
+     [
+      32,
+      32,
+      32
+     ],
+     [
+      32,
+      32,
+      32
+     ]
+    ],
+    "format": "float32"
+   },
+   "input_kind": "volume",
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class"
   },
   {
    "id": "kornia.augmentation.RandomPerspective",
@@ -7266,10 +8380,91 @@
    "slug": "augmentation-RandomPerspective3D",
    "name": "RandomPerspective3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "frames",
+   "summary": "Random perspective warp of a volume (needs a linear solver, so this shows frames).",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomPerspective3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomPerspective3D({distortion_scale}, p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "distortion_scale",
+     "choices": [
+      0.2,
+      0.4,
+      0.6
+     ],
+     "default": 0.4,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float",
+     "derived": {
+      "0.2": {
+       "one_minus": "0.8",
+       "one_plus": "1.2",
+       "plus_200": ""
+      },
+      "0.4": {
+       "one_minus": "0.6",
+       "one_plus": "1.4",
+       "plus_200": ""
+      },
+      "0.6": {
+       "one_minus": "0.4",
+       "one_plus": "1.6",
+       "plus_200": ""
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "frames",
+   "frames": {
+    "param": "distortion_scale",
+    "values": [
+     0.2,
+     0.4,
+     0.6
+    ],
+    "dir": "frames/augmentation-RandomPerspective3D",
+    "fixed": {},
+    "note": "the warp solves a linear system that does not export",
+    "shapes": [
+     [
+      32,
+      32,
+      32
+     ],
+     [
+      32,
+      32,
+      32
+     ],
+     [
+      32,
+      32,
+      32
+     ]
+    ],
+    "format": "float32"
+   },
+   "input_kind": "volume",
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class"
   },
   {
    "id": "kornia.augmentation.RandomPlanckianJitter",
@@ -7943,10 +9138,82 @@
    "slug": "augmentation-RandomRotation3D",
    "name": "RandomRotation3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "live",
+   "summary": "Random rotation of a volume within +/- degrees about each axis.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomRotation3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomRotation3D({degrees}, p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "degrees",
+     "choices": [
+      15,
+      30,
+      60
+     ],
+     "default": 30,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int",
+     "derived": {
+      "15": {
+       "one_minus": "-14",
+       "one_plus": "16",
+       "plus_200": "215"
+      },
+      "30": {
+       "one_minus": "-29",
+       "one_plus": "31",
+       "plus_200": "230"
+      },
+      "60": {
+       "one_minus": "-59",
+       "one_plus": "61",
+       "plus_200": "260"
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "15": "graphs/augmentation-RandomRotation3D/15.onnx",
+    "30": "graphs/augmentation-RandomRotation3D/30.onnx",
+    "60": "graphs/augmentation-RandomRotation3D/60.onnx"
+   },
+   "graph_kb": {
+    "15": 115.0,
+    "30": 115.0,
+    "60": 115.0
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "degrees"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 2.7,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class",
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomRotation90",
@@ -7959,7 +9226,7 @@
    "snippet": "kornia.augmentation.RandomRotation90((0, 3), p=1.0)({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": false,
+   "stochastic": true,
    "pre": "",
    "guidance": null,
    "params": [
@@ -7998,7 +9265,7 @@
    "dynamic": false,
    "cpu_latency_ms": 5.0,
    "kind": "class",
-   "sampling_folded": true
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomSaltAndPepperNoise",
@@ -8634,10 +9901,66 @@
    "slug": "augmentation-RandomVerticalFlip3D",
    "name": "RandomVerticalFlip3D",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "live",
+   "summary": "Flips the volume vertically.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomVerticalFlip3D",
-   "status": "unsupported",
-   "reason": "3D (volumetric) operator, planned for a later phase"
+   "snippet": "kornia.augmentation.RandomVerticalFlip3D(p=1.0)({img})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "params": [
+    {
+     "name": "p",
+     "choices": [
+      1.0
+     ],
+     "default": 1.0,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float",
+     "derived": {
+      "1.0": {
+       "one_minus": "0",
+       "one_plus": "2",
+       "plus_200": ""
+      }
+     }
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "depth": 32,
+    "height": 32,
+    "width": 32
+   },
+   "mode": "onnx",
+   "graphs": {
+    "1": "graphs/augmentation-RandomVerticalFlip3D/1.onnx"
+   },
+   "graph_kb": {
+    "1": 0.5
+   },
+   "inputs": [
+    "volume"
+   ],
+   "select_order": [
+    "p"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 0.0,
+   "sampling_folded": true,
+   "input_kind": "volume",
+   "opset": 20,
+   "volume": {
+    "size": 32,
+    "channels": 1
+   },
+   "kind": "class"
   },
   {
    "id": "kornia.augmentation.Resize",

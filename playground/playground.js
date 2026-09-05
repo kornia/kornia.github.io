@@ -116,16 +116,15 @@
       }
     });
     const image = registry.images.find(function (im) { return im.id === state.image; });
-    const lines = [
-      "import torch",
-      "import kornia",
-      "from kornia.io import load_image",
-      "",
-      "# the " + registry.size + " px sample shown in the playground (\"" + image.label + "\"):",
-      "# https://kornia.org/playground/" + image.file,
-      "img = load_image(\"" + image.id + ".png\")[None]  # (1, 3, " + registry.size + ", " + registry.size + ") float in [0, 1]",
-      "",
-    ];
+    const lines = ["import torch", "import kornia", "from kornia.io import load_image", ""];
+    if (image) {
+      lines.push("# the " + registry.size + " px sample shown in the playground (\"" + image.label + "\"):");
+      lines.push("# https://kornia.org/playground/" + image.file);
+      lines.push("img = load_image(\"" + image.id + ".png\")[None]  # (1, 3, " + registry.size + ", " + registry.size + ") float in [0, 1]");
+    } else {
+      lines.push("img = load_image(\"my_photo.png\")[None]  # your own image: (1, 3, H, W) float in [0, 1]");
+    }
+    lines.push("");
     if (op.guidance) {
       lines.push("# the fixed guidance image (\"" + op.guidance.label + "\"): https://kornia.org/playground/" + op.guidance.file);
       lines.push("guide = load_image(\"" + op.guidance.id + ".png\")[None]");
@@ -154,9 +153,13 @@
     const uses = ["kornia_image::{Image, ImageSize, allocator::CpuAllocator}", "kornia_io::functional::read_image_any_rgb8"].concat(r.use);
     const lines = uses.map(function (u) { return "use " + u + ";"; });
     lines.push("");
-    lines.push("// kornia-rs " + RUST_VERSION + ". The same " + registry.size + " px sample (\"" + image.label + "\"):");
-    lines.push("// https://kornia.org/playground/" + image.file);
-    lines.push("let img = read_image_any_rgb8(\"" + image.id + ".png\")?;          // Image<u8, 3>");
+    if (image) {
+      lines.push("// kornia-rs " + RUST_VERSION + ". The same " + registry.size + " px sample (\"" + image.label + "\"):");
+      lines.push("// https://kornia.org/playground/" + image.file);
+    } else {
+      lines.push("// kornia-rs " + RUST_VERSION + ", on your own image:");
+    }
+    lines.push("let img = read_image_any_rgb8(\"" + (image ? image.id : "my_photo") + ".png\")?;          // Image<u8, 3>");
     lines.push("let img = img.cast_and_scale::<f32>(1.0 / 255.0)?;   // Image<f32, 3> in [0, 1]");
     const size = r.out_size ? fill(r.out_size, values) : "img.size()";
     lines.push("let mut out = Image::<f32, " + r.channels + ", _>::from_size_val(" + size + ", 0.0, CpuAllocator)?;");
@@ -175,13 +178,240 @@
 
   // ------------------------------------------------------------------ the widget
 
+  // ------------------------------------------------------------------ volume operators: two ray-marched views
+
+  function buildVolumeWidget(op, registry, container) {
+    const vol = (registry.volumes || [])[0];
+    const N = op.volume.size;
+    const state = { params: {} };
+    op.params.forEach(function (p) { state.params[p.name] = p.default; });
+    const root = el("article", "pg-op pg-op-volume", { id: op.slug });
+    const frames = op.mode === "frames";   // the output was rendered offline per choice; nothing runs here
+    const head = el("div", "pg-op-head pg-head");
+    const title = el("h2"); title.textContent = op.name;
+    const code = el("code"); code.textContent = op.id;
+    const tag = el("span", "pg-tag"); tag.textContent = frames ? "3D volume · pre-rendered" : "3D volume";
+    head.appendChild(title); head.appendChild(code); head.appendChild(tag);
+    root.appendChild(head);
+    const summary = el("p", "pg-summary");
+    summary.textContent = op.summary;
+    root.appendChild(summary);
+    const grid = el("div", "pg-grid");
+    root.appendChild(grid);
+
+    // ---- stage: input volume | output volume, one shared orbit
+    const stage = el("div", "pg-vol-stage pg-cell-images", { id: "demo" });
+    const figIn = el("figure"), figOut = el("figure");
+    const canvasIn = el("canvas"), canvasOut = el("canvas");
+    const capIn = el("figcaption"), capOut = el("figcaption");
+    capIn.textContent = "input · " + N + "×" + N + "×" + N + " · drag to orbit, wheel to zoom";
+    capOut.textContent = "output" + (op.output && op.output.display === "normalize" ? " (normalised for display)" : "");
+    figIn.appendChild(canvasIn); figIn.appendChild(capIn); figOut.appendChild(canvasOut); figOut.appendChild(capOut);
+    stage.appendChild(figIn); stage.appendChild(figOut);
+    grid.appendChild(stage);
+    let viewers = null;
+    function getViewers() {
+      if (!viewers) {
+        viewers = import(ROOT + "../viewer3d.js").then(function (mod) {
+          return Promise.all([mod.createVolumeViewer(canvasIn), mod.createVolumeViewer(canvasOut)]).then(function (vs) {
+            vs[0].onOrbit(function () { vs[1].setView(vs[0].view()); });
+            vs[1].onOrbit(function () { vs[0].setView(vs[1].view()); });
+            return { a: vs[0], b: vs[1] };
+          });
+        });
+      }
+      return viewers;
+    }
+
+    // ---- bar: the sample on the left, status on the right
+    const bar = el("div", "pg-bar pg-cell-bar");
+    const thumbs = el("div", "pg-thumbs");
+    const pick = el("div", "pg-thumbs-pick pg-thumbs-volumes");
+    const sampleBtn = el("button", "pg-thumb-volume pg-selected", { type: "button", title: vol ? vol.label : "volume" });
+    sampleBtn.innerHTML = '<i class="fas fa-cube" aria-hidden="true"></i>&nbsp; ' + (vol ? vol.label : "volume");
+    pick.appendChild(sampleBtn); thumbs.appendChild(pick); bar.appendChild(thumbs);
+    const actions = el("div", "pg-actions");
+    if (op.stochastic && !frames) {
+      const reroll = el("button", "pg-btn", { type: "button" });
+      reroll.innerHTML = '<i class="fas fa-dice" aria-hidden="true"></i> Re-roll';
+      reroll.addEventListener("click", schedule);
+      actions.appendChild(reroll);
+    }
+    const status = el("span", "pg-status");
+    status.textContent = "loading the volume…";
+    actions.appendChild(status);
+    bar.appendChild(actions);
+    grid.appendChild(bar);
+
+    // ---- parameters: the same live / select controls as the image operators
+    const controls = el("div", "pg-controls");
+    op.params.forEach(function (p) {
+      const row = el("div", "pg-param");
+      const label = el("label", "", { for: op.slug + "-" + p.name }); label.textContent = p.label || p.name;
+      const out = el("output"); out.textContent = fmt(p.default, p);
+      let input;
+      if (p.kind === "select") {
+        input = el("select", "", { id: op.slug + "-" + p.name });
+        p.choices.forEach(function (c, i) { const o = el("option", "", { value: c }); o.textContent = p.labels ? p.labels[i] : fmt(c, p); if (c === p.default) o.selected = true; input.appendChild(o); });
+        input.addEventListener("change", function () { state.params[p.name] = p.type === "str" ? input.value : Number(input.value); out.textContent = fmt(state.params[p.name], p); schedule(); });
+      } else {
+        input = el("input", "", { type: "range", id: op.slug + "-" + p.name, min: p.min, max: p.max, step: p.step, value: p.default });
+        input.addEventListener("input", function () { state.params[p.name] = Number(input.value); out.textContent = fmt(state.params[p.name], p); schedule(); });
+      }
+      row.appendChild(label); row.appendChild(input); row.appendChild(out); controls.appendChild(row);
+    });
+    if (!op.params.length) { const none = el("p", "pg-note"); none.textContent = "This operator has no parameters."; controls.appendChild(none); }
+    const controlsCell = el("div", "pg-cell-controls pg-controls-cell", { id: "parameters" });
+    controlsCell.appendChild(controls);
+    grid.appendChild(controlsCell);
+
+    // ---- code: Python, and ONNX with the download when there is a graph
+    const opset = op.opset || registry.onnx_opset;
+    function graphKey() {
+      if (!op.select_order || !op.select_order.length) return "default";
+      return op.select_order.map(function (name) { const p = op.params.find(function (q) { return q.name === name; }); return fmt(state.params[name], p); }).join("|");
+    }
+    function graphFile() { const key = graphKey(); return op.slug + (key === "default" ? "" : "-" + key.replace(/\|/g, "_")) + ".onnx"; }
+    function pyValues() {
+      const values = { img: "vol" };
+      op.params.forEach(function (p) {
+        values[p.name] = fmt(state.params[p.name], p);
+        if (p.literals) values[p.name + "_literal"] = p.literals[state.params[p.name]];
+        if (p.derived && p.derived[String(state.params[p.name])]) { const d = p.derived[String(state.params[p.name])]; for (const k in d) values[p.name + "_" + k] = d[k]; }
+      });
+      return values;
+    }
+    function pythonCode() {
+      const lines = ["import numpy as np", "import torch", "import kornia", "",
+        "# the " + N + "³ phantom shown in the playground, raw float32 (D, H, W): https://kornia.org/playground/" + (vol ? vol.file : "volumes/phantom.bin"),
+        'vol = torch.from_numpy(np.fromfile("phantom.bin", np.float32).reshape(1, 1, ' + N + ", " + N + ", " + N + "))", ""];
+      if (op.stochastic) lines.push("torch.manual_seed(0)  # the browser draws its own random parameters");
+      lines.push("out = " + fill(op.snippet, pyValues()));
+      if (op.module_snippet) { lines.push(""); lines.push("# the same operator as an nn.Module:"); lines.push("out = " + fill(op.module_snippet, pyValues())); }
+      return lines.join("\n");
+    }
+    function onnxCode() {
+      const feeds = ['"' + op.inputs[0] + '": vol'];
+      let k = 1;
+      op.params.filter(function (p) { return p.kind === "live"; }).forEach(function (p) { feeds.push('"' + op.inputs[k++] + '": np.array([' + fmt(state.params[p.name], p) + '], np.float32)'); });
+      return ["# pip install onnxruntime numpy", "import numpy as np", "import onnxruntime as ort", "",
+        "# the file from the Download button above: opset " + opset + ", a fixed 1×1×" + N + "×" + N + "×" + N + " volume",
+        'sess = ort.InferenceSession("' + graphFile() + '")',
+        'vol = np.fromfile("phantom.bin", np.float32).reshape(1, 1, ' + N + ", " + N + ", " + N + ")   # any (1, 1, D, H, W) float volume in [0, 1] of this size",
+        "out = sess.run(None, {" + feeds.join(", ") + "})[0]"].join("\n");
+    }
+    const codeBox = el("div", "pg-code", { id: "code" });
+    const tabs = el("div", "pg-tabs", { role: "tablist" });
+    const panes = {}, pres = {};
+    const download = el("a", "pg-btn pg-btn-small", { download: "" });
+    download.innerHTML = '<i class="fas fa-file-arrow-down" aria-hidden="true"></i> Download ONNX';
+    const customise = el("button", "pg-btn pg-btn-ghost pg-btn-small", { type: "button", title: "Export this operator with your own opset and parameters, on kornia's server" });
+    customise.innerHTML = '<i class="fas fa-sliders" aria-hidden="true"></i> Customise…';
+    customise.addEventListener("click", function () { if (window.PGModels && window.PGModels.exportDialog) window.PGModels.exportDialog(op, registry, state.params, ROOT); });
+    const onnxNote = el("span", "pg-onnx-note");
+    (frames ? ["python"] : ["python", "onnx"]).forEach(function (lang, i) {
+      const tab = el("button", "pg-tab" + (i === 0 ? " pg-tab-active" : ""), { type: "button", role: "tab", "data-lang": lang, "aria-selected": i === 0 ? "true" : "false" });
+      tab.textContent = lang === "python" ? "Python" : "ONNX";
+      tab.addEventListener("click", function () {
+        tabs.querySelectorAll(".pg-tab").forEach(function (t) { t.classList.remove("pg-tab-active"); t.setAttribute("aria-selected", "false"); });
+        tab.classList.add("pg-tab-active"); tab.setAttribute("aria-selected", "true");
+        for (const key in panes) panes[key].hidden = key !== lang;
+      });
+      tabs.appendChild(tab);
+      const pane = el("div", "pg-pane", { role: "tabpanel" }); pane.hidden = i !== 0;
+      if (lang === "onnx") { const headRow = el("div", "pg-onnx-head"); headRow.appendChild(download); headRow.appendChild(customise); headRow.appendChild(onnxNote); pane.appendChild(headRow); }
+      const pre = el("pre"); const c = el("code", "language-python"); pre.appendChild(c); pane.appendChild(pre);
+      panes[lang] = pane; pres[lang] = c;
+    });
+    const copy = el("button", "pg-copy", { type: "button" }); copy.textContent = "copy";
+    copy.addEventListener("click", function () {
+      const visible = panes.python.hidden ? pres.onnx : pres.python;
+      navigator.clipboard.writeText(visible.textContent).then(function () { copy.textContent = "copied"; setTimeout(function () { copy.textContent = "copy"; }, 1200); });
+    });
+    tabs.appendChild(copy);
+    codeBox.appendChild(tabs);
+    codeBox.appendChild(panes.python); if (panes.onnx) codeBox.appendChild(panes.onnx);
+    grid.appendChild(codeBox);
+
+    // ---- details + links
+    const details = el("div", "pg-details pg-model-card pg-cell-details", { id: "details" });
+    const table = el("table"); details.appendChild(table);
+    const links = el("div", "pg-details-links");
+    links.innerHTML = '<a id="pg-link-docs" href="' + op.doc_url + '" target="_blank" rel="noopener"><i class="fas fa-book" aria-hidden="true"></i> API reference</a>'
+      + ''
+      + '<a id="pg-link-issue" href="https://github.com/kornia/kornia.github.io/issues/new?title=' + encodeURIComponent("playground: " + op.id) + '" target="_blank" rel="noopener"><i class="fas fa-bug" aria-hidden="true"></i> Report an issue</a>';
+    details.appendChild(links);
+    grid.appendChild(details);
+    container.appendChild(root);
+
+    function setCode(c, text) { c.textContent = text; if (typeof hljs !== "undefined") { c.removeAttribute("data-highlighted"); hljs.highlightElement(c); } }
+    function renderCode() {
+      setCode(pres.python, pythonCode());
+      if (frames) {
+        table.innerHTML = "";
+        [["Rendering", "volumes rendered offline with kornia " + registry.kornia + "; this operator cannot export to ONNX yet" + (op.frames.note ? ": " + op.frames.note : "")],
+         ["Input", "a 1×1×" + N + "×" + N + "×" + N + " volume, float in [0, 1]"], ["Choices", op.frames.values.length + " along " + (op.frames.param || "the defaults")]].forEach(function (r) {
+          const tr = el("tr"); const th = el("th"); th.textContent = r[0]; const td = el("td"); td.textContent = r[1]; tr.appendChild(th); tr.appendChild(td); table.appendChild(tr);
+        });
+        return;
+      }
+      setCode(pres.onnx, onnxCode());
+      const key = graphKey();
+      download.href = ROOT + op.graphs[key];
+      download.setAttribute("download", graphFile());
+      onnxNote.textContent = (op.graph_kb ? op.graph_kb[key] + " KB · " : "") + "opset " + opset + " · 1×1×" + N + "×" + N + "×" + N + " only · runs with onnxruntime, onnxruntime-web and the ort crate";
+      table.innerHTML = "";
+      [["ONNX graph", (op.graph_kb ? op.graph_kb[key] + " KB, " : "") + "opset " + opset], ["Input", "a 1×1×" + N + "×" + N + "×" + N + " volume, float in [0, 1]"],
+       ["Output", op.output ? op.output.depth + "×" + op.output.height + "×" + op.output.width : ""], ["Exported with", "kornia " + registry.kornia + " / torch " + registry.torch.split("+")[0]],
+       op.sampling_folded ? ["Randomness", "the random parameters were drawn once at export, so the graph is deterministic"] : null].filter(Boolean).forEach(function (r) {
+        const tr = el("tr"); const th = el("th"); th.textContent = r[0]; const td = el("td"); td.textContent = r[1]; tr.appendChild(th); tr.appendChild(td); table.appendChild(tr);
+      });
+    }
+
+    // ---- running
+    let inputTensor = null, timer = null, running = false, pending = false;
+    function schedule() { renderCode(); clearTimeout(timer); timer = setTimeout(run, RUN_DELAY_MS); }
+    function showFrame() {
+      const idx = op.frames.param === null ? 0 : nearest(op.frames.values, state.params[op.frames.param]);
+      const shape = op.frames.shapes[idx];
+      fetch(ROOT + op.frames.dir + "/phantom/" + String(idx).padStart(2, "0") + ".bin").then(function (r) { return r.arrayBuffer(); }).then(function (buf) {
+        return getViewers().then(function (v) { v.b.setVolume(new Float32Array(buf), shape[0], shape[1], shape[2]); status.textContent = "volume " + (idx + 1) + " of " + op.frames.values.length; });
+      }).catch(function (e) { status.classList.add("pg-error"); status.textContent = "could not load the frame: " + (e.message || e); });
+    }
+    function run() {
+      if (frames) { showFrame(); return; }
+      if (typeof ort === "undefined") { status.classList.add("pg-error"); status.textContent = "onnxruntime-web did not load; the download and code still work."; return; }
+      if (running) { pending = true; return; }
+      if (!inputTensor) return;
+      running = true;
+      status.classList.remove("pg-error");
+      const feeds = {}; feeds[op.inputs[0]] = inputTensor;
+      let next = 1;
+      op.params.filter(function (p) { return p.kind === "live"; }).forEach(function (p) { feeds[op.inputs[next++]] = new ort.Tensor("float32", new Float32Array([state.params[p.name]]), [1]); });
+      const t0 = performance.now();
+      getSession(ROOT + op.graphs[graphKey()]).then(function (session) { return session.run(feeds); }).then(function (results) {
+        const out = results[Object.keys(results)[0]];
+        const dims = out.dims, d = dims[dims.length - 3], h = dims[dims.length - 2], w = dims[dims.length - 1];
+        return getViewers().then(function (v) { v.b.setVolume(out.data, d, h, w, { normalize: op.output && op.output.display === "normalize" }); status.textContent = (performance.now() - t0).toFixed(0) + " ms on your machine"; });
+      }).catch(function (err) { status.classList.add("pg-error"); status.textContent = "could not run the graph: " + (err.message || err); })
+        .then(function () { running = false; if (pending) { pending = false; run(); } });
+    }
+    renderCode();
+    fetch(ROOT + (vol ? vol.file : "volumes/phantom.bin")).then(function (r) { return r.arrayBuffer(); }).then(function (buf) {
+      const data = new Float32Array(buf);
+      if (!frames && typeof ort !== "undefined") inputTensor = new ort.Tensor("float32", data, [1, 1, N, N, N]);
+      return getViewers().then(function (v) { v.a.setVolume(data, N, N, N); status.textContent = frames ? "" : "loading graph…"; run(); });
+    }).catch(function (e) { status.classList.add("pg-error"); status.textContent = "could not load the volume: " + (e.message || e); });
+  }
+
   function buildWidget(op, registry, container) {
+    if (op.input_kind === "volume") return buildVolumeWidget(op, registry, container);
     const size = registry.size;
     const state = { image: registry.images[0].id, kind: "image", params: {} };
     op.params.forEach(function (p) { state.params[p.name] = p.default; });
 
     const root = el("article", "pg-op", { id: op.slug });
-    const head = el("div", "pg-op-head");
+    const head = el("div", "pg-op-head pg-head");
     const title = el("h2");
     title.textContent = op.name;
     const code = el("code");
@@ -201,6 +431,7 @@
 
     const grid = el("div", "pg-grid");
     root.appendChild(grid);
+    const bar = el("div", "pg-bar pg-cell-bar");   // one row under the stage: samples left, actions right
 
     // ---- images column
     const left = el("div", "", { id: "demo" });
@@ -247,6 +478,28 @@
         loadInput().then(schedule);
       });
     });
+    // your own image: signed-in visitors only (the button asks otherwise); live graphs only, since
+    // frame-mode operators are pre-rendered for the samples
+    let uploaded = null, uploadBtn = null;
+    // frame-mode operators have no graph to run here: the pre-rendered frames preview the samples, and
+    // "Run on server" computes the exact result for any parameters, on your own image too
+    const onServer = op.mode === "frames";
+    if ((op.mode === "onnx" || op.mode === "frames") && window.PGModels && window.PGModels.uploadButton) {
+      uploadBtn = window.PGModels.uploadButton(function (img, name) {
+        stopVideo();
+        uploaded = img;
+        state.image = "upload";
+        state.kind = "image";
+        capIn.textContent = "input · " + name;
+        thumbs.querySelectorAll("button").forEach(function (b) { b.classList.remove("pg-selected"); });
+        if (op.mode === "frames") {
+          loadInput().then(runServerOp);   // no graph can run here on a new image: the server does, at once
+          return;
+        }
+        loadInput().then(schedule);
+      });
+      pick.appendChild(uploadBtn);
+    }
     // short clips: the graph runs on every frame (frame-mode operators have no live graph to run)
     (registry.videos || []).forEach(function (v) {
       if (op.mode !== "onnx") return;
@@ -278,11 +531,11 @@
     }
     left.className = "pg-cell-images";
     grid.appendChild(left);
-    thumbs.classList.add("pg-cell-thumbs");
-    grid.appendChild(thumbs);  // second row, left: sample picker
+    bar.appendChild(thumbs);
+    grid.appendChild(bar);
 
     // ---- controls column
-    const controls = el("div", "pg-controls", { id: "parameters" });
+    const controls = el("div", "pg-controls");
     const framesParam = op.mode === "frames" ? op.frames.param : null;
     op.params.forEach(function (p) {
       const row = el("div", "pg-param");
@@ -338,28 +591,158 @@
       controls.appendChild(none);
     }
 
+    // frame-mode operators: on kornia's server every parameter is live and your own image is accepted
+    const frameParams = state.params;
+    const liveParams = {};
+    let liveControls = null, runBtn = null;
+    let serverBusy = false;
+    function markDirty() {
+      renderCode();
+      status.classList.remove("pg-error");
+      runFrames();   // the nearest pre-rendered frame previews the change; Run computes it exactly
+    }
+    if (op.mode === "frames") {
+      op.params.forEach(function (p) { liveParams[p.name] = p.default; });
+      liveControls = el("div", "pg-controls");
+      op.params.forEach(function (p) {
+        const row = el("div", "pg-param");
+        const label = el("label", "", { for: op.slug + "-live-" + p.name });
+        label.textContent = p.label || p.name;
+        const out = el("output");
+        out.textContent = fmt(p.default, p);
+        let input;
+        if (p.kind === "select") {
+          input = el("select", "", { id: op.slug + "-live-" + p.name });
+          p.choices.forEach(function (ch, i) {
+            const option = el("option", "", { value: ch });
+            option.textContent = p.labels ? p.labels[i] : fmt(ch, p);
+            if (ch === p.default) option.selected = true;
+            input.appendChild(option);
+          });
+          input.addEventListener("change", function () {
+            liveParams[p.name] = p.type === "str" ? input.value : Number(input.value);
+            out.textContent = fmt(liveParams[p.name], p);
+            markDirty();
+          });
+        } else {
+          input = el("input", "", { type: "range", id: op.slug + "-live-" + p.name, min: p.min, max: p.max, step: p.step, value: p.default });
+          input.addEventListener("input", function () {
+            liveParams[p.name] = Number(input.value);
+            out.textContent = fmt(liveParams[p.name], p);
+            markDirty();
+          });
+        }
+        row.appendChild(label);
+        row.appendChild(input);
+        row.appendChild(out);
+        liveControls.appendChild(row);
+      });
+      if (!op.params.length) {
+        const none = el("p", "pg-note");
+        none.textContent = "This operator has no parameters.";
+        liveControls.appendChild(none);
+      }
+      state.params = liveParams;
+    }
+    function clearOutput() {
+      imgOut.hidden = true;
+      canvasOut.hidden = false;
+      canvasOut.getContext("2d").clearRect(0, 0, canvasOut.width, canvasOut.height);
+    }
+    function inputBlob() {
+      if (state.image === "upload" && uploaded) {
+        const MAX = 512, sc = Math.min(1, MAX / Math.max(uploaded.width, uploaded.height));   // the server would resize anyway
+        const c = el("canvas", "", { width: Math.max(1, Math.round(uploaded.width * sc)), height: Math.max(1, Math.round(uploaded.height * sc)) });
+        c.getContext("2d").drawImage(uploaded, 0, 0, c.width, c.height);
+        return new Promise(function (resolve) { c.toBlob(resolve, "image/png"); });
+      }
+      const im = registry.images.find(function (i) { return i.id === state.image; });
+      return fetch(ROOT + im.file).then(function (r) { return r.blob(); });
+    }
+    async function runServerOp() {
+      const A = window.KorniaAuth;
+      if (!A || !A.user) { window.PGModels.askSignIn("run " + op.name + " on kornia's server", runServerOp); return; }   // the prompt can be dismissed
+      if (!A.apiBase) { status.classList.add("pg-error"); status.textContent = "the server side is not deployed yet"; return; }
+      if (serverBusy) return;
+      serverBusy = true;
+      runBtn.disabled = true;
+      status.classList.remove("pg-error");
+      status.textContent = "running on the server…";
+      const t0 = performance.now();
+      try {
+        const form = new FormData();
+        form.append("image", await inputBlob(), "input.png");
+        form.append("params", JSON.stringify(liveParams));
+        const r = await fetch(A.apiBase + "/v1/run_op/" + op.slug, { method: "POST", body: form, headers: { Authorization: "Bearer " + await A.token() } });
+        const j = await r.json().catch(function () { return {}; });
+        if (!r.ok) {
+          const d = j.detail || ("HTTP " + r.status);
+          throw new Error(d.indexOf("verify your email") !== -1 ? "Your account's email is not verified yet; open the link in the verification mail, then try again." : d);
+        }
+        canvasOut.hidden = true;
+        imgOut.hidden = false;
+        imgOut.classList.add("pg-contain");
+        imgOut.src = j.png;
+        if (j.quota && window.PGModels.setQuota) window.PGModels.setQuota({ used: j.quota.used, limit: j.quota.limit, remaining: Math.max(0, j.quota.limit - j.quota.used) });
+        status.textContent = j.ms + " ms on the server";
+      } catch (e) {
+        status.classList.add("pg-error");
+        status.textContent = e.message || String(e);
+      }
+      serverBusy = false;
+      runBtn.disabled = false;
+    }
+
     const actions = el("div", "pg-actions");
+    if (op.mode === "frames") {
+      runBtn = el("button", "pg-btn", { type: "button" });
+      runBtn.innerHTML = '<i class="fas fa-play" aria-hidden="true"></i> Run';
+      runBtn.addEventListener("click", runServerOp);
+      const group = el("div", "pg-run-group");
+      if (window.PGModels && window.PGModels.targetSwitch) group.appendChild(window.PGModels.targetSwitch({ browser: false, server: true, value: "server" }).el);   // no graph runs here: the server is the only target
+      group.appendChild(runBtn);
+      actions.appendChild(group);
+    }
     if (op.stochastic && op.mode === "onnx") {
       const reroll = el("button", "pg-btn", { type: "button" });
       reroll.innerHTML = '<i class="fas fa-dice" aria-hidden="true"></i> Re-roll';
       reroll.addEventListener("click", schedule);
       actions.appendChild(reroll);
     }
-    let download = null;
-    if (op.mode === "onnx") {
-      download = el("a", "pg-btn pg-btn-ghost", { download: "" });
-      download.innerHTML = '<i class="fas fa-download" aria-hidden="true"></i> Download ONNX';
-      actions.appendChild(download);
+    let download = null, onnxNote = null, customise = null;
+    if (op.mode === "onnx") {   // lives at the top of the ONNX tab, above the snippet that runs it
+      download = el("a", "pg-btn pg-btn-small", { download: "" });
+      download.innerHTML = '<i class="fas fa-file-arrow-down" aria-hidden="true"></i> Download ONNX';
+      customise = el("button", "pg-btn pg-btn-ghost pg-btn-small", { type: "button", title: "Export this operator with your own opset, shape and parameters, on kornia's server" });
+      customise.innerHTML = '<i class="fas fa-sliders" aria-hidden="true"></i> Customise…';
+      customise.addEventListener("click", function () { if (window.PGModels && window.PGModels.exportDialog) window.PGModels.exportDialog(op, registry, state.params, ROOT); });
+      onnxNote = el("span", "pg-onnx-note");
     }
     const status = el("span", "pg-status");
     status.textContent = op.mode === "frames" ? "" : "loading runtime…";
     actions.appendChild(status);
     const note = el("p", "pg-note");
-    controls.appendChild(note);
-    controls.classList.add("pg-cell-controls");
-    grid.appendChild(controls);
-    actions.classList.add("pg-cell-actions");
-    grid.appendChild(actions);  // second row, right: download / re-roll / status, level with the sample picker
+    const controlsCell = el("div", "pg-cell-controls pg-controls-cell", { id: "parameters" });
+    controlsCell.appendChild(op.mode === "frames" ? liveControls : controls);
+    controlsCell.appendChild(note);
+    grid.appendChild(controlsCell);
+    bar.appendChild(actions);
+    // the facts about the graph, as a table under the code (the same block the model pages have)
+    const details = el("div", "pg-details pg-model-card pg-cell-details", { id: "details" });
+    const detailsTable = el("table");
+    details.appendChild(detailsTable);
+    const links = el("div", "pg-details-links");
+    links.innerHTML = '<a id="pg-link-docs" href="' + (op.doc_url || "https://kornia.readthedocs.io") + '" target="_blank" rel="noopener"><i class="fas fa-book" aria-hidden="true"></i> API reference</a>'
+      + ''
+      + '<a id="pg-link-issue" href="https://github.com/kornia/kornia.github.io/issues/new?title=' + encodeURIComponent("playground: " + op.id) + '" target="_blank" rel="noopener"><i class="fas fa-bug" aria-hidden="true"></i> Report an issue</a>';
+    details.appendChild(links);
+    function setDetails(rows) {
+      detailsTable.innerHTML = "";
+      rows.filter(Boolean).forEach(function (r) {
+        const tr = el("tr"); const th = el("th"); th.textContent = r[0]; const td = el("td"); td.textContent = r[1];
+        tr.appendChild(th); tr.appendChild(td); detailsTable.appendChild(tr);
+      });
+    }
 
     // ---- code tabs: Python / Rust
     const codeBox = el("div", "pg-code", { id: "code" });
@@ -367,11 +750,12 @@
     const panes = {};
     const pres = {};
     const langs = op.rust ? ["python", "rust"] : ["python"]; // no Rust tab when kornia-rs has no counterpart
+    if (op.mode === "onnx") langs.push("onnx");                // how to run the downloaded graph
     const active = langs.indexOf(preferredLang) === -1 ? "python" : preferredLang;
     langs.forEach(function (lang) {
       const isActive = lang === active;
       const tab = el("button", "pg-tab" + (isActive ? " pg-tab-active" : ""), { type: "button", role: "tab", "data-lang": lang, "aria-selected": isActive ? "true" : "false" });
-      tab.textContent = lang === "python" ? "Python" : "Rust";
+      tab.textContent = lang === "python" ? "Python" : lang === "rust" ? "Rust" : "ONNX";
       tab.addEventListener("click", function () {
         tabs.querySelectorAll(".pg-tab").forEach(function (t) { t.classList.remove("pg-tab-active"); t.setAttribute("aria-selected", "false"); });
         tab.classList.add("pg-tab-active");
@@ -381,8 +765,15 @@
       tabs.appendChild(tab);
       const pane = el("div", "pg-pane", { role: "tabpanel" });
       pane.hidden = lang !== active;
+      if (lang === "onnx" && download) {   // the file itself, then the few lines that run it
+        const head = el("div", "pg-onnx-head");
+        head.appendChild(download);
+        head.appendChild(customise);
+        head.appendChild(onnxNote);
+        pane.appendChild(head);
+      }
       const pre = el("pre");
-      const code = el("code", "language-" + lang);
+      const code = el("code", "language-" + (lang === "onnx" ? "python" : lang));
       pre.appendChild(code);
       pane.appendChild(pre);
       panes[lang] = pane;
@@ -391,7 +782,7 @@
     const copy = el("button", "pg-copy", { type: "button" });
     copy.textContent = "copy";
     copy.addEventListener("click", function () {
-      const visible = panes.rust && panes.python.hidden ? pres.rust : pres.python;
+      const visible = langs.map(function (l) { return pres[l]; }).find(function (c) { return !c.parentElement.parentElement.hidden; }) || pres.python;
       navigator.clipboard.writeText(visible.textContent).then(function () {
         copy.textContent = "copied";
         setTimeout(function () { copy.textContent = "copy"; }, 1200);
@@ -401,6 +792,7 @@
     codeBox.appendChild(tabs);
     langs.forEach(function (lang) { codeBox.appendChild(panes[lang]); });
     grid.appendChild(codeBox);
+    grid.appendChild(details);
     container.appendChild(root);
 
     // ---- behaviour
@@ -414,6 +806,7 @@
 
     function stopVideo() {
       videoLoop = false;
+      restartPass();   // the kept frames go with the clip
       if (video) video.pause();
     }
 
@@ -434,18 +827,52 @@
         video.load();
       }
       videoLoop = true;
+      restartPass();
       const p = video.play();
       if (p && p.catch) p.catch(function () { /* autoplay refused: the poster frame still shows */ });
       pump();
     }
 
     // one frame per completed graph run: the clip plays as fast as the graph allows
+
+    // one computed pass through the clip, kept in memory as output frames (capped), then replayed in step with the
+    // looping clip so nothing computes for hours. Dropped when the clip stops, a parameter changes, or the
+    // page section changes. Keyed by playback time, at most MAX_KEPT frames.
+    const MAX_KEPT = 240;
+    let pass = { t: -1, seen: 0, done: false, frames: [] };
+    function restartPass() { pass = { t: -1, seen: 0, done: false, frames: [] }; }
+    function keptNear(t) {
+      const f = pass.frames; if (!f.length) return null;
+      let lo = 0, hi = f.length - 1;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (f[mid].t < t) lo = mid + 1; else hi = mid; }
+      if (lo > 0 && Math.abs(f[lo - 1].t - t) < Math.abs(f[lo].t - t)) lo--;
+      return f[lo];
+    }
     function pump() {
-      if (!videoLoop || !root.isConnected) { videoLoop = false; return; }
+      if (!videoLoop || !root.isConnected) { videoLoop = false; restartPass(); return; }
       if (video.readyState >= 2 && typeof ort !== "undefined") {
+        const t = video.currentTime;
+        if (pass.t >= 0) pass.seen += Math.max(0, t - pass.t);
+        if (!pass.done && pass.t >= 0 && t < pass.t - 0.5 && pass.seen >= (video.duration || 4) * 0.9 && pass.frames.length > 1) pass.done = true;
+        pass.t = t;
         canvasIn.getContext("2d").drawImage(video, 0, 0, size, size);
+        if (pass.done) {   // replay the computed pass in step with the clip
+          const kept = keptNear(t);
+          if (kept) { canvasOut.getContext("2d").putImageData(kept.img, 0, 0); status.textContent = "computed once (" + pass.frames.length + " frames) · replaying with the clip"; }
+          window.requestAnimationFrame(pump);
+          return;
+        }
         inputTensor = canvasToTensor(canvasIn, size);
-        execute().then(function () { window.requestAnimationFrame(pump); });
+        execute().then(function () {
+          if (!pass.done && canvasOut.width && canvasOut.height) {
+            // keep at most MAX_KEPT frames across the clip: thin out when the pass produces more
+            if (pass.frames.length < MAX_KEPT || (pass.frames.length && t - pass.frames[pass.frames.length - 1].t >= (video.duration || 4) / MAX_KEPT)) {
+              if (pass.frames.length >= MAX_KEPT) pass.frames.splice(0, 1);
+              pass.frames.push({ t: t, img: canvasOut.getContext("2d").getImageData(0, 0, canvasOut.width, canvasOut.height) });
+            }
+          }
+          window.requestAnimationFrame(pump);
+        });
       } else {
         window.requestAnimationFrame(pump);
       }
@@ -465,20 +892,29 @@
     }
 
     function renderNote() {
-      if (op.mode === "frames") {
-        const fixed = op.frames.note ? op.frames.note + ". " : "";
-        note.textContent = fixed + "Frames rendered offline with kornia " + registry.kornia + "; this operator cannot export with live parameters yet.";
-        return;
+      note.textContent = "";
+      if (op.mode === "frames" && onServer) {
+        setDetails([["Preview", "pre-rendered frames of the samples along " + (op.frames.param || "the defaults") + (op.frames.note ? "; " + op.frames.note : "")],
+                    ["Run on server", "kornia " + registry.kornia + " with every parameter live; your own image is resized to 512 px on the longer side"]]);
+      } else if (op.mode === "frames") {
+        note.textContent = op.frames.note ? op.frames.note + "." : "";
+        setDetails([["Rendering", "frames rendered offline with kornia " + registry.kornia + "; this operator cannot export with live parameters yet"],
+                    op.frames.param ? ["Frames", op.frames.values.length + " along " + op.frames.param] : null]);
+      } else {
+        const key = graphKey();
+        const kb = op.graph_kb ? op.graph_kb[key] : "?";
+        setDetails([["ONNX graph", kb + " KB, opset " + registry.onnx_opset],
+                    ["Input", op.dynamic ? "any batch and image size" : "fixed 1×3×" + size + "×" + size],
+                    ["Exported with", "kornia " + registry.kornia + " / torch " + registry.torch.split("+")[0]],
+                    op.sampling_folded ? ["Randomness", "the random parameters were drawn once at export, so the graph is deterministic"] : null]);
       }
+      note.hidden = !note.textContent;
+      if (op.mode !== "onnx") return;
       const key = graphKey();
-      const kb = op.graph_kb ? op.graph_kb[key] : "?";
-      const shape = op.dynamic ? "any batch and image size" : "fixed 1×3×" + size + "×" + size + " input";
-      note.textContent = "ONNX graph: " + kb + " KB, opset " + registry.onnx_opset + ", " + shape + ", exported from kornia " +
-        registry.kornia + " / torch " + registry.torch.split("+")[0] + "." +
-        (op.sampling_folded ? " The random parameters were drawn once at export, so this graph is deterministic." : "");
       if (download) {
         download.href = ROOT +op.graphs[key];
         download.setAttribute("download", op.slug + (key === "default" ? "" : "-" + key.replace(/\|/g, "_")) + ".onnx");
+        onnxNote.textContent = (op.graph_kb ? op.graph_kb[key] + " KB · " : "") + "opset " + registry.onnx_opset + " · " + (op.dynamic ? "any image size" : size + "×" + size + " only") + " · runs with onnxruntime, onnxruntime-web and the ort crate";
       }
     }
 
@@ -490,15 +926,47 @@
       }
     }
 
+    function onnxSnippet() {
+      const key = graphKey();
+      const file = op.slug + (key === "default" ? "" : "-" + key.replace(/\|/g, "_")) + ".onnx";
+      const feeds = ['"' + op.inputs[0] + '": img'];
+      let k = 1;
+      if (op.guidance) feeds.push('"' + op.inputs[k++] + '": guide');
+      op.params.filter(function (p) { return p.kind === "live"; }).forEach(function (p) { feeds.push('"' + op.inputs[k++] + '": np.array([' + fmt(state.params[p.name], p) + '], np.float32)'); });
+      return [
+        "# pip install onnxruntime numpy",
+        "import numpy as np",
+        "import onnxruntime as ort",
+        "",
+        "# the file from the Download button above: opset " + registry.onnx_opset + ", " + (op.dynamic ? "any batch and image size" : "a fixed 1×3×" + size + "×" + size + " input"),
+        'sess = ort.InferenceSession("' + file + '")',
+        "img = np.random.rand(1, 3, " + (op.dynamic ? "480, 640" : size + ", " + size) + ").astype(np.float32)  # (1, 3, H, W) float in [0, 1]",
+        (op.guidance ? "guide = np.random.rand(1, 3, " + size + ", " + size + ").astype(np.float32)\n" : "") + "out = sess.run(None, {" + feeds.join(", ") + "})[0]",
+        "",
+        "# the same file runs in the browser with onnxruntime-web (as this page does) and in Rust with the ort crate",
+      ].join("\n");
+    }
     function renderCode() {
       setCode(pres.python, pythonSnippet(op, state, registry));
       if (pres.rust) setCode(pres.rust, rustSnippet(op, state, registry));
+      if (pres.onnx) setCode(pres.onnx, onnxSnippet());
     }
 
     function loadInput() {
-      const im = registry.images.find(function (i) { return i.id === state.image; });
-      if (!im) return Promise.resolve(); // a clip is selected: frames come from the video loop
       const haveOrt = typeof ort !== "undefined";
+      const im = registry.images.find(function (i) { return i.id === state.image; });
+      if (!im && state.image === "upload" && uploaded) {
+        // the visitor's own image: cover-fitted for the fixed-size graphs, letterboxed when the server keeps its shape
+        const ctx = canvasIn.getContext("2d");
+        const cover = op.mode === "onnx";
+        const s = (cover ? Math.max : Math.min)(size / uploaded.width, size / uploaded.height), w = uploaded.width * s, h = uploaded.height * s;
+        ctx.clearRect(0, 0, size, size);
+        if (cover) { ctx.fillStyle = "#000"; ctx.fillRect(0, 0, size, size); }
+        ctx.drawImage(uploaded, (size - w) / 2, (size - h) / 2, w, h);
+        inputTensor = op.mode === "onnx" && haveOrt ? canvasToTensor(canvasIn, size) : null;
+        return Promise.resolve();
+      }
+      if (!im) return Promise.resolve(); // a clip is selected: frames come from the video loop
       const steps = [loadImage(ROOT +im.file).then(function (img) {
         canvasIn.getContext("2d").drawImage(img, 0, 0, size, size);
         inputTensor = op.mode === "onnx" && haveOrt ? canvasToTensor(canvasIn, size) : null;
@@ -516,16 +984,20 @@
     function schedule() {
       renderCode();
       renderNote();
+      restartPass();
       clearTimeout(timer);
       timer = setTimeout(run, RUN_DELAY_MS);
     }
 
     function runFrames() {
+      // nothing runs by itself on the server; the pre-rendered frames still preview the samples there
+      if (!registry.images.some(function (i) { return i.id === state.image; })) { if (onServer) { clearOutput(); status.textContent = "press Run"; } return; }
       const idx = op.frames.param === null ? 0 : nearest(op.frames.values, state.params[op.frames.param]);
       canvasOut.hidden = true;
       imgOut.hidden = false;
+      imgOut.classList.remove("pg-contain");
       imgOut.src = ROOT +op.frames.dir + "/" + state.image + "/" + String(idx).padStart(2, "0") + ".webp";
-      status.textContent = "frame " + (idx + 1) + " of " + op.frames.values.length;
+      status.textContent = onServer ? "preview from the pre-rendered frames · Run on server computes it exactly" : "frame " + (idx + 1) + " of " + op.frames.values.length;
     }
 
     function run() {
@@ -657,7 +1129,8 @@
       const visibleSections = new Set();
       rows.forEach(function (r) {
         // "rust": only operators kornia-rs has (the ones with a Rust tab)
-        const passes = want === "all" || (want === "rust" ? !!r.op.rust : r.op.status !== "unsupported");
+        // "rust": only operators kornia-rs has; "3d": the volume operators; "all": everything
+        const passes = want === "all" || (want === "rust" ? !!r.op.rust : want === "3d" ? r.op.input_kind === "volume" || /3d$/i.test(r.op.name) : r.op.status !== "unsupported");
         const ok = (!q || r.text.indexOf(q) !== -1) && passes;
         r.li.hidden = !ok;
         if (ok) visibleSections.add(r.section);
@@ -688,6 +1161,11 @@
 
   // Site header hamburger (the homepage wires the same markup in its inline script).
   function initNavToggle() {
+    document.querySelectorAll(".nav-links a[data-section]").forEach(function (a) {
+      const on = location.pathname.indexOf("/" + a.dataset.section + "/") !== -1;
+      a.classList.toggle("active", on);
+      if (on) a.setAttribute("aria-current", "page");
+    });
     const toggle = document.querySelector(".nav-toggle");
     const links = document.getElementById("primary-nav-links");
     if (!toggle || !links) return;
@@ -697,11 +1175,26 @@
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
     links.addEventListener("click", function (e) {
-      if (e.target.closest("a")) {
-        links.classList.remove("is-open");
-        toggle.classList.remove("is-active");
-        toggle.setAttribute("aria-expanded", "false");
+      const a = e.target.closest("a");
+      if (!a) return;
+      if (a.getAttribute("aria-haspopup")) {
+        // a dropdown trigger: Docs has no page, so it only toggles; on a phone the first tap opens, the second follows
+        const dd = a.closest(".nav-dropdown");
+        const mobile = window.matchMedia("(max-width: 1024px)").matches;
+        if (a.getAttribute("href") === "#" || (mobile && !dd.classList.contains("is-open"))) {
+          e.preventDefault();
+          const open = dd.classList.toggle("is-open");
+          a.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+        return;
       }
+      links.classList.remove("is-open");
+      toggle.classList.remove("is-active");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (e.target.closest(".nav-dropdown")) return;
+      links.querySelectorAll(".nav-dropdown.is-open").forEach(function (dd) { dd.classList.remove("is-open"); });
     });
   }
 
@@ -713,18 +1206,19 @@
     }
     const detail = document.getElementById("pg-ops");
     const meta = document.getElementById("pg-meta");
-    const live = registry.ops.filter(function (o) { return o.status !== "unsupported"; }).length;
-    meta.textContent = live + " of " + registry.ops.length + " operators have a demo · kornia " + registry.kornia + " · " + registry.generated_at;
+    if (meta) meta.remove();
 
     if (document.body.dataset.view === "pipelines") {
-      // the sidebar only navigates here: an operator opens its page, the Models tab opens the first model
-      const modelsTab = document.querySelector('#pg-mode [data-mode="models"]');
-      if (modelsTab) modelsTab.addEventListener("click", function () {
-        fetch(ROOT + "models/index.json").then(function (r) { return r.json(); }).then(function (idx) {
-          if (idx.models.length) window.location.href = ROOT + "models/" + idx.models[0].slug + "/";
-        }).catch(function () {});
+      // the sidebar lists pipelines here (pipeline.js draws it); the other two tabs open their own pages
+      document.body.dataset.mode = "pipes";
+      document.querySelectorAll("#pg-mode button").forEach(function (b) {
+        if (b.dataset.mode === "ops") b.addEventListener("click", function () { window.location.href = ROOT; });
+        if (b.dataset.mode === "models") b.addEventListener("click", function () {
+          fetch(ROOT + "models/index.json").then(function (r) { return r.json(); }).then(function (idx) {
+            if (idx.models.length) window.location.href = ROOT + "models/" + idx.models[0].slug + "/";
+          }).catch(function () {});
+        });
       });
-      buildSidebar(registry, function (op) { window.location.href = ROOT + "ops/" + op.slug + "/"; });
       if (window.PGPipelines) window.PGPipelines.init(registry, ROOT);
       return;
     }
@@ -742,11 +1236,11 @@
       if (list) list.hidden = mode !== "models";
       const search = document.getElementById("pg-search");
       if (search) search.placeholder = mode === "models" ? "Search models" : "Search operators";
-      if (meta) meta.hidden = mode === "models";
-      const mmeta = document.getElementById("pg-models-meta");
-      if (mmeta) mmeta.hidden = mode !== "models";
     }
-    modeButtons.forEach(function (b) { b.addEventListener("click", function () { setMode(b.dataset.mode); }); });
+    modeButtons.forEach(function (b) { b.addEventListener("click", function () {
+      if (b.dataset.mode === "pipes") { window.location.href = b.dataset.href || (ROOT + "pipelines/"); return; }   // the editor lives on its own page
+      setMode(b.dataset.mode);
+    }); });
 
     function selectModel(model, push) {
       setMode("models");
@@ -799,10 +1293,6 @@
     fetch(ROOT + "models/index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (idx) {
       if (!idx || !window.PGModels) return;
       modelsIndex = idx;
-      const mmeta = el("p", "pg-meta", { id: "pg-models-meta" });
-      mmeta.textContent = idx.models.length + " models run in your browser with onnxruntime-web · the large ones download from the Hugging Face hub on demand";
-      mmeta.hidden = document.body.dataset.mode !== "models";
-      meta.parentNode.insertBefore(mmeta, meta.nextSibling);
       window.PGModels.buildList(idx, document.getElementById("pg-side"), selectModel, ROOT);
       if (wantedModel) {
         const m = idx.models.find(function (x) { return x.id === wantedModel || x.slug === wantedModel; });

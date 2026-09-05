@@ -312,8 +312,11 @@
   // models a pipeline can end with: single image in, decoded by models.js; the two-pass feature models are out
   function pipelineModels() {
     if (!modelsIndex) return [];
-    return modelsIndex.models.filter(function (m) { return m.output.kind.indexOf("features_") !== 0; });
+    return modelsIndex.models.filter(function (m) { return (m.server && m.server.inputs === 1) || (m.url && m.output.kind.indexOf("features_") !== 0); });
   }
+  // where a model runs: the same preference the model pages store; browser when the model has a graph
+  let runWhere = "browser";   // set by the button that was pressed: "browser" or "server"
+  function useServer(m) { return !m.url || runWhere === "server"; }
   function modelById(id) { return pipelineModels().find(function (m) { return m.id === id; }); }
   function absUrl(url) { return /^https?:/.test(url) ? url : ROOT + url; }
   function sizeText(mb) { return mb >= 1 ? Math.round(mb) + " MB" : (mb * 1000).toFixed(0) + " kB"; }
@@ -323,6 +326,120 @@
   }
 
   function opById(id) { return registry.ops.find(function (o) { return o.id === id; }); }
+
+  const STARTERS = [
+    { name: "Denoise, then edges", container: "sequential", steps: ["kornia.filters.median_blur", "kornia.filters.sobel"], blurb: "Median blur to drop the noise, Sobel for the edge map." },
+    { name: "Train-time augmentation", container: "image_sequential", steps: ["kornia.augmentation.RandomAffine", "kornia.augmentation.RandomBrightness", "kornia.augmentation.RandomGaussianNoise"], blurb: "Geometry, brightness and noise, re-drawn on every run." },
+    { name: "Blur, then find faces", container: "sequential", steps: ["kornia.filters.gaussian_blur2d"], model: "face-detection-yunet", blurb: "A preprocessing step feeding a detector: how a model sees a degraded frame." },
+  ];
+  function availableStarters() {
+    return STARTERS.map(function (st) {
+      const ops = st.steps.map(opById).filter(function (op) { return op && op.mode === "onnx"; });
+      const model = st.model ? pipelineModels().find(function (m) { return m.slug === st.model; }) : null;
+      return ops.length === st.steps.length && (!st.model || model) ? { st: st, ops: ops, model: model } : null;
+    }).filter(Boolean);
+  }
+  function starterPipe(s) {
+    return { id: uid(), name: s.st.name, container: s.st.container, steps: s.ops.map(function (op) { return { op: op.id, params: defaults(op) }; }), model: s.model ? s.model.id : null, created: Date.now() };
+  }
+  // a template opens as a draft: nothing is saved until the visitor changes something in it
+  function createFromStarter(s) {
+    const idx = STARTERS.indexOf(s.st);
+    draft = starterPipe(s);
+    navigate({ t: String(idx) });
+  }
+  let draft = null;   // the unsaved pipeline the editor shows for ?draft=1 or ?t=<template>
+  function pipelineLinks() {
+    const links = el("div", "pg-details pg-model-card pg-pipe-links");
+    const row = el("div", "pg-details-links");
+    row.innerHTML = '<a href="https://kornia.readthedocs.io/en/latest/augmentation.container.html" target="_blank" rel="noopener"><i class="fas fa-book" aria-hidden="true"></i> Containers reference</a>'
+      + ''
+      + '<a href="https://github.com/kornia/kornia.github.io/issues/new?title=playground%20pipelines" target="_blank" rel="noopener"><i class="fas fa-bug" aria-hidden="true"></i> Report an issue</a>';
+    links.appendChild(row);
+    return links;
+  }
+
+  // ---- the sidebar: the things in this section, like the operator and model lists on the other pages
+  function renderSidebar() {
+    const side = document.getElementById("pg-pipes-list");
+    if (!side) return;
+    side.innerHTML = "";
+    const params = new URLSearchParams(window.location.search);
+    const current = params.get("p"), currentTemplate = params.get("t");
+    const rows = [];
+    function row(list, cls, title, sub, right, onClick, isCurrent, text) {
+      const li = el("li", "pg-row pg-row-live");
+      const a = el("a", "pg-row-name pg-row-model" + (cls ? " " + cls : ""), { href: "#" });
+      const t = el("span", "pg-model-title"); t.textContent = title; a.appendChild(t);
+      if (sub) { const sb = el("span", "pg-model-sub"); sb.textContent = sub; a.appendChild(sb); }
+      if (right) { const r = el("span", "pg-model-size"); r.textContent = right; a.appendChild(r); }
+      if (isCurrent) { a.classList.add("pg-row-current"); a.setAttribute("aria-current", "page"); }
+      a.addEventListener("click", function (ev) { ev.preventDefault(); onClick(); });
+      li.appendChild(a); list.appendChild(li);
+      rows.push({ li: li, text: (text || title + " " + (sub || "")).toLowerCase() });
+      return li;
+    }
+    const mine = el("section", "pg-pkg");
+    const h = el("h2"); h.textContent = "Your pipelines";
+    const all = loadAll();
+    const n = el("span", "pg-pkg-count"); n.textContent = String(all.length); h.appendChild(n);
+    mine.appendChild(h);
+    const list = el("ul", "pg-list");
+    row(list, "pg-row-new", "+ New pipeline", null, null, function () { navigate({ new: "" }); }, false, "new pipeline");
+    all.slice().sort(function (a, b) { return (b.created || 0) - (a.created || 0); }).forEach(function (pipe) {
+      const names = pipe.steps.map(function (st) { const op = opById(st.op); return op ? op.name : st.op; });
+      const model = pipe.model ? modelById(pipe.model) : null;
+      if (model) names.push(model.name);
+      const li = row(list, "", pipe.name, names.join(" → ") || "empty", pipe.steps.length + (model ? "+1" : ""), function () { navigate({ p: pipe.id }); }, pipe.id === current);
+      // duplicate and delete, shown when the row is hovered or focused
+      const tools = el("span", "pg-row-tools");
+      const dup = el("button", "pg-row-tool", { type: "button", title: "Duplicate", "aria-label": "Duplicate " + pipe.name });
+      dup.innerHTML = '<i class="fas fa-copy" aria-hidden="true"></i>';
+      dup.addEventListener("click", function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        const copy = JSON.parse(JSON.stringify(pipe));
+        copy.id = uid(); copy.name = pipe.name + " (copy)"; copy.created = Date.now();
+        const list2 = loadAll(); list2.push(copy); saveAll(list2);
+        navigate({ p: copy.id });
+      });
+      const del = el("button", "pg-row-tool pg-row-tool-danger", { type: "button", title: "Delete", "aria-label": "Delete " + pipe.name });
+      del.innerHTML = '<i class="fas fa-trash" aria-hidden="true"></i>';
+      del.addEventListener("click", function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        if (!window.confirm('Delete "' + pipe.name + '"? This cannot be undone.')) return;
+        saveAll(loadAll().filter(function (x) { return x.id !== pipe.id; }));
+        if (pipe.id === current) navigate({}); else renderSidebar();
+      });
+      tools.appendChild(dup); tools.appendChild(del);
+      li.appendChild(tools);
+    });
+    mine.appendChild(list);
+    side.appendChild(mine);
+    const starters = availableStarters();
+    if (starters.length) {
+      const sec = el("section", "pg-pkg");
+      const h2 = el("h2"); h2.textContent = "Templates";
+      const n2 = el("span", "pg-pkg-count"); n2.textContent = String(starters.length); h2.appendChild(n2);
+      sec.appendChild(h2);
+      const l2 = el("ul", "pg-list");
+      starters.forEach(function (st) {
+        row(l2, "", st.st.name, st.ops.map(function (op) { return op.name; }).join(" → ") + (st.model ? " → " + st.model.name : ""), null, function () { createFromStarter(st); }, String(STARTERS.indexOf(st.st)) === currentTemplate);
+      });
+      sec.appendChild(l2);
+      side.appendChild(sec);
+    }
+    const search = document.getElementById("pg-search");
+    if (search && !search.dataset.pipesBound) {
+      search.dataset.pipesBound = "1";
+      search.addEventListener("input", function () {
+        const q = search.value.trim().toLowerCase();
+        sideRows.forEach(function (r) { r.li.hidden = !!q && r.text.indexOf(q) === -1; });
+      });
+    }
+    sideRows = rows;
+    if (search && search.value) search.dispatchEvent(new Event("input"));
+  }
+  let sideRows = [];
 
   function navigate(params) {
     const url = new URL(window.location.href);
@@ -335,6 +452,12 @@
   function render() {
     const q = new URLSearchParams(window.location.search);
     mount.innerHTML = "";
+    renderSidebar();
+    if (q.has("t")) {   // a template, rebuilt from its definition so a reload keeps it
+      const st = availableStarters().find(function (x) { return STARTERS.indexOf(x.st) === Number(q.get("t")); });
+      if (st) { if (!draft || draft.template !== q.get("t")) { draft = starterPipe(st); draft.template = q.get("t"); } return renderEditor(draft, true); }
+    }
+    if (q.has("draft")) { if (draft) return renderEditor(draft, true); return renderList(); }
     if (q.get("share")) {
       try {
         const pipe = JSON.parse(unb64url(q.get("share")));   // {name, container, steps, model}
@@ -363,10 +486,9 @@
     head.appendChild(h);
     mount.appendChild(head);
     const lead = el("p", "pg-summary");
-    lead.textContent = "Chain kornia operators, run the chain on the sample images here, then download it as one ONNX graph or copy the PyTorch code. Pipelines are saved in this browser.";
+    lead.textContent = "Chain kornia operators, run the chain on the sample images here, then download it as one ONNX graph or copy the PyTorch code. Your pipelines are saved in this browser and listed on the left.";
     mount.appendChild(lead);
 
-    const list = loadAll();
     const grid = el("div", "pg-pipe-grid");
     const create = el("div", "pg-pipe-card pg-pipe-create");
     const createBtn = el("button", "pg-pipe-create-btn", { type: "button", "aria-expanded": "false" });
@@ -394,11 +516,9 @@
       card.appendChild(t);
       card.appendChild(b);
       card.addEventListener("click", function () {
-        const pipe = { id: uid(), name: input.value.trim() || "My pipeline", container: key, steps: [], created: Date.now() };
-        const all = loadAll();
-        all.push(pipe);
-        saveAll(all);
-        navigate({ p: pipe.id });
+        // a draft: it is saved the first time something in it changes
+        draft = { id: uid(), name: input.value.trim() || "My pipeline", container: key, steps: [], created: Date.now() };
+        navigate({ draft: "1" });
       });
       choices.appendChild(card);
     });
@@ -412,42 +532,29 @@
     create.appendChild(createBtn);
     create.appendChild(form);
     grid.appendChild(create);
-    list.forEach(function (pipe) {
-      const card = el("div", "pg-pipe-card");
-      const name = el("a", "pg-pipe-name", { href: "?p=" + pipe.id });
-      name.textContent = pipe.name;
-      name.addEventListener("click", function (ev) { ev.preventDefault(); navigate({ p: pipe.id }); });
-      const meta = el("p", "pg-note");
-      meta.textContent = CONTAINERS[pipe.container].title + " · " + pipe.steps.length + " step" + (pipe.steps.length === 1 ? "" : "s");
-      const steps = el("p", "pg-pipe-steps");
-      steps.textContent = pipe.steps.map(function (s) { const op = opById(s.op); return op ? op.name : s.op; }).join(" → ") || "empty";
-      const actions = el("div", "pg-pipe-actions");
-      const dup = el("button", "pg-link", { type: "button" });
-      dup.textContent = "duplicate";
-      dup.addEventListener("click", function () {
-        const copy = JSON.parse(JSON.stringify(pipe));
-        copy.id = uid();
-        copy.name = pipe.name + " (copy)";
-        const all = loadAll();
-        all.push(copy);
-        saveAll(all);
-        render();
-      });
-      const del = el("button", "pg-link pg-link-danger", { type: "button" });
-      del.textContent = "delete";
-      del.addEventListener("click", function () {
-        saveAll(loadAll().filter(function (x) { return x.id !== pipe.id; }));
-        render();
-      });
-      actions.appendChild(dup);
-      actions.appendChild(del);
-      card.appendChild(name);
-      card.appendChild(meta);
-      card.appendChild(steps);
-      card.appendChild(actions);
-      grid.appendChild(card);
-    });
     mount.appendChild(grid);
+
+    // starters: three ready-made chains that open in the editor, so the page is not an empty box
+    const starters = availableStarters();
+    if (starters.length) {
+      const sec = el("section", "pg-pipe-templates", { id: "templates" });
+      const h3 = el("h3");
+      h3.textContent = "Start from a template";
+      sec.appendChild(h3);
+      const row = el("div", "pg-pipe-template-grid");
+      starters.forEach(function (s) {
+        const card = el("button", "pg-pipe-template", { type: "button" });
+        const t = el("strong"); t.textContent = s.st.name;
+        const chain = el("span", "pg-pipe-steps"); chain.textContent = s.ops.map(function (op) { return op.name; }).join(" → ") + (s.model ? " → " + s.model.name : "");
+        const b = el("span", "pg-note"); b.textContent = s.st.blurb;
+        card.appendChild(t); card.appendChild(chain); card.appendChild(b);
+        card.addEventListener("click", function () { createFromStarter(s); });
+        row.appendChild(card);
+      });
+      sec.appendChild(row);
+      mount.appendChild(sec);
+    }
+    mount.appendChild(pipelineLinks());
   }
 
   // ---- new
@@ -478,11 +585,9 @@
       card.appendChild(t);
       card.appendChild(b);
       card.addEventListener("click", function () {
-        const pipe = { id: uid(), name: input.value.trim() || "My pipeline", container: key, steps: [], created: Date.now() };
-        const all = loadAll();
-        all.push(pipe);
-        saveAll(all);
-        navigate({ p: pipe.id });
+        // a draft: it is saved the first time something in it changes
+        draft = { id: uid(), name: input.value.trim() || "My pipeline", container: key, steps: [], created: Date.now() };
+        navigate({ draft: "1" });
       });
       grid.appendChild(card);
     });
@@ -496,15 +601,45 @@
   }
 
   // ---- editor
-  function renderEditor(pipe) {
+  function renderEditor(pipe, isDraft) {
     const container = CONTAINERS[pipe.container];
     const candidates = registry.ops.filter(function (op) { return eligible(op) && container.accepts(op); });
+    let unsaved = !!isDraft;
+    let onnxCode = null;   // the ONNX tab's snippet, filled by refreshCode once the code block exists
+    function pipelineOnnxSnippet() {
+      const file = pipe.name.replace(/[^\w.-]+/g, "_");
+      const live = pipe.steps.reduce(function (n, st) { const op = opById(st.op); return n + (op ? op.params.filter(function (p) { return p.kind === "live"; }).length : 0); }, 0);
+      return [
+        "# pip install onnxruntime numpy",
+        "import numpy as np",
+        "import onnxruntime as ort",
+        "",
+        'sess = ort.InferenceSession("' + file + '.onnx")   # either file from the buttons above',
+        "print([(i.name, i.shape) for i in sess.get_inputs()])   # the image" + (live ? ", then " + live + " parameter input" + (live === 1 ? "" : "s") + " (none in the baked file)" : ""),
+        "img = np.random.rand(1, 3, " + registry.size + ", " + registry.size + ").astype(np.float32)   # (1, 3, H, W) float in [0, 1]",
+        "feeds = {sess.get_inputs()[0].name: img}",
+        "for i in sess.get_inputs()[1:]:",
+        "    feeds[i.name] = np.array([0.5], np.float32)   # your value for that parameter",
+        "out = sess.run(None, feeds)[0]",
+      ].join("\n");
+    }
 
     function persist() {
       const all = loadAll();
       const i = all.findIndex(function (x) { return x.id === pipe.id; });
       if (i >= 0) all[i] = pipe; else all.push(pipe);
+      delete pipe.template;
       saveAll(all);
+      if (unsaved) {   // the first change saves the draft; from here the URL names the saved pipeline
+        unsaved = false;
+        draft = null;
+        const url = new URL(window.location.href);
+        url.search = "?p=" + pipe.id;
+        window.history.replaceState({}, "", url.toString());
+        if (draftNote) draftNote.remove();
+        del.hidden = false;
+      }
+      renderSidebar();
     }
 
     const head = el("div", "pg-pipe-head");
@@ -514,7 +649,32 @@
     cont.textContent = container.title;
     head.appendChild(nameInput);
     head.appendChild(cont);
+    const headActions = el("div", "pg-pipe-head-actions");
+    const dup = el("button", "pg-link", { type: "button", title: "Duplicate this pipeline" });
+    dup.innerHTML = '<i class="fas fa-copy" aria-hidden="true"></i> Duplicate';
+    dup.addEventListener("click", function () {
+      const copy = JSON.parse(JSON.stringify(pipe));
+      copy.id = uid(); copy.name = pipe.name + " (copy)"; copy.created = Date.now();
+      const all = loadAll(); all.push(copy); saveAll(all);
+      navigate({ p: copy.id });
+    });
+    const del = el("button", "pg-link pg-link-danger", { type: "button", title: "Delete this pipeline" });
+    del.innerHTML = '<i class="fas fa-trash" aria-hidden="true"></i> Delete';
+    del.hidden = unsaved;
+    del.addEventListener("click", function () {
+      if (!window.confirm('Delete "' + pipe.name + '"? This cannot be undone.')) return;
+      saveAll(loadAll().filter(function (x) { return x.id !== pipe.id; }));
+      navigate({});
+    });
+    headActions.appendChild(dup); headActions.appendChild(del);
+    head.appendChild(headActions);
     mount.appendChild(head);
+    let draftNote = null;
+    if (unsaved) {
+      draftNote = el("p", "pg-note pg-pipe-draft");
+      draftNote.innerHTML = '<i class="fas fa-circle-info" aria-hidden="true"></i> Not saved yet: it joins your pipelines the first time you change something.';
+      mount.appendChild(draftNote);
+    }
 
     const layout = el("div", "pg-pipe-layout");
     mount.appendChild(layout);
@@ -567,6 +727,7 @@
     const modelSel = el("select", "pg-select", { "aria-label": "Model to run after the steps" });
     const none = el("option", "", { value: "" });
     none.textContent = "No model: the pipeline outputs an image";
+    modelLabel.innerHTML = '<i class="fas fa-brain" aria-hidden="true"></i> Model <span class="pg-note">optional, after the steps above</span>';
     modelSel.appendChild(none);
     pipelineModels().forEach(function (m) {
       const o = el("option", "", { value: m.id });
@@ -576,6 +737,7 @@
     });
     modelSel.addEventListener("change", function () {
       pipe.model = modelSel.value || null;
+      composed = null;
       persist();
       renderModel();
       refreshWarnings();
@@ -599,7 +761,7 @@
       info.appendChild(a);
       info.appendChild(document.createTextNode(" — " + m.summary + " "));
       const tag = el("span", "pg-tag pg-tag-task");
-      tag.textContent = sizeText(m.size_mb) + (/^https?:/.test(m.url) ? " from " + m.hosted : "");
+      tag.textContent = m.url ? "runs in your browser or on kornia's server · composed into the ONNX download" : "runs on kornia's server";
       info.appendChild(tag);
       modelRow.appendChild(info);
     }
@@ -672,17 +834,24 @@
     layout.appendChild(stepsCol);
     const actions = el("div", "pg-actions pg-pipe-actions-row");
     const run = el("button", "pg-btn", { type: "button" });
-    run.addEventListener("click", schedule);
+    const target = window.PGModels && window.PGModels.targetSwitch ? window.PGModels.targetSwitch({ browser: true, server: false, value: "browser" }) : null;
+    const runGroup = el("div", "pg-run-group");
+    if (target) runGroup.appendChild(target.el);
+    runGroup.appendChild(run);
+    // only this button runs a model; the switch above it says where
+    run.addEventListener("click", function () { runWhere = target ? target.get() : "browser"; explicit = true; schedule(); });
     function refreshRunLabel() {
       const random = pipe.steps.some(function (st) { const o = opById(st.op); return o && o.stochastic; });
-      run.innerHTML = random ? '<i class="fas fa-dice" aria-hidden="true"></i> Re-roll' : '<i class="fas fa-play" aria-hidden="true"></i> Run';
+      const m = pipe.model ? modelById(pipe.model) : null;
+      run.innerHTML = random && !m ? '<i class="fas fa-dice" aria-hidden="true"></i> Re-roll' : '<i class="fas fa-play" aria-hidden="true"></i> Run';
+      if (target) { target.el.hidden = !m; if (m) target.allow(!!m.url, !!m.server); }
     }
     refreshRunLabel();
-    const dlInputs = el("button", "pg-btn pg-btn-ghost", { type: "button", title: "The slider parameters stay graph inputs" });
-    dlInputs.innerHTML = '<i class="fas fa-download" aria-hidden="true"></i> ONNX, parameters as inputs';
+    const dlInputs = el("button", "pg-tab-action", { type: "button", title: "The slider parameters stay graph inputs" });
+    dlInputs.innerHTML = '<i class="fas fa-file-arrow-down" aria-hidden="true"></i> ONNX, parameters as inputs';
     dlInputs.addEventListener("click", function () { download(false); });
-    const dlBaked = el("button", "pg-btn pg-btn-ghost", { type: "button", title: "The current parameter values are baked into the graph" });
-    dlBaked.innerHTML = '<i class="fas fa-download" aria-hidden="true"></i> ONNX, parameters baked';
+    const dlBaked = el("button", "pg-tab-action", { type: "button", title: "The current parameter values are baked into the graph" });
+    dlBaked.innerHTML = '<i class="fas fa-file-arrow-down" aria-hidden="true"></i> ONNX, parameters baked';
     dlBaked.addEventListener("click", function () { download(true); });
     const share = el("button", "pg-btn pg-btn-ghost", { type: "button" });
     share.innerHTML = '<i class="fas fa-link" aria-hidden="true"></i> Copy share link';
@@ -692,9 +861,7 @@
       navigator.clipboard.writeText(url.toString()).then(function () { share.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Link copied'; setTimeout(function () { share.innerHTML = '<i class="fas fa-link" aria-hidden="true"></i> Copy share link'; }, 1500); });
     });
     const status = el("span", "pg-status");
-    actions.appendChild(run);
-    actions.appendChild(dlInputs);
-    actions.appendChild(dlBaked);
+    actions.appendChild(runGroup);
     actions.appendChild(share);
     const actionsBlock = el("div", "pg-pipe-actions-block");
     actionsBlock.appendChild(actions);
@@ -703,21 +870,46 @@
 
     // code
     const codeBox = el("div", "pg-code pg-pipe-code", { id: "code" });
-    const tabs = el("div", "pg-tabs");
-    const tab = el("span", "pg-tab pg-tab-active");
+    const tabs = el("div", "pg-tabs", { role: "tablist" });
+    const tab = el("button", "pg-tab pg-tab-active", { type: "button", role: "tab", "aria-selected": "true" });
     tab.textContent = "Python";
+    const tabOnnx = el("button", "pg-tab", { type: "button", role: "tab", "aria-selected": "false" });
+    tabOnnx.textContent = "ONNX";
     const copy = el("button", "pg-copy", { type: "button" });
     copy.textContent = "copy";
     const pre = el("pre");
     const code = el("code", "language-python");
     pre.appendChild(code);
+    // the ONNX tab: the two downloads, then how to run either file
+    const onnxPane = el("div", "pg-pane");
+    onnxPane.hidden = true;
+    const onnxHead = el("div", "pg-onnx-head");
+    onnxHead.appendChild(dlInputs); onnxHead.appendChild(dlBaked);
+    const onnxNote = el("span", "pg-onnx-note");
+    onnxNote.textContent = "one graph for the whole chain · opset " + registry.onnx_opset + " · runs with onnxruntime, onnxruntime-web and the ort crate";
+    onnxHead.appendChild(onnxNote);
+    onnxPane.appendChild(onnxHead);
+    const onnxPre = el("pre");
+    onnxCode = el("code", "language-python");
+    onnxPre.appendChild(onnxCode);
+    onnxPane.appendChild(onnxPre);
+    function showTab(which) {
+      [tab, tabOnnx].forEach(function (t) { t.classList.toggle("pg-tab-active", t === which); t.setAttribute("aria-selected", t === which ? "true" : "false"); });
+      pre.hidden = which !== tab;
+      onnxPane.hidden = which !== tabOnnx;
+    }
+    tab.addEventListener("click", function () { showTab(tab); });
+    tabOnnx.addEventListener("click", function () { showTab(tabOnnx); });
     copy.addEventListener("click", function () {
-      navigator.clipboard.writeText(code.textContent).then(function () { copy.textContent = "copied"; setTimeout(function () { copy.textContent = "copy"; }, 1200); });
+      const visible = pre.hidden ? onnxCode : code;
+      navigator.clipboard.writeText(visible.textContent).then(function () { copy.textContent = "copied"; setTimeout(function () { copy.textContent = "copy"; }, 1200); });
     });
     tabs.appendChild(tab);
+    tabs.appendChild(tabOnnx);
     tabs.appendChild(copy);
     codeBox.appendChild(tabs);
     codeBox.appendChild(pre);
+    codeBox.appendChild(onnxPane);
     mount.appendChild(codeBox);
 
     const back = el("p", "pg-backlink");
@@ -830,9 +1022,12 @@
       });
       const model = pipe.model ? modelById(pipe.model) : null;
       if (model) {
-        if (model.input.fixed && size !== model.input.size) msgs.push((model.title || model.name) + " needs a " + model.input.size + "×" + model.input.size + " input but receives " + size + " px; add resize (" + model.input.size + ") as the last step.");
         if (channels !== 3) msgs.push((model.title || model.name) + " expects an RGB image; the steps above produce " + channels + " channel(s).");
-        if (/^https?:/.test(model.url)) msgs.push((model.title || model.name) + " downloads " + sizeText(model.size_mb) + " from " + model.hosted + " the first time the pipeline runs; the exported ONNX will be about that size.");
+        if (!model.url) msgs.push((model.title || model.name) + " runs on kornia's server after the steps above; the server resizes to its input size. The ONNX downloads contain the preprocessing steps only.");
+        else {
+          if (model.input.fixed && size !== model.input.size) msgs.push((model.title || model.name) + " needs a " + model.input.size + "×" + model.input.size + " input but receives " + size + " px; add resize (" + model.input.size + ") as the last step.");
+          if (/^https?:/.test(model.url)) msgs.push((model.title || model.name) + " downloads " + sizeText(model.size_mb) + " from " + model.hosted + " the first time the pipeline runs; the exported ONNX will be about that size.");
+        }
       }
       const seen = {};
       msgs.forEach(function (m) {
@@ -872,6 +1067,7 @@
     }
 
     function refreshCode() {
+      if (onnxCode) { onnxCode.textContent = pipelineOnnxSnippet(); if (window.hljs) { onnxCode.removeAttribute("data-highlighted"); window.hljs.highlightElement(onnxCode); } }
       code.textContent = pythonCode();
       if (typeof hljs !== "undefined") {
         code.removeAttribute("data-highlighted");
@@ -891,6 +1087,7 @@
 
     function stopVideo() {
       videoLoop = false;
+      restartPass();   // the kept frames go with the clip
       if (video) video.pause();
     }
 
@@ -911,17 +1108,51 @@
         video.load();
       }
       videoLoop = true;
+      restartPass();
       const pr = video.play();
       if (pr && pr.catch) pr.catch(function () {});
       pump();
     }
 
+
+    // one computed pass through the clip, kept in memory as output frames (capped), then replayed in step with the
+    // looping clip so nothing computes for hours. Dropped when the clip stops, a parameter changes, or the
+    // page section changes. Keyed by playback time, at most MAX_KEPT frames.
+    const MAX_KEPT = 240;
+    let pass = { t: -1, seen: 0, done: false, frames: [] };
+    function restartPass() { pass = { t: -1, seen: 0, done: false, frames: [] }; }
+    function keptNear(t) {
+      const f = pass.frames; if (!f.length) return null;
+      let lo = 0, hi = f.length - 1;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (f[mid].t < t) lo = mid + 1; else hi = mid; }
+      if (lo > 0 && Math.abs(f[lo - 1].t - t) < Math.abs(f[lo].t - t)) lo--;
+      return f[lo];
+    }
     function pump() {
-      if (!videoLoop || !previewCol.isConnected) { videoLoop = false; return; }
+      if (!videoLoop || !previewCol.isConnected) { videoLoop = false; restartPass(); return; }
       if (video.readyState >= 2 && typeof ort !== "undefined" && pipe.steps.length) {
+        const t = video.currentTime;
+        if (pass.t >= 0) pass.seen += Math.max(0, t - pass.t);
+        if (!pass.done && pass.t >= 0 && t < pass.t - 0.5 && pass.seen >= (video.duration || 4) * 0.9 && pass.frames.length > 1) pass.done = true;
+        pass.t = t;
         canvasIn.getContext("2d").drawImage(video, 0, 0, registry.size, registry.size);
+        if (pass.done) {   // replay the computed pass in step with the clip
+          const kept = keptNear(t);
+          if (kept) { canvasOut.getContext("2d").putImageData(kept.img, 0, 0); status.textContent = "computed once (" + pass.frames.length + " frames) · replaying with the clip"; }
+          window.requestAnimationFrame(pump);
+          return;
+        }
         inputTensor = canvasToTensor(canvasIn, registry.size);
-        execute().then(function () { window.requestAnimationFrame(pump); });
+        execute().then(function () {
+          if (!pass.done && canvasOut.width && canvasOut.height) {
+            // keep at most MAX_KEPT frames across the clip: thin out when the pass produces more
+            if (pass.frames.length < MAX_KEPT || (pass.frames.length && t - pass.frames[pass.frames.length - 1].t >= (video.duration || 4) / MAX_KEPT)) {
+              if (pass.frames.length >= MAX_KEPT) pass.frames.splice(0, 1);
+              pass.frames.push({ t: t, img: canvasOut.getContext("2d").getImageData(0, 0, canvasOut.width, canvasOut.height) });
+            }
+          }
+          window.requestAnimationFrame(pump);
+        });
       } else {
         window.requestAnimationFrame(pump);
       }
@@ -941,28 +1172,29 @@
       });
     }
 
-    function stepModels() {
+    function stepModels(includeModel) {
       const jobs = pipe.steps.map(function (step) {
         const op = opById(step.op);
         if (!op) throw new Error("operator " + step.op + " is not in this build");
         return fetchModel(ROOT + op.graphs[graphKey(op, step.params)]).then(function (bytes) { return { op: op, params: step.params, bytes: bytes }; });
       });
-      const m = pipe.model ? modelById(pipe.model) : null;
-      if (m) jobs.push(fetchModel(absUrl(m.url)).then(function (bytes) { return { model: m, bytes: bytes }; }));
-      return Promise.all(jobs);
+      const m = includeModel !== false && pipe.model ? modelById(pipe.model) : null;
+      if (m && !useServer(m)) jobs.push(fetchModel(absUrl(m.url)).then(function (bytes) { return { model: m, bytes: bytes }; }));   // composed into the graph, in the browser
+      return Promise.all(jobs);   // otherwise the model runs on kornia's server after these steps
     }
 
-    function build(bake, preview) {
-      return loadSchema(ROOT).then(stepModels).then(function (steps) {
+    function build(bake, preview, includeModel) {
+      return loadSchema(ROOT).then(function () { return stepModels(includeModel); }).then(function (steps) {
         if (!steps.length) throw new Error("add at least one step");
-        if (steps.length === 1 && steps[0].model) throw new Error("add at least one preprocessing step, or use the model's own page");
         return compose(steps, bake, preview);
       });
     }
 
+    let explicit = false;   // true between a press of Run and the server call it pays for
     function schedule() {
       refreshCode();
       refreshWarnings();
+      restartPass();
       clearTimeout(timer);
       timer = setTimeout(runPipeline, 60);
     }
@@ -987,13 +1219,16 @@
     function execute() {
       status.classList.remove("pg-error");
       // the graph only changes when the operators or a discrete choice change; live values are inputs
-      const key = JSON.stringify([pipe.model].concat(pipe.steps.map(function (s) { const op = opById(s.op); return op ? [op.id, graphKey(op, s.params)] : [s.op]; })));
+      const mSel = pipe.model ? modelById(pipe.model) : null;
+      // automatic runs compose the steps only; the model joins the graph (or goes to the server) after a press of Run
+      const includeModel = explicit;
+      const key = JSON.stringify([includeModel ? pipe.model : null, mSel ? (useServer(mSel) ? "server" : "browser") : null].concat(pipe.steps.map(function (s) { const op = opById(s.op); return op ? [op.id, graphKey(op, s.params)] : [s.op]; })));
       const t0 = performance.now();
       const modelStep = pipe.model ? modelById(pipe.model) : null;
       if (!(composed && composedKey === key)) status.textContent = modelStep && /^https?:/.test(modelStep.url) && !modelCache[absUrl(modelStep.url)] ? "downloading " + sizeText(modelStep.size_mb) + " model, then composing…" : "composing…";
       const ready = (composed && composedKey === key)
         ? Promise.resolve(composed)
-        : build(false, true).then(function (c) {
+        : build(false, true, includeModel).then(function (c) {
           return ort.InferenceSession.create(c.bytes, { executionProviders: ["wasm"], graphOptimizationLevel: "all" }).then(function (session) {
             c.session = session;
             composed = c;
@@ -1009,25 +1244,55 @@
         });
         return c.session.run(feeds).then(function (results) {
           const ms = performance.now() - t0;
-          let detail = "";
-          if (modelStep && window.PGModels) {
-            // the image the model saw (before its normalisation) is the backdrop for boxes, faces, bars
+          const out = results[c.outputName] || results[Object.keys(results)[0]];
+          if (modelStep && window.PGModels && !explicit) {
+            // automatic runs (load, a slider, a sample, a clip frame) never run the model: they preview the steps
+            const lastOp = pipe.steps.length ? opById(pipe.steps[pipe.steps.length - 1].op) : null;
+            tensorToCanvas(out, canvasOut, lastOp && lastOp.output ? lastOp.output.display : "clamp");
+            status.textContent = pipe.steps.length + " step" + (pipe.steps.length === 1 ? "" : "s") + " in " + ms.toFixed(0) + " ms here · Run adds " + (modelStep.title || modelStep.name) + (modelStep.url ? " in your browser (" + sizeText(modelStep.size_mb) + " download)" + (modelStep.server ? ", or on the server" : "") : " on the server");
+            return;
+          }
+          if (modelStep) explicit = false;   // the press of Run is spent here
+          if (modelStep && window.PGModels && c.previewOutput) {
+            // composed in the browser: the model's outputs are tensors; the image it saw is the backdrop
             const pre = document.createElement("canvas");
             tensorToCanvas(results[c.previewOutput], pre, "clamp");
             const modelResults = {};
             c.outputNames.forEach(function (n) { modelResults[n.replace(/^s\d+\//, "")] = results[n]; });
             const labelsReady = modelStep.output.labels ? window.PGModels.getLabels(modelStep.output.labels, ROOT) : Promise.resolve(null);
             return labelsReady.then(function (labels) {
-              detail = window.PGModels.drawResults(modelStep, modelResults, pre, canvasOut, { labels: labels });
-              status.textContent = pipe.steps.length + " step" + (pipe.steps.length === 1 ? "" : "s") + " + " + (modelStep.title || modelStep.name) + ": " + detail + " · " + (c.bytes.length / 1048576).toFixed(1) + " MB graph, " + ms.toFixed(0) + " ms on your machine";
+              const detail = window.PGModels.drawResults(modelStep, modelResults, pre, canvasOut, { labels: labels });
+              status.textContent = pipe.steps.length + " step" + (pipe.steps.length === 1 ? "" : "s") + " + " + (modelStep.title || modelStep.name) + " in your browser: " + detail + " · " + (c.bytes.length / 1048576).toFixed(1) + " MB graph, " + ms.toFixed(0) + " ms on your machine";
             });
           }
-          const out = results[c.outputName] || results[Object.keys(results)[0]];
-          const last = opById(pipe.steps[pipe.steps.length - 1].op);
+          if (modelStep && window.PGModels) {
+            // the preprocessed frame goes to kornia's server; the result is drawn on top of it
+            const pre = document.createElement("canvas");
+            tensorToCanvas(out, pre, "clamp");
+            const A = window.KorniaAuth;
+            if (!A || !A.user) {   // the prompt can be dismissed; signing in runs the pending request
+              tensorToCanvas(out, canvasOut, "clamp");
+              status.textContent = pipe.steps.length + " step" + (pipe.steps.length === 1 ? "" : "s") + " in " + ms.toFixed(0) + " ms here";
+              window.PGModels.askSignIn("run " + (modelStep.title || modelStep.name) + " on kornia's server", function () { runWhere = "server"; explicit = true; schedule(); });
+              return;
+            }
+            if (sourceKind === "video") { videoLoop = false; }   // one server round trip per Run, not per frame
+            status.textContent = "preprocessing done in " + ms.toFixed(0) + " ms; running " + (modelStep.title || modelStep.name) + " on the server…";
+            return window.PGModels.runOnServer(modelStep, pre, null).then(function (res) {
+              window.PGModels.drawServerResult(modelStep, res, pre, null, canvasOut);
+              status.textContent = pipe.steps.length + " step" + (pipe.steps.length === 1 ? "" : "s") + " here + " + (modelStep.title || modelStep.name) + " on the server: " + (res.summary || "") + " · " + res.ms + " ms on the server";
+            }).catch(function (e) {
+              tensorToCanvas(out, canvasOut, "clamp");
+              status.classList.add("pg-error");
+              status.textContent = "the server run failed: " + (e.message || e);
+            });
+          }
+          const last = pipe.steps.length ? opById(pipe.steps[pipe.steps.length - 1].op) : null;
           tensorToCanvas(out, canvasOut, last && last.output ? last.output.display : "clamp");
           status.textContent = pipe.steps.length + " step" + (pipe.steps.length === 1 ? "" : "s") + ", " + (c.bytes.length / 1024).toFixed(0) + " KB graph, " + ms.toFixed(0) + " ms on your machine" + (sourceKind === "video" && ms > 0 ? " (" + (1000 / ms).toFixed(0) + " fps)" : "");
         });
       }).catch(function (err) {
+        console.error("pipeline run failed", err);
         status.classList.add("pg-error");
         status.textContent = "could not run the pipeline: " + (err.message || err);
         videoLoop = false;
@@ -1053,6 +1318,7 @@
     }
 
     renderSteps();
+    mount.appendChild(pipelineLinks());
     loadInput().then(schedule).catch(function (err) { status.classList.add("pg-error"); status.textContent = err.message; });
   }
 

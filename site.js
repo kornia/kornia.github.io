@@ -1,5 +1,15 @@
 // Shared behaviour for every page: hamburger, in-page smooth scroll, obfuscated contact email, copy buttons.
 document.addEventListener('DOMContentLoaded', function () {
+    // current section in the header, from the URL (the header markup is identical on every page)
+    var path = location.pathname;
+    document.querySelectorAll('.nav-links a[data-section]').forEach(function (a) {
+        var on = path.indexOf('/' + a.dataset.section + '/') !== -1;
+        a.classList.toggle('active', on);
+        if (on) a.setAttribute('aria-current', 'page');
+    });
+    if (/\/projects\//.test(path)) { var p = document.querySelector('.nav-dropdown a[href$="projects/"]'); if (p) p.classList.add('active'); }
+    if (/\/(sponsor|community)\//.test(path)) { var s = document.querySelector('.nav-dropdown a[href$="sponsor/"]'); if (s) s.classList.add('active'); }
+
     var heroNews = document.getElementById('hero-news');
     if (heroNews) {
         fetch('news.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (news) {
@@ -43,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
             navToggle.classList.toggle('is-active', open);
             navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
-        navLinks.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeNav); });
+        // a dropdown trigger opens its menu in place; every other link closes the panel
+        navLinks.querySelectorAll('a').forEach(function (a) { if (a.getAttribute('aria-haspopup')) return; a.addEventListener('click', closeNav); });
         document.addEventListener('click', function (e) { if (!e.target.closest('nav')) closeNav(); });
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
     }

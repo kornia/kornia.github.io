@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Kornia</title>
+    <meta name="description" content="Your kornia dashboard: server runs and exports, saved pipelines, plan and account, with sign-in through GitHub, Google or email.">
+    <link rel="canonical" href="https://www.kornia.org/dashboard/">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="icon" href="/assets/kornia-logo-mini.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css?v=20260944">
+    <link rel="stylesheet" href="../playground/playground.css?v=20260947">
+    <script src="../theme.js?v=20260903"></script>
+</head>
+<body class="pg-body hub-body">
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../">kornia.org</a>
+            </div>
+
+            <button type="button"
+                    class="nav-toggle"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded="false"
+                    aria-controls="primary-nav-links">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+
+            <div class="nav-links" id="primary-nav-links">
+                <div class="nav-dropdown nav-mega">
+                    <a href="../playground/" class="nav-experiment" data-section="playground" role="button" aria-haspopup="menu" aria-expanded="false"><i class="fas fa-flask" aria-hidden="true"></i> Experiment <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content nav-mega-content">
+                        <a class="nav-card" href="../playground/">
+                            <span class="nav-card-icon"><i class="fas fa-sliders" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Vision operators</span>
+                            <span class="nav-card-desc">Every kornia image operator running live in your browser, with the code in Python and Rust and an ONNX download.</span>
+                        </a>
+                        <a class="nav-card" href="../playground/models/object-detection-rtdetr/">
+                            <span class="nav-card-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Models</span>
+                            <span class="nav-card-desc">Detection, faces, depth, features, classification and edges, in your browser or on kornia's server.</span>
+                        </a>
+                        <a class="nav-card" href="../playground/pipelines/">
+                            <span class="nav-card-icon"><i class="fas fa-diagram-project" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Pipelines</span>
+                            <span class="nav-card-desc">Chain operators and a model, run the chain on images or clips, export it as one ONNX graph.</span>
+                        </a>
+                        <a class="nav-card" href="../robot/" data-section="robot">
+                            <span class="nav-card-icon"><i class="fas fa-robot" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Robot simulator</span>
+                            <span class="nav-card-desc">Simulated robots in MuJoCo, a car, an arm and a humanoid, with kornia operators on their cameras and the true depth beside them.</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="../projects/" role="button" aria-haspopup="menu" aria-expanded="false">Projects <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://github.com/kornia/kornia" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia</span><span class="nav-dd-desc">Differentiable vision for PyTorch</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Image and 3D kernels in Rust</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Vision agent runtime for Jetson and Pi</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-map-location-dot" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-slam</span><span class="nav-dd-desc">Real-time pose and mapping</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/vision-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-microchip" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">vision-rt</span><span class="nav-dd-desc">TensorRT inference on Jetson Orin</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/sensor-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-camera" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">sensor-rt</span><span class="nav-dd-desc">Camera, stereo and IMU drivers</span></span>
+                        </a>
+                        <a class="nav-dd-all" href="../projects/">All projects, with install commands &rarr;</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#" role="button" aria-haspopup="menu" aria-expanded="false">Docs <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://kornia.readthedocs.io" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Kornia (PyTorch)</span><span class="nav-dd-desc">API reference and guides</span></span>
+                        </a>
+                        <a href="https://docs.rs/kornia-imgproc" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Crate docs on docs.rs</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/bubbaloop/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Install and run an agent</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/tutorials/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Tutorials</span><span class="nav-dd-desc">Runnable notebooks</span></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="../sponsor/" role="button" aria-haspopup="menu" aria-expanded="false">Support <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="../sponsor/">
+                            <span class="nav-dd-icon"><i class="fas fa-heart" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Sponsor Kornia</span><span class="nav-dd-desc">What funding buys, and the tiers</span></span>
+                        </a>
+                        <a href="../community/">
+                            <span class="nav-dd-icon"><i class="fas fa-users" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Community</span><span class="nav-dd-desc">Get help, contribute, programmes</span></span>
+                        </a>
+                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-discord" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Discord</span><span class="nav-dd-desc">Quick questions, same-day answers</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">GitHub Discussions</span><span class="nav-dd-desc">Design questions and proposals</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/issues/new/choose" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-bug" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Report a bug</span><span class="nav-dd-desc">Issue templates</span></span>
+                        </a>
+                    </div>
+                </div>
+                <button type="button" class="nav-icon nav-theme" aria-label="Switch theme"><i class="fas fa-moon" aria-hidden="true"></i></button>
+                <a href="https://github.com/kornia" target="_blank" rel="noopener" class="nav-icon" aria-label="Kornia on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <div class="nav-auth" id="nav-auth"><a class="btn nav-signin-btn" href="../dashboard/"><i class="fas fa-user" aria-hidden="true"></i> Sign in</a></div>
+                <script>/* paint the remembered signed-in state at parse time; auth.js confirms it once Firebase answers */(function(){try{var s=JSON.parse(localStorage.getItem("kornia-auth-state")||"null");if(!s)return;var c=document.getElementById("nav-auth");c.innerHTML='<a class="nav-avatar" href="../dashboard/" title="'+(s.displayName||s.email||"").replace(/"/g,"")+'"><img alt="" width="28" height="28" referrerpolicy="no-referrer" src="'+(s.photoURL||"../assets/kornia-logo-mini.svg").replace(/"/g,"")+'"></a>';}catch(e){}})();</script>
+            </div>
+        </nav>
+    </header>
+
+    <main class="db-shell">
+        <section class="hub-card db-setup" id="hub-setup" hidden>
+            <h2><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i> Not configured yet</h2>
+            <p>This page needs a Firebase project. The steps are in <code>dashboard/README.md</code>: create the project in a European region, enable Email, Google and GitHub sign-in, publish <code>firestore.rules</code>, and paste the web app config into <code>dashboard/firebase-config.js</code>.</p>
+        </section>
+
+        <section class="db-signin" id="hub-signin" hidden>
+            <div class="db-signin-card">
+                <h1>Sign in to kornia</h1>
+                <p class="db-lead">The experiments run in your browser and need no account. An account is for what a browser cannot do: run and export the heavy models on our servers, and keep your pipelines across devices.</p>
+                <div class="hub-providers">
+                    <button type="button" class="pg-btn pg-btn-ghost" id="hub-github"><i class="fab fa-github" aria-hidden="true"></i> Continue with GitHub</button>
+                    <button type="button" class="pg-btn pg-btn-ghost" id="hub-google"><i class="fab fa-google" aria-hidden="true"></i> Continue with Google</button>
+                </div>
+                <p class="hub-or">or with an email address</p>
+                <form class="hub-form" id="hub-email-form">
+                    <label>Email <input type="email" id="hub-email" autocomplete="email" required></label>
+                    <label>Password <input type="password" id="hub-password" autocomplete="current-password" minlength="8"></label>
+                    <div class="hub-form-actions">
+                        <button type="submit" class="pg-btn" data-mode="signin">Sign in</button>
+                        <button type="submit" class="pg-btn pg-btn-ghost" data-mode="register">Create account</button>
+                        <button type="submit" class="pg-link" data-mode="reset">Forgot the password?</button>
+                    </div>
+                </form>
+                <p class="hub-fineprint">We store your email and what you save here, nothing else, in the EU. No newsletter unless you subscribe to it separately.</p>
+            </div>
+        </section>
+
+        <div class="db-layout" id="hub-account" hidden>
+            <aside class="db-side" aria-label="Dashboard sections">
+                <div class="db-profile">
+                    <img id="hub-avatar" alt="" width="40" height="40" referrerpolicy="no-referrer">
+                    <div class="db-profile-text">
+                        <strong id="hub-name"></strong>
+                        <span class="hub-item-meta" id="hub-meta"></span>
+                    </div>
+                    <span class="pg-tag pg-tag-task" id="hub-tier" hidden></span>
+                </div>
+                <nav class="db-nav" role="tablist" aria-label="Sections">
+                    <a href="#overview" role="tab" data-section="overview" aria-selected="true"><i class="fas fa-gauge-high" aria-hidden="true"></i> Overview</a>
+                    <a href="#pipelines" role="tab" data-section="pipelines" aria-selected="false"><i class="fas fa-diagram-project" aria-hidden="true"></i> Pipelines</a>
+                    <a href="#exports" role="tab" data-section="exports" aria-selected="false"><i class="fas fa-file-export" aria-hidden="true"></i> Exports</a>
+                    <a href="#pricing" role="tab" data-section="pricing" aria-selected="false"><i class="fas fa-tags" aria-hidden="true"></i> Pricing</a>
+                    <a href="#account" role="tab" data-section="account" aria-selected="false"><i class="fas fa-user-gear" aria-hidden="true"></i> Account</a>
+                </nav>
+                <div class="db-side-foot">
+                    <button type="button" class="pg-btn pg-btn-ghost pg-btn-small" id="hub-signout"><i class="fas fa-right-from-bracket" aria-hidden="true"></i> Sign out</button>
+                </div>
+            </aside>
+
+            <div class="db-content">
+                <p class="pg-status pg-error db-unverified" id="hub-unverified" hidden>Your email is not verified yet, so nothing can be saved. Open the link in the verification mail, then reload. <button type="button" class="pg-link" id="hub-resend">Send it again</button></p>
+
+                <div id="hub-data">
+                    <section class="db-section" data-section="overview" data-needs-verified>
+                        <header class="db-head"><h1>Overview</h1><p class="db-lead">What your account has done on kornia's servers.</p></header>
+                        <div class="db-stats">
+                            <div class="db-stat"><span class="db-stat-label">Server time today</span><span class="db-stat-value" id="db-today">–</span><span class="db-stat-sub" id="db-today-sub"></span></div>
+                            <div class="db-stat"><span class="db-stat-label">Last 30 days</span><span class="db-stat-value" id="db-month">–</span><span class="db-stat-sub">server time on runs and exports</span></div>
+                            <div class="db-stat"><span class="db-stat-label">Saved pipelines</span><span class="db-stat-value" id="db-pipes">–</span><span class="db-stat-sub">in your account</span></div>
+                            <div class="db-stat"><span class="db-stat-label">Plan</span><span class="db-stat-value" id="db-plan">–</span><span class="db-stat-sub" id="db-plan-sub"></span></div>
+                        </div>
+                        <div class="db-panel">
+                            <h3>Daily quota</h3>
+                            <div class="hub-bar" aria-hidden="true"><div id="hub-today-bar"></div></div>
+                            <p class="hub-item-meta" id="hub-quota"></p>
+                        </div>
+                        <div class="db-two">
+                            <div class="db-panel">
+                                <h3>Server time per day</h3>
+                                <div class="hub-chart" id="hub-chart" role="img" aria-label="Runs per day over the last 30 days"></div>
+                                <p class="hub-item-meta" id="hub-chart-caption"></p>
+                            </div>
+                            <div class="db-panel">
+                                <h3>Today by model</h3>
+                                <div class="hub-chips" id="hub-by"></div>
+                                <h4>Recent</h4>
+                                <ul class="hub-runs" id="hub-recent"></ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="db-section" data-section="pipelines" data-needs-verified hidden>
+                        <header class="db-head"><h1>Pipelines</h1><p class="db-lead">Pipelines you built in the experiment, kept in your account and available in every browser you sign in from.</p></header>
+                        <div class="db-panel">
+                            <ul class="hub-list" id="hub-pipelines"></ul>
+                            <div class="hub-actions">
+                                <button type="button" class="pg-btn" id="hub-sync"><i class="fas fa-cloud-arrow-up" aria-hidden="true"></i> Save this browser's pipelines to my account</button>
+                                <button type="button" class="pg-btn pg-btn-ghost" id="hub-pull"><i class="fas fa-cloud-arrow-down" aria-hidden="true"></i> Load my pipelines into this browser</button>
+                                <span class="hub-item-meta"><span id="hub-local-count">0</span> in this browser</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="db-section" data-section="exports" data-needs-verified hidden>
+                        <header class="db-head"><h1>Exports</h1><p class="db-lead">Targeted ONNX exports you made on the server: opset, shape, precision. Each is charged the time it took.</p></header>
+                        <div class="db-panel">
+                            <ul class="hub-runs" id="db-exports"></ul>
+                            <p class="hub-item-meta">Exports are built on request and downloaded straight to your browser; nothing is kept on the server. Use <em>Customise…</em> on any operator or model page to make one.</p>
+                        </div>
+                    </section>
+
+                    <section class="db-section" data-section="pricing" hidden>
+                        <header class="db-head"><h1>Pricing</h1><p class="db-lead">Every experiment runs in your browser for free, with no account. The server tiers below are what an account adds.</p></header>
+                        <div class="db-pricing">
+                            <div class="db-price">
+                                <h3>Free</h3>
+                                <p class="db-price-amount">€0</p>
+                                <ul>
+                                    <li>Every operator, model and pipeline in your browser</li>
+                                    <li><span id="db-free-runs">10 min</span> of server time a day, for runs and exports</li>
+                                    <li>Pipelines saved to your account</li>
+                                    <li>Targeted ONNX export with verification</li>
+                                </ul>
+                                <span class="db-price-current" id="db-price-free">Your plan</span>
+                            </div>
+                            <div class="db-price db-price-soon">
+                                <h3>Pro <span class="pg-tag">coming soon</span></h3>
+                                <p class="db-price-amount">TBA</p>
+                                <ul>
+                                    <li>More server time a day, GPU inference</li>
+                                    <li>Deployed models: your own API endpoints and tokens</li>
+                                    <li>int8 quantisation and per-runtime compatibility checks</li>
+                                    <li>Priority for new models</li>
+                                </ul>
+                                <span class="db-price-current">Not available yet</span>
+                            </div>
+                            <div class="db-price db-price-soon">
+                                <h3>Team <span class="pg-tag">coming soon</span></h3>
+                                <p class="db-price-amount">TBA</p>
+                                <ul>
+                                    <li>Shared pipelines and deployments</li>
+                                    <li>Usage by member</li>
+                                    <li>Support with an SLA</li>
+                                </ul>
+                                <span class="db-price-current">Not available yet</span>
+                            </div>
+                        </div>
+                        <p class="hub-item-meta">Interested in a paid tier before it launches? Write to <a href="mailto:hello@kornia.org">hello@kornia.org</a>.</p>
+                    </section>
+
+                    <section class="db-section" data-section="account" hidden>
+                        <header class="db-head"><h1>Account</h1><p class="db-lead">Your profile and the data kornia keeps for you.</p></header>
+                        <div class="db-panel">
+                            <h3>Profile</h3>
+                            <dl class="db-dl">
+                                <dt>Name</dt><dd><span id="db-acc-name"></span> <button type="button" class="pg-link" id="hub-rename">Rename</button></dd>
+                                <dt>Email</dt><dd id="db-acc-email"></dd>
+                                <dt>Sign-in</dt><dd id="db-acc-provider"></dd>
+                                <dt>Member since</dt><dd id="db-acc-since"></dd>
+                            </dl>
+                        </div>
+                        <div class="db-panel">
+                            <h3>Data we keep</h3>
+                            <p class="hub-item-meta">Your email, the pipelines you save, and a per-day count of your server runs with the model names, kept for 30 days. Images you run on the server are processed and discarded.</p>
+                        </div>
+                        <div class="db-panel hub-danger">
+                            <h3>Delete account</h3>
+                            <p class="hub-item-meta">Deletes your saved pipelines and run history, then the account itself. There is no undo.</p>
+                            <button type="button" class="pg-btn pg-btn-ghost hub-btn-danger" id="hub-delete"><i class="fas fa-trash" aria-hidden="true"></i> Delete my account</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <p class="pg-status" id="hub-note"></p>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Kornia</h4>
+                <p>Computer vision for robotics &amp; spatial AI</p>
+            </div>
+            <div class="footer-section">
+                <h4>Projects</h4>
+                <a href="https://github.com/kornia/kornia">Kornia</a>
+                <a href="https://github.com/kornia/kornia-rs">kornia-rs</a>
+                <a href="https://github.com/kornia/kornia-slam">kornia-slam</a>
+                <a href="https://github.com/kornia/vision-rt">vision-rt</a>
+                <a href="https://github.com/kornia/sensor-rt">sensor-rt</a>
+                <a href="https://github.com/kornia/bubbaloop">Bubbaloop</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="https://kornia.readthedocs.io">Documentation</a>
+                <a href="https://www.kornia.org/tutorials/">Tutorials</a>
+                <a href="../playground/">Experiment</a>
+                <a href="../robot/">Robot simulator</a>
+                <a href="../news/">News &amp; updates</a>
+                <a href="https://kornia.readthedocs.io/en/latest/get-started/governance.html">Governance</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contribute</h4>
+                <a href="../community/#contribute">Start contributing</a>
+                <a href="https://github.com/kornia/kornia/blob/main/CONTRIBUTING.md">Contributor guide</a>
+                <a href="https://github.com/kornia/kornia/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a>
+                <a href="../sponsor/">Sponsor</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://discord.gg/HfnywwpBnD">Discord</a>
+                <a href="https://x.com/kornia_foss">X</a>
+                <a href="https://www.linkedin.com/company/kornia/">LinkedIn</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <span id="email-contact"></span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 kornia.org. Sample images from the Kodak Lossless True Color Image Suite; clips from Wikimedia Commons (public domain and CC0, see <a href="../playground/CREDITS.md">credits</a>). In-browser demos run with <a href="https://onnxruntime.ai/docs/tutorials/web/" target="_blank" rel="noopener">onnxruntime-web</a>; the robot with <a href="https://mujoco.org" target="_blank" rel="noopener">MuJoCo</a> and <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="dashboard.js?v=20260950"></script>
+    <script src="../site.js?v=20260905"></script>
+    <script src="firebase-config.js?v=20260950"></script>
+    <script type="module" src="../auth.js?v=20260944"></script>
+</body>
+</html>

@@ -1,14 +1,16 @@
 {
- "generated_at": "2026-09-03",
+ "generated_at": "2026-09-04",
  "kornia": "0.9.0rc1",
  "onnxruntime": "1.23.2",
  "tasks": [
   "Detection",
   "Local features",
+  "Edges",
   "Depth",
   "Classification",
   "Enhancement"
  ],
+ "runtime": "browser or server",
  "models": [
   {
    "id": "kornia.contrib.object_detection.RTDETRDetectorBuilder",
@@ -60,7 +62,14 @@
      "code": "from kornia.onnx import ONNXSequential\n\n# the same graph this page runs, downloaded from huggingface.co/kornia/ONNX_models\nmodel = ONNXSequential(\"hf://models/kornia.models.detection.rtdetr_r18vd_480x480\")\nout = model(x.numpy())[0]          # (1, 300, 6): class_id, score, x, y, w, h"
     }
    ],
-   "note": "Resizes to 480x480 inside the graph, so any input size works; boxes come back in those coordinates."
+   "note": "Resizes to 480x480 inside the graph, so any input size works; boxes come back in those coordinates.",
+   "server": {
+    "endpoint": "rtdetr",
+    "inputs": 1
+   },
+   "exports": [
+    "rtdetr"
+   ]
   },
   {
    "id": "kornia.models.depth_estimation.DepthAnythingONNXBuilder",
@@ -113,7 +122,11 @@
      "code": "import onnxruntime as ort\nimport torch\nimport kornia as K\n\n# model_quantized.onnx from huggingface.co/onnx-community/depth-anything-v2-small\nsess = ort.InferenceSession(\"model_quantized.onnx\")\nx = K.geometry.resize(x, (364, 364))                       # a multiple of 14\nx = K.enhance.normalize(x, torch.tensor([0.485, 0.456, 0.406]), torch.tensor([0.229, 0.224, 0.225]))\ndepth = sess.run(None, {\"pixel_values\": x.numpy()})[0]    # (1, 364, 364) relative inverse depth"
     }
    ],
-   "note": "Input side must be a multiple of 14; the page uses 364. Output is relative inverse depth, shown with a colour map."
+   "note": "Input side must be a multiple of 14; the page uses 364. Output is relative inverse depth, shown with a colour map.",
+   "server": {
+    "endpoint": "depth_anything",
+    "inputs": 1
+   }
   },
   {
    "id": "kornia.contrib.FaceDetector",
@@ -123,14 +136,14 @@
    "subtitle": "face detection",
    "task": "Detection",
    "summary": "Tiny face detector with five facial keypoints, a few milliseconds per image.",
-   "url": "models/yunet.onnx",
+   "url": "https://huggingface.co/kornia/ONNX_models/resolve/main/models/kornia.contrib.face_detection.FaceDetector_yunet_dynamic.onnx",
    "sample": {
     "file": "models/astronaut_320.jpg",
     "thumb": "models/astronaut_thumb.jpg",
     "label": "Astronaut on the ISS (NASA)"
    },
    "size_mb": 0.35,
-   "hosted": "kornia.org",
+   "hosted": "huggingface.co/kornia/ONNX_models",
    "input": {
     "name": "image",
     "size": 320,
@@ -194,7 +207,14 @@
      "code": "import kornia as K\nfrom kornia.contrib import FaceDetector, FaceDetectorResult\n\ndetector = FaceDetector()                 # YuNet, pretrained\nfaces = detector(x * 255.0)[0]            # (N, 15): box, 5 keypoints, score; x in [0, 1]\nfor face in [FaceDetectorResult(f) for f in faces]:\n    print(face.top_left, face.bottom_right, face.score)"
     }
    ],
-   "note": "Backbone exported from kornia with dynamic height and width; box decoding and NMS run in JavaScript on the page."
+   "note": "Backbone exported from kornia with dynamic height and width; box decoding and NMS run in JavaScript on the page.",
+   "server": {
+    "endpoint": "yunet",
+    "inputs": 1
+   },
+   "exports": [
+    "yunet"
+   ]
   },
   {
    "id": "kornia.feature.XFeat",
@@ -204,12 +224,12 @@
    "subtitle": "keypoints + matching",
    "task": "Local features",
    "summary": "Accelerated features: keypoints with 64-d descriptors, matched against a warped copy of the same frame.",
-   "url": "models/xfeat.onnx",
+   "url": "https://huggingface.co/kornia/ONNX_models/resolve/main/models/kornia.feature.xfeat.XFeat_256x256.onnx",
    "graphs": {
-    "warp": "home/affine_256.onnx"
+    "warp": "home/kornia.geometry.transform.affwarp.warp_affine_256x256.onnx"
    },
    "size_mb": 2.79,
-   "hosted": "kornia.org",
+   "hosted": "huggingface.co/kornia/ONNX_models",
    "input": {
     "name": "image",
     "size": 256,
@@ -238,7 +258,14 @@
      "code": "from kornia.feature import XFeat\n\nxfeat = XFeat.from_pretrained(top_k=512)\nfeats = xfeat.detectAndCompute(x)[0]                  # keypoints (N, 2), scores (N,), descriptors (N, 64)\nidx0, idx1 = xfeat.match(feats[\"descriptors\"], feats_other[\"descriptors\"], min_cossim=0.82)"
     }
    ],
-   "note": "The network runs on the frame and on an affine-warped copy; NMS, scoring, descriptor sampling and mutual-nearest-neighbour matching run in JavaScript, checked against kornia at build time."
+   "note": "The network runs on the frame and on an affine-warped copy; NMS, scoring, descriptor sampling and mutual-nearest-neighbour matching run in JavaScript, checked against kornia at build time.",
+   "server": {
+    "endpoint": "xfeat",
+    "inputs": 2
+   },
+   "exports": [
+    "xfeat"
+   ]
   },
   {
    "id": "kornia.feature.KeyNet+HardNet",
@@ -248,13 +275,13 @@
    "subtitle": "detector + descriptor",
    "task": "Local features",
    "summary": "The classic two-stage pipeline: a learned keypoint detector, then a 128-d patch descriptor, matched against a warped copy.",
-   "url": "models/keynet.onnx",
+   "url": "https://huggingface.co/kornia/ONNX_models/resolve/main/models/kornia.feature.keynet.KeyNet_256x256.onnx",
    "graphs": {
-    "descriptor": "models/hardnet.onnx",
-    "warp": "home/affine_256.onnx"
+    "descriptor": "https://huggingface.co/kornia/ONNX_models/resolve/main/models/kornia.feature.hardnet.HardNet_32x32.onnx",
+    "warp": "home/kornia.geometry.transform.affwarp.warp_affine_256x256.onnx"
    },
    "size_mb": 5.44,
-   "hosted": "kornia.org",
+   "hosted": "huggingface.co/kornia/ONNX_models",
    "input": {
     "name": "image",
     "size": 256,
@@ -285,7 +312,15 @@
      "code": "import kornia.feature as KF\n\ndetector = KF.KeyNetDetector(pretrained=True, num_features=300)\ndescriptor = KF.LAFDescriptor(KF.HardNet(pretrained=True))\nlafs, responses = detector(gray)                        # local affine frames on a (B, 1, H, W) image\ndescs = descriptor(gray, lafs)                          # (B, 300, 128)\nmatch_dists, idxs = KF.match_mnn(descs[0], descs_other[0])"
     }
    ],
-   "note": "Single-scale on the page: NMS on the response map, a 48-px window around each keypoint resized to a 32x32 patch, then the descriptor. kornia's KeyNetDetector adds a scale pyramid and affine frames."
+   "note": "Single-scale on the page: NMS on the response map, a 48-px window around each keypoint resized to a 32x32 patch, then the descriptor. kornia's KeyNetDetector adds a scale pyramid and affine frames.",
+   "server": {
+    "endpoint": "keynet_hardnet",
+    "inputs": 2
+   },
+   "exports": [
+    "keynet",
+    "hardnet"
+   ]
   },
   {
    "id": "kornia.models.tiny_vit.TinyViT",
@@ -295,9 +330,9 @@
    "subtitle": "ImageNet classification",
    "task": "Classification",
    "summary": "A 5-million-parameter vision transformer distilled on ImageNet-22k, fine-tuned on ImageNet-1k: top-5 classes for a frame.",
-   "url": "models/tinyvit_5m.onnx",
+   "url": "https://huggingface.co/kornia/ONNX_models/resolve/main/models/kornia.models.tiny_vit.TinyViT_5m_224x224.onnx",
    "size_mb": 26.7,
-   "hosted": "kornia.org",
+   "hosted": "huggingface.co/kornia/ONNX_models",
    "input": {
     "name": "image",
     "size": 224,
@@ -340,7 +375,14 @@
      "code": "import torch\nfrom kornia.models.tiny_vit import TinyViT\nfrom kornia.enhance import normalize\n\nmodel = TinyViT.from_config(\"5m\", pretrained=True).eval()     # ImageNet-1k head\nx = normalize(x224, torch.tensor([0.485, 0.456, 0.406]), torch.tensor([0.229, 0.224, 0.225]))\nprobs = model(x).softmax(-1)                             # (B, 1000)"
     }
    ],
-   "note": "224x224 input, ImageNet normalisation; the page shows the five most likely ImageNet classes."
+   "note": "224x224 input, ImageNet normalisation; the page shows the five most likely ImageNet classes.",
+   "server": {
+    "endpoint": "tinyvit",
+    "inputs": 1
+   },
+   "exports": [
+    "tinyvit"
+   ]
   },
   {
    "id": "kornia.models.small_sr.SmallSRNetWrapper",
@@ -350,9 +392,9 @@
    "subtitle": "super-resolution",
    "task": "Enhancement",
    "summary": "Sub-pixel convolution network that triples the resolution of an image.",
-   "url": "models/small_sr_x3.onnx",
+   "url": "https://huggingface.co/kornia/ONNX_models/resolve/main/models/kornia.models.small_sr.SmallSRNet_x3_192x192.onnx",
    "size_mb": 0.25,
-   "hosted": "kornia.org",
+   "hosted": "huggingface.co/kornia/ONNX_models",
    "input": {
     "name": "image",
     "size": 192,
@@ -385,7 +427,104 @@
      "code": "from kornia.models.small_sr import SmallSRNetWrapper\n\nupscale = SmallSRNetWrapper(upscale_factor=3)   # pretrained\ny = upscale(x)                                  # (B, 3, 3H, 3W), x in [0, 1]"
     }
    ],
-   "note": "Dynamic height and width: the downloaded graph runs on any image size."
+   "note": "Dynamic height and width: the downloaded graph runs on any image size.",
+   "server": {
+    "endpoint": "small_sr",
+    "inputs": 1
+   },
+   "exports": [
+    "small_sr"
+   ]
+  },
+  {
+   "id": "kornia.contrib.EdgeDetectorBuilder",
+   "slug": "edges-dexined",
+   "name": "DexiNed edge detection",
+   "title": "DexiNed",
+   "subtitle": "edge detection",
+   "task": "Edges",
+   "summary": "Dense extreme inception network for edges: kornia's full 140 MB model, run on our servers.",
+   "server": {
+    "endpoint": "dexined",
+    "inputs": 1,
+    "output": "png"
+   },
+   "url": "",
+   "size_mb": 140.6,
+   "hosted": "kornia hub (server)",
+   "input": {
+    "name": "image",
+    "size": 352,
+    "scale": 1.0,
+    "mean": null,
+    "std": null
+   },
+   "output": {
+    "kind": "image"
+   },
+   "params": "35 M parameters",
+   "paper": {
+    "title": "Dense Extreme Inception Network for Edge Detection (WACV 2020, PR 2023)",
+    "url": "https://arxiv.org/abs/2112.02250"
+   },
+   "license": "MIT (DexiNed weights)",
+   "source": "https://github.com/xavysp/DexiNed",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/models.html#edgedetectorbuilder",
+   "snippets": [
+    {
+     "label": "PyTorch",
+     "code": "from kornia.contrib.edge_detection import EdgeDetectorBuilder\n\nedges = EdgeDetectorBuilder.build(\"dexined\", pretrained=True)   # 140 MB of weights\nedge_map = edges(x)[0]                                        # (1, 1, H, W), x in [0, 1]"
+    }
+   ],
+   "note": "Too large to ship to a browser; the page sends the frame to kornia's server and shows the edge map it returns. Sign in to run it.",
+   "exports": [
+    "dexined"
+   ]
+  },
+  {
+   "id": "kornia.feature.LoFTR",
+   "slug": "local-features-loftr",
+   "name": "LoFTR dense matching",
+   "title": "LoFTR",
+   "subtitle": "dense matching",
+   "task": "Local features",
+   "summary": "Detector-free transformer matching between two images, kornia's outdoor weights, run on our servers.",
+   "server": {
+    "endpoint": "loftr",
+    "inputs": 2,
+    "output": "matches"
+   },
+   "graphs": {
+    "warp": "home/kornia.geometry.transform.affwarp.warp_affine_256x256.onnx"
+   },
+   "url": "",
+   "size_mb": 46.3,
+   "hosted": "kornia hub (server)",
+   "input": {
+    "name": "image0",
+    "size": 256,
+    "scale": 1.0,
+    "mean": null,
+    "std": null
+   },
+   "output": {
+    "kind": "matches"
+   },
+   "params": "11 M parameters",
+   "paper": {
+    "title": "LoFTR: Detector-Free Local Feature Matching with Transformers (CVPR 2021)",
+    "url": "https://arxiv.org/abs/2104.00680"
+   },
+   "license": "Apache-2.0",
+   "source": "https://github.com/zju3dv/LoFTR",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/feature.html#kornia.feature.LoFTR",
+   "snippets": [
+    {
+     "label": "PyTorch",
+     "code": "from kornia.feature import LoFTR\n\nmatcher = LoFTR(pretrained=\"outdoor\")\nout = matcher({\"image0\": gray0, \"image1\": gray1})     # (1, 1, H, W) grayscale in [0, 1]\nkpts0, kpts1, conf = out[\"keypoints0\"], out[\"keypoints1\"], out[\"confidence\"]"
+    }
+   ],
+   "note": "The frame and an affine-warped copy are sent to kornia's server; the matches come back and are drawn here. Sign in to run it."
   }
  ]
 }

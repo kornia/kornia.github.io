@@ -1,8 +1,0 @@
-# Environment for playground/build/build.py (run offline; nothing here ships to the browser).
-kornia>=0.9
-torch>=2.6
-onnx
-onnxscript
-onnxruntime
-pillow
-numpy

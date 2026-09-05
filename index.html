@@ -33,7 +33,7 @@
     <meta name="twitter:description" content="Prototype in PyTorch. Deploy in Rust. One team maintaining geometric computer vision on both sides of the research/deployment gap.">
     <meta name="twitter:image" content="https://www.kornia.org/assets/kornia-logo.png">
 
-    <link rel="stylesheet" href="styles.css?v=20260903">
+    <link rel="stylesheet" href="styles.css?v=20260944">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -200,7 +200,31 @@
             </button>
 
             <div class="nav-links" id="primary-nav-links">
-                <a href="playground/" class="nav-experiment"><i class="fas fa-flask" aria-hidden="true"></i> Experiment</a>
+                <div class="nav-dropdown nav-mega">
+                    <a href="playground/" class="nav-experiment" data-section="playground" role="button" aria-haspopup="menu" aria-expanded="false"><i class="fas fa-flask" aria-hidden="true"></i> Experiment <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content nav-mega-content">
+                        <a class="nav-card" href="playground/">
+                            <span class="nav-card-icon"><i class="fas fa-sliders" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Vision operators</span>
+                            <span class="nav-card-desc">Every kornia image operator running live in your browser, with the code in Python and Rust and an ONNX download.</span>
+                        </a>
+                        <a class="nav-card" href="playground/models/object-detection-rtdetr/">
+                            <span class="nav-card-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Models</span>
+                            <span class="nav-card-desc">Detection, faces, depth, features, classification and edges, in your browser or on kornia's server.</span>
+                        </a>
+                        <a class="nav-card" href="playground/pipelines/">
+                            <span class="nav-card-icon"><i class="fas fa-diagram-project" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Pipelines</span>
+                            <span class="nav-card-desc">Chain operators and a model, run the chain on images or clips, export it as one ONNX graph.</span>
+                        </a>
+                        <a class="nav-card" href="robot/" data-section="robot">
+                            <span class="nav-card-icon"><i class="fas fa-robot" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Robot simulator</span>
+                            <span class="nav-card-desc">Simulated robots in MuJoCo, a car, an arm and a humanoid, with kornia operators on their cameras and the true depth beside them.</span>
+                        </a>
+                    </div>
+                </div>
                 <div class="nav-dropdown">
                     <a href="projects/" role="button" aria-haspopup="menu" aria-expanded="false">Projects <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
                     <div class="nav-dropdown-content">
@@ -279,9 +303,8 @@
                 </div>
                 <button type="button" class="nav-icon nav-theme" aria-label="Switch theme"><i class="fas fa-moon" aria-hidden="true"></i></button>
                 <a href="https://github.com/kornia" target="_blank" rel="noopener" class="nav-icon" aria-label="Kornia on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-                <a href="https://opencollective.com/kornia" target="_blank" rel="noopener" class="btn nav-donate-btn">
-                    <i class="fas fa-heart" aria-hidden="true"></i> Sponsor
-                </a>
+                <div class="nav-auth" id="nav-auth"><a class="btn nav-signin-btn" href="dashboard/"><i class="fas fa-user" aria-hidden="true"></i> Sign in</a></div>
+                <script>/* paint the remembered signed-in state at parse time; auth.js confirms it once Firebase answers */(function(){try{var s=JSON.parse(localStorage.getItem("kornia-auth-state")||"null");if(!s)return;var c=document.getElementById("nav-auth");c.innerHTML='<a class="nav-avatar" href="dashboard/" title="'+(s.displayName||s.email||"").replace(/"/g,"")+'"><img alt="" width="28" height="28" referrerpolicy="no-referrer" src="'+(s.photoURL||"assets/kornia-logo-mini.svg").replace(/"/g,"")+'"></a>';}catch(e){}})();</script>
             </div>
         </nav>
     </header>
@@ -297,8 +320,7 @@
                         <a href="projects/" class="btn btn-primary">
                             <i class="fas fa-layer-group" aria-hidden="true"></i> Explore the stack
                         </a>
-                        <!-- TODO: a dedicated robotics entry point; points at the playground until then -->
-                        <a href="playground/" class="btn btn-secondary">
+                        <a href="robot/" class="btn btn-secondary">
                             <i class="fas fa-robot" aria-hidden="true"></i> Run it on a robot
                         </a>
                         <a href="playground/" class="btn btn-secondary">
@@ -467,26 +489,6 @@ bubbaloop agent chat &quot;what does the front-door camera see?&quot;</code></pr
 
 
 
-        <section id="subscribe" class="subscribe">
-            <div class="subscribe-inner">
-                <div>
-                    <h2>Stay in the loop</h2>
-                    <p>One email when something ships: releases, new operators in the playground, talks. No tracking pixels, unsubscribe in one click.</p>
-                </div>
-                <!-- Newsletter provider: Buttondown, list "kornia". Create the list at buttondown.com before publishing;
-                     until then the form points at a list that does not exist. -->
-                <form class="subscribe-form" action="https://buttondown.com/api/emails/embed-subscribe/kornia" method="post" target="_blank">
-                    <label for="subscribe-email" class="visually-hidden">Email address</label>
-                    <input type="email" id="subscribe-email" name="email" placeholder="you@example.org" required autocomplete="email">
-                    <button type="submit" class="btn btn-primary">Subscribe</button>
-                </form>
-                <ul class="subscribe-alt">
-                    <li><a href="feed.xml"><i class="fas fa-rss" aria-hidden="true"></i> RSS feed</a></li>
-                    <li><a href="https://github.com/kornia/kornia/releases.atom" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> Release feed</a></li>
-                    <li><a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener"><i class="fab fa-discord" aria-hidden="true"></i> Discord</a></li>
-                </ul>
-            </div>
-        </section>
     </main>
 
     <footer>
@@ -508,16 +510,17 @@ bubbaloop agent chat &quot;what does the front-door camera see?&quot;</code></pr
                 <h4>Resources</h4>
                 <a href="https://kornia.readthedocs.io">Documentation</a>
                 <a href="https://www.kornia.org/tutorials/">Tutorials</a>
+                <a href="playground/">Experiment</a>
+                <a href="robot/">Robot simulator</a>
                 <a href="news/">News &amp; updates</a>
                 <a href="https://kornia.readthedocs.io/en/latest/get-started/governance.html">Governance</a>
-                <a href="https://github.com/kornia">GitHub</a>
             </div>
             <div class="footer-section">
                 <h4>Contribute</h4>
                 <a href="community/#contribute">Start contributing</a>
                 <a href="https://github.com/kornia/kornia/blob/main/CONTRIBUTING.md">Contributor guide</a>
                 <a href="https://github.com/kornia/kornia/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a>
-                <a href="#sponsors">Sponsor</a>
+                <a href="sponsor/">Sponsor</a>
             </div>
             <div class="footer-section">
                 <h4>Community</h4>
@@ -531,14 +534,16 @@ bubbaloop agent chat &quot;what does the front-door camera see?&quot;</code></pr
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 kornia.org</p>
+            <p>&copy; 2026 kornia.org. Sample images from the Kodak Lossless True Color Image Suite; clips from Wikimedia Commons (public domain and CC0, see <a href="playground/CREDITS.md">credits</a>). In-browser demos run with <a href="https://onnxruntime.ai/docs/tutorials/web/" target="_blank" rel="noopener">onnxruntime-web</a>; the robot with <a href="https://mujoco.org" target="_blank" rel="noopener">MuJoCo</a> and <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>.</p>
         </div>
     </footer>
 
 
-    <script src="site.js?v=20260903"></script>
+    <script src="site.js?v=20260905"></script>
     <script src="script.js?v=20260903"></script>
     <script src="playground/models.js" defer></script>
     <script src="hero-demo.js?v=20260903" defer></script>
+    <script src="dashboard/firebase-config.js?v=20260950"></script>
+    <script type="module" src="auth.js?v=20260944"></script>
 </body>
 </html>

@@ -1,14 +1,14 @@
 // Homepage demo: three things from the stack running on short clips, in the browser, with no button to press.
-//   Faces   YuNet face detection (playground/models/yunet.onnx, 350 kB) on the astronaut clip
+//   Faces   YuNet face detection (kornia.contrib.face_detection.FaceDetector_yunet_dynamic.onnx from the Hugging Face hub, 350 kB) on the astronaut clip
 //   Augment an affine augmentation whose parameters are drawn once per pass of the clip and held fixed
-//           (playground/home/affine_256.onnx: the warp with its parameters as graph inputs)
+//           (playground/home/kornia.geometry.transform.affwarp.warp_affine_256x256.onnx: the warp with its parameters as graph inputs)
 //   Edges   Sobel from the operator catalog
 // Everything is small, so all three graphs are fetched as soon as the runtime is ready.
 (function () {
   "use strict";
 
   const ROOT = "playground/";
-  const ORT_URL = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.29.0/dist/ort.min.js";
+  const ORT_URL = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.29.0/dist/ort.wasm.min.js";
   const ORT_WASM = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.29.0/dist/";
   const TABS = [
     { key: "faces", label: "Faces", clip: "astronaut", caption: "YuNet face detection" },
@@ -87,8 +87,8 @@
     const yunet = models && models.models.find(function (m) { return m.output.kind === "faces_yunet"; });
     if (!sobel || !yunet || !window.PGModels) { mount.hidden = true; return; }
     const graphs = {
-      faces: ROOT + yunet.url,
-      augment: ROOT + "home/affine_256.onnx",
+      faces: (/^https?:/.test(yunet.url) ? yunet.url : ROOT + yunet.url),
+      augment: ROOT + "home/kornia.geometry.transform.affwarp.warp_affine_256x256.onnx",
       edges: ROOT + sobel.graphs[Object.keys(sobel.graphs)[0]],
     };
 
