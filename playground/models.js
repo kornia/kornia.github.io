@@ -627,14 +627,12 @@
       signInDialog.querySelector(".pg-dialog-close").addEventListener("click", function () { signInDialog.close(); });
       signInDialog.addEventListener("click", function (e) { if (e.target === signInDialog) signInDialog.close(); });   // the backdrop
       const row = el("div", "pg-dialog-actions");
-      const cancel = el("button", "pg-btn pg-btn-ghost", { type: "button" }); cancel.textContent = "Not now";
       const gh = el("button", "pg-btn pg-btn-ghost", { type: "button" }); gh.innerHTML = '<i class="fab fa-github" aria-hidden="true"></i> GitHub';
       const gg = el("button", "pg-btn pg-btn-ghost", { type: "button" }); gg.innerHTML = '<i class="fab fa-google" aria-hidden="true"></i> Google';
       const mail = el("a", "pg-btn", { href: "#" }); mail.innerHTML = '<i class="fas fa-envelope" aria-hidden="true"></i> Email or new account';
-      row.appendChild(cancel); row.appendChild(gh); row.appendChild(gg); row.appendChild(mail);
+      row.appendChild(gh); row.appendChild(gg); row.appendChild(mail);
       signInDialog.appendChild(row);
       document.body.appendChild(signInDialog);
-      cancel.addEventListener("click", function () { signInDialog.close(); });
       function via(p) {
         signInDialog.close();
         const cb = signInDialog._onSigned;
@@ -646,7 +644,9 @@
       mail.addEventListener("click", function (e) { e.preventDefault(); location.href = (window.KorniaAuth ? window.KorniaAuth.hubUrl : "../../dashboard/") + "?next=" + encodeURIComponent(location.pathname + location.search); });
     }
     signInDialog.querySelector("h2").textContent = "Sign in to " + what;
-    signInDialog.querySelector(".pg-dialog-text").textContent = A && A.configured ? "Accounts are free; a daily quota of runs comes with one." : "Accounts are not configured on this copy of the site.";
+    const text = signInDialog.querySelector(".pg-dialog-text");
+    text.textContent = A && A.configured ? "" : "Accounts are not configured on this copy of the site.";
+    text.hidden = !text.textContent;
     signInDialog._onSigned = onSigned || null;
     signInDialog.showModal();
   }

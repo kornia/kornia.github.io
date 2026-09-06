@@ -170,7 +170,7 @@
                 <div class="pg-model-head pg-head">
                     <h1 id="rb-title">Robot simulator</h1>
                 </div>
-                <p class="pg-summary" id="rb-summary">A simulated robot with a camera. Its frames run through a kornia operator on every frame, next to the simulator's true depth.</p>
+                <p class="pg-summary" id="rb-summary">A simulated robot with a camera. Its frames run through a kornia operator, or one of your saved pipelines, on every frame, next to the simulator's true depth. A pipeline output labelled <em>target</em> is what the autopilot follows.</p>
 
                 <section class="rb-sim" id="simulator">
                     <div class="pg-bar rb-bar">
@@ -180,6 +180,10 @@
                             <button type="button" class="pg-btn pg-btn-ghost" id="rb-reset"><i class="fas fa-rotate-left" aria-hidden="true"></i> Reset</button>
                         </div>
                     </div>
+                    <details class="rb-sensors" id="rb-sensors">
+                        <summary><i class="fas fa-camera-retro" aria-hidden="true"></i> Sensor conditions <span class="rb-sensors-count" id="rb-sensors-count"></span><span class="rb-sensors-hint">degrade the camera before perception</span></summary>
+                        <div class="rb-sensor-rows" id="rb-sensor-rows"></div>
+                    </details>
                     <div class="pg-cell-controls pg-controls-cell rb-panel" id="rb-panel" hidden>
                         <div class="pg-controls rb-sliders" id="rb-sliders"></div>
                     </div>
@@ -191,7 +195,7 @@
                         <div class="rb-feeds" id="camera">
                             <figure><canvas id="rb-cam" width="256" height="256"></canvas><figcaption>robot camera</figcaption></figure>
                             <figure class="rb-depth-fig"><canvas id="rb-depth" width="256" height="256"></canvas><canvas id="rb-cloud" class="rb-cloud" hidden></canvas><figcaption><span id="rb-depth-cap">true depth</span> <button type="button" class="rb-mini" id="rb-depth-3d" aria-pressed="false" title="Show the depth as a point cloud">3D</button></figcaption></figure>
-                            <figure><canvas id="rb-out" width="256" height="256"></canvas><figcaption><select id="rb-perception" class="rb-select" aria-label="Operator on the camera frame"></select></figcaption></figure>
+                            <figure><canvas id="rb-out" width="256" height="256"></canvas><figcaption><select id="rb-perception" class="rb-select" aria-label="Operator or pipeline on the camera frame"></select><span class="rb-pipe-tools" id="rb-pipe-tools" hidden><a id="rb-pipe-edit" href="../playground/pipelines/">edit the pipeline</a> · <a href="../playground/pipelines/">all pipelines</a></span></figcaption></figure>
                         </div>
                     </div>
                     <div class="pg-details-links rb-links"><a href="https://mujoco.org" target="_blank" rel="noopener"><i class="fas fa-cube" aria-hidden="true"></i> MuJoCo</a><a href="https://github.com/kornia/kornia.github.io/issues/new?title=robot%20simulator" target="_blank" rel="noopener"><i class="fas fa-bug" aria-hidden="true"></i> Report an issue</a></div>
@@ -250,10 +254,12 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.29.0/dist/ort.wasm.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/protobufjs/8.7.2/protobuf.min.js"></script>
     <script src="../cache.js?v=20260966"></script>
+    <script src="../playground/pipeline.js?v=20260998"></script>
     <script src="../playground/models.js?v=20260966"></script>
     <script>ort.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.29.0/dist/"; ort.env.wasm.numThreads = 1;</script>
-    <script type="module" src="robot.js?v=20260966"></script>
+    <script type="module" src="robot.js?v=20260997"></script>
     <script src="../site.js?v=20260905"></script>
     <script src="../dashboard/firebase-config.js?v=20260950"></script>
     <script type="module" src="../auth.js?v=20260976"></script>

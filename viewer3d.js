@@ -91,6 +91,9 @@ export async function createViewer(canvas) {
   };
 }
 
+/** The colour maps of the volume viewer, in the order the shader numbers them. */
+export const COLORMAPS = ["grey", "bone", "hot", "inferno", "viridis", "turbo", "jet"];
+
 // ---- volumes: a ray-marched view of a (D, H, W) scalar field inside a wireframe cube -------------------------
 export async function createVolumeViewer(canvas) {
   THREE = THREE || await import(THREE_URL);
@@ -105,6 +108,7 @@ export async function createVolumeViewer(canvas) {
     density: { value: 1.6 },
     lo: { value: 0.0 },
     hi: { value: 1.0 },
+    colormap: { value: 0 },
   };
   const material = new THREE.ShaderMaterial({
     glslVersion: THREE.GLSL3,
@@ -119,9 +123,48 @@ export async function createVolumeViewer(canvas) {
       precision highp float; precision highp sampler3D;
       uniform sampler3D map; uniform vec3 cameraPos; uniform float steps, density, lo, hi;
       in vec3 vLocal; out vec4 outColor;
-      // a compact turbo-like ramp: dark blue -> cyan -> yellow -> red
+      // colour maps, selected by the colormap uniform (see COLORMAPS); the polynomial fits of viridis, inferno
+      // and turbo follow Matt Zucker's shadertoy approximations, bone / hot / jet are matplotlib's piecewise ramps
+      uniform int colormap;
+      float seg(float t, float a, float b) { return clamp((t - a) / (b - a), 0.0, 1.0); }
+      vec3 viridis(float t) {
+        const vec3 c0 = vec3(0.2777273272234177, 0.005407344544966578, 0.3340998053353061);
+        const vec3 c1 = vec3(0.1050930431085774, 1.404613529898575, 1.384590162594685);
+        const vec3 c2 = vec3(-0.3308618287255563, 0.214847559468213, 0.09509516302823659);
+        const vec3 c3 = vec3(-4.634230498983486, -5.799100973351585, -19.33244095627987);
+        const vec3 c4 = vec3(6.228269936347081, 14.17993336680509, 56.69055260068105);
+        const vec3 c5 = vec3(4.776384997670288, -13.74514537774601, -65.35303263337234);
+        const vec3 c6 = vec3(-5.435455855934631, 4.645852612178535, 26.3124352495832);
+        return c0 + t * (c1 + t * (c2 + t * (c3 + t * (c4 + t * (c5 + t * c6)))));
+      }
+      vec3 inferno(float t) {
+        const vec3 c0 = vec3(0.0002189403691192265, 0.001651004631001012, -0.01948089843709184);
+        const vec3 c1 = vec3(0.1065134194856116, 0.5639564367884091, 3.932712388889277);
+        const vec3 c2 = vec3(11.60249308247187, -3.972853965665698, -15.9423941062914);
+        const vec3 c3 = vec3(-41.70399613139459, 17.43639888205313, 44.35414519872813);
+        const vec3 c4 = vec3(77.162935699427, -33.40235894210092, -81.80730925738993);
+        const vec3 c5 = vec3(-71.31942824499214, 32.62606426397723, 73.20951985803202);
+        const vec3 c6 = vec3(25.13112622477341, -12.24266895238567, -23.07032500287172);
+        return c0 + t * (c1 + t * (c2 + t * (c3 + t * (c4 + t * (c5 + t * c6)))));
+      }
+      vec3 turbo(float t) {
+        const vec4 kr = vec4(0.13572138, 4.61539260, -42.66032258, 132.13108234);
+        const vec4 kg = vec4(0.09140261, 2.19418839, 4.84296658, -14.18503333);
+        const vec4 kb = vec4(0.10667330, 12.64194608, -60.58204836, 110.36276771);
+        const vec2 kr2 = vec2(-152.94239396, 59.28637943), kg2 = vec2(4.27729857, 2.82956604), kb2 = vec2(-89.90310912, 27.34824973);
+        vec4 v4 = vec4(1.0, t, t * t, t * t * t); vec2 v2 = v4.zw * v4.z;
+        return vec3(dot(v4, kr) + dot(v2, kr2), dot(v4, kg) + dot(v2, kg2), dot(v4, kb) + dot(v2, kb2));
+      }
       vec3 ramp(float t) {
-        return clamp(vec3(1.7 * t - 0.6, 1.0 - abs(2.2 * t - 1.1), 1.2 - 2.0 * t) + vec3(0.0, 0.15, 0.3) * (1.0 - t), 0.0, 1.0);
+        if (colormap == 1) return vec3(mix(0.0, 0.6528, seg(t, 0.0, 0.746)) + 0.3472 * seg(t, 0.746, 1.0),
+                                       0.3192 * seg(t, 0.0, 0.365) + 0.4586 * seg(t, 0.365, 0.746) + 0.2222 * seg(t, 0.746, 1.0),
+                                       0.4444 * seg(t, 0.0, 0.365) + 0.5556 * seg(t, 0.365, 1.0));   // bone
+        if (colormap == 2) return vec3(seg(t, 0.0, 0.365), seg(t, 0.365, 0.746), seg(t, 0.746, 1.0));   // hot
+        if (colormap == 3) return clamp(inferno(t), 0.0, 1.0);
+        if (colormap == 4) return clamp(viridis(t), 0.0, 1.0);
+        if (colormap == 5) return clamp(turbo(t), 0.0, 1.0);
+        if (colormap == 6) return clamp(1.5 - abs(4.0 * vec3(t) - vec3(3.0, 2.0, 1.0)), 0.0, 1.0);   // jet
+        return vec3(t);   // grey
       }
       vec2 box(vec3 o, vec3 d) {   // entry/exit distances of the unit cube centred at the origin
         vec3 inv = 1.0 / d, t0 = (-0.5 - o) * inv, t1 = (0.5 - o) * inv;
@@ -138,7 +181,7 @@ export async function createVolumeViewer(canvas) {
         vec4 acc = vec4(0.0);
         for (float i = 0.0; i < 200.0; i += 1.0) {
           if (i >= steps || acc.a > 0.97) break;
-          float v = texture(map, p + 0.5).r;
+          float v = texture(map, vec3(p.x, -p.y, p.z) + 0.5).r;   // row 0 at the top, as in images
           v = clamp((v - lo) / max(hi - lo, 1e-6), 0.0, 1.0);
           float a = pow(v, 1.6) * density * dt * 6.0;   // faint values stay transparent
           acc.rgb += (1.0 - acc.a) * a * ramp(v);
@@ -152,7 +195,7 @@ export async function createVolumeViewer(canvas) {
   scene.add(cube);
   const frame = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 1, 1)), new THREE.LineBasicMaterial({ color: 0x64748b, transparent: true, opacity: 0.6 }));
   scene.add(frame);
-  let yaw = 0.7, pitch = 0.45, dist = 2.4, dragging = false, lastX = 0, lastY = 0, dirty = true, alive = true, texture = null;
+  let yaw = 0.6, pitch = 0.28, dist = 2.4, dragging = false, lastX = 0, lastY = 0, dirty = true, alive = true, texture = null;
   function place() {
     camera.position.set(dist * Math.sin(yaw) * Math.cos(pitch), dist * Math.sin(pitch), dist * Math.cos(yaw) * Math.cos(pitch));
     camera.lookAt(0, 0, 0);
@@ -190,6 +233,7 @@ export async function createVolumeViewer(canvas) {
       const m = Math.max(d, h, w); cube.scale.set(w / m, h / m, d / m); frame.scale.copy(cube.scale);
       dirty = true;
     },
+    setColormap(name) { const i = COLORMAPS.indexOf(name); uniforms.colormap.value = i < 0 ? 0 : i; dirty = true; },
     // the two viewers of a page share one orbit so input and output stay comparable
     view() { return { yaw, pitch, dist }; },
     setView(v) { yaw = v.yaw; pitch = v.pitch; dist = v.dist; dirty = true; },

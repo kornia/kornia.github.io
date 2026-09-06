@@ -88,6 +88,16 @@
       const n = Math.min(channels, 3) * plane;
       for (let i = 0; i < n; i++) { const v = src[i]; if (v < mn) mn = v; if (v > mx) mx = v; }
       lo = mn; scale = mx > mn ? 1 / (mx - mn) : 1;
+    } else if (display === "robust") {
+      // |value| scaled by its 99.5th percentile: a sparse response map shows its structure, not a few dots
+      const n = Math.min(channels, 3) * plane;
+      const sample = new Float32Array(Math.min(n, 65536));
+      const step = Math.max(1, Math.floor(n / sample.length));
+      for (let i = 0, j = 0; j < sample.length && i < n; i += step, j++) sample[j] = Math.abs(src[i]);
+      sample.sort();
+      const p = sample[Math.floor(0.995 * (sample.length - 1))] || 1e-9;
+      lo = 0; scale = 1 / p;
+      for (let i = 0; i < n; i++) src[i] = Math.abs(src[i]);
     }
     for (let i = 0; i < plane; i++) {
       const r = (src[i] - lo) * scale;
@@ -241,7 +251,8 @@
   // ------------------------------------------------------------------ volume operators: two ray-marched views
 
   function buildVolumeWidget(op, registry, container) {
-    const vol = (registry.volumes || [])[0];
+    const volumes = registry.volumes || [];
+    let vol = volumes[0];
     const N = op.volume.size;
     const state = { params: {} };
     op.params.forEach(function (p) { state.params[p.name] = p.default; });
@@ -287,10 +298,46 @@
     const bar = el("div", "pg-bar pg-cell-bar");
     const thumbs = el("div", "pg-thumbs");
     const pick = el("div", "pg-thumbs-pick pg-thumbs-volumes");
-    const sampleBtn = el("button", "pg-thumb-volume pg-selected", { type: "button", title: vol ? vol.label : "volume" });
-    sampleBtn.innerHTML = '<i class="fas fa-cube" aria-hidden="true"></i>&nbsp; ' + (vol ? vol.label : "volume");
-    pick.appendChild(sampleBtn); thumbs.appendChild(pick); bar.appendChild(thumbs);
+    volumes.forEach(function (v) {
+      const btn = el("button", "pg-thumb-volume" + (v === vol ? " pg-selected" : ""), { type: "button", title: v.label + (v.source ? " · " + v.source : "") });
+      btn.innerHTML = '<i class="fas fa-cube" aria-hidden="true"></i>&nbsp; ' + v.label;
+      btn.addEventListener("click", function () {
+        vol = v;
+        pick.querySelectorAll("button").forEach(function (b) { b.classList.toggle("pg-selected", b === btn); });
+        capIn.textContent = "input · " + v.label + " · " + N + "×" + N + "×" + N + " · drag to orbit, wheel to zoom";
+        applyColormap();
+        loadVolume();
+      });
+      pick.appendChild(btn);
+    });
+    thumbs.appendChild(pick);
+    // colour map: each sample has a natural default (bone for CT, grey for MR, ...); a manual choice then sticks
+    const CMAP_DEFAULT = { phantom: "turbo", ct: "bone", mri: "grey", cells: "viridis" };
+    let cmapChosen = null;
+    const cmap = el("label", "pg-vol-cmap");
+    cmap.innerHTML = '<i class="fas fa-palette" aria-hidden="true"></i>';
+    const cmapSel = el("select", "", { "aria-label": "colour map" });
+    ["grey", "bone", "hot", "inferno", "viridis", "turbo", "jet"].forEach(function (name) { const o = el("option", "", { value: name }); o.textContent = name; cmapSel.appendChild(o); });
+    cmap.appendChild(cmapSel);
+    function applyColormap() {
+      const name = cmapChosen || CMAP_DEFAULT[vol ? vol.id : ""] || "grey";
+      cmapSel.value = name;
+      getViewers().then(function (v) { v.a.setColormap(name); v.b.setColormap(name); });
+    }
+    cmapSel.addEventListener("change", function () { cmapChosen = cmapSel.value; applyColormap(); });
+    thumbs.appendChild(cmap);
+    bar.appendChild(thumbs);
     const actions = el("div", "pg-actions");
+    let runBtn = null, serverBusy = false;
+    if (frames) {   // no graph to run here: the pre-rendered volumes preview the choices, the server computes the exact result
+      runBtn = el("button", "pg-btn", { type: "button" });
+      runBtn.innerHTML = '<i class="fas fa-play" aria-hidden="true"></i> Run';
+      runBtn.addEventListener("click", function () { runServerVolume(); });
+      const group = el("div", "pg-run-group");
+      if (window.PGModels && window.PGModels.targetSwitch) group.appendChild(window.PGModels.targetSwitch({ browser: false, server: true, value: "server" }).el);
+      group.appendChild(runBtn);
+      actions.appendChild(group);
+    }
     if (op.stochastic && !frames) {
       const reroll = el("button", "pg-btn", { type: "button" });
       reroll.innerHTML = '<i class="fas fa-dice" aria-hidden="true"></i> Re-roll';
@@ -434,9 +481,31 @@
     function showFrame() {
       const idx = op.frames.param === null ? 0 : nearest(op.frames.values, state.params[op.frames.param]);
       const shape = op.frames.shapes[idx];
-      fetchBytes(ROOT + op.frames.dir + "/phantom/" + String(idx).padStart(2, "0") + ".bin").then(function (u) { return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength); }).then(function (buf) {
+      fetchBytes(ROOT + op.frames.dir + "/" + (vol ? vol.id : "phantom") + "/" + String(idx).padStart(2, "0") + ".bin").then(function (u) { return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength); }).then(function (buf) {
         return getViewers().then(function (v) { v.b.setVolume(new Float32Array(buf), shape[0], shape[1], shape[2]); status.textContent = "volume " + (idx + 1) + " of " + op.frames.values.length; });
       }).catch(function (e) { status.classList.add("pg-error"); status.textContent = "could not load the frame: " + (e.message || e); });
+    }
+    async function runServerVolume() {
+      const A = window.KorniaAuth;
+      if (!A || !A.user) { if (window.PGModels) window.PGModels.askSignIn("run " + op.name + " on kornia's server", runServerVolume); return; }
+      if (!A.apiBase) { status.classList.add("pg-error"); status.textContent = "the server side is not deployed yet"; return; }
+      if (serverBusy) return;
+      serverBusy = true; runBtn.disabled = true;
+      status.classList.remove("pg-error"); status.textContent = "running on the server…";
+      try {
+        const form = new FormData();
+        form.append("volume", vol ? vol.id : "phantom");
+        form.append("params", JSON.stringify(state.params));
+        const r = await fetch(A.apiBase + "/v1/run_op/" + op.slug, { method: "POST", body: form, headers: { Authorization: "Bearer " + await A.token() } });
+        const j = await r.json().catch(function () { return {}; });
+        if (!r.ok) throw new Error(j.detail || ("HTTP " + r.status));
+        const bin = atob(j.data); const bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        const v = await getViewers();
+        v.b.setVolume(new Float32Array(bytes.buffer), j.shape[0], j.shape[1], j.shape[2]);
+        if (j.quota && window.PGModels && window.PGModels.setQuota) window.PGModels.setQuota({ used: j.quota.used, limit: j.quota.limit, remaining: Math.max(0, j.quota.limit - j.quota.used) });
+        status.textContent = j.ms + " ms on the server";
+      } catch (e) { status.classList.add("pg-error"); status.textContent = e.message || String(e); }
+      serverBusy = false; runBtn.disabled = false;
     }
     function run() {
       if (frames) { showFrame(); return; }
@@ -456,12 +525,17 @@
       }).catch(function (err) { status.classList.add("pg-error"); status.textContent = "could not run the graph: " + (err.message || err); })
         .then(function () { running = false; if (pending) { pending = false; run(); } });
     }
+    // the chosen volume into the input viewer and, for a live graph, the input tensor; then a run
+    function loadVolume() {
+      return fetchBytes(ROOT + (vol ? vol.file : "volumes/phantom.bin")).then(function (u) { return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength); }).then(function (buf) {
+        const data = new Float32Array(buf);
+        if (!frames && typeof ort !== "undefined") inputTensor = new ort.Tensor("float32", data, [1, 1, N, N, N]);
+        return getViewers().then(function (v) { v.a.setVolume(data, N, N, N); status.textContent = frames ? "" : "loading graph…"; run(); });
+      }).catch(function (e) { status.classList.add("pg-error"); status.textContent = "could not load the volume: " + (e.message || e); });
+    }
     renderCode();
-    fetchBytes(ROOT + (vol ? vol.file : "volumes/phantom.bin")).then(function (u) { return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength); }).then(function (buf) {
-      const data = new Float32Array(buf);
-      if (!frames && typeof ort !== "undefined") inputTensor = new ort.Tensor("float32", data, [1, 1, N, N, N]);
-      return getViewers().then(function (v) { v.a.setVolume(data, N, N, N); status.textContent = frames ? "" : "loading graph…"; run(); });
-    }).catch(function (e) { status.classList.add("pg-error"); status.textContent = "could not load the volume: " + (e.message || e); });
+    applyColormap();
+    loadVolume();
   }
 
   function buildWidget(op, registry, container) {

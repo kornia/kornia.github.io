@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hls_to_rgb - Kornia Playground</title>
+    <meta name="description" content="Try kornia's hls_to_rgb live in your browser: Interprets the channels as HLS and converts to RGB. Download the ONNX graph or copy the Python or Rust code.">
+    <link rel="icon" type="image/svg+xml" href="/assets/kornia-logo-mini.svg">
+    <link rel="canonical" href="https://www.kornia.org/playground/ops/color-hls_to_rgb/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kornia">
+    <meta property="og:url" content="https://www.kornia.org/playground/ops/color-hls_to_rgb/">
+    <meta property="og:title" content="hls_to_rgb - Kornia Playground">
+    <meta property="og:description" content="Try kornia's hls_to_rgb live in your browser: Interprets the channels as HLS and converts to RGB.">
+    <meta property="og:image" content="https://www.kornia.org/assets/kornia-logo.png">
+    <meta property="og:image:alt" content="Kornia logo">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@kornia_foss">
+    <meta name="twitter:title" content="hls_to_rgb - Kornia Playground">
+    <meta name="twitter:description" content="Try kornia's hls_to_rgb live in your browser: Interprets the channels as HLS and converts to RGB.">
+    <meta name="twitter:image" content="https://www.kornia.org/assets/kornia-logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Kornia", "item": "https://www.kornia.org/"},
+            {"@type": "ListItem", "position": 2, "name": "Experiment", "item": "https://www.kornia.org/playground/"},
+            {"@type": "ListItem", "position": 3, "name": "hls_to_rgb", "item": "https://www.kornia.org/playground/ops/color-hls_to_rgb/"}
+          ]
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "name": "kornia.color.hls_to_rgb",
+          "alternateName": "hls_to_rgb",
+          "description": "Interprets the channels as HLS and converts to RGB.",
+          "url": "https://www.kornia.org/playground/ops/color-hls_to_rgb/",
+          "codeRepository": "https://github.com/kornia/kornia",
+          "programmingLanguage": "Python",
+          "runtimePlatform": "PyTorch",
+          "license": "https://www.apache.org/licenses/LICENSE-2.0",
+          "isPartOf": {"@type": "SoftwareApplication", "name": "Kornia", "url": "https://www.kornia.org/", "applicationCategory": "DeveloperApplication"}
+        }
+      ]
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.2/styles/github-dark.min.css">
+    <link rel="stylesheet" href="../../../styles.css?v=20260992">
+    <link rel="stylesheet" href="../../playground.css?v=20260990">
+    <script src="../../../theme.js?v=20260990"></script>
+</head>
+<body class="pg-body" data-base="../../" data-op="kornia.color.hls_to_rgb">
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../../../">kornia.org</a>
+            </div>
+
+            <button type="button"
+                    class="nav-toggle"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded="false"
+                    aria-controls="primary-nav-links">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+
+            <div class="nav-links" id="primary-nav-links">
+                <div class="nav-dropdown nav-mega">
+                    <a href="../../../playground/" class="nav-experiment" data-section="playground" role="button" aria-haspopup="menu" aria-expanded="false"><i class="fas fa-flask" aria-hidden="true"></i> Experiment <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content nav-mega-content">
+                        <a class="nav-card" href="../../../playground/">
+                            <span class="nav-card-icon"><i class="fas fa-sliders" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Vision operators</span>
+                            <span class="nav-card-desc">Every kornia image operator running live in your browser, with the code in Python and Rust and an ONNX download.</span>
+                        </a>
+                        <a class="nav-card" href="../../../playground/models/object-detection-rtdetr/">
+                            <span class="nav-card-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Models</span>
+                            <span class="nav-card-desc">Detection, faces, depth, features, classification and edges, in your browser or on kornia's server.</span>
+                        </a>
+                        <a class="nav-card" href="../../../playground/pipelines/">
+                            <span class="nav-card-icon"><i class="fas fa-diagram-project" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Pipelines</span>
+                            <span class="nav-card-desc">Chain operators and a model, run the chain on images or clips, export it as one ONNX graph.</span>
+                        </a>
+                        <a class="nav-card" href="../../../robot/" data-section="robot">
+                            <span class="nav-card-icon"><i class="fas fa-robot" aria-hidden="true"></i></span>
+                            <span class="nav-card-title">Robot simulator</span>
+                            <span class="nav-card-desc">Simulated robots in MuJoCo, a car, an arm and a humanoid, with kornia operators on their cameras and the true depth beside them.</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="../../../projects/" role="button" aria-haspopup="menu" aria-expanded="false">Projects <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://github.com/kornia/kornia" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia</span><span class="nav-dd-desc">Differentiable vision for PyTorch</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Image and 3D kernels in Rust</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Vision agent runtime for Jetson and Pi</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-map-location-dot" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-slam</span><span class="nav-dd-desc">Real-time pose and mapping</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/vision-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-microchip" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">vision-rt</span><span class="nav-dd-desc">TensorRT inference on Jetson Orin</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/sensor-rt" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-camera" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">sensor-rt</span><span class="nav-dd-desc">Camera, stereo and IMU drivers</span></span>
+                        </a>
+                        <a class="nav-dd-all" href="../../../projects/">All projects, with install commands &rarr;</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#" role="button" aria-haspopup="menu" aria-expanded="false">Docs <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="https://kornia.readthedocs.io" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-python" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Kornia (PyTorch)</span><span class="nav-dd-desc">API reference and guides</span></span>
+                        </a>
+                        <a href="https://docs.rs/kornia-imgproc" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-rust" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">kornia-rs</span><span class="nav-dd-desc">Crate docs on docs.rs</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/bubbaloop/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><span aria-hidden="true">&#129412;</span></span>
+                            <span><span class="nav-dd-name">Bubbaloop</span><span class="nav-dd-desc">Install and run an agent</span></span>
+                        </a>
+                        <a href="https://www.kornia.org/tutorials/" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Tutorials</span><span class="nav-dd-desc">Runnable notebooks</span></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="../../../sponsor/" role="button" aria-haspopup="menu" aria-expanded="false">Support <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="../../../sponsor/">
+                            <span class="nav-dd-icon"><i class="fas fa-heart" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Sponsor Kornia</span><span class="nav-dd-desc">What funding buys, and the tiers</span></span>
+                        </a>
+                        <a href="../../../community/">
+                            <span class="nav-dd-icon"><i class="fas fa-users" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Community</span><span class="nav-dd-desc">Get help, contribute, programmes</span></span>
+                        </a>
+                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fab fa-discord" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Discord</span><span class="nav-dd-desc">Quick questions, same-day answers</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/discussions" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">GitHub Discussions</span><span class="nav-dd-desc">Design questions and proposals</span></span>
+                        </a>
+                        <a href="https://github.com/kornia/kornia/issues/new/choose" target="_blank" rel="noopener">
+                            <span class="nav-dd-icon"><i class="fas fa-bug" aria-hidden="true"></i></span>
+                            <span><span class="nav-dd-name">Report a bug</span><span class="nav-dd-desc">Issue templates</span></span>
+                        </a>
+                    </div>
+                </div>
+                <button type="button" class="nav-icon nav-theme" aria-label="Switch theme"><i class="fas fa-moon" aria-hidden="true"></i></button>
+                <a href="https://github.com/kornia" target="_blank" rel="noopener" class="nav-icon" aria-label="Kornia on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <div class="nav-auth" id="nav-auth"><a class="btn nav-signin-btn" href="../../../dashboard/"><i class="fas fa-user" aria-hidden="true"></i> Sign in</a></div>
+                <script>/* paint the remembered signed-in state at parse time; auth.js confirms it once Firebase answers */(function(){try{var s=JSON.parse(localStorage.getItem("kornia-auth-state")||"null");if(!s)return;var c=document.getElementById("nav-auth");c.innerHTML='<a class="nav-avatar" href="../../../dashboard/" title="'+(s.displayName||s.email||"").replace(/"/g,"")+'"><img alt="" width="28" height="28" referrerpolicy="no-referrer" src="'+(s.photoURL||"../../../assets/kornia-logo-mini.svg").replace(/"/g,"")+'"></a>';}catch(e){}})();</script>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pg-shell">
+        <noscript><section class="pg-static"><h1>hls_to_rgb</h1><p><code>kornia.color.hls_to_rgb</code>: Interprets the channels as HLS and converts to RGB. This page runs the operator in your browser with onnxruntime-web, which needs JavaScript. The <a href="https://kornia.readthedocs.io/en/latest/color.html#kornia.color.hls_to_rgb">API reference</a> documents the call.</p></section></noscript>
+        <aside class="pg-side" id="pg-side" aria-label="Operators">
+            <div class="pg-side-head">
+                <div class="pg-mode" id="pg-mode" role="tablist" aria-label="Section">
+                    <button type="button" role="tab" data-mode="ops" aria-selected="true">Operators</button>
+                    <button type="button" role="tab" data-mode="models" aria-selected="false">Models</button>
+                    <button type="button" role="tab" data-mode="pipes" data-href="../../pipelines/" aria-selected="false">Pipelines</button>
+                </div>
+                <label class="pg-search">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input type="search" id="pg-search" placeholder="Search operators" autocomplete="off">
+                </label>
+                <div class="pg-filters" id="pg-filters" role="group" aria-label="Filter">
+                    <label><input type="radio" name="pg-status" value="all" checked> All</label>
+                    <label><input type="radio" name="pg-status" value="rust"> Rust</label>
+                    <label><input type="radio" name="pg-status" value="3d"> 3D</label>
+                </div>
+            </div>
+            <nav class="pg-side-list" id="pg-catalog"></nav>
+        </aside>
+
+        <section class="pg-detail" id="pg-ops">
+            <noscript><p class="pg-status pg-error">The playground needs JavaScript.</p></noscript>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Kornia</h4>
+                <p>Computer vision for robotics &amp; spatial AI</p>
+            </div>
+            <div class="footer-section">
+                <h4>Projects</h4>
+                <a href="https://github.com/kornia/kornia">Kornia</a>
+                <a href="https://github.com/kornia/kornia-rs">kornia-rs</a>
+                <a href="https://github.com/kornia/kornia-slam">kornia-slam</a>
+                <a href="https://github.com/kornia/vision-rt">vision-rt</a>
+                <a href="https://github.com/kornia/sensor-rt">sensor-rt</a>
+                <a href="https://github.com/kornia/bubbaloop">Bubbaloop</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="https://kornia.readthedocs.io">Documentation</a>
+                <a href="https://www.kornia.org/tutorials/">Tutorials</a>
+                <a href="../../../playground/">Experiment</a>
+                <a href="../../../robot/">Robot simulator</a>
+                <a href="../../../news/">News &amp; updates</a>
+                <a href="https://kornia.readthedocs.io/en/latest/get-started/governance.html">Governance</a>
+                <a href="../../../playground/CREDITS.md">Credits</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contribute</h4>
+                <a href="../../../community/#contribute">Start contributing</a>
+                <a href="https://github.com/kornia/kornia/blob/main/CONTRIBUTING.md">Contributor guide</a>
+                <a href="https://github.com/kornia/kornia/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a>
+                <a href="../../../sponsor/">Sponsor</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://discord.gg/HfnywwpBnD">Discord</a>
+                <a href="https://x.com/kornia_foss">X</a>
+                <a href="https://www.linkedin.com/company/kornia/">LinkedIn</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <span id="email-contact"></span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 kornia.org</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.29.0/dist/ort.wasm.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.2/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.2/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.2/languages/rust.min.js"></script>
+    <script src="../../models.js?v=20260966"></script>
+    <script src="../../../cache.js?v=20260966"></script>
+    <script src="../../playground.js?v=20260995"></script>
+    <script src="../../../dashboard/firebase-config.js?v=20260950"></script>
+    <script type="module" src="../../../auth.js?v=20260976"></script>
+</body>
+</html>

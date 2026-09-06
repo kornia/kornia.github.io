@@ -38,9 +38,9 @@ const SCENES = {
           d.ctrl[1] = ((k.ArrowLeft || k.a ? 1 : 0) - (k.ArrowRight || k.d ? 1 : 0)) * 0.6;
         },
         autopilot(m) {
-          if (m.n > 12) { steer = -m.dx * 2.2; drive = m.frac > 0.12 ? 0 : 0.9; return "red ball at " + Math.round((m.dx + 0.5) * 100) + " % of the frame width"; }
+          if (m.n > 12) { steer = -m.dx * 2.2; drive = m.frac > 0.12 ? 0 : 0.9; return (m.what || "red ball") + " at " + Math.round((m.dx + 0.5) * 100) + " % of the frame width"; }
           steer = 0.45; drive = 0.25;
-          return "searching for the red ball\u2026";
+          return "searching for the " + (m.what || "red ball") + "\u2026";
         },
       };
     },
@@ -76,7 +76,7 @@ const SCENES = {
           if (m.n > 12) {
             t[0] -= m.dx * 0.12;   // to the right in the frame: yaw right
             t[3] += m.dy * 0.12;   // below the centre: pitch down
-            return "red block at " + Math.round((m.dx + 0.5) * 100) + " %, " + Math.round((m.dy + 0.5) * 100) + " % of the frame";
+            return (m.what || "red block") + " at " + Math.round((m.dx + 0.5) * 100) + " %, " + Math.round((m.dy + 0.5) * 100) + " % of the frame";
           }
           // not in view: bring the shoulder, elbow and wrist back to the pose that looks at the table, and sweep the whole yaw range
           for (let i = 1; i < 4; i++) t[i] += (home[i] - t[i]) * 0.08;
@@ -135,9 +135,9 @@ SCENES.humanoid = {
           arrived = m.dy > 0.32;
           turn = arrived ? 0 : -m.dx * 1.6;
           speed = arrived ? 0 : SPEED;
-          return arrived ? "at the red ball" : "red ball at " + Math.round((m.dx + 0.5) * 100) + " % of the frame width";
+          return arrived ? "at the " + (m.what || "red ball") : (m.what || "red ball") + " at " + Math.round((m.dx + 0.5) * 100) + " % of the frame width";
         }
-        if (arrived) { turn = 0; speed = 0; return "at the red ball"; }   // it left the frame below the camera: stay
+        if (arrived) { turn = 0; speed = 0; return "at the " + (m.what || "red ball"); }   // it left the frame below the camera: stay
         turn = 0.5; speed = 0;
         return "looking for the red ball\u2026";
       },
@@ -298,6 +298,9 @@ async function main() {
   const pixels = new Uint8Array(CAM * CAM * 4);
   const camCanvas = $("rb-cam"), outCanvas = $("rb-out"), depthCanvas = $("rb-depth");
   const camImage = camCanvas.getContext("2d").createImageData(CAM, CAM);
+  const rawCanvas = document.createElement("canvas"); rawCanvas.width = rawCanvas.height = CAM;   // the clean render, before the sensor conditions
+  const rawCtx = rawCanvas.getContext("2d");
+  let sensorOn = false, sensorSession = null, sensorGraph = null, sensorBusy = false, sensorDirty = false;
   const depthImage = depthCanvas.getContext("2d").createImageData(CAM, CAM);
   const trueDepth = new Float32Array(CAM * CAM);   // metres, row 0 at the top
   const camXmat = new THREE.Matrix3(), camRot = new THREE.Matrix4();
@@ -330,7 +333,8 @@ async function main() {
     renderer.render(scene, robotCam);
     renderer.readRenderTargetPixels(colorTarget, 0, 0, CAM, CAM, pixels);
     for (let y = 0; y < CAM; y++) camImage.data.set(pixels.subarray((CAM - 1 - y) * CAM * 4, (CAM - y) * CAM * 4), y * CAM * 4);   // GL rows are bottom-up
-    camCanvas.getContext("2d").putImageData(camImage, 0, 0);
+    rawCtx.putImageData(camImage, 0, 0);
+    if (!sensorOn) camCanvas.getContext("2d").drawImage(rawCanvas, 0, 0);   // with conditions on, applySensor paints the feed instead
     // depth: packed window-space depth -> metres along the view axis
     scene.overrideMaterial = depthMaterial;
     renderer.setRenderTarget(depthTarget);
@@ -396,21 +400,178 @@ async function main() {
     ["kornia.color.rgb_to_grayscale", "Grayscale"], ["kornia.color.rgb_to_hsv", "HSV"], ["kornia.enhance.equalize", "Equalize (low light)"],
     ["kornia.morphology.dilation", "Dilation"],
   ];
+  // the menu, in groups: Off, the visitor's pipelines, the vision operators, and the red mask of the autopilot
   const perceptionSel = $("rb-perception");
-  const ops = PERCEPTION.map(([id, label]) => ({ op: registry.ops.find((o) => o.id === id && o.mode === "onnx"), label })).filter((x) => x.op);
-  ops.forEach(({ op, label }) => { const o = el("option", "", { value: "op:" + op.id }); o.textContent = label; perceptionSel.appendChild(o); });
-  const maskOpt = el("option", "", { value: "mask" }); maskOpt.textContent = "Red mask (what the autopilot sees)"; perceptionSel.appendChild(maskOpt);
   const noneOpt = el("option", "", { value: "none" }); noneOpt.textContent = "Off"; perceptionSel.appendChild(noneOpt);
+  // my pipelines: the saved graphs (this browser's, and the account's once signed in) whose only input is an
+  // image; the chosen one is composed to one ONNX here and runs on every frame. Its outputs draw on the feed:
+  // an image-like output replaces the frame, masks tint it, boxes and keypoints are drawn over it. The output
+  // labelled "target" (else the first mask) is what the autopilot follows instead of the built-in red mask.
+  const PP = window.PGPipelines;
+  const pipeGroup = el("optgroup", "", { label: "Pipelines" });
+  perceptionSel.appendChild(pipeGroup);
+  const pipesReady = PP ? PP.headless(registry, ROOT) : Promise.resolve();
+  function eligiblePipes() {
+    if (!PP) return [];
+    return PP.list().filter((p) => p.version === 2 && !PP.problems(p).length).filter((p) => { const c = PP.contract(p); return c.inputs.length === 1 && c.inputs[0].type === "image" && c.outputs.length; });
+  }
+  function refreshPipelines() {
+    const keep = perceptionSel.value;
+    pipeGroup.innerHTML = "";
+    const pipes = eligiblePipes();
+    pipes.forEach((p) => { const o = el("option", "", { value: "pipe:" + p.id }); o.textContent = p.name; pipeGroup.appendChild(o); });
+    if (!pipes.length) { const o = el("option", "", { value: "", disabled: "" }); o.textContent = "none saved yet"; pipeGroup.appendChild(o); }
+    if (keep && [...perceptionSel.options].some((o) => o.value === keep)) perceptionSel.value = keep;
+  }
+  refreshPipelines();
+  const opGroup = el("optgroup", "", { label: "Vision operators" });
+  const ops = PERCEPTION.map(([id, label]) => ({ op: registry.ops.find((o) => o.id === id && o.mode === "onnx"), label })).filter((x) => x.op);
+  ops.forEach(({ op, label }) => { const o = el("option", "", { value: "op:" + op.id }); o.textContent = label; opGroup.appendChild(o); });
+  perceptionSel.appendChild(opGroup);
+  const autoGroup = el("optgroup", "", { label: "Autopilot" });
+  const maskOpt = el("option", "", { value: "mask" }); maskOpt.textContent = "Red mask (what it sees)"; autoGroup.appendChild(maskOpt);
+  perceptionSel.appendChild(autoGroup);
+  const pipeTools = $("rb-pipe-tools"), pipeEdit = $("rb-pipe-edit");
   let current = { kind: "none" };
   let lastRun = 0, runBusy = false;
   function selectPerception(value) {
     perceptionSel.value = value;
+    pipeTools.hidden = true;
     if (value === "none") { current = { kind: "none" }; outCanvas.getContext("2d").clearRect(0, 0, CAM, CAM); return; }
     if (value === "mask") { current = { kind: "mask" }; return; }
+    if (value.indexOf("pipe:") === 0) {
+      const pipe = PP ? PP.list().find((x) => "pipe:" + x.id === value) : null;
+      if (!pipe) { current = { kind: "none" }; return; }
+      current = { kind: "pipe", pipe, contract: PP.contract(pipe), session: null, graph: null, error: null };
+      pipeMask = null;
+      pipeEdit.href = ROOT + "pipelines/?p=" + encodeURIComponent(pipe.id);
+      pipeTools.hidden = false;
+      return;
+    }
     const op = ops.find((x) => "op:" + x.op.id === value);
     current = op ? { kind: "op", op: op.op } : { kind: "none" };
   }
   perceptionSel.addEventListener("change", () => selectPerception(perceptionSel.value));
+  // the account's pipelines join the list once auth answers (auth.js is a module and may load after this)
+  (function hookAuth(tries) {
+    const A = window.KorniaAuth;
+    if (A && A.onChange) { A.onChange(() => { if (PP && A.pipelines && A.pipelines.canSync()) PP.mergeFromAccount().then(refreshPipelines); }); return; }
+    if (tries > 0) setTimeout(() => hookAuth(tries - 1), 500);
+  })(20);
+  window.addEventListener("storage", (e) => { if (e.key === "kornia-playground-pipelines") refreshPipelines(); });   // saved in another tab
+
+  // ------------------------------------------------------------------ sensor conditions on the camera frame
+  // Each condition is a kornia operator; the enabled ones are spliced into one ONNX (the pipeline composer)
+  // that runs on the raw frame every tick, so perception, the autopilot and the camera feed all see a degraded
+  // image, exactly as they would on a real sensor. A pipeline that works in daylight can fail here until it is
+  // made robust. The slider is one live parameter (re-fed each run) or one choice (which changes the graph).
+  const SENSORS = [
+    { key: "lowlight", label: "Low light", op: "kornia.enhance.adjust_gamma", fixed: { gain: 1.0 },
+      primary: { param: "gamma", kind: "live", min: 1.0, max: 3.0, step: 0.1, def: 1.8 }, fmtV: (v) => "γ " + v.toFixed(1) },
+    { key: "motion", label: "Motion blur", op: "kornia.filters.motion_blur", fixed: { angle: 45.0, direction: 0.0 },
+      primary: { param: "kernel_size", kind: "select", choices: [3, 5, 7, 9, 11, 15, 21], def: 9 }, fmtV: (v) => v + " px" },
+    { key: "defocus", label: "Defocus", op: "kornia.filters.gaussian_blur2d", fixed: { kernel_size: 15 },
+      primary: { param: "sigma", kind: "live", min: 0.2, max: 8.0, step: 0.1, def: 3.0 }, fmtV: (v) => "σ " + v.toFixed(1) },
+    { key: "noise", label: "Sensor noise", op: "kornia.augmentation.RandomGaussianNoise", fixed: { mean: 0.0 },
+      primary: { param: "std", kind: "select", choices: [0.05, 0.1, 0.2], def: 0.1 }, fmtV: (v) => "σ " + v },
+    { key: "jpeg", label: "JPEG artefacts", op: "kornia.enhance.jpeg_codec_differentiable", fixed: {},
+      primary: { param: "jpeg_quality", kind: "live", min: 1, max: 95, step: 1, def: 25 }, fmtV: (v) => "Q " + v },
+  ];
+  SENSORS.forEach((sc) => { sc.enabled = false; if (sc.primary.kind === "select") sc.idx = Math.max(0, sc.primary.choices.indexOf(sc.primary.def)); else sc.value = sc.primary.def; });
+  function sensorValue(sc) { return sc.primary.kind === "select" ? sc.primary.choices[sc.idx] : sc.value; }
+  function paramsOf(sc) { const p = Object.assign({}, sc.fixed || {}); p[sc.primary.param] = sensorValue(sc); return p; }
+  function sensorPipe() {
+    const on = SENSORS.filter((sc) => sc.enabled);
+    if (!on.length) return null;
+    const nodes = [{ id: "in_img", kind: "input", type: "image" }];
+    const edges = []; let prev = { id: "in_img", port: "image" };
+    on.forEach((sc) => { const n = { id: "n_" + sc.key, kind: "op", op: sc.op, params: paramsOf(sc) }; nodes.push(n); edges.push({ from: prev.id, out: prev.port, to: n.id, in: "image" }); prev = { id: n.id, port: "image" }; });
+    nodes.push({ id: "out", kind: "output", label: "output" });
+    edges.push({ from: prev.id, out: prev.port, to: "out", in: "in" });
+    return { id: "__sensor", name: "sensor", version: 2, nodes: nodes, edges: edges };
+  }
+  async function applySensor() {
+    if (!sensorOn || sensorBusy || !PP) return;
+    sensorBusy = true;
+    try {
+      if (sensorDirty) { sensorSession = null; sensorDirty = false; }
+      if (!sensorSession) {
+        if (typeof protobuf === "undefined") throw new Error("protobuf.js did not load");
+        const pipe = sensorPipe();
+        if (!pipe) { sensorBusy = false; return; }
+        sensorSession = pipesReady.then(() => PP.compose(pipe, false, false, CAM)).then((g) => ort.InferenceSession.create(g.bytes, { executionProviders: ["wasm"] }).then((sess) => { sensorGraph = g; return sess; }));
+      }
+      const sess = await sensorSession;
+      if (!sensorOn) { sensorBusy = false; return; }
+      const feeds = {}; feeds[sensorGraph.inputs[0].name] = canvasToTensor(rawCanvas);
+      sensorGraph.paramInputs.forEach((pi) => { const sc = SENSORS.find((x) => "n_" + x.key === pi.node); feeds[pi.name] = new ort.Tensor("float32", new Float32Array([Number(sc ? paramsOf(sc)[pi.param] : 0)]), [1]); });
+      const r = await sess.run(feeds);
+      const out = r[sensorGraph.outputs[0].name];
+      if (out) tensorToCanvas(out, camCanvas, false);
+    } catch (e) {
+      status("sensor conditions failed: " + (e.message || e), true);
+      SENSORS.forEach((sc) => { sc.enabled = false; }); syncSensors();
+    }
+    sensorBusy = false;
+  }
+  function syncSensors() {
+    sensorOn = SENSORS.some((sc) => sc.enabled);
+    sensorDirty = true;   // the enabled set or a choice changed: recompose on the next run
+    const n = SENSORS.filter((sc) => sc.enabled).length;
+    const badge = $("rb-sensors-count"); if (badge) badge.textContent = n ? String(n) : "";
+  }
+  (function buildSensorPanel() {
+    const box = $("rb-sensor-rows"); if (!box) return;
+    SENSORS.forEach((sc) => {
+      const row = el("div", "rb-sensor is-off");
+      const name = el("label", "rb-sensor-name");
+      const on = el("input", "pg-switch", { type: "checkbox" });
+      name.appendChild(on); name.appendChild(document.createTextNode(" " + sc.label));
+      const range = sc.primary.kind === "select"
+        ? el("input", "", { type: "range", min: "0", max: String(sc.primary.choices.length - 1), step: "1", value: String(sc.idx), disabled: "" })
+        : el("input", "", { type: "range", min: String(sc.primary.min), max: String(sc.primary.max), step: String(sc.primary.step), value: String(sc.value), disabled: "" });
+      const out = el("output"); out.textContent = sc.fmtV(sensorValue(sc));
+      on.addEventListener("change", () => { sc.enabled = on.checked; row.classList.toggle("is-off", !on.checked); range.disabled = !on.checked; syncSensors(); });
+      range.addEventListener("input", () => {
+        if (sc.primary.kind === "select") { sc.idx = Number(range.value); sensorDirty = true; } else { sc.value = Number(range.value); }
+        out.textContent = sc.fmtV(sensorValue(sc));
+      });
+      row.appendChild(name); row.appendChild(range); row.appendChild(out); box.appendChild(row);
+    });
+  })();
+
+
+  // a pipeline's results on the output feed, and its target for the autopilot
+  let pipeMask = null;   // {data, w, h}: the 1-channel target output of the last run
+  const rows = (t, k) => { const out = []; for (let i = 0; i + k <= t.data.length; i += k) out.push(Array.from(t.data.slice(i, i + k))); return out; };
+  function hasTarget(c) { return c.contract.outputs.some((o) => (/target/i.test(o.label) && (o.type === "mask" || o.type === "gray" || o.type === "depth")) || o.type === "mask"); }
+  function drawPipeline(c, r) {
+    const outs = c.graph.outputs;
+    const labelOf = (o) => { const n = c.pipe.nodes.find((x) => x.id === o.node); return n && n.label ? n.label : ""; };
+    const ctx = outCanvas.getContext("2d");
+    const imageOut = outs.find((o) => (o.type === "image" || o.type === "gray" || o.type === "depth") && r[o.name]);
+    if (imageOut) {
+      const src = c.pipe.nodes.find((x) => x.id === imageOut.from);
+      const op = src && src.kind === "op" ? registry.ops.find((o) => o.id === src.op) : null;
+      tensorToCanvas(r[imageOut.name], outCanvas, imageOut.type === "depth" || !!(op && op.output && op.output.display && op.output.display !== "clamp"));
+    } else { outCanvas.width = CAM; outCanvas.height = CAM; ctx.drawImage(camCanvas, 0, 0); }
+    const target = outs.find((o) => /target/i.test(labelOf(o)) && (o.type === "mask" || o.type === "gray" || o.type === "depth")) || outs.find((o) => o.type === "mask");
+    outs.forEach((o) => {
+      const t = r[o.name]; if (!t) return;
+      if (o.type === "mask" || o === target) {   // masks, and the target whatever its type: what the autopilot sees
+        const w = t.dims[3], h = t.dims[2], img = ctx.getImageData(0, 0, w, h), d = img.data;
+        for (let i = 0; i < w * h; i++) if (t.data[i] > 0.5) { d[i * 4] = d[i * 4] * 0.4 + 14 * 0.6; d[i * 4 + 1] = d[i * 4 + 1] * 0.4 + 165 * 0.6; d[i * 4 + 2] = d[i * 4 + 2] * 0.4 + 233 * 0.6; }
+        ctx.putImageData(img, 0, 0);
+      } else if (o.type === "boxes") {
+        ctx.strokeStyle = "#f59e0b"; ctx.lineWidth = 2;
+        rows(t, 4).forEach((b) => ctx.strokeRect(b[0], b[1], b[2] - b[0], b[3] - b[1]));
+      } else if (o.type === "keypoints") {
+        ctx.fillStyle = "#10b981";
+        rows(t, 2).forEach((k) => { ctx.beginPath(); ctx.arc(k[0], k[1], 3, 0, 2 * Math.PI); ctx.fill(); });
+      }
+    });
+    pipeMask = target && r[target.name] ? { data: r[target.name].data, w: r[target.name].dims[3], h: r[target.name].dims[2] } : null;
+  }
   const maskImage = outCanvas.getContext("2d").createImageData(CAM, CAM);
   function drawMask(hsv) {
     const plane = CAM * CAM, d = maskImage.data;
@@ -441,11 +602,24 @@ async function main() {
         const feeds = {}; feeds[hsvOp.inputs[0]] = canvasToTensor(camCanvas);
         const r = await hsvSession.run(feeds);
         drawMask(r[Object.keys(r)[0]].data);
+      } else if (current.kind === "pipe") {
+        const c = current;
+        if (c.error) { runBusy = false; return; }
+        if (!c.session) {
+          if (typeof protobuf === "undefined") throw new Error("protobuf.js did not load; pipelines cannot be composed here");
+          status("composing " + c.pipe.name + "…");
+          c.session = pipesReady.then(() => PP.compose(c.pipe, true, false, CAM)).then((g) => ort.InferenceSession.create(g.bytes, { executionProviders: ["wasm"] }).then((sess) => { c.graph = g; return sess; }));
+        }
+        const sess = await c.session;
+        if (current !== c) { runBusy = false; return; }   // the menu moved on while composing
+        const feeds = {}; feeds[c.graph.inputs[0].name] = canvasToTensor(camCanvas);
+        const r = await sess.run(feeds);
+        if (current === c) drawPipeline(c, r);
       }
       lastRun = performance.now() - t0;
     } catch (e) {
       status("perception failed: " + (e.message || e), true);
-      current = { kind: "none" };
+      if (current.kind === "pipe") current.error = e.message || String(e); else current = { kind: "none" };
     }
     runBusy = false;
   }
@@ -479,16 +653,23 @@ async function main() {
     if (autoBusy || !hsvOp) return;
     autoBusy = true;
     try {
-      hsvSession = hsvSession || await session(ROOT + hsvOp.graphs[Object.keys(hsvOp.graphs)[0]]);
-      const feeds = {}; feeds[hsvOp.inputs[0]] = canvasToTensor(camCanvas);
-      const r = await hsvSession.run(feeds);
-      const hsv = r[Object.keys(r)[0]].data, plane = CAM * CAM;
-      let cx = 0, cy = 0, n = 0;
-      for (let i = 0; i < plane; i++) {
-        const h = hsv[i], s = hsv[plane + i], v = hsv[2 * plane + i];   // kornia: hue in radians [0, 2pi]
-        if (isRed(h, s, v)) { cx += i % CAM; cy += Math.floor(i / CAM); n++; }
+      let cx = 0, cy = 0, n = 0, w = CAM, h = CAM;
+      if (current.kind === "pipe" && hasTarget(current)) {
+        // the pipeline's target output (values above 0.5), as drawn by the last perception run
+        if (!pipeMask) { autoText = current.error ? "the pipeline failed; autopilot idle" : "waiting for the pipeline's target…"; autoBusy = false; return; }
+        const d = pipeMask.data; w = pipeMask.w; h = pipeMask.h;
+        for (let i = 0; i < w * h; i++) if (d[i] > 0.5) { cx += i % w; cy += Math.floor(i / w); n++; }
+      } else {
+        hsvSession = hsvSession || await session(ROOT + hsvOp.graphs[Object.keys(hsvOp.graphs)[0]]);
+        const feeds = {}; feeds[hsvOp.inputs[0]] = canvasToTensor(camCanvas);
+        const r = await hsvSession.run(feeds);
+        const hsv = r[Object.keys(r)[0]].data, plane = CAM * CAM;
+        for (let i = 0; i < plane; i++) {
+          const hh = hsv[i], s = hsv[plane + i], v = hsv[2 * plane + i];   // kornia: hue in radians [0, 2pi]
+          if (isRed(hh, s, v)) { cx += i % CAM; cy += Math.floor(i / CAM); n++; }
+        }
       }
-      autoText = ctl.autopilot({ n, frac: n / plane, dx: n ? (cx / n) / CAM - 0.5 : 0, dy: n ? (cy / n) / CAM - 0.5 : 0 });
+      autoText = ctl.autopilot({ n, frac: n / (w * h), dx: n ? (cx / n) / w - 0.5 : 0, dy: n ? (cy / n) / h - 0.5 : 0, what: pipeMask && current.kind === "pipe" ? "target" : null });
     } catch (e) { autoText = "autopilot failed: " + (e.message || e); autopilot.checked = false; }
     autoBusy = false;
   }
@@ -520,6 +701,7 @@ async function main() {
     renderer.render(scene, viewCam);
     renderRobotCam();
     frameNo++;
+    applySensor();
     if (autopilot.checked && frameNo % 2 === 0) autopilotStep();
     runPerception();
     frames++;
@@ -529,7 +711,8 @@ async function main() {
     }
     requestAnimationFrame(frame);
   }
-  selectPerception("op:kornia.filters.sobel");
+  const wanted = new URLSearchParams(location.search).get("pipeline");
+  selectPerception(wanted && [...perceptionSel.options].some((o) => o.value === "pipe:" + wanted) ? "pipe:" + wanted : "op:kornia.filters.sobel");
   requestAnimationFrame(frame);
   window.__robot = { model, data, mujoco, followBody, scene: sceneId, ctl };   // for probes
 }

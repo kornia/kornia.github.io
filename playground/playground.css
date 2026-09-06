@@ -1683,6 +1683,92 @@
     text-align: center;
 }
 
+.rb-pipe-tools {   /* under the perception menu when a pipeline is chosen */
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.72rem;
+}
+
+.rb-sensors {
+    margin: 0 0 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    background: var(--surface-color);
+}
+
+.rb-sensors > summary {
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rb-sensors > summary::-webkit-details-marker { display: none; }
+
+.rb-sensors-count:not(:empty) {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: var(--accent-color);
+    color: #0b1a2b;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.rb-sensors-hint {
+    margin-left: auto;
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.rb-sensor-rows {
+    padding: 0.25rem 0.75rem 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 0.5rem 1.5rem;
+}
+
+.rb-sensor {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.rb-sensor-name {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.rb-sensor input[type="range"] { width: 100%; margin: 0; }
+
+.rb-sensor output {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 3.2rem;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.rb-sensor.is-off .rb-sensor-name,
+.rb-sensor.is-off output { opacity: 0.5; }
+
+@media (max-width: 640px) {
+    .rb-sensors-hint { display: none; }
+}
+
 .rb-select {
     width: 100%;
     padding: 0.25rem 0.4rem;
@@ -1966,6 +2052,17 @@
     position: relative;
 }
 
+.pg-dialog-signin .pg-dialog-actions {   /* the sign-in options stacked, one full-width button each */
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+}
+
+.pg-dialog-signin .pg-dialog-actions > * {
+    justify-content: center;
+    text-align: center;
+}
+
 .pg-dialog-close {
     position: absolute;
     top: 0.6rem;
@@ -2245,8 +2342,35 @@
     color: var(--primary-color);
 }
 
+.pg-op-volume .pg-bar .pg-thumbs {   /* the samples and the colour-map picker share one row */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+}
+
 .pg-thumbs-pick.pg-thumbs-volumes {
-    grid-template-columns: auto;
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: none;
+}
+
+.pg-vol-cmap {   /* the colour-map picker, level with the sample buttons */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    align-self: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.pg-vol-cmap select {
+    padding: 0.3rem 0.45rem;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    background: var(--background-color);
+    color: var(--text-primary);
+    font: inherit;
 }
 
 /* ---- the targeted export modal ---- */

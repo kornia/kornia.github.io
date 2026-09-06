@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-05",
+ "generated_at": "2026-09-06",
  "kornia": "0.9.0rc1",
  "torch": "2.9.1+cu128",
  "onnx_opset": 18,
@@ -44,10 +44,41 @@
    "id": "phantom",
    "label": "3D phantom",
    "file": "volumes/phantom.bin",
-   "size": 32,
+   "size": 48,
    "channels": 1,
    "dtype": "float32",
-   "order": "DHW"
+   "order": "DHW",
+   "source": "synthetic ellipsoids"
+  },
+  {
+   "id": "ct",
+   "label": "CT head",
+   "file": "volumes/ct.bin",
+   "size": 48,
+   "channels": 1,
+   "dtype": "float32",
+   "order": "DHW",
+   "source": "CT of a head, 113 slices, Stanford volume data archive"
+  },
+  {
+   "id": "mri",
+   "label": "MR brain",
+   "file": "volumes/mri.bin",
+   "size": 48,
+   "channels": 1,
+   "dtype": "float32",
+   "order": "DHW",
+   "source": "T1 MRI of a head, 109 slices, Stanford volume data archive"
+  },
+  {
+   "id": "cells",
+   "label": "Cell nuclei",
+   "file": "volumes/cells.bin",
+   "size": 48,
+   "channels": 1,
+   "dtype": "float32",
+   "order": "DHW",
+   "source": "fluorescence microscopy of cell nuclei, Allen Institute for Cell Science, CC BY 4.0, via scikit-image"
   }
  ],
  "videos": [
@@ -112,6 +143,18 @@
   {
    "id": "kornia.augmentation",
    "title": "Augmentation"
+  },
+  {
+   "id": "kornia.feature",
+   "title": "Feature detection and matching"
+  },
+  {
+   "id": "kornia.contrib",
+   "title": "Contrib"
+  },
+  {
+   "id": "kornia.geometry.subpix",
+   "title": "Geometry: subpixel"
   }
  ],
  "ops": [
@@ -394,6 +437,8 @@
    "rust": null,
    "stochastic": false,
    "pre": "",
+   "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "low_threshold",
@@ -413,8 +458,9 @@
      "default": 0.2,
      "label": "",
      "labels": null,
+     "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float"
     }
    ],
    "output": {
@@ -423,6 +469,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "low_threshold",
@@ -458,7 +508,8 @@
       "name": "image",
       "type": "image",
       "accepts": [
-       "image"
+       "image",
+       "gray"
       ]
      }
     ],
@@ -584,6 +635,8 @@
    "rust": null,
    "stochastic": false,
    "pre": "",
+   "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "kernel",
@@ -616,6 +669,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "kernel",
@@ -638,7 +695,8 @@
       "name": "image",
       "type": "image",
       "accepts": [
-       "image"
+       "image",
+       "gray"
       ]
      }
     ],
@@ -837,6 +895,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "kernel",
@@ -862,10 +921,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "box3": "graphs/filters-filter3d/box3.onnx",
@@ -886,11 +948,11 @@
     "kernel"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 0.5,
+   "cpu_latency_ms": 0.7,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -1029,6 +1091,8 @@
    "rust": null,
    "stochastic": false,
    "pre": "",
+   "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "kernel_size",
@@ -1042,6 +1106,7 @@
      "default": 5,
      "label": "",
      "labels": null,
+     "literals": null,
      "kind": "select",
      "type": "int"
     },
@@ -1062,6 +1127,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "eps",
@@ -1097,7 +1166,8 @@
       "name": "image",
       "type": "image",
       "accepts": [
-       "image"
+       "image",
+       "gray"
       ]
      }
     ],
@@ -1655,6 +1725,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "kernel_size",
@@ -1699,10 +1770,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "3|0": "graphs/filters-motion_blur3d/3_0.onnx",
@@ -1741,11 +1815,11 @@
     "angle"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 1.5,
+   "cpu_latency_ms": 3.3,
    "input_kind": "volume",
    "opset": 18,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -1817,6 +1891,84 @@
       "type": "image",
       "accepts": [
        "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.filters.spatial_gradient",
+   "slug": "filters-spatial_gradient",
+   "name": "spatial_gradient",
+   "package": "kornia.filters",
+   "status": "live",
+   "summary": "Gradient magnitude from the first-order spatial derivatives.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/filters.html#kornia.filters.spatial_gradient",
+   "snippet": "kornia.filters.spatial_gradient({img}, mode={mode}).pow(2).sum(2).sqrt()   # (B, C, 2, H, W): dx and dy",
+   "module_snippet": "kornia.filters.SpatialGradient(mode={mode})({img}).pow(2).sum(2).sqrt()",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "guide_port": null,
+   "params": [
+    {
+     "name": "mode",
+     "choices": [
+      "sobel",
+      "diff"
+     ],
+     "default": "sobel",
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "str"
+    }
+   ],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    1,
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "sobel": "graphs/filters-spatial_gradient/sobel.onnx",
+    "diff": "graphs/filters-spatial_gradient/diff.onnx"
+   },
+   "graph_kb": {
+    "sobel": 9.3,
+    "diff": 9.3
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [
+    "mode"
+   ],
+   "dynamic": true,
+   "cpu_latency_ms": 4.9,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image",
+       "gray"
       ]
      }
     ],
@@ -2016,6 +2168,64 @@
    }
   },
   {
+   "id": "kornia.color.bgr_to_grayscale",
+   "slug": "color-bgr_to_grayscale",
+   "name": "bgr_to_grayscale",
+   "package": "kornia.color",
+   "status": "live",
+   "summary": "Luma-weighted grayscale of a BGR image.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/color.html#kornia.color.bgr_to_grayscale",
+   "snippet": "kornia.color.bgr_to_grayscale({img})",
+   "module_snippet": "kornia.color.BgrToGrayscale()({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 1,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/color-bgr_to_grayscale/default.onnx"
+   },
+   "graph_kb": {
+    "default": 7.2
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": true,
+   "cpu_latency_ms": 1.2,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
+  },
+  {
    "id": "kornia.color.bgr_to_rgb",
    "slug": "color-bgr_to_rgb",
    "name": "bgr_to_rgb",
@@ -2146,6 +2356,180 @@
    }
   },
   {
+   "id": "kornia.color.hls_to_rgb",
+   "slug": "color-hls_to_rgb",
+   "name": "hls_to_rgb",
+   "package": "kornia.color",
+   "status": "live",
+   "summary": "Interprets the channels as HLS and converts to RGB.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/color.html#kornia.color.hls_to_rgb",
+   "snippet": "kornia.color.hls_to_rgb({img})",
+   "module_snippet": "kornia.color.HlsToRgb()({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "shown as a round trip through rgb_to_hls",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/color-hls_to_rgb/default.onnx"
+   },
+   "graph_kb": {
+    "default": 4906.4
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 16.2,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.color.hsv_to_rgb",
+   "slug": "color-hsv_to_rgb",
+   "name": "hsv_to_rgb",
+   "package": "kornia.color",
+   "status": "live",
+   "summary": "Interprets the channels as HSV and converts to RGB; the inverse of rgb_to_hsv.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/color.html#kornia.color.hsv_to_rgb",
+   "snippet": "kornia.color.hsv_to_rgb({img})",
+   "module_snippet": "kornia.color.HsvToRgb()({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "shown as a round trip through rgb_to_hsv",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/color-hsv_to_rgb/default.onnx"
+   },
+   "graph_kb": {
+    "default": 43.4
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": true,
+   "cpu_latency_ms": 7.2,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.color.lab_to_rgb",
+   "slug": "color-lab_to_rgb",
+   "name": "lab_to_rgb",
+   "package": "kornia.color",
+   "status": "live",
+   "summary": "Interprets the channels as CIE Lab and converts to RGB.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/color.html#kornia.color.lab_to_rgb",
+   "snippet": "kornia.color.lab_to_rgb({img})",
+   "module_snippet": "kornia.color.LabToRgb()({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "shown as a round trip through rgb_to_lab",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/color-lab_to_rgb/default.onnx"
+   },
+   "graph_kb": {
+    "default": 26.8
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 7.6,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
+  },
+  {
    "id": "kornia.color.linear_rgb_to_rgb",
    "slug": "color-linear_rgb_to_rgb",
    "name": "linear_rgb_to_rgb",
@@ -2180,6 +2564,64 @@
    "cpu_latency_ms": 2.5,
    "kind": "function",
    "module_name": "kornia.color.LinearRgbToRgb",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.color.luv_to_rgb",
+   "slug": "color-luv_to_rgb",
+   "name": "luv_to_rgb",
+   "package": "kornia.color",
+   "status": "live",
+   "summary": "Interprets the channels as CIE Luv and converts to RGB.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/color.html#kornia.color.luv_to_rgb",
+   "snippet": "kornia.color.luv_to_rgb({img})",
+   "module_snippet": "kornia.color.LuvToRgb()({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "shown as a round trip through rgb_to_luv",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/color-luv_to_rgb/default.onnx"
+   },
+   "graph_kb": {
+    "default": 36.3
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 6.7,
+   "kind": "function",
    "ports": {
     "inputs": [
      {
@@ -3000,6 +3442,180 @@
    "cpu_latency_ms": 1.8,
    "kind": "function",
    "module_name": "kornia.color.Sepia",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.color.xyz_to_rgb",
+   "slug": "color-xyz_to_rgb",
+   "name": "xyz_to_rgb",
+   "package": "kornia.color",
+   "status": "live",
+   "summary": "Interprets the channels as CIE XYZ and converts to RGB.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/color.html#kornia.color.xyz_to_rgb",
+   "snippet": "kornia.color.xyz_to_rgb({img})",
+   "module_snippet": "kornia.color.XyzToRgb()({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "shown as a round trip through rgb_to_xyz",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/color-xyz_to_rgb/default.onnx"
+   },
+   "graph_kb": {
+    "default": 1.9
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 3.6,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.color.ycbcr_to_rgb",
+   "slug": "color-ycbcr_to_rgb",
+   "name": "ycbcr_to_rgb",
+   "package": "kornia.color",
+   "status": "live",
+   "summary": "Interprets the channels as YCbCr and converts to RGB.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/color.html#kornia.color.ycbcr_to_rgb",
+   "snippet": "kornia.color.ycbcr_to_rgb({img})",
+   "module_snippet": "kornia.color.YcbcrToRgb()({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "shown as a round trip through rgb_to_ycbcr",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/color-ycbcr_to_rgb/default.onnx"
+   },
+   "graph_kb": {
+    "default": 17.0
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": true,
+   "cpu_latency_ms": 2.3,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "channels": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.color.yuv_to_rgb",
+   "slug": "color-yuv_to_rgb",
+   "name": "yuv_to_rgb",
+   "package": "kornia.color",
+   "status": "live",
+   "summary": "Interprets the channels as YUV and converts to RGB.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/color.html#kornia.color.yuv_to_rgb",
+   "snippet": "kornia.color.yuv_to_rgb({img})",
+   "module_snippet": "kornia.color.YuvToRgb()({img})",
+   "rust": null,
+   "stochastic": false,
+   "pre": "shown as a round trip through rgb_to_yuv",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/color-yuv_to_rgb/default.onnx"
+   },
+   "graph_kb": {
+    "default": 1.9
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 2.9,
+   "kind": "function",
    "ports": {
     "inputs": [
      {
@@ -3887,31 +4503,35 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [],
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "default": "graphs/enhance-equalize3d/default.onnx"
    },
    "graph_kb": {
-    "default": 138.4
+    "default": 442.4
    },
    "inputs": [
     "volume"
    ],
    "select_order": [],
    "dynamic": false,
-   "cpu_latency_ms": 1.6,
+   "cpu_latency_ms": 4.3,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -3943,6 +4563,8 @@
    "rust": null,
    "stochastic": false,
    "pre": "",
+   "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "clip_limit",
@@ -3955,6 +4577,7 @@
      "default": 10,
      "label": "",
      "labels": null,
+     "literals": null,
      "kind": "select",
      "type": "int"
     }
@@ -3965,6 +4588,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "clip_limit",
@@ -3985,7 +4612,8 @@
       "name": "image",
       "type": "image",
       "accepts": [
-       "image"
+       "image",
+       "gray"
       ]
      }
     ],
@@ -4003,7 +4631,7 @@
    "slug": "enhance-integral_image",
    "name": "integral_image",
    "package": "kornia.enhance",
-   "status": "frames",
+   "status": "live",
    "summary": "Summed-area table; shown normalised.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/enhance.html#kornia.enhance.integral_image",
    "snippet": "kornia.enhance.integral_image({img})",
@@ -4011,6 +4639,8 @@
    "rust": null,
    "stochastic": false,
    "pre": "",
+   "guidance": null,
+   "guide_port": null,
    "params": [],
    "output": {
     "channels": 3,
@@ -4018,16 +4648,23 @@
     "height": 256,
     "width": 256
    },
-   "mode": "frames",
-   "frames": {
-    "param": null,
-    "values": [
-     null
-    ],
-    "dir": "frames/enhance-integral_image",
-    "fixed": {},
-    "note": ""
+   "in_channels": [
+    1,
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/enhance-integral_image/default.onnx"
    },
+   "graph_kb": {
+    "default": 1.5
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": true,
+   "cpu_latency_ms": 2.7,
    "kind": "function",
    "module_name": "kornia.enhance.IntegralImage",
    "ports": {
@@ -4036,7 +4673,8 @@
       "name": "image",
       "type": "image",
       "accepts": [
-       "image"
+       "image",
+       "gray"
       ]
      }
     ],
@@ -5285,6 +5923,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "yaw",
@@ -5318,10 +5957,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "0|0.8": "graphs/geometry-transform-affine3d/0_0p8.onnx",
@@ -5353,11 +5995,11 @@
     "scale"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 2.1,
+   "cpu_latency_ms": 7.0,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -5473,6 +6115,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "size",
@@ -5495,6 +6138,9 @@
     "height": 16,
     "width": 16
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "16": "graphs/geometry-transform-center_crop3d/16.onnx",
@@ -5511,11 +6157,11 @@
     "size"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 0.9,
+   "cpu_latency_ms": 0.6,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -5548,6 +6194,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "size",
@@ -5570,6 +6217,9 @@
     "height": 16,
     "width": 16
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "16": "graphs/geometry-transform-crop_and_resize3d/16.onnx",
@@ -5590,7 +6240,7 @@
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -5623,6 +6273,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "size",
@@ -5645,6 +6296,9 @@
     "height": 24,
     "width": 24
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "16": "graphs/geometry-transform-crop_by_boxes3d/16.onnx",
@@ -5661,11 +6315,11 @@
     "size"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 0.6,
+   "cpu_latency_ms": 0.7,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -6388,6 +7042,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "yaw",
@@ -6423,10 +7078,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "default": "graphs/geometry-transform-rotate3d/default.onnx"
@@ -6442,11 +7100,11 @@
    ],
    "select_order": [],
    "dynamic": false,
-   "cpu_latency_ms": 2.3,
+   "cpu_latency_ms": 8.4,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -6788,6 +7446,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "pitch",
@@ -6811,6 +7470,9 @@
     "height": 32,
     "width": 32
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "0": "graphs/geometry-transform-warp_affine3d/0.onnx",
@@ -6829,11 +7491,11 @@
     "pitch"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 2.0,
+   "cpu_latency_ms": 2.2,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -6866,6 +7528,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "shift",
@@ -6889,6 +7552,9 @@
     "height": 32,
     "width": 32
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "-4": "graphs/geometry-transform-warp_perspective3d/-4.onnx",
@@ -6907,11 +7573,11 @@
     "shift"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 1.7,
+   "cpu_latency_ms": 1.8,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "function",
@@ -7042,6 +7708,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "size",
@@ -7076,6 +7743,9 @@
     "height": 16,
     "width": 16
    },
+   "in_channels": [
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "size",
@@ -7102,7 +7772,7 @@
    },
    "input_kind": "volume",
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
@@ -7135,6 +7805,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "strength",
@@ -7148,7 +7819,24 @@
      "labels": null,
      "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float",
+     "derived": {
+      "0.1": {
+       "one_minus": "0.9",
+       "one_plus": "1.1",
+       "plus_200": ""
+      },
+      "0.3": {
+       "one_minus": "0.7",
+       "one_plus": "1.3",
+       "plus_200": ""
+      },
+      "0.5": {
+       "one_minus": "0.5",
+       "one_plus": "1.5",
+       "plus_200": ""
+      }
+     }
     }
    ],
    "output": {
@@ -7157,6 +7845,9 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "strength",
@@ -7203,6 +7894,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "strength",
@@ -7216,7 +7908,24 @@
      "labels": null,
      "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float",
+     "derived": {
+      "0.1": {
+       "one_minus": "0.9",
+       "one_plus": "1.1",
+       "plus_200": ""
+      },
+      "0.3": {
+       "one_minus": "0.7",
+       "one_plus": "1.3",
+       "plus_200": ""
+      },
+      "0.5": {
+       "one_minus": "0.5",
+       "one_plus": "1.5",
+       "plus_200": ""
+      }
+     }
     }
    ],
    "output": {
@@ -7225,6 +7934,9 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "strength",
@@ -7606,14 +8318,72 @@
    "slug": "augmentation-PatchMix",
    "name": "PatchMix",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "frames",
+   "summary": "Mixes square patches of the image with patches of the second sample.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.PatchMix",
-   "status": "unsupported",
-   "reason": "needs labels or a batch of several images",
+   "snippet": "kornia.augmentation.PatchMix(patch_size={patch_size}, p=1.0)(torch.cat([{img}, {guide}]))[0][:1]",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": {
+    "id": "barn",
+    "label": "Barn",
+    "file": "images/barn.png",
+    "thumb": "images/barn_thumb.jpg",
+    "selectable": false,
+    "annotations": "annotations/barn.json"
+   },
+   "guide_port": "image2",
+   "params": [
+    {
+     "name": "patch_size",
+     "choices": [
+      16,
+      32,
+      64
+     ],
+     "default": 32,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    }
+   ],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "frames",
+   "frames": {
+    "param": "patch_size",
+    "values": [
+     16,
+     32,
+     64
+    ],
+    "dir": "frames/augmentation-PatchMix",
+    "fixed": {},
+    "note": "the patch draw is used as a shape, which does not export"
+   },
+   "kind": "class",
    "ports": {
     "inputs": [
      {
       "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     },
+     {
+      "name": "image2",
       "type": "image",
       "accepts": [
        "image"
@@ -7846,7 +8616,8 @@
       "type": "keypoints"
      }
     ]
-   }
+   },
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomAffine3D",
@@ -7862,6 +8633,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "degrees",
@@ -7898,10 +8670,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "15": "graphs/augmentation-RandomAffine3D/15.onnx",
@@ -7920,15 +8695,14 @@
     "degrees"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 2.3,
+   "cpu_latency_ms": 7.2,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
-   "sampling_folded": false,
    "ports": {
     "inputs": [
      {
@@ -8211,7 +8985,7 @@
    "snippet": "kornia.augmentation.RandomChannelDropout({num_drop_channels}, fill_value={fill_value}, p=1.0)({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": false,
+   "stochastic": true,
    "pre": "",
    "guidance": null,
    "params": [
@@ -8304,7 +9078,7 @@
    ],
    "dynamic": true,
    "cpu_latency_ms": 1.0,
-   "sampling_folded": true,
+   "sampling_folded": false,
    "kind": "class",
    "ports": {
     "inputs": [
@@ -8336,7 +9110,7 @@
    "snippet": "kornia.augmentation.RandomChannelShuffle(p=1.0)({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": false,
+   "stochastic": true,
    "pre": "",
    "guidance": null,
    "params": [
@@ -8375,7 +9149,7 @@
    "dynamic": true,
    "cpu_latency_ms": 0.5,
    "kind": "class",
-   "sampling_folded": true,
+   "sampling_folded": false,
    "ports": {
     "inputs": [
      {
@@ -8583,7 +9357,8 @@
       "channels": 3
      }
     ]
-   }
+   },
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomCrop3D",
@@ -8599,6 +9374,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "size",
@@ -8633,6 +9409,9 @@
     "height": 16,
     "width": 16
    },
+   "in_channels": [
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "size",
@@ -8659,7 +9438,7 @@
    },
    "input_kind": "volume",
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
@@ -8683,14 +9462,74 @@
    "slug": "augmentation-RandomCutMixV2",
    "name": "RandomCutMixV2",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "frames",
+   "summary": "Pastes a random crop of the second sample into the image.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomCutMixV2",
-   "status": "unsupported",
-   "reason": "needs labels or a batch of several images",
+   "snippet": "kornia.augmentation.RandomCutMixV2(cut_size=({cut_size}, {cut_size}), p=1.0)(torch.cat([{img}, {guide}]))[0][:1]",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": {
+    "id": "barn",
+    "label": "Barn",
+    "file": "images/barn.png",
+    "thumb": "images/barn_thumb.jpg",
+    "selectable": false,
+    "annotations": "annotations/barn.json"
+   },
+   "guide_port": "image2",
+   "params": [
+    {
+     "name": "cut_size",
+     "choices": [
+      0.2,
+      0.4,
+      0.6,
+      0.8
+     ],
+     "default": 0.4,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "frames",
+   "frames": {
+    "param": "cut_size",
+    "values": [
+     0.2,
+     0.4,
+     0.6,
+     0.8
+    ],
+    "dir": "frames/augmentation-RandomCutMixV2",
+    "fixed": {},
+    "note": "the crop is a random draw used as a shape, which does not export"
+   },
+   "kind": "class",
    "ports": {
     "inputs": [
      {
       "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     },
+     {
+      "name": "image2",
       "type": "image",
       "accepts": [
        "image"
@@ -8720,6 +9559,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "p",
@@ -8744,10 +9584,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "1": "graphs/augmentation-RandomDepthicalFlip3D/1.onnx"
@@ -8762,12 +9605,12 @@
     "p"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 0.0,
+   "cpu_latency_ms": 0.1,
    "sampling_folded": true,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
@@ -8995,6 +9838,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "p",
@@ -9019,16 +9863,19 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "1": "graphs/augmentation-RandomEqualize3D/1.onnx"
    },
    "graph_kb": {
-    "1": 138.4
+    "1": 442.4
    },
    "inputs": [
     "volume"
@@ -9037,12 +9884,12 @@
     "p"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 1.0,
+   "cpu_latency_ms": 3.4,
    "sampling_folded": true,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
@@ -9956,6 +10803,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "p",
@@ -9980,10 +10828,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "1": "graphs/augmentation-RandomHorizontalFlip3D/1.onnx"
@@ -9998,12 +10849,12 @@
     "p"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 0.2,
+   "cpu_latency_ms": 0.3,
    "sampling_folded": true,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
@@ -10182,6 +11033,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "grid",
@@ -10215,6 +11067,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "grid",
@@ -10233,7 +11089,8 @@
       "name": "image",
       "type": "image",
       "accepts": [
-       "image"
+       "image",
+       "gray"
       ]
      }
     ],
@@ -10496,14 +11353,74 @@
    "slug": "augmentation-RandomMixUpV2",
    "name": "RandomMixUpV2",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "frames",
+   "summary": "Blends the image with the second sample; lambda is the weight of the second one.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomMixUpV2",
-   "status": "unsupported",
-   "reason": "needs labels or a batch of several images",
+   "snippet": "kornia.augmentation.RandomMixUpV2(lambda_val=({lambda_val}, {lambda_val}), p=1.0)(torch.cat([{img}, {guide}]))[0][:1]",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": {
+    "id": "barn",
+    "label": "Barn",
+    "file": "images/barn.png",
+    "thumb": "images/barn_thumb.jpg",
+    "selectable": false,
+    "annotations": "annotations/barn.json"
+   },
+   "guide_port": "image2",
+   "params": [
+    {
+     "name": "lambda_val",
+     "choices": [
+      0.2,
+      0.4,
+      0.6,
+      0.8
+     ],
+     "default": 0.4,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "frames",
+   "frames": {
+    "param": "lambda_val",
+    "values": [
+     0.2,
+     0.4,
+     0.6,
+     0.8
+    ],
+    "dir": "frames/augmentation-RandomMixUpV2",
+    "fixed": {},
+    "note": "the batch partner is drawn with randperm, which does not export"
+   },
+   "kind": "class",
    "ports": {
     "inputs": [
      {
       "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     },
+     {
+      "name": "image2",
       "type": "image",
       "accepts": [
        "image"
@@ -10524,14 +11441,72 @@
    "slug": "augmentation-RandomMosaic",
    "name": "RandomMosaic",
    "package": "kornia.augmentation",
-   "kind": "class",
+   "status": "frames",
+   "summary": "Tiles a 2\u00d72 mosaic from the two samples around a random centre.",
    "doc_url": "https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomMosaic",
-   "status": "unsupported",
-   "reason": "needs labels or a batch of several images",
+   "snippet": "kornia.augmentation.RandomMosaic((256, 256), start_ratio_range=({start_ratio}, {start_ratio}), p=1.0)(torch.cat([{img}, {guide}]))[0][:1]",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": true,
+   "pre": "",
+   "guidance": {
+    "id": "barn",
+    "label": "Barn",
+    "file": "images/barn.png",
+    "thumb": "images/barn_thumb.jpg",
+    "selectable": false,
+    "annotations": "annotations/barn.json"
+   },
+   "guide_port": "image2",
+   "params": [
+    {
+     "name": "start_ratio",
+     "choices": [
+      0.3,
+      0.5,
+      0.7
+     ],
+     "default": 0.5,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 3,
+    "display": "clamp",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "frames",
+   "frames": {
+    "param": "start_ratio",
+    "values": [
+     0.3,
+     0.5,
+     0.7
+    ],
+    "dir": "frames/augmentation-RandomMosaic",
+    "fixed": {},
+    "note": "the tiles are drawn with randperm, which does not export"
+   },
+   "kind": "class",
    "ports": {
     "inputs": [
      {
       "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     },
+     {
+      "name": "image2",
       "type": "image",
       "accepts": [
        "image"
@@ -10698,6 +11673,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "kernel_size",
@@ -10734,10 +11710,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "kernel_size",
@@ -10751,26 +11730,26 @@
     "note": "the kernel is built at run time from the drawn angles",
     "shapes": [
      [
-      32,
-      32,
-      32
+      48,
+      48,
+      48
      ],
      [
-      32,
-      32,
-      32
+      48,
+      48,
+      48
      ],
      [
-      32,
-      32,
-      32
+      48,
+      48,
+      48
      ]
     ],
     "format": "float32"
    },
    "input_kind": "volume",
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
@@ -10950,7 +11929,8 @@
       "type": "keypoints"
      }
     ]
-   }
+   },
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomPerspective3D",
@@ -10966,6 +11946,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "distortion_scale",
@@ -11002,10 +11983,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "distortion_scale",
@@ -11019,26 +12003,26 @@
     "note": "the warp solves a linear system that does not export",
     "shapes": [
      [
-      32,
-      32,
-      32
+      48,
+      48,
+      48
      ],
      [
-      32,
-      32,
-      32
+      48,
+      48,
+      48
      ],
      [
-      32,
-      32,
-      32
+      48,
+      48,
+      48
      ]
     ],
     "format": "float32"
    },
    "input_kind": "volume",
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
@@ -11596,6 +12580,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "drops",
@@ -11629,6 +12614,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "drops",
@@ -11647,7 +12636,8 @@
       "name": "image",
       "type": "image",
       "accepts": [
-       "image"
+       "image",
+       "gray"
       ]
      }
     ],
@@ -11787,7 +12777,8 @@
       "channels": 3
      }
     ]
-   }
+   },
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomRotation",
@@ -11936,7 +12927,8 @@
       "type": "keypoints"
      }
     ]
-   }
+   },
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomRotation3D",
@@ -11952,6 +12944,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "degrees",
@@ -11988,10 +12981,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "15": "graphs/augmentation-RandomRotation3D/15.onnx",
@@ -12010,15 +13006,14 @@
     "degrees"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 2.7,
+   "cpu_latency_ms": 7.4,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
-   "sampling_folded": false,
    "ports": {
     "inputs": [
      {
@@ -12045,7 +13040,7 @@
    "snippet": "kornia.augmentation.RandomRotation90((0, 3), p=1.0)({img})",
    "module_snippet": "",
    "rust": null,
-   "stochastic": false,
+   "stochastic": true,
    "pre": "",
    "guidance": null,
    "params": [
@@ -12094,7 +13089,7 @@
    ],
    "dynamic": false,
    "cpu_latency_ms": 5.1,
-   "sampling_folded": true,
+   "sampling_folded": false,
    "graphs_multi": {
     "1": "graphs/augmentation-RandomRotation90/1_multi.onnx"
    },
@@ -12601,7 +13596,8 @@
       "type": "keypoints"
      }
     ]
-   }
+   },
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomSnow",
@@ -12812,6 +13808,7 @@
    "stochastic": true,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "scale",
@@ -12825,7 +13822,24 @@
      "labels": null,
      "literals": null,
      "kind": "select",
-     "type": "str"
+     "type": "float",
+     "derived": {
+      "0.1": {
+       "one_minus": "0.9",
+       "one_plus": "1.1",
+       "plus_200": ""
+      },
+      "0.2": {
+       "one_minus": "0.8",
+       "one_plus": "1.2",
+       "plus_200": ""
+      },
+      "0.4": {
+       "one_minus": "0.6",
+       "one_plus": "1.4",
+       "plus_200": ""
+      }
+     }
     }
    ],
    "output": {
@@ -12834,6 +13848,10 @@
     "height": 256,
     "width": 256
    },
+   "in_channels": [
+    1,
+    3
+   ],
    "mode": "frames",
    "frames": {
     "param": "scale",
@@ -12853,7 +13871,8 @@
       "name": "image",
       "type": "image",
       "accepts": [
-       "image"
+       "image",
+       "gray"
       ]
      }
     ],
@@ -13004,7 +14023,8 @@
       "type": "keypoints"
      }
     ]
-   }
+   },
+   "sampling_folded": false
   },
   {
    "id": "kornia.augmentation.RandomVerticalFlip",
@@ -13143,6 +14163,7 @@
    "stochastic": false,
    "pre": "",
    "guidance": null,
+   "guide_port": null,
    "params": [
     {
      "name": "p",
@@ -13167,10 +14188,13 @@
    "output": {
     "channels": 1,
     "display": "clamp",
-    "depth": 32,
-    "height": 32,
-    "width": 32
+    "depth": 48,
+    "height": 48,
+    "width": 48
    },
+   "in_channels": [
+    3
+   ],
    "mode": "onnx",
    "graphs": {
     "1": "graphs/augmentation-RandomVerticalFlip3D/1.onnx"
@@ -13185,12 +14209,12 @@
     "p"
    ],
    "dynamic": false,
-   "cpu_latency_ms": 0.0,
+   "cpu_latency_ms": 0.1,
    "sampling_folded": true,
    "input_kind": "volume",
    "opset": 20,
    "volume": {
-    "size": 32,
+    "size": 48,
     "channels": 1
    },
    "kind": "class",
@@ -13396,6 +14420,666 @@
       "name": "image",
       "type": "image",
       "channels": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.feature.harris_response",
+   "slug": "feature-harris_response",
+   "name": "harris_response",
+   "package": "kornia.feature",
+   "status": "live",
+   "summary": "Harris corner response of the grayscale image.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/feature.html#kornia.feature.harris_response",
+   "snippet": "kornia.feature.harris_response(kornia.color.rgb_to_grayscale({img}), k={k})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "the sample is converted to grayscale first",
+   "guidance": null,
+   "guide_port": null,
+   "params": [
+    {
+     "name": "k",
+     "choices": [
+      0.02,
+      0.04,
+      0.08
+     ],
+     "default": 0.04,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "robust",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "0.02": "graphs/feature-harris_response/0p02.onnx",
+    "0.04": "graphs/feature-harris_response/0p04.onnx",
+    "0.08": "graphs/feature-harris_response/0p08.onnx"
+   },
+   "graph_kb": {
+    "0.02": 25.7,
+    "0.04": 25.7,
+    "0.08": 25.7
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [
+    "k"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 10.7,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.feature.gftt_response",
+   "slug": "feature-gftt_response",
+   "name": "gftt_response",
+   "package": "kornia.feature",
+   "status": "live",
+   "summary": "Shi-Tomasi (good features to track) corner response.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/feature.html#kornia.feature.gftt_response",
+   "snippet": "kornia.feature.gftt_response(kornia.color.rgb_to_grayscale({img}))",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "the sample is converted to grayscale first",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 1,
+    "display": "robust",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/feature-gftt_response/default.onnx"
+   },
+   "graph_kb": {
+    "default": 28.8
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 11.2,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.feature.hessian_response",
+   "slug": "feature-hessian_response",
+   "name": "hessian_response",
+   "package": "kornia.feature",
+   "status": "live",
+   "summary": "Determinant-of-Hessian blob response.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/feature.html#kornia.feature.hessian_response",
+   "snippet": "kornia.feature.hessian_response(kornia.color.rgb_to_grayscale({img}))",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "the sample is converted to grayscale first",
+   "guidance": null,
+   "guide_port": null,
+   "params": [],
+   "output": {
+    "channels": 1,
+    "display": "robust",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/feature-hessian_response/default.onnx"
+   },
+   "graph_kb": {
+    "default": 11.9
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 3.1,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.feature.dog_response_single",
+   "slug": "feature-dog_response_single",
+   "name": "dog_response_single",
+   "package": "kornia.feature",
+   "status": "live",
+   "summary": "Difference of Gaussians at two scales.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/feature.html#kornia.feature.dog_response_single",
+   "snippet": "kornia.feature.dog_response_single(kornia.color.rgb_to_grayscale({img}), {sigma1}, {sigma2})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "the sample is converted to grayscale first",
+   "guidance": null,
+   "guide_port": null,
+   "params": [
+    {
+     "name": "sigma1",
+     "choices": [
+      0.7,
+      1.0,
+      1.6
+     ],
+     "default": 1.0,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float"
+    },
+    {
+     "name": "sigma2",
+     "choices": [
+      1.6,
+      2.5,
+      4.0
+     ],
+     "default": 1.6,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "normalize",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "0.7|1.6": "graphs/feature-dog_response_single/0p7_1p6.onnx",
+    "0.7|2.5": "graphs/feature-dog_response_single/0p7_2p5.onnx",
+    "0.7|4": "graphs/feature-dog_response_single/0p7_4.onnx",
+    "1|1.6": "graphs/feature-dog_response_single/1_1p6.onnx",
+    "1|2.5": "graphs/feature-dog_response_single/1_2p5.onnx",
+    "1|4": "graphs/feature-dog_response_single/1_4.onnx",
+    "1.6|1.6": "graphs/feature-dog_response_single/1p6_1p6.onnx",
+    "1.6|2.5": "graphs/feature-dog_response_single/1p6_2p5.onnx",
+    "1.6|4": "graphs/feature-dog_response_single/1p6_4.onnx"
+   },
+   "graph_kb": {
+    "0.7|1.6": 25.5,
+    "0.7|2.5": 25.6,
+    "0.7|4": 25.7,
+    "1|1.6": 25.5,
+    "1|2.5": 25.6,
+    "1|4": 25.7,
+    "1.6|1.6": 17.8,
+    "1.6|2.5": 25.6,
+    "1.6|4": 25.7
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [
+    "sigma1",
+    "sigma2"
+   ],
+   "dynamic": true,
+   "cpu_latency_ms": 6.4,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.contrib.connected_components",
+   "slug": "contrib-connected_components",
+   "name": "connected_components",
+   "package": "kornia.contrib",
+   "status": "live",
+   "summary": "Labels the connected components of the thresholded grayscale image.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/contrib.html#kornia.contrib.connected_components",
+   "snippet": "kornia.contrib.connected_components((kornia.color.rgb_to_grayscale({img}) > {threshold}).float(), num_iterations={num_iterations})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "the sample is thresholded to a binary mask first",
+   "guidance": null,
+   "guide_port": null,
+   "params": [
+    {
+     "name": "threshold",
+     "min": 0.1,
+     "max": 0.9,
+     "step": 0.05,
+     "default": 0.5,
+     "label": "",
+     "kind": "live",
+     "type": "float"
+    },
+    {
+     "name": "num_iterations",
+     "choices": [
+      50,
+      100,
+      200
+     ],
+     "default": 100,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "normalize",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "50": "graphs/contrib-connected_components/50.onnx",
+    "100": "graphs/contrib-connected_components/100.onnx",
+    "200": "graphs/contrib-connected_components/200.onnx"
+   },
+   "graph_kb": {
+    "50": 76.6,
+    "100": 134.2,
+    "200": 251.0
+   },
+   "inputs": [
+    "x",
+    "p0"
+   ],
+   "select_order": [
+    "num_iterations"
+   ],
+   "dynamic": true,
+   "cpu_latency_ms": 13.8,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.contrib.distance_transform",
+   "slug": "contrib-distance_transform",
+   "name": "distance_transform",
+   "package": "kornia.contrib",
+   "status": "live",
+   "summary": "Distance to the nearest foreground pixel of the thresholded grayscale image.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/contrib.html#kornia.contrib.distance_transform",
+   "snippet": "kornia.contrib.distance_transform((kornia.color.rgb_to_grayscale({img}) > {threshold}).float(), kernel_size={kernel_size}, h={h})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "the sample is thresholded to a binary mask first",
+   "guidance": null,
+   "guide_port": null,
+   "params": [
+    {
+     "name": "threshold",
+     "min": 0.1,
+     "max": 0.9,
+     "step": 0.05,
+     "default": 0.5,
+     "label": "",
+     "kind": "live",
+     "type": "float"
+    },
+    {
+     "name": "kernel_size",
+     "choices": [
+      3,
+      5,
+      7
+     ],
+     "default": 3,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    },
+    {
+     "name": "h",
+     "choices": [
+      0.2,
+      0.35,
+      0.5
+     ],
+     "default": 0.35,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "normalize",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "3|0.2": "graphs/contrib-distance_transform/3_0p2.onnx",
+    "3|0.35": "graphs/contrib-distance_transform/3_0p35.onnx",
+    "3|0.5": "graphs/contrib-distance_transform/3_0p5.onnx",
+    "5|0.2": "graphs/contrib-distance_transform/5_0p2.onnx",
+    "5|0.35": "graphs/contrib-distance_transform/5_0p35.onnx",
+    "5|0.5": "graphs/contrib-distance_transform/5_0p5.onnx",
+    "7|0.2": "graphs/contrib-distance_transform/7_0p2.onnx",
+    "7|0.35": "graphs/contrib-distance_transform/7_0p35.onnx",
+    "7|0.5": "graphs/contrib-distance_transform/7_0p5.onnx"
+   },
+   "graph_kb": {
+    "3|0.2": 2494.4,
+    "3|0.35": 2494.6,
+    "3|0.5": 2494.4,
+    "5|0.2": 1247.2,
+    "5|0.35": 1247.3,
+    "5|0.5": 1247.2,
+    "7|0.2": 840.2,
+    "7|0.35": 840.3,
+    "7|0.5": 840.2
+   },
+   "inputs": [
+    "x",
+    "p0"
+   ],
+   "select_order": [
+    "kernel_size",
+    "h"
+   ],
+   "dynamic": true,
+   "cpu_latency_ms": 198.0,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.geometry.subpix.nms2d",
+   "slug": "geometry-subpix-nms2d",
+   "name": "nms2d",
+   "package": "kornia.geometry.subpix",
+   "status": "live",
+   "summary": "Non-maximum suppression of the Harris response: only local maxima survive.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.subpix.html#kornia.geometry.subpix.nms2d",
+   "snippet": "kornia.geometry.subpix.nms2d(kornia.feature.harris_response(kornia.color.rgb_to_grayscale({img})), ({kernel_size}, {kernel_size}))",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "applied to the Harris response of the grayscale sample",
+   "guidance": null,
+   "guide_port": null,
+   "params": [
+    {
+     "name": "kernel_size",
+     "choices": [
+      3,
+      5,
+      7,
+      9
+     ],
+     "default": 5,
+     "label": "",
+     "labels": null,
+     "literals": null,
+     "kind": "select",
+     "type": "int"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "robust",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "3": "graphs/geometry-subpix-nms2d/3.onnx",
+    "5": "graphs/geometry-subpix-nms2d/5.onnx",
+    "7": "graphs/geometry-subpix-nms2d/7.onnx",
+    "9": "graphs/geometry-subpix-nms2d/9.onnx"
+   },
+   "graph_kb": {
+    "3": 114.9,
+    "5": 144.4,
+    "7": 188.3,
+    "9": 56.6
+   },
+   "inputs": [
+    "x"
+   ],
+   "select_order": [
+    "kernel_size"
+   ],
+   "dynamic": false,
+   "cpu_latency_ms": 13.3,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
+     }
+    ]
+   }
+  },
+  {
+   "id": "kornia.geometry.subpix.spatial_softmax2d",
+   "slug": "geometry-subpix-spatial_softmax2d",
+   "name": "spatial_softmax2d",
+   "package": "kornia.geometry.subpix",
+   "status": "live",
+   "summary": "Softmax over the whole image plane, with a temperature.",
+   "doc_url": "https://kornia.readthedocs.io/en/latest/geometry.subpix.html#kornia.geometry.subpix.spatial_softmax2d",
+   "snippet": "kornia.geometry.subpix.spatial_softmax2d(kornia.color.rgb_to_grayscale({img}), temperature={temperature})",
+   "module_snippet": "",
+   "rust": null,
+   "stochastic": false,
+   "pre": "the sample is converted to grayscale first",
+   "guidance": null,
+   "guide_port": null,
+   "params": [
+    {
+     "name": "temperature",
+     "min": 0.1,
+     "max": 10.0,
+     "step": 0.1,
+     "default": 1.0,
+     "label": "",
+     "kind": "live",
+     "type": "float"
+    }
+   ],
+   "output": {
+    "channels": 1,
+    "display": "normalize",
+    "height": 256,
+    "width": 256
+   },
+   "in_channels": [
+    3
+   ],
+   "mode": "onnx",
+   "graphs": {
+    "default": "graphs/geometry-subpix-spatial_softmax2d/default.onnx"
+   },
+   "graph_kb": {
+    "default": 8.8
+   },
+   "inputs": [
+    "x",
+    "p0"
+   ],
+   "select_order": [],
+   "dynamic": false,
+   "cpu_latency_ms": 1.7,
+   "kind": "function",
+   "ports": {
+    "inputs": [
+     {
+      "name": "image",
+      "type": "image",
+      "accepts": [
+       "image"
+      ]
+     }
+    ],
+    "outputs": [
+     {
+      "name": "image",
+      "type": "gray",
+      "channels": 1
      }
     ]
    }

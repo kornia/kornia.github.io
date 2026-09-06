@@ -65,6 +65,19 @@
       return fmt(params[name], p);
     }).join("|");
   }
+  // op.graphs is keyed by the build's formatting of the select values; the composer's fmt can spell a
+  // whole-number float as "0.0" where the build wrote "0". Fall back to a numeric match so a lookup like
+  // "0.0|0.1" still finds the "0|0.1" graph (this also covers the pipeline editor's own nodes).
+  function graphPath(table, key) {
+    if (!table) return null;
+    if (table[key] != null) return table[key];
+    const want = key.split("|").map(Number);
+    const hit = Object.keys(table).find(function (k) {
+      const got = k.split("|").map(Number);
+      return got.length === want.length && got.every(function (v, i) { return v === want[i] || (Number.isNaN(v) && Number.isNaN(want[i])); });
+    });
+    return hit != null ? table[hit] : null;
+  }
   function defaults(op) {
     const params = {};
     op.params.forEach(function (p) { params[p.name] = p.default; });
@@ -144,6 +157,16 @@
       const n = Math.min(channels, 3) * plane;
       for (let i = 0; i < n; i++) { const v = src[i]; if (v < mn) mn = v; if (v > mx) mx = v; }
       lo = mn; scale = mx > mn ? 1 / (mx - mn) : 1;
+    } else if (display === "robust") {
+      // |value| scaled by its 99.5th percentile: a sparse response map shows its structure, not a few dots
+      const n = Math.min(channels, 3) * plane;
+      const sample = new Float32Array(Math.min(n, 65536));
+      const step = Math.max(1, Math.floor(n / sample.length));
+      for (let i = 0, j = 0; j < sample.length && i < n; i += step, j++) sample[j] = Math.abs(src[i]);
+      sample.sort();
+      const p = sample[Math.floor(0.995 * (sample.length - 1))] || 1e-9;
+      lo = 0; scale = 1 / p;
+      for (let i = 0; i < n; i++) src[i] = Math.abs(src[i]);
     }
     for (let i = 0; i < plane; i++) {
       const r = (src[i] - lo) * scale;
@@ -402,7 +425,7 @@
         if (!op) throw new Error(n.op + " is not in this build");
         const multi = !!(op.graphs_multi && ["mask", "boxes", "keypoints"].some(function (m) { return edgeInto(pipe, n.id, m); }));
         const key = graphKey(op, n.params);
-        const path = multi ? op.graphs_multi[key] : op.graphs[key];
+        const path = graphPath(multi ? op.graphs_multi : op.graphs, key);
         if (!path) throw new Error(op.name + ": no graph for these parameters");
         return fetchModel(ROOT + path).then(function (bytes) { return { node: n, op: op, multi: multi, bytes: bytes }; });
       }
@@ -885,7 +908,7 @@
       saveAll(all);
       syncSoon(pipe);
       if (unsaved) {
-        unsaved = false; draft = null;
+        unsaved = false; draft = null; robot.hidden = false;
         const url = new URL(window.location.href); url.search = "?p=" + pipe.id;
         window.history.replaceState({}, "", url.toString());
         if (draftNote) draftNote.remove();
@@ -926,7 +949,10 @@
     const exp = el("button", "pg-link", { type: "button", title: "Save this pipeline as a .json file" });
     exp.innerHTML = '<i class="fas fa-file-arrow-down" aria-hidden="true"></i> Export JSON';
     exp.addEventListener("click", function () { downloadJson(pipe); });
-    headActions.appendChild(exp); headActions.appendChild(share); headActions.appendChild(dup); headActions.appendChild(del);
+    const robot = el("a", "pg-link", { href: new URL(ROOT + "../robot/?pipeline=" + encodeURIComponent(pipe.id), window.location.href).href, title: "Run this pipeline on the robot simulator's camera" });
+    robot.innerHTML = '<i class="fas fa-robot" aria-hidden="true"></i> Try on the robot';
+    robot.hidden = unsaved;
+    headActions.appendChild(robot); headActions.appendChild(exp); headActions.appendChild(share); headActions.appendChild(dup); headActions.appendChild(del);
     head.appendChild(headActions);
     mount.appendChild(head);
     const noteInput = el("input", "pg-input pg-pipe-note", { type: "text", value: pipe.note || "", maxlength: "160", placeholder: "What is this pipeline for? A comment shown in your lists.", "aria-label": "Comment" });
@@ -1680,6 +1706,25 @@
   }
 
   window.PGPipelines = {
+    // for other pages: the saved pipelines and the composer, without the editor (the robot simulator runs one
+    // on its camera feed). Resolves once the models index is known.
+    headless: function (reg, root) {
+      registry = reg; ROOT = root;
+      return fetch(ROOT + "models/index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+        .then(function (idx) { modelsIndex = idx; });
+    },
+    list: loadAll,
+    mergeFromAccount: mergeFromAccount,
+    problems: problems,
+    ioNames: ioNames,
+    compose: compose,
+    // the graph inputs and outputs of a pipeline as the composer will name them, with their types
+    contract: function (pipe) {
+      const names = ioNames(pipe);
+      const inputs = pipe.nodes.filter(function (n) { return n.kind === "input" && edgesFrom(pipe, n.id).length; }).map(function (n) { return { node: n.id, type: n.type, name: names[n.id] }; });
+      const outputs = pipe.nodes.filter(function (n) { return n.kind === "output" && edgeInto(pipe, n.id, "in"); }).map(function (n) { const e = edgeInto(pipe, n.id, "in"); return { node: n.id, label: n.label || "output", type: edgeType(pipe, e), name: names[n.id] }; });
+      return { inputs: inputs, outputs: outputs };
+    },
     init: function (reg, root) {
       registry = reg; ROOT = root;
       mount = document.getElementById("pg-ops");
