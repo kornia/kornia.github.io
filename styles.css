@@ -1,11 +1,16 @@
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --accent-color: #f59e0b;
+    --primary-color: #1d4f7c;
+    --secondary-color: #163d61;
+    --accent-color: #f5b301;
+    --accent-text: #0b1a2b;
+    --grid-line: rgba(11, 26, 43, 0.045);
+    --grid-line-2: rgba(11, 26, 43, 0.018);
+    --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', var(--font-mono);
     --background-color: var(--card-bg);
-    --surface-color: #f8fafc;
-    --text-primary: #0f172a;
-    --text-secondary: #64748b;
+    --surface-color: #e6edf4;
+    --text-primary: #0b1a2b;
+    --text-secondary: #3e546b;
     /* WCAG AA remediation: original #94a3b8 measured 2.56:1 on white / 2.45:1 on
        --surface-color (fails the 4.5:1 minimum for small text). #66707e measures
        5.02:1 on white and 4.80:1 on --surface-color -- the two backgrounds this
@@ -14,74 +19,85 @@
        white, so there is little legal room left to keep --text-muted visibly
        *lighter* than secondary and still pass AA -- hierarchy between the two now
        relies on font-size/letter-spacing rather than a bigger contrast gap. */
-    --text-muted: #66707e;
-    --border-color: #e2e8f0;
-    --border-light: #f1f5f9;
-    --success-color: #10b981;
-    --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-    --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    --text-muted: #5c7188;
+    --border-color: #c3d1de;
+    --border-light: #d9e3ec;
+    --success-color: #1fbf3a;
+    --gradient-primary: linear-gradient(0deg, var(--text-primary), var(--text-primary));
+    --gradient-accent: linear-gradient(0deg, #f5b301, #f5b301);
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     /* surfaces used by the newer sections; the dark theme redefines these */
     --card-bg: #ffffff;
-    --header-bg: rgba(255, 255, 255, 0.95);
-    --primary-soft: #eff6ff;
-    --code-bg: #0f172a;
-    --code-bg-2: #1e293b;
-    --footer-bg: #0f172a;
-    --warn-bg: #fef3c7;
-    --warn-text: #92400e;
-    --hero-gradient: var(--hero-gradient);
+    --background-color: #eef3f8;
+    --header-bg: rgba(238, 243, 248, 0.94);
+    --primary-soft: #dce8f3;
+    --code-bg: #0b1a2b;
+    --code-bg-2: #10233a;
+    --footer-bg: #0b1a2b;
+    --warn-bg: #fdf0c7;
+    --warn-text: #6e4a00;
+    --hero-gradient: none;
     color-scheme: light;
 }
 
 /* Dark theme: an explicit choice on <html data-theme>, or the system preference when no choice was made */
 [data-theme="dark"] {
-    --background-color: #0b1220;
-    --surface-color: #111a2e;
-    --card-bg: #0f172a;
-    --header-bg: rgba(11, 18, 32, 0.92);
-    --text-primary: #e5e7eb;
-    --text-secondary: #a3adbd;
-    --text-muted: #8b95a7;
-    --border-color: #253047;
-    --border-light: #1b2539;
-    --primary-color: #60a5fa;
-    --secondary-color: #93c5fd;
-    --primary-soft: rgba(96, 165, 250, 0.14);
-    --code-bg: #060b16;
-    --code-bg-2: #0f172a;
-    --footer-bg: #060b16;
-    --warn-bg: rgba(245, 158, 11, 0.18);
-    --warn-text: #fbbf24;
-    --hero-gradient: linear-gradient(135deg, #0f172a 0%, #0b1220 100%);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+    --background-color: #0b1a2b;
+    --surface-color: #10233a;
+    --card-bg: #0e1f33;
+    --header-bg: rgba(11, 26, 43, 0.92);
+    --text-primary: #e8f1ff;
+    --text-secondary: #b7c9dd;
+    --text-muted: #8fa6bf;
+    --border-color: #244260;
+    --border-light: #1a3350;
+    --primary-color: #9fd3ff;
+    --secondary-color: #cfe6ff;
+    --primary-soft: rgba(159, 211, 255, 0.14);
+    --grid-line: rgba(159, 211, 255, 0.055);
+    --grid-line-2: rgba(159, 211, 255, 0.022);
+    --code-bg: #07131f;
+    --code-bg-2: #0b1a2b;
+    --footer-bg: #07131f;
+    --warn-bg: rgba(245, 179, 1, 0.16);
+    --warn-text: #f5b301;
+    --hero-gradient: none;
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-xl: none;
     color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-        --background-color: #0b1220;
-        --surface-color: #111a2e;
-        --card-bg: #0f172a;
-        --header-bg: rgba(11, 18, 32, 0.92);
-        --text-primary: #e5e7eb;
-        --text-secondary: #a3adbd;
-        --text-muted: #8b95a7;
-        --border-color: #253047;
-        --border-light: #1b2539;
-        --primary-color: #60a5fa;
-        --secondary-color: #93c5fd;
-        --primary-soft: rgba(96, 165, 250, 0.14);
-        --code-bg: #060b16;
-        --code-bg-2: #0f172a;
-        --footer-bg: #060b16;
-        --warn-bg: rgba(245, 158, 11, 0.18);
-        --warn-text: #fbbf24;
-        --hero-gradient: linear-gradient(135deg, #0f172a 0%, #0b1220 100%);
-        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+        --background-color: #0b1a2b;
+        --surface-color: #10233a;
+        --card-bg: #0e1f33;
+        --header-bg: rgba(11, 26, 43, 0.92);
+        --text-primary: #e8f1ff;
+        --text-secondary: #b7c9dd;
+        --text-muted: #8fa6bf;
+        --border-color: #244260;
+        --border-light: #1a3350;
+        --primary-color: #9fd3ff;
+        --secondary-color: #cfe6ff;
+        --primary-soft: rgba(159, 211, 255, 0.14);
+        --grid-line: rgba(159, 211, 255, 0.055);
+        --grid-line-2: rgba(159, 211, 255, 0.022);
+        --code-bg: #07131f;
+        --code-bg-2: #0b1a2b;
+        --footer-bg: #07131f;
+        --warn-bg: rgba(245, 179, 1, 0.16);
+        --warn-text: #f5b301;
+        --hero-gradient: none;
+        --shadow-sm: none;
+        --shadow-md: none;
+        --shadow-lg: none;
+        --shadow-xl: none;
         color-scheme: dark;
     }
 }
@@ -93,10 +109,31 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-body);
     line-height: 1.6;
     color: var(--text-primary);
     background-color: var(--background-color);
+    /* the blueprint ground: a fine grid with a coarser one every fifth line */
+    background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(var(--grid-line-2) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line-2) 1px, transparent 1px);
+    background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+    background-attachment: fixed;
+}
+
+/* the grid is strongest at the top of the page and fades away by the second screen */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 0, var(--background-color) 90vh);
+}
+
+body {
+    position: relative;
+    z-index: 0;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -160,7 +197,7 @@ nav {
     padding: 0;
     background: none;
     border: none;
-    border-radius: 8px;
+    border-radius: 3px;
     cursor: pointer;
 }
 
@@ -194,6 +231,25 @@ nav {
     position: relative;
 }
 
+/* the top-level entries read like a drawing index: 01 EXPERIMENT, 02 PROJECTS, ... */
+.nav-links {
+    counter-reset: nav;
+}
+
+.nav-links > .nav-dropdown > a:first-child {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.nav-links > .nav-dropdown > a:first-child::before {
+    counter-increment: nav;
+    content: counter(nav, decimal-leading-zero) " ";
+    opacity: 0.55;
+}
+
 .nav-links a:hover {
     color: var(--primary-color);
 }
@@ -219,7 +275,7 @@ nav {
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
-    border-radius: 8px;
+    border-radius: 3px;
     border: 1px solid rgba(37, 99, 235, 0.2);
     transition: all 0.3s ease;
 }
@@ -245,6 +301,7 @@ nav {
 }
 
 .hero::before {
+    display: none;
     content: '';
     position: absolute;
     top: 0;
@@ -341,8 +398,13 @@ nav {
 .section-title {
     font-size: 2.5rem;
     font-weight: 700;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
     margin-bottom: 1rem;
+}
+
+h1, h2, h3 {
+    letter-spacing: -0.02em;
 }
 
 .section-subtitle {
@@ -362,7 +424,7 @@ nav {
 
 .project-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 3px;
     padding: 2rem;
     box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
@@ -400,7 +462,7 @@ nav {
     width: 60px;
     height: 60px;
     background: var(--gradient-primary);
-    border-radius: 12px;
+    border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -446,7 +508,7 @@ nav {
     margin-bottom: 1.5rem;
     padding: 1rem;
     background: var(--surface-color);
-    border-radius: 8px;
+    border-radius: 3px;
 }
 
 .metric {
@@ -480,7 +542,7 @@ nav {
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 3px;
     text-decoration: none;
     font-weight: 500;
     font-size: 0.875rem;
@@ -489,15 +551,22 @@ nav {
     cursor: pointer;
 }
 
+.btn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+
 .btn-primary {
-    background: var(--gradient-primary);
-    color: white;
-    box-shadow: var(--shadow-sm);
+    background: var(--accent-color);
+    color: var(--accent-text);
 }
 
 .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    filter: brightness(1.06);
 }
 
 .btn-secondary {
@@ -559,7 +628,7 @@ nav {
     padding: 1.5rem;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     text-decoration: none;
     transition: all 0.3s ease;
     min-width: 120px;
@@ -615,7 +684,7 @@ nav {
 .value-card {
     background: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: 3px;
     text-align: center;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-color);
@@ -631,7 +700,7 @@ nav {
     width: 60px;
     height: 60px;
     background: var(--gradient-accent);
-    border-radius: 12px;
+    border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -834,7 +903,7 @@ footer {
     right: 0;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 3px;
     box-shadow: var(--shadow-lg);
     z-index: 1001;
     min-width: 200px;
@@ -1060,7 +1129,7 @@ footer a:focus-visible {
     min-height: 44px;
     padding: 0.5rem 1rem;
     border: 2px solid var(--border-color);
-    border-radius: 20px;
+    border-radius: 3px;
     background: var(--card-bg);
     color: var(--text-secondary);
     font-weight: 500;
@@ -1104,7 +1173,7 @@ footer a:focus-visible {
     min-height: 44px;
     padding: 0.5rem 2rem 0.5rem 1rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 3px;
     background: var(--card-bg);
     color: var(--text-primary);
     font-weight: 500;
@@ -1129,7 +1198,7 @@ footer a:focus-visible {
 
 .news-item {
     background: var(--card-bg);
-    border-radius: 12px;
+    border-radius: 3px;
     padding: 2rem;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-color);
@@ -1186,7 +1255,7 @@ footer a:focus-visible {
     color: var(--primary-color);
     background: rgba(37, 99, 235, 0.1);
     padding: 0.25rem 0.75rem;
-    border-radius: 12px;
+    border-radius: 3px;
     font-weight: 500;
     text-transform: capitalize;
 }
@@ -1244,7 +1313,7 @@ footer a:focus-visible {
 .pagination-number {
     padding: 0.75rem 1rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 3px;
     background: var(--card-bg);
     color: var(--text-secondary);
     font-weight: 500;
@@ -1372,7 +1441,7 @@ footer a:focus-visible {
     padding: 2rem;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
@@ -1485,14 +1554,16 @@ footer a:focus-visible {
 } 
 
 /* ---- Hero live demo (hero-demo.js): a kornia operator running on a clip, in the browser ---- */
-.hero-content {
-    grid-template-columns: 1fr 460px;
+@media (min-width: 1025px) {   /* the wide layout only; the 1024px rule above stacks the columns on smaller screens */
+    .hero-content {
+        grid-template-columns: 1fr 460px;
+    }
 }
 
 .hero-demo {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 14px;
+    border-radius: 3px;
     box-shadow: var(--shadow-lg);
     padding: 0.9rem 1rem 0.8rem;
     display: flex;
@@ -1509,7 +1580,7 @@ footer a:focus-visible {
 .hd-tab {
     padding: 0.28rem 0.75rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--background-color);
     color: var(--text-secondary);
     font: inherit;
@@ -1545,7 +1616,7 @@ footer a:focus-visible {
     display: block;
     width: 100%;
     aspect-ratio: 1 / 1;
-    border-radius: 8px;
+    border-radius: 3px;
     background: var(--surface-color);
 }
 
@@ -1572,7 +1643,7 @@ footer a:focus-visible {
     grid-template-columns: 6.5rem minmax(0, 1fr) 2.6rem;
     align-items: center;
     gap: 0.5rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--text-secondary);
     margin: 0;
@@ -1587,7 +1658,7 @@ footer a:focus-visible {
     grid-column: 2 / -1;
     padding: 0.15rem 0.4rem;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 3px;
     font: inherit;
     font-size: 0.78rem;
 }
@@ -1601,7 +1672,7 @@ footer a:focus-visible {
     align-self: flex-start;
     padding: 0.3rem 0.8rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 3px;
     background: var(--primary-color);
     color: #fff;
     font: inherit;
@@ -1690,7 +1761,7 @@ footer a:focus-visible {
     display: inline-block;
     padding: 0.35rem 0.85rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--card-bg);
     color: var(--text-primary);
     font-weight: 600;
@@ -1717,7 +1788,7 @@ footer a:focus-visible {
 .tier {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 1.1rem 1.2rem;
 }
 
@@ -1786,7 +1857,7 @@ footer a:focus-visible {
     align-items: center;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     padding: 2rem 2.2rem;
 }
 
@@ -1812,7 +1883,7 @@ footer a:focus-visible {
     min-width: 0;
     padding: 0.7rem 0.9rem;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 3px;
     font: inherit;
 }
 
@@ -1903,7 +1974,7 @@ footer a:focus-visible {
     gap: 0.5rem;
     padding: 0.55rem 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--card-bg);
     color: var(--text-primary);
     font-weight: 600;
@@ -1939,7 +2010,7 @@ footer a:focus-visible {
     gap: 0.6rem;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     padding: 1.2rem 1.3rem;
     text-decoration: none;
     color: var(--text-primary);
@@ -2004,16 +2075,15 @@ footer a:focus-visible {
 
 /* ---- Hero eyebrow ---- */
 .hero-text p.hero-eyebrow {
-    display: inline-block;
+    display: block;
     margin: 0 0 1rem;
-    padding: 0.25rem 0.7rem;
+    padding: 0;
     line-height: 1.4;
-    border-radius: 999px;
-    background: rgba(37, 99, 235, 0.08);
-    color: var(--primary-color);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    background: none;
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
@@ -2071,7 +2141,7 @@ footer a:focus-visible {
     justify-content: flex-start;
     gap: 0.75rem;
     padding: 0.6rem 0.75rem;
-    border-radius: 8px;
+    border-radius: 3px;
 }
 
 .nav-dropdown-content a::after {
@@ -2162,7 +2232,7 @@ footer a:focus-visible {
     align-items: start;
     padding: 1.75rem 2rem;
     border: 1px solid var(--border-color);
-    border-radius: 14px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -2171,7 +2241,7 @@ footer a:focus-visible {
     place-items: center;
     width: 2rem;
     height: 2rem;
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--primary-color);
     color: #fff;
     font-weight: 700;
@@ -2224,8 +2294,8 @@ footer a:focus-visible {
     display: inline-block;
     padding: 0.35rem 0.8rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    border-radius: 2px;
+    font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--text-primary);
     text-decoration: none;
@@ -2274,8 +2344,8 @@ footer a:focus-visible {
     padding: 1rem 1.1rem;
     background: var(--code-bg);
     color: #e2e8f0;
-    border-radius: 10px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    border-radius: 3px;
+    font-family: var(--font-mono);
     font-size: 0.82rem;
     line-height: 1.55;
     overflow-x: auto;
@@ -2304,7 +2374,7 @@ footer a:focus-visible {
 .code-tab-bar button {
     padding: 0.4rem 0.9rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--card-bg);
     color: var(--text-secondary);
     font: inherit;
@@ -2327,7 +2397,7 @@ footer a:focus-visible {
 .table-wrap {
     overflow-x: auto;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -2369,7 +2439,7 @@ footer a:focus-visible {
     color: var(--text-primary);
     background: var(--border-light);
     padding: 0.15rem 0.45rem;
-    border-radius: 6px;
+    border-radius: 3px;
 }
 
 .start-table td a {
@@ -2393,7 +2463,7 @@ footer a:focus-visible {
     display: block;
     padding: 1.4rem 1.5rem;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     background: var(--card-bg);
     color: var(--text-primary);
     text-decoration: none;
@@ -2422,8 +2492,9 @@ footer a:focus-visible {
 }
 
 .help-cmd {
-    white-space: pre-wrap;
-    word-break: break-all;
+    white-space: pre;      /* one command, scrolled sideways rather than broken mid-word */
+    overflow-x: auto;
+    word-break: normal;
 }
 
 /* ---- About page: citation and facts ---- */
@@ -2448,7 +2519,7 @@ footer a:focus-visible {
 .facts div {
     padding: 1rem 1.2rem;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 3px;
     background: var(--surface-color);
 }
 
@@ -2493,7 +2564,7 @@ footer a:focus-visible {
 .hero-stack {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 3px;
     padding: 1.4rem 1.5rem 1.2rem;
     box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
 }
@@ -2553,7 +2624,7 @@ footer a:focus-visible {
     gap: 0.1rem;
     padding: 0.6rem 0.9rem;
     border: 1px solid var(--border-light);
-    border-radius: 10px;
+    border-radius: 3px;
     background: var(--surface-color);
     text-decoration: none;
     color: var(--text-primary);
@@ -2566,7 +2637,7 @@ footer a:focus-visible {
 }
 
 .hs-name {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: var(--font-mono);
     font-weight: 700;
     font-size: 0.95rem;
 }
@@ -2602,7 +2673,7 @@ footer a:focus-visible {
     margin-top: 0.6rem;
     padding: 0.9rem 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 3px;
     background: var(--surface-color);
     font-size: 0.9rem;
     line-height: 1.5;
@@ -2679,7 +2750,7 @@ footer a:focus-visible {
     height: auto;
     margin-bottom: 0.75rem;
     border: 1px solid var(--border-light);
-    border-radius: 10px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -2729,7 +2800,7 @@ footer a:focus-visible {
     align-items: center;
     gap: 0.4rem;
     padding: 0.35rem 0.8rem;
-    border-radius: 999px;
+    border-radius: 2px;
     background: rgba(37, 99, 235, 0.08);
     color: var(--primary-color);
     font-weight: 600;
@@ -2781,7 +2852,7 @@ footer a:focus-visible {
     margin-top: 1.4rem;
     padding: 0.5rem 0.9rem 0.5rem 0.6rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--card-bg);
     color: var(--text-primary);
     text-decoration: none;
@@ -2795,7 +2866,7 @@ footer a:focus-visible {
 .hero-news-label {
     flex-shrink: 0;
     padding: 0.2rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--warn-bg);
     color: var(--warn-text);
     font-size: 0.75rem;
@@ -2836,7 +2907,7 @@ footer a:focus-visible {
     gap: 0.5rem;
     padding: 0.5rem 0.9rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--card-bg);
     color: var(--text-muted);
 }
@@ -2869,7 +2940,7 @@ footer a:focus-visible {
 .news-tag {
     padding: 0.35rem 0.9rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--card-bg);
     color: var(--text-secondary);
     font: inherit;
@@ -2938,7 +3009,7 @@ footer a:focus-visible {
 .news-card {
     padding: 1.2rem 1.4rem;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     background: var(--card-bg);
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -2960,7 +3031,7 @@ footer a:focus-visible {
 
 .news-chip {
     padding: 0.1rem 0.55rem;
-    border-radius: 999px;
+    border-radius: 2px;
     background: rgba(37, 99, 235, 0.08);
     color: var(--primary-color);
     font-weight: 600;
@@ -3035,7 +3106,7 @@ footer a:focus-visible {
     row-gap: 0.9rem;
     padding: 1.5rem 1.6rem;
     border: 1px solid var(--border-color);
-    border-radius: 14px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -3209,7 +3280,7 @@ footer a:focus-visible {
 .hub-card {
     padding: 1.5rem 1.6rem;
     border: 1px solid var(--border-color);
-    border-radius: 14px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -3251,7 +3322,7 @@ footer a:focus-visible {
 .hub-form input {
     padding: 0.6rem 0.8rem;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 3px;
     font: inherit;
     background: var(--background-color);
     color: var(--text-primary);
@@ -3369,7 +3440,7 @@ footer a:focus-visible {
     display: block;
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 3px;
     border: 1px solid var(--border-color);
     background: var(--code-bg);
 }
@@ -3382,7 +3453,7 @@ footer a:focus-visible {
     gap: 0.4rem;
     padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--card-bg);
     color: var(--text-primary) !important;
     font-weight: 600;
@@ -3478,7 +3549,7 @@ footer a:focus-visible {
     align-items: start;
     justify-content: start;
     padding: 0.8rem 0.9rem;
-    border-radius: 10px;
+    border-radius: 3px;
     text-decoration: none;
     white-space: normal;
 }
@@ -3497,7 +3568,7 @@ footer a:focus-visible {
     height: 2.4rem;
     display: grid;
     place-items: center;
-    border-radius: 8px;
+    border-radius: 3px;
     background: var(--primary-soft, rgba(37, 99, 235, 0.1));
     color: var(--primary-color);
     font-size: 1rem;
@@ -3548,7 +3619,7 @@ footer a:focus-visible {
 
 .hub-panel {
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 1rem 1.1rem;
     background: var(--surface-color);
     min-width: 0;
@@ -3621,7 +3692,7 @@ footer a:focus-visible {
 
 .hub-chip {
     padding: 0.2rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--primary-soft, rgba(37, 99, 235, 0.1));
     color: var(--primary-color);
     font-size: 0.78rem;
@@ -3742,7 +3813,7 @@ footer a:focus-visible {
     top: 6rem;
     padding: 0.85rem 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 3px;
     background: var(--card-bg);
     font-size: 0.82rem;
     line-height: 1.5;
@@ -3816,7 +3887,7 @@ footer a:focus-visible {
     width: min(30rem, 100%);
     padding: 2rem;
     border: 1px solid var(--border-color);
-    border-radius: 14px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -3853,7 +3924,7 @@ footer a:focus-visible {
     align-items: center;
     padding: 0.9rem;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -3890,7 +3961,7 @@ footer a:focus-visible {
     align-items: center;
     gap: 0.6rem;
     padding: 0.55rem 0.8rem;
-    border-radius: 8px;
+    border-radius: 3px;
     color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
@@ -3955,7 +4026,7 @@ footer a:focus-visible {
     gap: 0.2rem;
     padding: 0.9rem 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -3981,7 +4052,7 @@ footer a:focus-visible {
 .db-panel {
     padding: 1rem 1.1rem;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 3px;
     background: var(--card-bg);
     margin-bottom: 1rem;
 }
@@ -4027,7 +4098,7 @@ footer a:focus-visible {
     flex-direction: column;
     padding: 1.25rem;
     border: 1px solid var(--border-color);
-    border-radius: 14px;
+    border-radius: 3px;
     background: var(--card-bg);
 }
 
@@ -4062,7 +4133,7 @@ footer a:focus-visible {
 .db-price-current {
     align-self: flex-start;
     padding: 0.35rem 0.8rem;
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--primary-soft, rgba(37, 99, 235, 0.1));
     color: var(--primary-color);
     font-size: 0.8rem;
@@ -4340,7 +4411,7 @@ footer a:focus-visible {
     padding: 0.2rem 0.4rem;
     margin-left: -0.4rem;
     border: 1px solid transparent;
-    border-radius: 6px;
+    border-radius: 3px;
     background: transparent;
 }
 
@@ -4349,4 +4420,108 @@ footer a:focus-visible {
     border-color: var(--border-color);
     background: var(--card-bg);
     outline: none;
+}
+
+/* phones: the hero stacks, the demo card and the news bar take the full width */
+@media (max-width: 640px) {
+    .hero {
+        padding: 5.5rem 1rem 3rem;
+    }
+
+    .hero-content {
+        grid-template-columns: minmax(0, 1fr);
+        text-align: left;
+    }
+
+    .hero-text h1 {
+        font-size: 2.1rem;
+    }
+
+    .hero-text p {
+        font-size: 1.05rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-actions .btn {
+        justify-content: center;
+    }
+
+    .hero-news {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 0.4rem 0.5rem;
+    }
+
+    .hero-demo {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* phones: install commands wrap instead of clipping; the robot's feed dropdown stays inside its feed */
+.code-block {
+    overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+    .proj-install {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+}
+
+/* ---- blueprint: eyebrows, tags and cards ---- */
+.hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.hero-text h1 {
+    -webkit-text-fill-color: var(--text-primary);
+    color: var(--text-primary);
+    background: none;
+    letter-spacing: -0.03em;
+}
+
+.pg-tag, .pg-pkg h2, .db-stat-label, .db-panel h4, .pg-export-table th, .db-cache-table th, .hero-news-label, .news-date, .db-nav a, .pg-mode button, .pg-tab {
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+}
+
+.pg-btn, .pg-tab-action, .pg-btn-small {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.74rem;
+    border-radius: 2px;
+}
+
+.pg-btn:not(.pg-btn-ghost):not(.hub-btn-danger) {
+    background: var(--accent-color);
+    color: var(--accent-text);
+}
+
+.pg-btn:not(.pg-btn-ghost):not(.hub-btn-danger):hover {
+    background: var(--accent-color);
+    filter: brightness(1.06);
+}
+
+.nav-experiment {
+    background: transparent !important;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color) !important;
+    border-radius: 2px;
+    padding: 0.4rem 0.75rem;
+}
+
+.card, .project-card, .hub-card, .db-panel, .db-stat, .db-price, .pg-details, .pg-controls-cell, .hero-demo, .help-card {
+    box-shadow: none;
 }

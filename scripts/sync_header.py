@@ -146,6 +146,7 @@ def footer(prefix: str) -> str:
                 <a href="{prefix}robot/">Robot simulator</a>
                 <a href="{prefix}news/">News &amp; updates</a>
                 <a href="https://kornia.readthedocs.io/en/latest/get-started/governance.html">Governance</a>
+                <a href="{prefix}playground/CREDITS.md">Credits</a>
             </div>
             <div class="footer-section">
                 <h4>Contribute</h4>
@@ -166,7 +167,7 @@ def footer(prefix: str) -> str:
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 kornia.org. Sample images from the Kodak Lossless True Color Image Suite; clips from Wikimedia Commons (public domain and CC0, see <a href="{prefix}playground/CREDITS.md">credits</a>). In-browser demos run with <a href="https://onnxruntime.ai/docs/tutorials/web/" target="_blank" rel="noopener">onnxruntime-web</a>; the robot with <a href="https://mujoco.org" target="_blank" rel="noopener">MuJoCo</a> and <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>.</p>
+            <p>&copy; 2026 kornia.org</p>
         </div>
     </footer>'''
 
