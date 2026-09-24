@@ -24,7 +24,7 @@ PROJECTS = [
     ("kornia", "https://github.com/kornia/kornia", '<i class="fab fa-python" aria-hidden="true"></i>', "Differentiable vision for PyTorch"),
     ("kornia-rs", "https://github.com/kornia/kornia-rs", '<i class="fab fa-rust" aria-hidden="true"></i>', "Image and 3D kernels in Rust"),
     ("Bubbaloop", "https://github.com/kornia/bubbaloop", '<span aria-hidden="true">&#129412;</span>', "Vision agent runtime for Jetson and Pi"),
-    ("kornia-slam", "https://github.com/kornia/kornia-slam", '<i class="fas fa-map-location-dot" aria-hidden="true"></i>', "Real-time pose and mapping"),
+    ("kornia-slam", "slam/", '<i class="fas fa-map-location-dot" aria-hidden="true"></i>', "Real-time pose and mapping"),
     ("vision-rt", "https://github.com/kornia/vision-rt", '<i class="fas fa-microchip" aria-hidden="true"></i>', "TensorRT inference on Jetson Orin"),
     ("sensor-rt", "https://github.com/kornia/sensor-rt", '<i class="fas fa-camera" aria-hidden="true"></i>', "Camera, stereo and IMU drivers"),
 ]
@@ -110,7 +110,7 @@ def header(prefix: str) -> str:
                         </a>
                     </div>
                 </div>
-{dropdown("Projects", prefix + "projects/", PROJECTS, ("All projects, with install commands", prefix + "projects/"))}
+{dropdown("Projects", prefix + "projects/", [(n, u if u.startswith("http") else prefix + u, i, d) for n, u, i, d in PROJECTS], ("All projects, with install commands", prefix + "projects/"))}
 {dropdown("Docs", "#", docs_items(prefix), None)}
 {dropdown("Support", prefix + "sponsor/", support_items(prefix), None)}
                 <button type="button" class="nav-icon nav-theme" aria-label="Switch theme"><i class="fas fa-moon" aria-hidden="true"></i></button>
@@ -133,7 +133,7 @@ def footer(prefix: str) -> str:
                 <h4>Projects</h4>
                 <a href="https://github.com/kornia/kornia">Kornia</a>
                 <a href="https://github.com/kornia/kornia-rs">kornia-rs</a>
-                <a href="https://github.com/kornia/kornia-slam">kornia-slam</a>
+                <a href="{prefix}slam/">kornia-slam</a>
                 <a href="https://github.com/kornia/vision-rt">vision-rt</a>
                 <a href="https://github.com/kornia/sensor-rt">sensor-rt</a>
                 <a href="https://github.com/kornia/bubbaloop">Bubbaloop</a>
