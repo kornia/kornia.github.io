@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>kornia-slam: visual-inertial SLAM in Rust - Kornia</title>
-    <meta name="description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Monocular, stereo and IMU tracking, local and visual-inertial bundle adjustment, loop closure, and a terminal UI.">
+    <meta name="description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Tracks a camera, stereo pair or stereo + IMU and maps the space around it, standalone or as Copper tasks.">
     <link rel="canonical" href="https://www.kornia.org/slam/">
     <meta name="theme-color" content="#1a1a2e">
     <link rel="icon" href="/assets/kornia-logo-mini.svg" type="image/svg+xml">
@@ -13,13 +13,13 @@
     <meta property="og:site_name" content="Kornia">
     <meta property="og:url" content="https://www.kornia.org/slam/">
     <meta property="og:title" content="kornia-slam: visual-inertial SLAM in Rust - Kornia">
-    <meta property="og:description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Monocular, stereo and IMU tracking, local and visual-inertial bundle adjustment, loop closure, and a terminal UI.">
+    <meta property="og:description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Tracks a camera, stereo pair or stereo + IMU and maps the space around it, standalone or as Copper tasks.">
     <meta property="og:image" content="https://www.kornia.org/slam/og.jpg">
     <meta property="og:image:alt" content="The kornia-slam mascot, a rusty orange stereo camera">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@kornia_foss">
     <meta name="twitter:title" content="kornia-slam: visual-inertial SLAM in Rust - Kornia">
-    <meta name="twitter:description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Monocular, stereo and IMU tracking, local and visual-inertial bundle adjustment, loop closure, and a terminal UI.">
+    <meta name="twitter:description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Tracks a camera, stereo pair or stereo + IMU and maps the space around it, standalone or as Copper tasks.">
     <meta name="twitter:image" content="https://www.kornia.org/slam/og.jpg">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"kornia-slam","description":"Visual-inertial SLAM in Rust, built on kornia-rs.","codeRepository":"https://github.com/kornia/kornia-slam","programmingLanguage":"Rust","license":"https://www.apache.org/licenses/LICENSE-2.0","version":"0.1.0","url":"https://www.kornia.org/slam/","image":"https://www.kornia.org/slam/og.jpg","author":{"@type":"Organization","name":"Kornia","url":"https://www.kornia.org/"}}</script>
 
@@ -38,130 +38,35 @@
         html { scroll-behavior: smooth; }
         .logo a, .logo a:hover, .logo a:visited, .logo a:active { color: var(--text-secondary); text-decoration: none; }
 
-        .sl-page { --sl-orange: #e8621a; }
-        [data-theme="dark"] .sl-page { --sl-orange: #ff8a4c; }
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme="light"]) .sl-page { --sl-orange: #ff8a4c; }
-        }
-
-        .sl-wrap { max-width: 1200px; margin: 0 auto; }
+        .sl-page { max-width: 880px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
         .sl-page a:not(.btn) { color: var(--primary-color); }
         .sl-page :not(pre) > code { color: var(--text-primary); background: var(--primary-soft); padding: 0.05rem 0.3rem; border-radius: 2px; font-size: 0.88em; }
-        .sl-page h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-primary); margin: 0 0 1rem; }
-        .sl-page h3 { color: var(--text-primary); }
-        .sl-kicker {
-            font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.1em;
-            text-transform: uppercase; color: var(--sl-orange); margin: 0 0 0.5rem;
-        }
-        .sl-intro { max-width: 68ch; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.75rem; }
-        .sl-section { padding: 4rem 2rem !important; }
-        .sl-alt { background: var(--surface-color); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
-        .sl-tag {
-            display: inline-block; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.06em; vertical-align: middle;
-            padding: 0.1rem 0.45rem; margin-left: 0.35rem; border-radius: 2px;
-            background: var(--warn-bg); color: var(--warn-text);
-        }
-
-        /* ---- Hero ---- */
-        .sl-hero {
-            padding: 7.5rem 2rem 3.5rem !important;
-        }
-        .sl-hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2.5rem; align-items: center; }
-        .sl-hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; color: var(--text-primary); margin: 0 0 1rem; }
-        .sl-lede { font-size: 1.15rem; line-height: 1.6; color: var(--text-secondary); max-width: 56ch; margin: 0; }
-        .sl-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.75rem 0 1.25rem; }
-        .sl-cmd { max-width: 34rem; }
-        .sl-hero-art img { width: 100%; height: auto; max-width: 520px; display: block; margin: 0 auto; filter: drop-shadow(0 18px 30px rgba(11, 26, 43, 0.25)); }
-
-        /* ---- Screenshots ---- */
-        .sl-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
-        .sl-shot { margin: 0; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; }
-        .sl-shot img { width: 100%; height: auto; display: block; background: #0b1a2b; }
-        .sl-shot figcaption { padding: 0.9rem 1.1rem; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5; }
-
-        /* ---- Features ---- */
-        .sl-feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.5rem; }
-        .sl-feat { background: var(--card-bg); border: 1px solid var(--border-color); border-top: 3px solid var(--sl-orange); border-radius: 4px; padding: 1.4rem 1.5rem; }
-        .sl-feat > i { font-size: 1.3rem; color: var(--sl-orange); margin-bottom: 0.75rem; }
-        .sl-feat h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem; }
-        .sl-feat p { margin: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.55; }
-
-        /* ---- Architecture ---- */
-        .sl-diagram { margin: 0 0 2rem; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 1.25rem; overflow-x: auto; }
-        .sl-diagram svg { display: block; width: 100%; height: auto; font-family: var(--font-body); }
-        .sl-diag-narrow { display: none !important; max-width: 420px; margin: 0 auto; }
-        .sl-d-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; fill: var(--text-muted); }
-        .sl-d-sub { font-family: var(--font-mono); font-size: 11px; fill: var(--text-muted); }
-        .sl-d-node rect { fill: var(--primary-soft); stroke: var(--border-color); }
-        .sl-d-node text { font-size: 14px; font-weight: 500; fill: var(--text-primary); }
-        .sl-d-frame { fill: none; stroke: var(--sl-orange); stroke-width: 1.5; stroke-dasharray: 5 4; }
-        .sl-d-map rect { fill: var(--surface-color); stroke: var(--sl-orange); }
-        .sl-d-map text { font-size: 14px; font-weight: 600; fill: var(--text-primary); }
-        .sl-d-map text.sl-d-sub { font-size: 11px; font-weight: 400; fill: var(--text-muted); }
-        .sl-d-edge { stroke: var(--text-secondary); stroke-width: 1.5; fill: none; }
-        .sl-d-arrowhead { fill: var(--text-secondary); }
-        .sl-principles { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-        .sl-principles li { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.55; padding-left: 1rem; border-left: 2px solid var(--border-color); }
-        .sl-principles strong { display: block; color: var(--text-primary); margin-bottom: 0.25rem; }
-
-        /* ---- Quick start ---- */
-        .sl-code { font-size: 0.86rem; margin-bottom: 2rem; white-space: pre; }
+        .sl-page h1 { font-size: clamp(2rem, 5vw, 2.6rem); font-weight: 800; color: var(--text-primary); margin: 0 0 0.5rem; }
+        .sl-page h2 { font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin: 2.75rem 0 0.9rem; }
+        .sl-page p, .sl-page li { color: var(--text-secondary); line-height: 1.6; }
+        .sl-head { display: flex; align-items: center; gap: 1.5rem; }
+        .sl-head img { width: 140px; height: auto; flex: none; }
+        .sl-lede { font-size: 1.1rem; margin: 0; }
+        .sl-note { display: inline-block; margin: 1.25rem 0 0; padding: 0.4rem 0.75rem; border-radius: 3px; background: var(--warn-bg); color: var(--warn-text); font-size: 0.92rem; }
+        .sl-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0 0; }
+        .sl-demos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0 0; }
+        .sl-demos figure { margin: 0; }
+        .sl-demos video { width: 100%; height: auto; display: block; border-radius: 3px; background: #0b1a2b; }
+        .sl-demos figcaption { font-size: 0.9rem; color: var(--text-secondary); text-align: center; margin-top: 0.4rem; }
+        .sl-page ul { padding-left: 1.2rem; margin: 0; }
+        .sl-media { margin: 1.25rem 0; }
+        .sl-media video { width: 100%; height: auto; display: block; border-radius: 3px; background: #0b1a2b; }
+        .sl-media figcaption { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.4rem; }
+        .sl-page li + li { margin-top: 0.35rem; }
+        .sl-foot { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-light); font-size: 0.92rem; }
+        .sl-page pre.code-block { margin: 0.75rem 0; font-size: 0.85rem; }
         .sl-c { color: #7f93a8; }
-        .sl-table-wrap { overflow-x: auto; border: 1px solid var(--border-color); border-radius: 4px; background: var(--card-bg); }
-        .sl-table { width: 100%; border-collapse: collapse; font-size: 0.93rem; min-width: 560px; }
-        .sl-table caption { caption-side: top; text-align: left; padding: 0.9rem 1rem 0.4rem; font-weight: 600; color: var(--text-primary); }
-        .sl-table th, .sl-table td { padding: 0.6rem 1rem; border-top: 1px solid var(--border-light); text-align: left; color: var(--text-secondary); }
-        .sl-table thead th { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
-        .sl-table tbody th { color: var(--text-primary); font-weight: 600; }
-        .sl-note { margin-top: 1rem; font-size: 0.92rem; color: var(--text-secondary); max-width: 80ch; line-height: 1.6; }
 
-        /* ---- Status ---- */
-        .sl-status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-        .sl-status-col { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 1.4rem 1.5rem; }
-        .sl-status-col h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.75rem; }
-        .sl-status-col h3 i { color: var(--success-color); margin-right: 0.35rem; }
-        .sl-status-next h3 i { color: var(--sl-orange); }
-        .sl-status-col ul { margin: 0; padding-left: 1.1rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
-
-        /* ---- Roadmap ---- */
-        .sl-road { list-style: none; counter-reset: road; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
-        .sl-road li { counter-increment: road; position: relative; padding-top: 2.4rem; border-top: 2px solid var(--border-color); }
-        .sl-road li::before {
-            content: counter(road, decimal-leading-zero); position: absolute; top: 0.7rem; left: 0;
-            font-family: var(--font-mono); font-size: 0.8rem; color: var(--sl-orange);
-        }
-        .sl-road li:first-child { border-top-color: var(--sl-orange); }
-        .sl-road h3 { font-size: 1.02rem; font-weight: 700; margin: 0 0 0.5rem; }
-        .sl-road p { margin: 0; color: var(--text-secondary); font-size: 0.93rem; line-height: 1.55; }
-
-        /* ---- News and join ---- */
-        .sl-news { list-style: none; padding: 0; margin: 0 0 2.5rem; border-top: 1px solid var(--border-light); }
-        .sl-news li { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border-light); }
-        .sl-news li.sl-news-empty { display: block; color: var(--text-secondary); }
-        .sl-news .sl-date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); padding-top: 0.15rem; }
-        .sl-news a { font-weight: 600; }
-        .sl-join { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem 2rem; background: var(--surface-color); border: 1px solid var(--border-color); border-left: 4px solid var(--sl-orange); border-radius: 4px; padding: 1.5rem 1.75rem; }
-        .sl-join h3 { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.35rem; }
-        .sl-join p { margin: 0; color: var(--text-secondary); max-width: 60ch; }
-        .sl-join .sl-actions { margin: 0; }
-
-        @media (max-width: 960px) {
-            .sl-hero-grid { grid-template-columns: 1fr; }
-            .sl-hero-art { order: -1; }
-            .sl-hero-art img { max-width: 320px; }
-            .sl-feats, .sl-road { grid-template-columns: 1fr 1fr; }
-            .sl-principles { grid-template-columns: 1fr; }
-        }
         @media (max-width: 640px) {
-            .sl-hero { padding: 6.5rem 1rem 2.5rem !important; }
-            .sl-section { padding: 3rem 1rem !important; }
-            .sl-shots, .sl-feats, .sl-road, .sl-status-grid { grid-template-columns: 1fr; }
-            .sl-cmd { white-space: pre-wrap; overflow-wrap: anywhere; }
-            .sl-news li { grid-template-columns: 1fr; gap: 0.2rem; }
-            .sl-diagram { padding: 0.75rem; }
-            .sl-diag-wide { display: none !important; }
-            .sl-diag-narrow { display: block !important; }
+            .sl-page { padding: 6rem 1rem 3rem; }
+            .sl-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .sl-head img { width: 110px; }
+            .sl-demos { grid-template-columns: 1fr; }
         }
     </style>
     <script src="../theme.js?v=20260990"></script>
@@ -293,283 +198,84 @@
         </nav>
     </header>
 
-    <main class="subpage sl-page">
-        <section class="page-head sl-hero" aria-labelledby="sl-title">
-            <div class="sl-wrap sl-hero-grid">
-                <div class="sl-hero-text">
-                    <p class="hero-eyebrow">kornia-slam &middot; v0.1 &middot; early release</p>
-                    <h1 id="sl-title">Visual-inertial SLAM, written in Rust</h1>
-                    <p class="sl-lede">Camera pose and a map of the space around it, from a single camera, a stereo pair or a camera with an IMU. Built on <a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener">kornia-rs</a>, with no C++ SLAM backend underneath.</p>
-                    <div class="sl-actions">
-                        <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
-                        <a href="#quick-start" class="btn btn-secondary"><i class="fas fa-terminal" aria-hidden="true"></i> Quick start</a>
-                    </div>
-                    <pre class="code-block code-block-cmd sl-cmd"><code>git clone https://github.com/kornia/kornia-slam</code></pre>
-                </div>
-                <div class="sl-hero-art">
-                    <img src="kornia-slam-logo.webp" alt="The kornia-slam mascot: a rusty orange stereo camera with two lenses and a Kornia cube" width="640" height="476">
+    <main class="subpage">
+        <div class="sl-page">
+            <div class="sl-head">
+                <img src="kornia-slam-logo.webp" alt="" width="640" height="476">
+                <div>
+                    <h1>kornia-slam</h1>
+                    <p class="sl-lede">Visual-inertial SLAM in Rust. Point it at a camera, a stereo pair or a stereo pair with an IMU, and it tracks where the camera is and maps the space around it. Built on <a href="https://github.com/kornia/kornia-rs" target="_blank" rel="noopener">kornia-rs</a>.</p>
                 </div>
             </div>
-        </section>
-
-        <section class="sl-section" aria-labelledby="sl-see">
-            <div class="sl-wrap">
-                <p class="sl-kicker">See it run</p>
-                <h2 id="sl-see">Watch the map build in a terminal or in Rerun</h2>
-                <div class="sl-shots">
-                    <figure class="sl-shot">
-                        <img src="tui.webp" alt="The kornia-slam terminal UI: a bird's-eye trajectory, camera position and heading, keyframe and map-point counts, and memory and CPU use" width="1200" height="858" loading="lazy">
-                        <figcaption>The terminal UI, on by default: a bird's-eye view of the trajectory, the camera pose, map size and resource use.</figcaption>
-                    </figure>
-                    <figure class="sl-shot">
-                        <img src="rerun.webp" alt="A Rerun view of a kornia-slam run on EuRoC: the estimated trajectory over a sparse point cloud, beside the camera image with its tracked ORB features" width="1400" height="1011" loading="lazy">
-                        <figcaption>Stream to <a href="https://rerun.io" target="_blank" rel="noopener">Rerun</a> for the 3D view: the trajectory, the sparse map and the tracked features on each frame.</figcaption>
-                    </figure>
-                </div>
+            <p class="sl-note"><strong>v0.1, early release.</strong> Expect the API to change between minor versions.</p>
+            <div class="sl-actions">
+                <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+                <a href="#quick-start" class="btn btn-secondary"><i class="fas fa-terminal" aria-hidden="true"></i> Quick start</a>
+                <a href="#copper" class="btn btn-secondary"><i class="fas fa-helicopter" aria-hidden="true"></i> Use it in Copper</a>
             </div>
-        </section>
 
-        <section class="sl-section sl-alt" aria-labelledby="sl-what">
-            <div class="sl-wrap">
-                <p class="sl-kicker">What it does</p>
-                <h2 id="sl-what">A complete SLAM stack</h2>
-                <div class="sl-feats">
-                    <article class="sl-feat">
-                        <i class="fas fa-camera" aria-hidden="true"></i>
-                        <h3>Tracking</h3>
-                        <p>Monocular, stereo and visual-inertial ORB tracking. KLT optical flow carries map points from frame to frame, and robust PnP estimates the pose.</p>
-                    </article>
-                    <article class="sl-feat">
-                        <i class="fas fa-cubes" aria-hidden="true"></i>
-                        <h3>Local mapping</h3>
-                        <p>Keyframes, map points and local bundle adjustment. It runs on its own thread by default, or in step with tracking.</p>
-                    </article>
-                    <article class="sl-feat">
-                        <i class="fas fa-gauge-high" aria-hidden="true"></i>
-                        <h3>Visual-inertial</h3>
-                        <p>IMU preintegration, inertial initialisation with gyro-bias estimation, and a visual-inertial BA with robust kernels on every residual.</p>
-                    </article>
-                    <article class="sl-feat">
-                        <i class="fas fa-rotate" aria-hidden="true"></i>
-                        <h3>Loop closure <span class="sl-tag">opt-in</span></h3>
-                        <p>DBoW2 place recognition finds candidate loops. Verified loops correct the live map through pose-graph optimisation. Needs a metric map from stereo or an IMU.</p>
-                    </article>
-                    <article class="sl-feat">
-                        <i class="fas fa-plug" aria-hidden="true"></i>
-                        <h3>Sources</h3>
-                        <p>EuRoC and Hilti-Trimble datasets, MCAP recordings from Bubbaloop, a live OAK-D, and any UVC webcam.</p>
-                    </article>
-                    <article class="sl-feat">
-                        <i class="fas fa-chart-line" aria-hidden="true"></i>
-                        <h3>Evaluation</h3>
-                        <p>Aligns the trajectory to ground truth and reports ATE, RPE and drift, with the raw and aligned trajectories saved as CSV.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="sl-section" aria-labelledby="sl-how">
-            <div class="sl-wrap">
-                <p class="sl-kicker">How it is built</p>
-                <h2 id="sl-how">A library runtime, with apps around it</h2>
-                <p class="sl-intro">The <code>kornia-slam</code> crate owns the runtime. The app only connects a source to it and sends the results to the outputs, so the same pipeline runs on a dataset, a recording or a live camera.</p>
-                <figure class="sl-diagram">
-                    <svg class="sl-diag-wide" viewBox="0 0 880 300" role="img" aria-labelledby="sl-diag-title sl-diag-desc">
-                        <title id="sl-diag-title">kornia-slam architecture</title>
-                        <desc id="sl-diag-desc">Frame sources feed SlamSystem, which runs tracking, mapping, initialization and loop closing over a shared map. The pose and map go to the terminal UI, Rerun, evaluation and Bubbaloop.</desc>
-                        <defs>
-                            <marker id="sl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                                <path d="M0 0 L10 5 L0 10 z" class="sl-d-arrowhead"/>
-                            </marker>
-                        </defs>
-                        <text x="90" y="28" class="sl-d-label" text-anchor="middle">SOURCES</text>
-                        <g class="sl-d-node">
-                            <rect x="20" y="44" width="140" height="36" rx="3"/><text x="90" y="67" text-anchor="middle">EuRoC · Hilti</text>
-                            <rect x="20" y="92" width="140" height="36" rx="3"/><text x="90" y="115" text-anchor="middle">MCAP recording</text>
-                            <rect x="20" y="140" width="140" height="36" rx="3"/><text x="90" y="163" text-anchor="middle">OAK-D stereo + IMU</text>
-                            <rect x="20" y="188" width="140" height="36" rx="3"/><text x="90" y="211" text-anchor="middle">UVC webcam</text>
-                        </g>
-                        <text x="90" y="252" class="sl-d-sub" text-anchor="middle">kornia-slam-app</text>
-
-                        <path d="M168 134 H232" class="sl-d-edge" marker-end="url(#sl-arrow)"/>
-
-                        <text x="440" y="28" class="sl-d-label" text-anchor="middle">SLAMSYSTEM · kornia-slam</text>
-                        <rect x="240" y="44" width="400" height="200" rx="4" class="sl-d-frame"/>
-                        <g class="sl-d-node">
-                            <rect x="260" y="62" width="170" height="40" rx="3"/><text x="345" y="87" text-anchor="middle">Tracking</text>
-                            <rect x="450" y="62" width="170" height="40" rx="3"/><text x="535" y="87" text-anchor="middle">Mapping</text>
-                            <rect x="260" y="114" width="170" height="40" rx="3"/><text x="345" y="139" text-anchor="middle">Initialization</text>
-                            <rect x="450" y="114" width="170" height="40" rx="3"/><text x="535" y="139" text-anchor="middle">Loop closing</text>
-                        </g>
-                        <g class="sl-d-map">
-                            <rect x="260" y="170" width="360" height="56" rx="3"/>
-                            <text x="440" y="194" text-anchor="middle">Map</text>
-                            <text x="440" y="213" text-anchor="middle" class="sl-d-sub">keyframes · map points · covisibility</text>
-                        </g>
-                        <text x="440" y="270" class="sl-d-sub" text-anchor="middle">kornia-sensors (IMU) · kornia-rs (geometry, ORB, BoW)</text>
-
-                        <path d="M648 134 H712" class="sl-d-edge" marker-end="url(#sl-arrow)"/>
-
-                        <text x="790" y="28" class="sl-d-label" text-anchor="middle">OUTPUTS</text>
-                        <g class="sl-d-node">
-                            <rect x="720" y="44" width="140" height="36" rx="3"/><text x="790" y="67" text-anchor="middle">Terminal UI</text>
-                            <rect x="720" y="92" width="140" height="36" rx="3"/><text x="790" y="115" text-anchor="middle">Rerun</text>
-                            <rect x="720" y="140" width="140" height="36" rx="3"/><text x="790" y="163" text-anchor="middle">ATE / RPE</text>
-                            <rect x="720" y="188" width="140" height="36" rx="3"/><text x="790" y="211" text-anchor="middle">Bubbaloop</text>
-                        </g>
-                        <text x="790" y="252" class="sl-d-sub" text-anchor="middle">pose + map</text>
-                    </svg>
-                    <svg class="sl-diag-narrow" viewBox="0 0 360 560" role="img" aria-labelledby="sl-diag-title-n sl-diag-desc-n">
-                        <title id="sl-diag-title-n">kornia-slam architecture</title>
-                        <desc id="sl-diag-desc-n">Frame sources feed SlamSystem, which runs tracking, mapping, initialization and loop closing over a shared map. The pose and map go to the terminal UI, Rerun, evaluation and Bubbaloop.</desc>
-                        <defs>
-                            <marker id="sl-arrow-n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                                <path d="M0 0 L10 5 L0 10 z" class="sl-d-arrowhead"/>
-                            </marker>
-                        </defs>
-                        <text x="20" y="20" class="sl-d-label">SOURCES · kornia-slam-app</text>
-                        <g class="sl-d-node">
-                            <rect x="20" y="32" width="154" height="34" rx="3"/><text x="97" y="54" text-anchor="middle">EuRoC · Hilti</text>
-                            <rect x="186" y="32" width="154" height="34" rx="3"/><text x="263" y="54" text-anchor="middle">MCAP recording</text>
-                            <rect x="20" y="76" width="154" height="34" rx="3"/><text x="97" y="98" text-anchor="middle">OAK-D + IMU</text>
-                            <rect x="186" y="76" width="154" height="34" rx="3"/><text x="263" y="98" text-anchor="middle">UVC webcam</text>
-                        </g>
-                        <path d="M180 116 V150" class="sl-d-edge" marker-end="url(#sl-arrow-n)"/>
-                        <text x="20" y="172" class="sl-d-label">SLAMSYSTEM · kornia-slam</text>
-                        <rect x="10" y="182" width="340" height="206" rx="4" class="sl-d-frame"/>
-                        <g class="sl-d-node">
-                            <rect x="20" y="196" width="154" height="34" rx="3"/><text x="97" y="218" text-anchor="middle">Tracking</text>
-                            <rect x="186" y="196" width="154" height="34" rx="3"/><text x="263" y="218" text-anchor="middle">Mapping</text>
-                            <rect x="20" y="240" width="154" height="34" rx="3"/><text x="97" y="262" text-anchor="middle">Initialization</text>
-                            <rect x="186" y="240" width="154" height="34" rx="3"/><text x="263" y="262" text-anchor="middle">Loop closing</text>
-                        </g>
-                        <g class="sl-d-map">
-                            <rect x="20" y="290" width="320" height="84" rx="3"/>
-                            <text x="180" y="326" text-anchor="middle">Map</text>
-                            <text x="180" y="348" text-anchor="middle" class="sl-d-sub">keyframes · map points · covisibility</text>
-                        </g>
-                        <path d="M180 396 V430" class="sl-d-edge" marker-end="url(#sl-arrow-n)"/>
-                        <text x="20" y="452" class="sl-d-label">OUTPUTS · pose + map</text>
-                        <g class="sl-d-node">
-                            <rect x="20" y="464" width="154" height="34" rx="3"/><text x="97" y="486" text-anchor="middle">Terminal UI</text>
-                            <rect x="186" y="464" width="154" height="34" rx="3"/><text x="263" y="486" text-anchor="middle">Rerun</text>
-                            <rect x="20" y="508" width="154" height="34" rx="3"/><text x="97" y="530" text-anchor="middle">ATE / RPE</text>
-                            <rect x="186" y="508" width="154" height="34" rx="3"/><text x="263" y="530" text-anchor="middle">Bubbaloop</text>
-                        </g>
-                    </svg>
+            <div class="sl-demos">
+                <figure>
+                    <video src="demo-euroc-mh01.mp4" poster="demo-euroc-mh01.webp" width="640" height="302" autoplay muted loop playsinline aria-label="kornia-slam stereo-inertial on EuRoC MH_01_easy"></video>
+                    <figcaption>EuRoC MH_01_easy</figcaption>
                 </figure>
-                <ul class="sl-principles">
-                    <li><strong>Rust-native core.</strong> The whole estimation stack is Rust, and the core crate has no <code>unsafe</code> blocks.</li>
-                    <li><strong>Built on kornia-rs.</strong> Solvers, camera models and image ops come from kornia-rs, and general-purpose code moves upstream into it.</li>
-                    <li><strong>Modules that own their concern.</strong> Tracking, mapping, initialization and loop closing each live in their own module. Splitting <code>SlamSystem</code> into swappable subsystems is on the roadmap.</li>
-                </ul>
+                <figure>
+                    <video src="demo-euroc-v101.mp4" poster="demo-euroc-v101.webp" width="640" height="302" autoplay muted loop playsinline aria-label="kornia-slam stereo-inertial on EuRoC V1_01_easy"></video>
+                    <figcaption>EuRoC V1_01_easy</figcaption>
+                </figure>
             </div>
-        </section>
 
-        <section class="sl-section sl-alt" id="quick-start" aria-labelledby="sl-qs">
-            <div class="sl-wrap">
-                <p class="sl-kicker">Quick start</p>
-                <h2 id="sl-qs">Run it on EuRoC in two commands</h2>
-                <p class="sl-intro">Download a <a href="https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets" target="_blank" rel="noopener">EuRoC MAV</a> sequence in ASL format (Machine Hall MH_01 is a good first run), then:</p>
-<pre class="code-block sl-code"><code><span class="sl-c"># monocular</span>
+            <h2 id="features">What it does</h2>
+            <ul>
+                <li><strong>Tracks</strong> the camera from ORB features: monocular, stereo, or either with an IMU.</li>
+                <li><strong>Refines the map</strong> with local bundle adjustment, and with a visual-inertial BA when an IMU is present.</li>
+                <li><strong>Closes loops.</strong> DBoW2 place recognition spots revisited places, and pose-graph optimisation corrects the drift.</li>
+                <li><strong>Reads</strong> EuRoC and Hilti datasets, MCAP recordings from <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener">Bubbaloop</a>, and live OAK-D or UVC cameras.</li>
+                <li><strong>Shows its work</strong> in a terminal UI or in Rerun, and scores a run against ground truth with ATE and RPE.</li>
+            </ul>
+
+            <h2 id="quick-start">Quick start</h2>
+            <p>Clone the repository and download a <a href="https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets" target="_blank" rel="noopener">EuRoC</a> sequence in ASL format. MH_01_easy is a good first run.</p>
+<pre class="code-block"><code>git clone https://github.com/kornia/kornia-slam &amp;&amp; cd kornia-slam
+
+<span class="sl-c"># monocular</span>
 cargo run --release -p kornia-slam-app -- euroc --data /path/to/MH_01_easy
 
-<span class="sl-c"># stereo + IMU, evaluated against ground truth</span>
+<span class="sl-c"># stereo + IMU, scored against ground truth</span>
 cargo run --release -p kornia-slam-app -- euroc --data /path/to/MH_01_easy --stereo --imu --evaluate</code></pre>
-                <div class="sl-table-wrap">
-                    <table class="sl-table">
-                        <caption>Sources and the modes they support</caption>
-                        <thead>
-                            <tr><th scope="col">Source</th><th scope="col">Command</th><th scope="col">Mono</th><th scope="col">Stereo</th><th scope="col">IMU</th><th scope="col">Evaluation</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><th scope="row">EuRoC MAV</th><td><code>euroc</code></td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr>
-                            <tr><th scope="row">Hilti-Trimble 2026</th><td><code>hilti</code></td><td>yes, fisheye</td><td>&ndash;</td><td>yes</td><td>yes</td></tr>
-                            <tr><th scope="row">MCAP (Bubbaloop)</th><td><code>mcap</code></td><td>yes</td><td>with <code>--calib</code></td><td>&ndash;</td><td>&ndash;</td></tr>
-                            <tr><th scope="row">OAK-D, live</th><td><code>oakd</code></td><td>yes</td><td>with <code>--calib</code></td><td>&ndash;</td><td>&ndash;</td></tr>
-                            <tr><th scope="row">UVC webcam, live</th><td><code>uvc</code></td><td>yes</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="sl-note"><code>oakd</code> and <code>uvc</code> are behind the <code>oakd</code> and <code>uvc</code> cargo features. The default build needs no extra system dependencies. Add <code>--rerun-stream</code> for the 3D viewer, or <code>--vocab ORBvoc.txt --apply-pgo</code> to turn on loop closure. Every flag is in the <a href="https://github.com/kornia/kornia-slam/blob/develop/apps/kornia-slam-app/README.md" target="_blank" rel="noopener">app README</a>.</p>
-            </div>
-        </section>
+            <p>The other sources, the stereo calibration format and every flag are in the <a href="https://github.com/kornia/kornia-slam/blob/develop/apps/kornia-slam-app/README.md" target="_blank" rel="noopener">app README</a>.</p>
 
-        <section class="sl-section" aria-labelledby="sl-status">
-            <div class="sl-wrap">
-                <p class="sl-kicker">Where it stands</p>
-                <h2 id="sl-status">What works today, and what is next</h2>
-                <p class="sl-intro">v0.1 is an early release, and the API will change between minor versions. We publish accuracy and timing numbers only after measuring them against a fixed benchmark protocol, so this page does not show any yet.</p>
-                <div class="sl-status-grid">
-                    <div class="sl-status-col">
-                        <h3><i class="fas fa-circle-check" aria-hidden="true"></i> Works now</h3>
-                        <ul>
-                            <li>End-to-end stereo-inertial runs on EuRoC</li>
-                            <li>A public <code>SlamSystem</code> runtime that owns the orchestration</li>
-                            <li>Local mapping on its own thread or in step with tracking</li>
-                            <li>Visual-inertial BA with robust kernels</li>
-                            <li>Opt-in loop detection and metric loop correction</li>
-                        </ul>
-                    </div>
-                    <div class="sl-status-col sl-status-next">
-                        <h3><i class="fas fa-person-digging" aria-hidden="true"></i> Not yet</h3>
-                        <ul>
-                            <li>Relocalization after tracking is lost</li>
-                            <li>Sim(3) loop closure to fix monocular scale</li>
-                            <li>Features other than ORB (only ORB is wired in today)</li>
-                            <li>GPU acceleration: today's runs are CPU only</li>
-                            <li>A frozen accuracy comparison against ORB-SLAM3</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <h2 id="copper">Use it in Copper</h2>
+            <p><a href="https://github.com/copper-project/copper-rs" target="_blank" rel="noopener">Copper</a> is a Rust runtime that builds, runs and replays a whole robot deterministically. <a href="https://github.com/kornia/cu-kornia-vio" target="_blank" rel="noopener">cu-kornia-vio</a> packages kornia-slam's stereo visual-inertial odometry as Copper tasks:</p>
+            <ul>
+                <li><code>StereoVio</code> takes a rectified <code>StereoPair</code> and emits a <code>VioPose</code>, the camera in the world, for each solved frame.</li>
+                <li><code>ImuFeed&lt;N&gt;</code> pushes IMU batches into a shared <code>VioBus</code> that <code>StereoVio</code> reads from.</li>
+                <li>The message types live in <code>cu-stereo-payloads</code>, so a camera driver can produce them without depending on kornia-slam.</li>
+            </ul>
+            <figure class="sl-media">
+                <video src="demo-copper-vio.mp4" poster="demo-copper-vio.webp" width="640" height="302" autoplay muted loop playsinline aria-label="cu-kornia-vio stereo-inertial odometry in the Copper drone simulator"></video>
+                <figcaption>Stereo + IMU in Copper's drone simulator. The dots on the camera image are map points projected through the estimated pose.</figcaption>
+            </figure>
+            <p>Add both crates from the same git source:</p>
+<pre class="code-block"><code>[dependencies]
+cu-kornia-vio = { git = "https://github.com/kornia/cu-kornia-vio", branch = "main" }
+cu-stereo-payloads = { git = "https://github.com/kornia/cu-kornia-vio", branch = "main" }</code></pre>
+            <p><strong>Get the timestamps right.</strong> Stamp each image and IMU sample with its capture time, on one clock. In the drone simulator, a 16&nbsp;ms image-stamp error made stereo + IMU worse than stereo alone. Fixing it cut the trajectory error over a 440&nbsp;m flight from 9.7&nbsp;m to 2.1&nbsp;m; stereo alone gave 5.7&nbsp;m.</p>
+            <p>The <a href="https://github.com/kornia/kornia-slam/blob/develop/INTEGRATIONS.md#copper" target="_blank" rel="noopener">Copper guide</a> covers the revisions to pin, the task graph, and the runtime settings for simulation and logging.</p>
 
-        <section class="sl-section sl-alt" aria-labelledby="sl-road">
-            <div class="sl-wrap">
-                <p class="sl-kicker">Roadmap</p>
-                <h2 id="sl-road">Where it is going</h2>
-                <p class="sl-intro">The roadmap sets a direction, not a commitment. The full version is in <a href="https://github.com/kornia/kornia-slam/blob/develop/ROADMAP.md" target="_blank" rel="noopener">ROADMAP.md</a>.</p>
-                <ol class="sl-road">
-                    <li>
-                        <h3>Complete the SLAM stack</h3>
-                        <p>GPU acceleration of the per-frame hot paths, starting with a KLT frontend. Relocalization that holds up across day, night and lighting changes. Metric scale for monocular maps through Sim(3) loop closure and AprilTag anchoring. Matching ORB-SLAM3 on accuracy and robustness.</p>
-                    </li>
-                    <li>
-                        <h3>Library structure</h3>
-                        <p>Pluggable features such as XFeat, and pluggable place recognition with learned descriptors such as DINOv3. Multi-camera rigs. Atlas, a factor-graph foundation for BA and pose-graph optimisation. <code>SlamSystem</code> split into its subsystems.</p>
-                    </li>
-                    <li>
-                        <h3>Tooling and integrations</h3>
-                        <p>Pixi environments for reproducible cross-platform builds, and ROS&nbsp;2 through ros2_rust.</p>
-                    </li>
-                    <li>
-                        <h3>Sensors, maps, agents <span class="sl-tag">experimental</span></h3>
-                        <p>RGB-D, LiDAR and GNSS estimators; dense, TSDF, voxel and Gaussian-splat maps; a map server over MCP; agents that watch the subsystems at runtime and tune them.</p>
-                    </li>
-                </ol>
-            </div>
-        </section>
+            <h2 id="development">Build and contribute</h2>
+            <p><a href="https://pixi.sh" target="_blank" rel="noopener">Pixi</a> sets up the toolchain for you:</p>
+<pre class="code-block"><code>pixi run rust-lint           <span class="sl-c"># fmt + clippy + check</span>
+pixi run rust-test           <span class="sl-c"># workspace tests</span>
+pixi shell                   <span class="sl-c"># drop into the environment</span></code></pre>
+            <p>With your own toolchain, use Rust 1.91 or newer (the library crates alone need 1.89):</p>
+<pre class="code-block"><code>cargo fmt --all -- --check
+cargo clippy --all-targets -- -D warnings
+cargo test --workspace</code></pre>
+            <p>What's planned is in the <a href="https://github.com/kornia/kornia-slam/blob/develop/ROADMAP.md" target="_blank" rel="noopener">roadmap</a>. Questions go to <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">Discord</a> or the <a href="https://github.com/kornia/kornia-slam/issues" target="_blank" rel="noopener">issue tracker</a>.</p>
 
-        <section class="sl-section" aria-labelledby="sl-news">
-            <div class="sl-wrap">
-                <p class="sl-kicker">Recent changes</p>
-                <h2 id="sl-news">From the news</h2>
-                <ul class="sl-news" id="sl-news-list">
-                    <li class="sl-news-empty">Recent kornia-slam news is on the <a href="../news/">news page</a>.</li>
-                </ul>
-                <div class="sl-join">
-                    <div>
-                        <h3>Build it with us</h3>
-                        <p>Issues, design discussion and review all happen in the open on GitHub. Ask in Discord before starting a large change.</p>
-                    </div>
-                    <div class="sl-actions">
-                        <a href="https://github.com/kornia/kornia-slam/issues" target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-list-check" aria-hidden="true"></i> Open issues</a>
-                        <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener" class="btn btn-secondary"><i class="fab fa-discord" aria-hidden="true"></i> Discord</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <p class="sl-foot">kornia-slam is Apache-2.0 licensed.</p>
+        </div>
     </main>
 
     <footer>
@@ -619,27 +325,6 @@ cargo run --release -p kornia-slam-app -- euroc --data /path/to/MH_01_easy --ste
             <p>&copy; 2026 kornia.org</p>
         </div>
     </footer>
-    <script>
-    /* the latest kornia-slam items from news.json; the static fallback stays if the fetch fails */
-    (function () {
-        var list = document.getElementById("sl-news-list");
-        fetch("../news.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
-            if (!data || !Array.isArray(data.items)) return;
-            var items = data.items.filter(function (it) { return (it.tags || []).indexOf("kornia-slam") !== -1; }).slice(0, 5);
-            if (!items.length) return;
-            list.textContent = "";
-            items.forEach(function (it) {
-                var li = document.createElement("li");
-                var t = document.createElement("span"); t.className = "sl-date";
-                t.textContent = it.date || "";
-                var a = document.createElement(it.link ? "a" : "span");
-                if (it.link) { a.href = it.link; a.target = "_blank"; a.rel = "noopener"; }
-                a.textContent = it.title || "";
-                li.appendChild(t); li.appendChild(a); list.appendChild(li);
-            });
-        }).catch(function () {});
-    })();
-    </script>
 
 
     <script src="../site.js?v=20260905"></script>
