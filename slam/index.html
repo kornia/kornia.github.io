@@ -243,7 +243,7 @@ cargo run --release -p kornia-slam-app -- euroc --data /path/to/MH_01_easy
 
 <span class="sl-c"># stereo + IMU, scored against ground truth</span>
 cargo run --release -p kornia-slam-app -- euroc --data /path/to/MH_01_easy --stereo --imu --evaluate</code></pre>
-            <p>The other sources, the stereo calibration format and every flag are in the <a href="https://github.com/kornia/kornia-slam/blob/develop/apps/kornia-slam-app/README.md" target="_blank" rel="noopener">app README</a>.</p>
+            <p>The other sources, the stereo calibration format and every flag are in the <a href="https://github.com/kornia/kornia-slam/blob/main/apps/kornia-slam-app/README.md" target="_blank" rel="noopener">app README</a>.</p>
 
             <h2 id="copper">Use it in Copper</h2>
             <p><a href="https://github.com/copper-project/copper-rs" target="_blank" rel="noopener">Copper</a> is a Rust runtime that builds, runs and replays a whole robot deterministically. <a href="https://github.com/kornia/cu-kornia-vio" target="_blank" rel="noopener">cu-kornia-vio</a> packages kornia-slam's stereo visual-inertial odometry as Copper tasks:</p>
@@ -261,7 +261,7 @@ cargo run --release -p kornia-slam-app -- euroc --data /path/to/MH_01_easy --ste
 cu-kornia-vio = { git = "https://github.com/kornia/cu-kornia-vio", branch = "main" }
 cu-stereo-payloads = { git = "https://github.com/kornia/cu-kornia-vio", branch = "main" }</code></pre>
             <p><strong>Get the timestamps right.</strong> Stamp each image and IMU sample with its capture time, on one clock. In the drone simulator, a 16&nbsp;ms image-stamp error made stereo + IMU worse than stereo alone. Fixing it cut the trajectory error over a 440&nbsp;m flight from 9.7&nbsp;m to 2.1&nbsp;m; stereo alone gave 5.7&nbsp;m.</p>
-            <p>The <a href="https://github.com/kornia/kornia-slam/blob/develop/INTEGRATIONS.md#copper" target="_blank" rel="noopener">Copper guide</a> covers the revisions to pin, the task graph, and the runtime settings for simulation and logging.</p>
+            <p>The <a href="https://github.com/kornia/kornia-slam/blob/main/INTEGRATIONS.md#copper" target="_blank" rel="noopener">Copper guide</a> covers the revisions to pin, the task graph, and the runtime settings for simulation and logging.</p>
 
             <h2 id="development">Build and contribute</h2>
             <p><a href="https://pixi.sh" target="_blank" rel="noopener">Pixi</a> sets up the toolchain for you:</p>
@@ -272,7 +272,7 @@ pixi shell                   <span class="sl-c"># drop into the environment</spa
 <pre class="code-block"><code>cargo fmt --all -- --check
 cargo clippy --all-targets -- -D warnings
 cargo test --workspace</code></pre>
-            <p>What's planned is in the <a href="https://github.com/kornia/kornia-slam/blob/develop/ROADMAP.md" target="_blank" rel="noopener">roadmap</a>. Questions go to <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">Discord</a> or the <a href="https://github.com/kornia/kornia-slam/issues" target="_blank" rel="noopener">issue tracker</a>.</p>
+            <p>What's planned is in the <a href="https://github.com/kornia/kornia-slam/blob/main/ROADMAP.md" target="_blank" rel="noopener">roadmap</a>. Questions go to <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">Discord</a> or the <a href="https://github.com/kornia/kornia-slam/issues" target="_blank" rel="noopener">issue tracker</a>.</p>
 
             <p class="sl-foot">kornia-slam is Apache-2.0 licensed.</p>
         </div>
