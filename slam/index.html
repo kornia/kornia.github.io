@@ -4,24 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>kornia-slam: visual-inertial SLAM in Rust - Kornia</title>
-    <meta name="description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Tracks a camera, stereo pair or stereo + IMU and maps the space around it, standalone or as Copper tasks.">
+    <title>kornia-slam: visual-inertial SLAM and VIO in Rust | Kornia</title>
+    <meta name="description" content="Open-source visual-inertial SLAM and odometry (VIO) in Rust: ORB features, stereo + IMU, loop closure and Copper tasks. Integration help for your robot.">
     <link rel="canonical" href="https://www.kornia.org/slam/">
     <meta name="theme-color" content="#1a1a2e">
     <link rel="icon" href="/assets/kornia-logo-mini.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Kornia">
     <meta property="og:url" content="https://www.kornia.org/slam/">
-    <meta property="og:title" content="kornia-slam: visual-inertial SLAM in Rust - Kornia">
-    <meta property="og:description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Tracks a camera, stereo pair or stereo + IMU and maps the space around it, standalone or as Copper tasks.">
-    <meta property="og:image" content="https://www.kornia.org/slam/og.jpg">
-    <meta property="og:image:alt" content="The kornia-slam mascot, a rusty orange stereo camera">
+    <meta property="og:title" content="kornia-slam: visual-inertial SLAM and VIO in Rust | Kornia">
+    <meta property="og:description" content="Open-source visual-inertial SLAM and odometry (VIO) in Rust: ORB features, stereo + IMU, loop closure and Copper tasks. Integration help for your robot.">
+    <meta property="og:image" content="https://www.kornia.org/slam/og-demo.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="kornia-slam tracking EuRoC MH_01 with stereo and IMU: the trajectory over the map, and ORB keypoints on the camera image">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@kornia_foss">
-    <meta name="twitter:title" content="kornia-slam: visual-inertial SLAM in Rust - Kornia">
-    <meta name="twitter:description" content="kornia-slam: visual-inertial SLAM in Rust, built on kornia-rs. Tracks a camera, stereo pair or stereo + IMU and maps the space around it, standalone or as Copper tasks.">
-    <meta name="twitter:image" content="https://www.kornia.org/slam/og.jpg">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"kornia-slam","description":"Visual-inertial SLAM in Rust, built on kornia-rs.","codeRepository":"https://github.com/kornia/kornia-slam","programmingLanguage":"Rust","license":"https://www.apache.org/licenses/LICENSE-2.0","version":"0.1.0","url":"https://www.kornia.org/slam/","image":"https://www.kornia.org/slam/og.jpg","author":{"@type":"Organization","name":"Kornia","url":"https://www.kornia.org/"}}</script>
+    <meta name="twitter:title" content="kornia-slam: visual-inertial SLAM and VIO in Rust | Kornia">
+    <meta name="twitter:description" content="Open-source visual-inertial SLAM and odometry (VIO) in Rust: ORB features, stereo + IMU, loop closure and Copper tasks. Integration help for your robot.">
+    <meta name="twitter:image" content="https://www.kornia.org/slam/og-demo.jpg">
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareSourceCode","name":"kornia-slam","description":"Visual-inertial SLAM and odometry (VIO) in Rust, built on kornia-rs.","codeRepository":"https://github.com/kornia/kornia-slam","programmingLanguage":"Rust","license":"https://www.apache.org/licenses/LICENSE-2.0","version":"0.1.0","url":"https://www.kornia.org/slam/","image":"https://www.kornia.org/slam/og-demo.jpg","keywords":"SLAM, visual-inertial odometry, VIO, stereo SLAM, Rust, robotics, ORB, Copper","author":{"@type":"Organization","name":"Kornia","url":"https://www.kornia.org/"}},{"@type":"Service","name":"kornia-slam feasibility and integration assessment","description":"A fixed-scope review of your sensor setup and recordings: where kornia-slam fails on your robot, why, and the next engineering milestone.","serviceType":"SLAM integration","provider":{"@type":"Organization","name":"Kornia","url":"https://www.kornia.org/"},"url":"https://www.kornia.org/slam/#assessment"},{"@type":"VideoObject","name":"kornia-slam on EuRoC MH_01_easy","description":"kornia-slam stereo-inertial SLAM on the EuRoC MH_01_easy sequence.","thumbnailUrl":"https://www.kornia.org/slam/demo-euroc-mh01.webp","contentUrl":"https://www.kornia.org/slam/demo-euroc-mh01.mp4","uploadDate":"2026-09-27","duration":"PT8S"},{"@type":"VideoObject","name":"kornia-slam on EuRoC V1_01_easy","description":"kornia-slam stereo-inertial SLAM on the EuRoC V1_01_easy sequence.","thumbnailUrl":"https://www.kornia.org/slam/demo-euroc-v101.webp","contentUrl":"https://www.kornia.org/slam/demo-euroc-v101.mp4","uploadDate":"2026-09-27","duration":"PT8S"},{"@type":"VideoObject","name":"kornia-slam VIO in the Copper drone simulator","description":"Stereo + IMU odometry from cu-kornia-vio in Copper's drone simulator, with map points projected through the estimated pose.","thumbnailUrl":"https://www.kornia.org/slam/demo-copper-vio.webp","contentUrl":"https://www.kornia.org/slam/demo-copper-vio.mp4","uploadDate":"2026-09-27","duration":"PT8S"}]}</script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
@@ -61,6 +63,10 @@
         .sl-foot { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border-light); font-size: 0.92rem; }
         .sl-page pre.code-block { margin: 0.75rem 0; font-size: 0.85rem; }
         .sl-c { color: #7f93a8; }
+        .sl-contact { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin: 1.25rem 0 0; padding: 1.25rem 1.5rem; background: var(--card-bg); border: 1px solid var(--border-color); border-left: 4px solid var(--primary-color); border-radius: 6px; }
+        .sl-contact h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem; }
+        .sl-contact p { margin: 0; font-size: 0.95rem; }
+        .sl-contact .sl-actions { margin: 0; }
 
         @media (max-width: 640px) {
             .sl-page { padding: 6rem 1rem 3rem; }
@@ -210,8 +216,7 @@
             <p class="sl-note"><strong>v0.1, early release.</strong> Expect the API to change between minor versions.</p>
             <div class="sl-actions">
                 <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
-                <a href="#quick-start" class="btn btn-secondary"><i class="fas fa-terminal" aria-hidden="true"></i> Quick start</a>
-                <a href="#copper" class="btn btn-secondary"><i class="fas fa-helicopter" aria-hidden="true"></i> Use it in Copper</a>
+                <a href="#assessment" class="btn btn-secondary"><i class="fas fa-robot" aria-hidden="true"></i> Try it on your robot</a>
             </div>
 
             <div class="sl-demos">
@@ -225,12 +230,12 @@
                 </figure>
             </div>
 
-            <h2 id="features">What it does</h2>
+            <h2 id="features">Features</h2>
             <ul>
                 <li><strong>Tracks</strong> the camera from ORB features: monocular, stereo, or either with an IMU.</li>
                 <li><strong>Refines the map</strong> with local bundle adjustment, and with a visual-inertial BA when an IMU is present.</li>
                 <li><strong>Closes loops.</strong> DBoW2 place recognition spots revisited places, and pose-graph optimisation corrects the drift.</li>
-                <li><strong>Reads</strong> EuRoC and Hilti datasets, MCAP recordings from <a href="https://github.com/kornia/bubbaloop" target="_blank" rel="noopener">Bubbaloop</a>, and live OAK-D or UVC cameras.</li>
+                <li><strong>Reads</strong> EuRoC and Hilti datasets, MCAP recordings, and live OAK-D or UVC cameras.</li>
                 <li><strong>Shows its work</strong> in a terminal UI or in Rerun, and scores a run against ground truth with ATE and RPE.</li>
             </ul>
 
@@ -246,12 +251,7 @@ cargo run --release -p kornia-slam-app -- euroc --data /path/to/MH_01_easy --ste
             <p>The other sources, the stereo calibration format and every flag are in the <a href="https://github.com/kornia/kornia-slam/blob/main/apps/kornia-slam-app/README.md" target="_blank" rel="noopener">app README</a>.</p>
 
             <h2 id="copper">Use it in Copper</h2>
-            <p><a href="https://github.com/copper-project/copper-rs" target="_blank" rel="noopener">Copper</a> is a Rust runtime that builds, runs and replays a whole robot deterministically. <a href="https://github.com/kornia/cu-kornia-vio" target="_blank" rel="noopener">cu-kornia-vio</a> packages kornia-slam's stereo visual-inertial odometry as Copper tasks:</p>
-            <ul>
-                <li><code>StereoVio</code> takes a rectified <code>StereoPair</code> and emits a <code>VioPose</code>, the camera in the world, for each solved frame.</li>
-                <li><code>ImuFeed&lt;N&gt;</code> pushes IMU batches into a shared <code>VioBus</code> that <code>StereoVio</code> reads from.</li>
-                <li>The message types live in <code>cu-stereo-payloads</code>, so a camera driver can produce them without depending on kornia-slam.</li>
-            </ul>
+            <p><a href="https://github.com/copper-project/copper-rs" target="_blank" rel="noopener">Copper</a> is a Rust runtime that builds, runs and replays a whole robot deterministically. <a href="https://github.com/kornia/cu-kornia-vio" target="_blank" rel="noopener">cu-kornia-vio</a> packages kornia-slam's stereo visual-inertial odometry as Copper tasks.</p>
             <figure class="sl-media">
                 <video src="demo-copper-vio.mp4" poster="demo-copper-vio.webp" width="640" height="302" autoplay muted loop playsinline aria-label="cu-kornia-vio stereo-inertial odometry in the Copper drone simulator"></video>
                 <figcaption>Stereo + IMU in Copper's drone simulator. The dots on the camera image are map points projected through the estimated pose.</figcaption>
@@ -263,16 +263,26 @@ cu-stereo-payloads = { git = "https://github.com/kornia/cu-kornia-vio", branch =
             <p><strong>Get the timestamps right.</strong> Stamp each image and IMU sample with its capture time, on one clock. In the drone simulator, a 16&nbsp;ms image-stamp error made stereo + IMU worse than stereo alone. Fixing it cut the trajectory error over a 440&nbsp;m flight from 9.7&nbsp;m to 2.1&nbsp;m; stereo alone gave 5.7&nbsp;m.</p>
             <p>The <a href="https://github.com/kornia/kornia-slam/blob/main/INTEGRATIONS.md#copper" target="_blank" rel="noopener">Copper guide</a> covers the revisions to pin, the task graph, and the runtime settings for simulation and logging.</p>
 
-            <h2 id="development">Build and contribute</h2>
-            <p><a href="https://pixi.sh" target="_blank" rel="noopener">Pixi</a> sets up the toolchain for you:</p>
-<pre class="code-block"><code>pixi run rust-lint           <span class="sl-c"># fmt + clippy + check</span>
-pixi run rust-test           <span class="sl-c"># workspace tests</span>
-pixi shell                   <span class="sl-c"># drop into the environment</span></code></pre>
-            <p>With your own toolchain, use Rust 1.91 or newer (the library crates alone need 1.89):</p>
-<pre class="code-block"><code>cargo fmt --all -- --check
-cargo clippy --all-targets -- -D warnings
-cargo test --workspace</code></pre>
-            <p>What's planned is in the <a href="https://github.com/kornia/kornia-slam/blob/main/ROADMAP.md" target="_blank" rel="noopener">roadmap</a>. Questions go to <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">Discord</a> or the <a href="https://github.com/kornia/kornia-slam/issues" target="_blank" rel="noopener">issue tracker</a>.</p>
+            <h2 id="assessment">SLAM integration for your robot</h2>
+            <ul>
+                <li>Drifting or losing tracking?</li>
+                <li>Too slow on your Jetson, Pi or x86 board?</li>
+                <li>A camera or IMU it doesn't support?</li>
+                <li>Need it in Copper, ROS 2 or your own stack?</li>
+                <li>Low light, fast motion or little texture?</li>
+            </ul>
+            <p>We start with a fixed-scope assessment. On recordings we agree with you, we find out whether kornia-slam can track reliably on your platform, where and why it fails, and what the next milestone should be. If something breaks it on your setup, we can fix it in a follow-on engagement.</p>
+            <div class="sl-contact">
+                <div>
+                    <h3>Ask about an assessment</h3>
+                    <p>Tell us about your robot, its sensors and what it needs to track.</p>
+                </div>
+                <div class="sl-actions">
+                    <a href="mailto:christie@kornia.org?subject=kornia-slam%20assessment" class="btn btn-primary"><i class="fas fa-envelope" aria-hidden="true"></i> Email us</a>
+                </div>
+            </div>
+
+            <p>Roadmap, contributing and questions: <a href="https://github.com/kornia/kornia-slam" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/HfnywwpBnD" target="_blank" rel="noopener">Discord</a>.</p>
 
             <p class="sl-foot">kornia-slam is Apache-2.0 licensed.</p>
         </div>
