@@ -1,3 +1,27 @@
+// Google Analytics 4: load gtag and configure the site-wide Measurement ID.
+// Loaded from <head> via theme.js so all public pages inherit analytics.
+(function () {
+  var measurementId = "G-2XTJQYB0HM";
+  if (window.__ga4Initialized) return;
+  window.__ga4Initialized = true;
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = window.gtag || gtag;
+  gtag("js", new Date());
+  gtag("config", measurementId);
+  var gaScript = document.createElement("script");
+  gaScript.async = true;
+  gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+  // Insert early in <head> if possible; else fall back to before the first script.
+  var head = document.getElementsByTagName("head")[0];
+  if (head && head.firstChild) head.insertBefore(gaScript, head.firstChild);
+  else {
+    var firstScript = document.getElementsByTagName("script")[0];
+    if (firstScript && firstScript.parentNode) firstScript.parentNode.insertBefore(gaScript, firstScript);
+    else document.documentElement.appendChild(gaScript);
+  }
+})();
+
 // Light/dark theme. Runs synchronously in <head> so the first paint already has the right colours.
 // Choice is stored in localStorage; with no choice the system preference applies (see the CSS media query).
 (function () {
