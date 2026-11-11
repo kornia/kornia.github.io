@@ -96,9 +96,15 @@ SCENES.humanoid = {
   details: [["Scene", "the 6 m room with 2 m walls, a crate, a pillar, a cone and two balls"], ["Camera", "in the head, 1.5 m up, looking 35\u00b0 down, 75\u00b0, 256\u00d7256"], ["Body", "the pelvis moves on two slides and a yaw hinge that the page drives, so the figure cannot fall; ten position actuators run the gait"], ["Autopilot", "the red mask centroid steers the heading; it stops once the ball sits low in the frame, about 0.8 m away"]],
   setup(ctx) {
     const { data, model, mujoco } = ctx;
-    const qadr = (name) => model.jnt_qposadr[mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT.value, name)];
-    const root = [qadr("root_x"), qadr("root_y"), qadr("root_yaw")];
-    const pose = { x: data.qpos[root[0]], y: data.qpos[root[1]], yaw: 0 };
+    const jointId = (name) => mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT.value, name);
+    const rootJoints = ["root_x", "root_y", "root_yaw"].map(jointId);
+    const root = rootJoints.map((id) => model.jnt_qposadr[id]);
+    const rootDofs = rootJoints.map((id) => model.jnt_dofadr[id]);
+    const pelvisId = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY.value, "pelvis");
+    const pelvisX = model.body_pos[pelvisId * 3], pelvisY = model.body_pos[pelvisId * 3 + 1];
+    const home = root.map((adr) => data.qpos[adr]);
+    const pose = { x: home[0], y: home[1], yaw: home[2] };
+    const ROOM_LIMIT = 2.7;
     let phase = 0, speed = 0, turn = 0, arrived = false;     // speed in m/s, turn in rad/s
     const SPEED = 0.55, TURN = 1.1, STEP_HZ = 1.1;
     function gait(dt) {
@@ -123,10 +129,10 @@ SCENES.humanoid = {
           if (speed || turn) arrived = false;
         }
         pose.yaw += turn * dt;
-        pose.x = clamp(pose.x + speed * Math.cos(pose.yaw) * dt, -2.7, 2.7);
-        pose.y = clamp(pose.y + speed * Math.sin(pose.yaw) * dt, -2.7, 2.7);
+        pose.x = clamp(pose.x + speed * Math.cos(pose.yaw) * dt, -ROOM_LIMIT - pelvisX, ROOM_LIMIT - pelvisX);
+        pose.y = clamp(pose.y + speed * Math.sin(pose.yaw) * dt, -ROOM_LIMIT - pelvisY, ROOM_LIMIT - pelvisY);
         data.qpos[root[0]] = pose.x; data.qpos[root[1]] = pose.y; data.qpos[root[2]] = pose.yaw;
-        data.qvel[model.jnt_dofadr[mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT.value, "root_x")]] = 0;
+        for (const dof of rootDofs) data.qvel[dof] = 0;
         gait(dt);
       },
       autopilot(m) {
@@ -141,7 +147,7 @@ SCENES.humanoid = {
         turn = 0.5; speed = 0;
         return "looking for the red ball\u2026";
       },
-      reset() { pose.x = -2; pose.y = 0; pose.yaw = 0; phase = 0; speed = 0; turn = 0; arrived = false; },
+      reset() { pose.x = home[0]; pose.y = home[1]; pose.yaw = home[2]; phase = 0; speed = 0; turn = 0; arrived = false; },
     };
   },
 };
